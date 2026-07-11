@@ -4,6 +4,9 @@ require "date"
 require "pathname"
 require "yaml"
 
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 ROOT = Pathname.new(File.expand_path("..", __dir__))
 Dir.chdir(ROOT)
 
