@@ -21,4 +21,4 @@ Run in order:
 3. `03-review-and-test.md`
 4. `04-private-git-setup.md`
 5. `05-first-week-review.md` after one week of use
-6. `06-upgrade-to-current-architecture.md` once the vault is in real use and the owner wants the source system's later improvements
+6. `06-upgrade-to-current-architecture.md` once the vault is in real use and the owner wants the source system's later improvements — runs without approval gates and includes private-GitHub setup, so it also covers vaults that skipped prompt 04
