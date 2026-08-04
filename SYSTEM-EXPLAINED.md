@@ -1,7 +1,8 @@
 ---
 type: note
 created: 2026-06-20
-reviewed: 2026-06-20
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: living
 authority: reference
 source: ai
@@ -9,7 +10,10 @@ source: ai
 
 # how the system works
 
-**Bottom line:** Your notes become a reliable memory that you and different AI agents can use without depending on one app, one company, or one long chat history.
+**Audience:** Owner
+**Lifecycle:** Permanent
+
+**Bottom line:** Your Life OS becomes a private agent context machine: ordinary documents that help different AI agents understand you and your work without depending on one app, one company, or one giant chat history.
 
 **When to read this:** Read before setup when you want the whole idea in simple terms.
 
@@ -24,7 +28,9 @@ When an agent starts working, it does not read every note. It follows a few smal
 - where the current information lives
 - which old information should not be treated as current
 
-Think of it as a labeled filing cabinet with a table of contents.
+Think of it as a labeled filing cabinet, a table of contents, and a short instruction manual for your collaborator.
+
+You are not expected to organize everything yourself. You can talk naturally, put uncertain material in the inbox, and let the agent follow the maps.
 
 ## how information moves
 
@@ -74,9 +80,21 @@ Claude, Codex, or another file-capable agent can follow the same instructions be
 
 The agent is replaceable. Your files are the lasting system.
 
-## what Git adds
+## why current context and history are separate
 
-Git records changes over time. If something is edited incorrectly, an earlier version can be restored. A private online copy can also provide backup, but it should be created only after privacy and secret checks.
+Current status, decisions, and curated knowledge should guide today's work. Old conversations and session records still matter, but they should not silently override newer truth.
+
+The `log/` folder preserves dated records, confirmed decisions, your own reflections, original conversations, and agent handoffs. Agents load only the relevant part when history matters.
+
+## what the three backups add
+
+Git records changes over time. If something is edited incorrectly, an earlier version can be restored.
+
+- GitHub holds one private online history.
+- GitLab holds a matching private online history with a different provider.
+- A daily local backup such as Carbon Copy Cloner protects the whole vault folder, including safe files intentionally excluded from Git.
+
+Two-factor authentication protects both online accounts. Passwords and recovery codes never belong in the vault.
 
 ## what success looks like
 
@@ -87,5 +105,6 @@ The system is working when:
 - current decisions outrank old notes
 - another agent can continue without a long explanation from you
 - the structure stays small enough that you understand it
+- the two private online histories match and the local backup can open a real file
 
 The goal is not a perfect library. The goal is dependable memory with less effort.

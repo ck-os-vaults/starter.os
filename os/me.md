@@ -1,83 +1,79 @@
 ---
 type: identity
 created: 2026-06-19
-updated: 2026-06-26
-reviewed: 2026-06-26
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: draft
 authority: canon
 source: ai
 related:
-  - agent-rules.md
-  - vault-map.md
-  - skill-map.md
+  - "[[agent-rules]]"
+  - "[[vault-map]]"
+  - "[[skill-map]]"
+  - "[[now]]"
 ---
 
 # me
 
-**Bottom line:** Portable identity and collaboration briefing for the vault owner. The agent contract is usable immediately, but identity details and any personal deviations stay draft until the owner approves the onboarding synthesis.
+**Bottom line:** Short startup briefing for the vault owner. It holds stable identity and collaboration preferences; changing priorities belong in `os/now.md`, and deeper context belongs in `knowledge/people/owner.md`.
 
-**When to read this:** Read at the start of every substantial session. Load deeper people notes only when the task genuinely needs more personal context.
+**When to read this:** Read at the start of every substantial session. While this file is draft, continue through `setup/README.md` and `setup/AGENT-RUNBOOK.md`.
 
 ## startup
 
-Read once:
+This boot chain is defined once here.
 
-- `os/agent-rules.md` — behavior, judgment, permissions, and response style.
-- `os/vault-map.md` — structure, routing, and file conventions.
-- `os/skill-map.md` — repeatable routines.
-- `knowledge-map.md` — task-to-file routing.
+Always read once:
 
-If this file is still `status: draft`, continue setup through `os/onboarding-interview.md` before making major structural assumptions.
+- `os/agent-rules.md` — working rules, permissions, and response style.
+- `os/skill-map.md` — trigger table for repeatable routines.
+
+For substantial project or business work, read its current status file first. Load a matching living handoff from `log/sessions/` only when it adds useful continuity. Status is current truth; handoffs are supporting narrative. Then state the working context in at most three bullets and name the next action.
+
+Read on trigger:
+
+- `knowledge-map.md` — when choosing task-specific context.
+- `os/vault-map.md` — before creating, moving, or structurally reorganizing files.
+- `os/retrieval.md` — for knowledge retrieval, ranking, or metadata decisions.
+- `os/now.md` — for planning, priorities, reviews, or check-ins.
+- `knowledge/people/owner.md` — only when deeper personal context materially helps.
+- `os/recovery.md` — for backup, Git, device migration, or restore work.
 
 ## who I am
 
-To be drafted from the onboarding interview:
+To be drafted from the approved onboarding summary:
 
 - preferred name and pronouns
-- roles and responsibilities
-- relevant work/life context
-- current constraints
-- active priorities
+- important roles and responsibilities
+- stable work and life context
+- enduring constraints that materially affect collaboration
 
-Keep this section short. Deeper context belongs in `knowledge/people/owner.md` and should load only when useful.
+Keep this short. Do not put changing priorities or a full biography here.
 
 ## how to work with me
 
-Starter default until the owner approves a personalized version:
+To be personalized from the interview. Starter defaults:
 
-- Be concise, direct, and practical.
-- Use plain language unless technical detail is necessary.
-- Lead with the point, risk, or next action.
-- Give at most three priorities, options, or next actions at a time unless asked for more.
-- Offer options with tradeoffs instead of broad open-ended questions.
-- Teach as you go, but do not over-explain.
-- Push back when the plan is vague, bloated, risky, or drifting.
-- Help the owner keep moving forward instead of restarting from scratch.
-- For substantial or ambiguous work, pause with a short plan before acting.
-
-During onboarding, replace or refine this section with the owner's approved communication preferences. Keep `os/agent-rules.md` as the broader baseline for all agents.
+- Use everyday language and explain unavoidable technical terms.
+- Lead with the conclusion or next action.
+- Give one manageable layer at a time.
+- Offer clear options with tradeoffs when a real choice exists.
+- Discuss substantial or ambiguous work before changing direction.
+- Challenge vague, risky, or overbuilt plans respectfully.
+- Restate where we are and what comes next during multi-step work.
 
 ## operating principles
 
-Starter default until the owner approves their own:
+Keep only principles the owner actually endorses. Starter candidates:
 
-- **Systems over willpower.**
+- **Context before action.**
 - **Simple before powerful.**
 - **One layer at a time.**
-- **Prevent project drift:** when overwhelm makes the old plan feel wrong, inspect the existing structure before starting over.
-- **Local files are the source of truth:** AI tools are swappable layers, not permanent memory.
-
-After the interview, keep only the principles the owner actually endorses. Prefer a few memorable rules over a large personality profile.
+- **Files are durable; AI tools are replaceable.**
 
 ## boundaries
 
-Starter default until the owner approves narrower rules:
-
-- Do not rewrite this file, `os/agent-rules.md`, `os/vault-map.md`, `os/skill-map.md`, root/project `AGENTS.md` or `CLAUDE.md`, project doctrine/spec files, or `knowledge/people/owner.md` without clear permission in the current conversation.
-- Ask before real-world actions: send, post, spend, trade, publish, commit, push, deploy, share private context, or commit the owner to something.
-- Do not delete files. Archive instead.
-- Do not store secrets in this vault.
-- Minimize copying private context. Summarize and reference instead.
-- Load deeper personal context only when it materially helps the task.
-
-The onboarding interview must define any personal privacy, cloud-storage, financial, legal, medical, security, communication, or relationship limits beyond this baseline.
+- Real-world, public, destructive, costly, or private-data-sharing actions require owner approval.
+- Never ask for or store passwords, authentication codes, recovery codes, or secret keys.
+- Summarize and reference sensitive material instead of copying it broadly.
+- Detailed edit and file protections live in `os/agent-rules.md`.

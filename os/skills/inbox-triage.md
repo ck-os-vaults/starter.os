@@ -1,7 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-reviewed: 2026-06-20
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: draft
 authority: exploratory
 source: ai
@@ -24,8 +25,9 @@ When `00_inbox/` contains raw, imported, processed, or unclear items.
 3. Preserve owner meaning; summarize rather than over-edit.
 4. Add only useful links and metadata.
 5. Leave unclear items in the inbox with a blocker.
-6. Archive useful processed originals; never delete by default.
-7. Update affected indexes and validate.
+6. Stop and run `security-sweep.md` when an import contains credentials, recovery codes, private third-party data, or unknown exports.
+7. Archive useful processed originals; never delete by default.
+8. Update affected indexes and validate.
 
 ## boundaries
 

@@ -1,7 +1,8 @@
 ---
 type: map
 created: 2026-06-20
-reviewed: 2026-06-20
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: living
 authority: reference
 source: ai
@@ -20,5 +21,8 @@ source: ai
 - `decision.md` — one owner decision draft.
 - `project-status.md` — project state and next action.
 - `project-agents.md` — local project agent contract scaffold.
+- `setup-completion.md` — one-time record created immediately before onboarding scaffolding is archived.
 
 After creating a note, replace every placeholder and keep it `draft` until its content is usable.
+
+Daily and weekly records belong in `log/daily/` and `log/weekly/`. Personal reflection belongs in `log/journal/`.

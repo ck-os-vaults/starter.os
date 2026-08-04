@@ -1,7 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-reviewed: 2026-06-20
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: draft
 authority: exploratory
 source: ai
@@ -25,9 +26,11 @@ Stopping midstream, meaningful session end, context loss risk, or owner request.
 4. Record owner decisions and rationale.
 5. Name blockers and the exact next action.
 6. Reference sensitive context rather than copying it broadly.
+7. Save the handoff as `log/sessions/YYYY-MM-DD-topic.md` unless the project has an approved local handoff location.
 
 ## boundaries
 
 - Update real project files first; handoffs are not alternate sources of truth.
 - Do not mark unfinished work complete.
 - Current status/specs outrank old handoffs.
+- Verbatim owner transcripts belong in `log/conversations/`, not in an agent handoff.

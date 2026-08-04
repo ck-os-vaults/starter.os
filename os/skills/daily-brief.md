@@ -1,7 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-reviewed: 2026-06-20
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: draft
 authority: exploratory
 source: ai
@@ -28,7 +29,7 @@ Morning, start of work, or when the owner asks what to focus on.
 ## outputs
 
 - brief chat plan
-- optional `journal/daily/YYYY-MM-DD.md`
+- optional `log/daily/YYYY-MM-DD.md`
 
 ## boundaries
 

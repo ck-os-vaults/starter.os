@@ -1,7 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-reviewed: 2026-06-20
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: draft
 authority: exploratory
 source: ai
@@ -24,6 +25,7 @@ Weekly reset or when the owner feels scattered.
 3. Review inbox, projects, areas, and commitments.
 4. Choose the owner-approved number of next priorities.
 5. Recommend at most one system improvement when evidence justifies it.
+6. Flag possible durable signals for a future `distill` run, without promoting one-off moods or guesses.
 
 ## boundaries
 

@@ -1,7 +1,8 @@
 ---
 type: map
 created: 2026-06-19
-reviewed: 2026-06-19
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: living
 authority: canon
 source: ai
@@ -9,78 +10,85 @@ source: ai
 
 # vault map
 
-**Bottom line:** Structural source of truth for this Obsidian vault. The top-level lanes are stable; specific area, project, business, and knowledge folders are created only when the onboarding interview or real use justifies them.
+**Bottom line:** Structural source of truth for the Life OS. The top-level lanes are stable; onboarding fills them with context and adds lower-level folders only when the owner's real work requires them.
 
-**When to read this:** Read when deciding where a file belongs, adding structure, or resolving conflicting organization rules.
+**When to read this:** Read before creating, moving, routing, or structurally reorganizing files.
 
-## three layers
+## four layers
 
-1. **Notes** — the owner's Markdown thinking in `knowledge/`, `areas/`, `projects/`, `business/`, `journal/`, and `00_inbox/`.
-2. **OS** — `os/` holds identity, rules, routing, skills, setup, validation, and history.
-3. **Tools** — Obsidian, Claude, Codex, and future/local models. Tools are replaceable; files are durable.
+1. **OS** — `os/`: identity, rules, current state, structure, retrieval, recovery, and repeatable routines. Small and stable.
+2. **Notes** — current, curated context in `knowledge/`, `areas/`, `projects/`, `business/`, and `00_inbox/`.
+3. **Log** — `log/`: dated, append-only record. Cold by default; never general startup material.
+4. **Tools** — Obsidian, Codex, Claude, and future agents. Replaceable tools that read and write owner-controlled files.
 
 ## folder map
 
 - `00_inbox/` — raw or unclear intake; a waiting room, never permanent storage.
-- `os/` — operating layer and agent contract.
-- `knowledge/` — durable people and topic reference.
-- `areas/` — ongoing responsibilities with no finish line.
+- `os/` — permanent living operating and recovery layer.
+- `setup/` — temporary onboarding package; archived as one folder after every completion gate passes.
+- `knowledge/` — durable reference and people context.
+- `areas/` — ongoing responsibilities without a finish line.
 - `projects/` — time-bound personal outcomes.
-- `business/` — optional ventures or independently versioned business repositories.
-- `journal/` — chronological daily, weekly, monthly, and decision records.
-- `archive/` — inactive material; available for history, excluded from startup truth.
-- `agent/` — templates and agent-facing support files.
-- `prompts/` — owner-facing setup prompts; operational rules still live in `os/`.
+- `business/` — businesses, clients, and optional independently versioned workspaces.
+- `log/` — daily, weekly, monthly, personal journal, decisions, conversations, and session handoffs.
+- `archive/` — inactive material kept for history but excluded from current truth.
+- `agent/` — writing templates and agent-facing support.
 
 ## routing rules
 
 Route each item to one primary home:
 
-- durable concept/reference -> `knowledge/topics/`
-- person context -> `knowledge/people/`
-- business venture -> `business/<venture>/`
-- time-bound personal outcome -> `projects/<project>/`
-- ongoing responsibility -> `areas/<area>/`
-- dated record -> `journal/`
-- durable decision and rationale -> `journal/decisions.md`
-- repeatable agent routine -> `os/skills/` and `os/skill-map.md`
-- task-to-file routing -> `knowledge-map.md` at the relevant root
-- saved continuity -> `os/history/`
-- inactive material -> `archive/<date-topic>/`
-- unclear/raw -> `00_inbox/`
+- durable concept or reference → `knowledge/topics/`
+- person context → `knowledge/people/`
+- business, client, or venture → `business/<name>/`
+- time-bound personal outcome → `projects/<name>/`
+- ongoing responsibility → `areas/<name>/`
+- short operational day record → `log/daily/YYYY-MM-DD.md`
+- owner-authored reflection → `log/journal/YYYY-MM-DD.md`
+- weekly or monthly review → `log/weekly/` or `log/monthly/`
+- confirmed durable decision → append to `log/decisions.md`
+- verbatim owner conversation or transcript → `log/conversations/`
+- agent handoff, saved prompt, or session record → `log/sessions/`
+- repeatable agent routine → `os/skills/` and register in `os/skill-map.md`
+- task-to-context routing → `knowledge-map.md` at the relevant root
+- processed original worth preserving → a dated folder in `archive/`
+- unclear or blocked → remain in `00_inbox/` with the blocker named
 
-## conventions
+Projects finish; areas continue. Do not turn every interest, source, or imagined agent into a folder.
 
-### naming
+## record rules
 
-- lowercase kebab-case for ordinary files/folders
-- daily: `YYYY-MM-DD.md`
-- weekly: `YYYY-Www.md`
-- monthly: `YYYY-MM.md`
-- history: `YYYY-MM-DD-topic.md`
+- Current project status and curated knowledge outrank handoffs and transcripts.
+- `log/decisions.md` is the one canonical record inside `log/`.
+- Owner-authored journal and conversation records are permanent primary sources.
+- Agent handoffs are supporting narrative and may be archived after they are replaced.
+- Record files are not silently rewritten after the fact; mark lifecycle changes instead.
 
-### linking and retrieval
+## naming and links
 
-- Agent retrieval uses maps, filenames, summaries, and freshness markers. See `os/retrieval.md`.
-- Wikilinks and backlinks support human navigation and real conceptual jumps; do not add them merely for density.
-- Daily notes may link to touched projects, areas, people, and topics to create a human timeline.
+- Use descriptive lowercase kebab-case names.
+- Daily and journal files: `YYYY-MM-DD.md`.
+- Weekly: `YYYY-Www.md`; monthly: `YYYY-MM.md`.
+- Conversation and session records: `YYYY-MM-DD-topic.md`.
+- Wikilinks support human navigation. Agent retrieval uses maps, filenames, summaries, and freshness metadata from `os/retrieval.md`.
 
-### frontmatter
+## metadata and authorship
 
-Every active note uses the schema in `os/retrieval.md`. The generic provenance values are `source: owner` and `source: ai`.
+The full frontmatter schema and ranking rules live only in `os/retrieval.md`.
 
-### human and AI authorship
+Agent drafts remain `source: ai` until the owner approves them. Agents do not silently rewrite owner-authored meaning.
 
-Agent-drafted notes remain `source: ai` until the owner approves and adopts them. Agents do not silently overwrite owner-authored meaning.
+## environment and backup
 
-## environment
-
-Personalize after interview:
+Personalize during setup:
 
 - local vault path and devices
-- capture method and sync choice
-- private Git or backup strategy
+- capture and sync choices
+- GitHub and GitLab private repository URLs or names, never credentials
+- local daily backup tool and destination description
 - independently versioned nested repositories
-- files/directories excluded from version control
+- excluded local settings, attachments, media, exports, and credentials
 
-Keep the vault private by default. Open it as one Obsidian vault; do not rely on Obsidian-only features for core meaning.
+Open the system as one Obsidian vault. Keep core meaning in ordinary Markdown, not in one app's hidden database.
+
+The exact backup topology and restore procedure live in `os/recovery.md`.

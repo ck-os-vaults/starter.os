@@ -1,7 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-reviewed: 2026-06-20
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: draft
 authority: exploratory
 source: ai
@@ -20,12 +21,13 @@ End of work block/day, or when the owner asks to wrap.
 ## steps
 
 1. Summarize actual movement in plain language.
-2. Record durable owner decisions separately.
+2. Route confirmed durable decisions through `decision-log.md` into `log/decisions.md`.
 3. List blockers and the next action.
 4. Update current status/handoff files only when their instructions require it.
 5. Identify each Git repository changed.
 6. For each changed repo: validate, inspect scope, commit completed work, and push only under the owner's approved Git rules.
-7. Skip unchanged and read-only repos.
+7. When the Life OS has dual GitHub/GitLab push destinations, verify both reached the same commit after any reported error.
+8. Skip unchanged and read-only repos.
 
 ## outputs
 
@@ -39,3 +41,4 @@ End of work block/day, or when the owner asks to wrap.
 - Do not stage unrelated changes.
 - Keep nested repositories independent.
 - A current instruction not to commit/push always wins.
+- Never describe GitHub and GitLab as synchronized without checking after a partial failure.

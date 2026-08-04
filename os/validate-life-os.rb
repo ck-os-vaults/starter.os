@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "date"
+require "open3"
 require "pathname"
 require "yaml"
 
@@ -14,19 +15,12 @@ ENTRY_EXEMPTIONS = %w[AGENTS.md CLAUDE.md].freeze
 TEMPLATE_EXEMPTIONS = Dir["agent/templates/*.md"].reject { |file| File.basename(file) == "readme.md" }.freeze
 REQUIRED_KEYS = %w[type created reviewed status authority source].freeze
 ALLOWED = {
-  "type" => %w[note map identity skill daily weekly monthly decision-log history status],
+  "type" => %w[note map identity skill daily weekly monthly journal decision-log status],
   "status" => %w[living draft superseded done archived],
   "authority" => %w[canon spec reference exploratory],
   "source" => %w[owner ai]
 }.freeze
-PERSONAL_LEAKS = {
-  "CK identity" => /\bCK\b/,
-  "Cristian identity" => /\bCristian\b/i,
-  "ABC business" => /\bABC(?:\.OS)?\b/,
-  "UIG knowledge" => /\bUIG\b/,
-  "source username" => /abc-ck|agent-hub/i,
-  "source personal context" => /\b(?:Jenna|Iggy's|Nashville)\b/i
-}.freeze
+LOCAL_PRIVACY_DENYLIST = ".starter-private-denylist"
 SECRET_SHAPES = {
   "private key" => /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
   "GitHub token" => /(?:ghp|gho|github_pat)_[A-Za-z0-9_]{20,}/,
@@ -34,8 +28,28 @@ SECRET_SHAPES = {
   "Anthropic key" => /sk-ant-[A-Za-z0-9_-]{20,}/,
   "AWS key" => /AKIA[0-9A-Z]{16}/
 }.freeze
+ONBOARDING_STATES = %w[not-started in-progress tutorial-pending complete].freeze
+TEMPORARY_SETUP_FILES = %w[
+  setup/README.md
+  setup/FIRST-CHAT.md
+  setup/INSTALL.md
+  setup/SHORT-GUIDE.md
+  setup/POST-SETUP-TUTORIAL.md
+  setup/SETUP-STATUS.md
+  setup/AGENT-RUNBOOK.md
+  setup/ONBOARDING-INTERVIEW.md
+  setup/OPERATOR-GUIDE.md
+].freeze
 
-all_markdown = Dir["**/*.md"].sort
+git_files, git_status = Open3.capture2e(
+  "git", "ls-files", "--cached", "--others", "--exclude-standard", "--", "*.md"
+)
+all_markdown = if git_status.success?
+  git_files.lines.map(&:strip).reject(&:empty?).select { |file| File.file?(file) }.sort
+else
+  Dir["**/*.md"].reject { |file| file.start_with?(".git/") }.sort
+end
+
 active_markdown = all_markdown.reject do |file|
   file.start_with?(".trash/") || (file.start_with?("archive/") && file != "archive/readme.md")
 end
@@ -98,7 +112,7 @@ audited_files.each do |file|
   add_error.call(file, "literal \\n heading escape") if text.include?("\\n##")
   add_error.call(file, "legacy inline metadata remains") if body.match?(/^(Status|Created|Last updated):/)
 
-  summary_required = %w[note map identity status history].include?(data["type"]) || data["type"] == "decision-log"
+  summary_required = %w[note map identity status decision-log].include?(data["type"])
   if summary_required
     add_error.call(file, "expected exactly one Bottom line") unless body.scan(/^\*\*Bottom line:\*\*/i).length == 1
     add_error.call(file, "expected exactly one When to read this") unless body.scan(/^\*\*When to read this:\*\*/i).length == 1
@@ -107,6 +121,39 @@ audited_files.each do |file|
     trigger_position = body.index(/^\*\*When to read this:\*\*/i)
     if first_h2 && (!bottom_position || !trigger_position || bottom_position > first_h2 || trigger_position > first_h2)
       add_error.call(file, "routing summary must appear before the first H2")
+    end
+  end
+end
+
+# Once onboarding is complete, temporary setup scaffolding must leave active context.
+starter_version = metadata["os/starter-version.md"] || {}
+onboarding_state = starter_version["onboarding"].to_s
+unless ONBOARDING_STATES.include?(onboarding_state)
+  add_error.call("os/starter-version.md", "invalid onboarding state: #{onboarding_state.inspect}")
+end
+
+if ONBOARDING_STATES.include?(onboarding_state)
+  visible_state = File.read("os/starter-version.md").match(/^- Onboarding state: `([^`]+)`$/)&.captures&.first
+  if visible_state != onboarding_state
+    add_error.call("os/starter-version.md", "visible onboarding state does not match frontmatter")
+  end
+end
+
+if onboarding_state == "complete"
+  add_error.call("setup/", "temporary setup folder remains active after onboarding completion") if Dir.exist?("setup")
+  TEMPORARY_SETUP_FILES.each do |file|
+    add_error.call(file, "setup file remains active after onboarding completion") if File.exist?(file)
+  end
+  add_error.call("log/setup-completion.md", "missing after onboarding completion") unless File.exist?("log/setup-completion.md")
+
+  active_markdown.each do |file|
+    next if file == "log/setup-completion.md"
+
+    text = File.read(file)
+    TEMPORARY_SETUP_FILES.each do |temporary|
+      if text.include?(temporary)
+        add_error.call(file, "still routes to archived setup file: #{temporary}")
+      end
     end
   end
 end
@@ -120,7 +167,7 @@ TEMPLATE_EXEMPTIONS.each do |file|
   end
 end
 
-# Validate Markdown links in active files.
+# Validate local Markdown links in active files.
 audited_files.each do |file|
   next if metadata.dig(file, "status") == "archived"
 
@@ -134,7 +181,7 @@ audited_files.each do |file|
   end
 end
 
-# Validate active wikilinks by path or unique active filename.
+# Validate active wikilinks by direct path or unique active filename.
 audited_files.each do |file|
   next if metadata.dig(file, "status") == "archived"
 
@@ -158,10 +205,13 @@ map_text.lines.each_with_index do |line, index|
   add_error.call("knowledge-map.md", "line #{index + 1} routes to #{path_count} paths; split by intent") if path_count > 4
 end
 
-# Every active content record must be named in a map/index.
+# Every active content record must be named in a map/index. Date-named log streams index themselves.
 index_files = metadata.select { |_file, data| data["type"] == "map" }.keys | ["knowledge-map.md"]
 index_corpus = index_files.to_h { |file| [file, File.read(file)] }
 content_files = metadata.reject { |_file, data| data["type"] == "map" }.keys
+content_files = content_files.reject do |file|
+  file.match?(%r{\Alog/(?:daily|weekly|monthly|journal)/(?:\d{4}/)?\d{4}-})
+end
 content_files.each do |file|
   basename = File.basename(file)
   stem = File.basename(file, ".md")
@@ -169,21 +219,44 @@ content_files.each do |file|
   add_error.call(file, "not named in any map or folder index") unless covered
 end
 
-# The distributable starter must remain free of source-owner context and secret-shaped values.
-(active_markdown + ENTRY_EXEMPTIONS + TEMPLATE_EXEMPTIONS).uniq.each do |file|
+# An optional ignored local denylist catches source-owner terms without publishing them.
+privacy_terms = if File.file?(LOCAL_PRIVACY_DENYLIST)
+  File.readlines(LOCAL_PRIVACY_DENYLIST, chomp: true)
+    .map(&:strip)
+    .reject { |line| line.empty? || line.start_with?("#") }
+else
+  []
+end
+
+# The distributable starter must remain free of locally denied terms and secret-shaped values.
+active_markdown.each do |file|
   text = File.read(file)
-  PERSONAL_LEAKS.each do |label, pattern|
-    add_error.call(file, "contains #{label} from the source system") if text.match?(pattern)
+  privacy_terms.each do |term|
+    if text.match?(/#{Regexp.escape(term)}/i)
+      add_error.call(file, "contains a term from the local starter privacy denylist")
+    end
   end
   SECRET_SHAPES.each do |label, pattern|
     add_error.call(file, "contains #{label}-shaped text") if text.match?(pattern)
   end
 end
 
-required_ignores = %w[.obsidian/ .claude/ .codex/ .trash/ .env *.key *.pem]
-ignore_text = File.read(".gitignore")
+required_ignores = %w[
+  .obsidian/
+  .claude/
+  .codex/
+  .trash/
+  00_inbox/attachments/
+  corpus-media/
+  .env
+  *.key
+  *.pem
+  *recovery-codes*.txt
+  .starter-private-denylist
+].freeze
+ignore_lines = File.read(".gitignore").lines.map(&:strip)
 required_ignores.each do |entry|
-  add_error.call(".gitignore", "missing defensive exclusion: #{entry}") unless ignore_text.lines.map(&:strip).include?(entry)
+  add_error.call(".gitignore", "missing defensive exclusion: #{entry}") unless ignore_lines.include?(entry)
 end
 
 if errors.empty?

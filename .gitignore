@@ -1,10 +1,13 @@
 .obsidian/
+_review-before-delete/
+.starter-private-denylist
 .claude/
 .codex/
 .trash/
 .DS_Store
 **/.DS_Store
 00_inbox/attachments/
+corpus-media/
 *.log
 *.tmp
 *.swp
@@ -15,3 +18,4 @@
 *.p12
 credentials.json
 secrets.json
+*recovery-codes*.txt

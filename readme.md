@@ -1,59 +1,45 @@
 ---
 type: map
 created: 2026-06-19
-reviewed: 2026-06-19
+updated: 2026-08-03
+reviewed: 2026-08-03
 status: living
 authority: canon
 source: ai
 ---
 
-# life os starter
+# life os starter kit
 
-**Bottom line:** A model-agnostic Obsidian operating system for personal knowledge, projects, recurring life areas, chronology, and agent collaboration. The structure is reusable; the owner's context is created through interview and approval.
+**Audience:** Owner and agents
+**Lifecycle:** Permanent — rewritten as the personal front door after onboarding.
 
-**When to read this:** Read for a quick explanation of the starter. If this is your first time here, open `FRIEND-SETUP-GUIDE.md` next.
+**Bottom line:** A private, model-independent agent context machine for everyday people. One guided setup chat learns the owner, fills durable context documents, protects them with GitHub + GitLab + a daily local backup, and teaches the owner how to work confidently with Codex or Claude.
 
-## quickest setup
+**When to read this:** Read for an overview. New owners should open `setup/README.md`; people preparing copies for others should open `setup/OPERATOR-GUIDE.md`.
 
-Open `INSTALL-WITH-AN-AGENT.md` for the GitHub download options and one prompt you can give to Claude Code or Codex.
+## start
 
-## understand the knowledge system
+- `setup/README.md` — the temporary onboarding package and one clear starting point.
+- `SYSTEM-EXPLAINED.md` — the permanent plain-English system model.
 
-- Open `READ-FIRST-KNOWLEDGE-SYSTEM.html` in any browser for the plain-English explanation and measured before/after report.
-- Use `IMPLEMENT-KNOWLEDGE-SYSTEM-PROMPT.md` to add the same retrieval method to an existing Markdown vault.
+Everything in `setup/` is archived together after onboarding. The other root documents are permanent entry points or maps.
 
-## first time here
+## the four layers
 
-1. Use `INSTALL-WITH-AN-AGENT.md` to make your own copy.
-2. Read `SYSTEM-EXPLAINED.md` for the plain-English idea.
-3. Follow `FRIEND-SETUP-GUIDE.md` one step at a time.
-4. Use `START-HERE.md` as the agent's setup checklist.
-5. Use `knowledge-map.md` for task routing after onboarding.
+1. **OS** — identity, working rules, current priorities, retrieval, recovery, and repeatable routines.
+2. **Notes** — current knowledge, areas, projects, businesses, and inbox material.
+3. **Log** — dated records, decisions, owner-authored reflections, conversations, and session handoffs.
+4. **Tools** — Obsidian, Codex, Claude, and future agents. Tools can change; the files remain readable.
 
-## methodology
+## design principles
 
-- Local Markdown files are the durable source of truth.
-- Agents retrieve through maps, filenames, summaries, and freshness metadata.
-- Current authority outranks old or exploratory material.
-- Raw capture is separated from durable knowledge.
-- Projects end; areas continue.
-- Archived material remains available but never loads as current truth.
-- Validators catch metadata, link, index, and lifecycle drift.
-- Git provides rollback; private remote hosting is optional and owner-approved.
+- Context before customization.
+- Existing structure before new folders.
+- Current truth stays separate from historical record.
+- Private by default.
+- The human approves identity, external actions, purchases, and sensitive boundaries.
+- The agent handles safe technical work and explains it without jargon.
+- Every backup is tested, not merely assumed.
+- Setup scaffolding is archived after onboarding so it cannot confuse everyday agent work.
 
-## structure
-
-- `00_inbox/` — raw or unclear intake awaiting one permanent home.
-- `os/` — identity, rules, structure, retrieval, skills, setup, and history.
-- `knowledge/` — durable concepts and people context.
-- `areas/` — recurring responsibilities without finish lines.
-- `projects/` — time-bound personal outcomes.
-- `business/` — optional business ventures or independently versioned business repos.
-- `journal/` — daily, weekly, monthly, and decision chronology.
-- `archive/` — inactive material, never startup truth.
-- `agent/templates/` — safe Markdown templates.
-- `prompts/` — copy-and-run setup, testing, Git, and first-week prompts.
-
-## privacy
-
-This starter contains no personal profile or example journal. Keep the completed vault private unless the owner explicitly chooses otherwise. Never store passwords, API keys, seed phrases, private keys, credentials, or highly sensitive attachments in Git.
+This reusable repository contains no owner's personal context. Each person's edition belongs in its own private repositories and must never be merged back into the starter.
