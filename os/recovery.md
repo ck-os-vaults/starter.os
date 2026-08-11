@@ -1,7 +1,8 @@
 ---
 type: map
 created: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: draft
 authority: canon
 source: ai
@@ -9,7 +10,7 @@ source: ai
 
 # recovery
 
-**Bottom line:** Personalized during setup, this file explains the three-layer backup system and how the owner or a future agent can restore the Life OS without storing any passwords or recovery codes here.
+**Bottom line:** Personalized during setup, this file explains the three-layer backup system and how the owner or a future agent can restore Starter.OS without storing any passwords or recovery codes here.
 
 **When to read this:** Read for account setup, backup checks, a new computer, accidental loss, or a restore test.
 
@@ -17,7 +18,7 @@ source: ai
 
 Fill during setup:
 
-1. **Working copy:** local Life OS vault path and primary computer.
+1. **Working copy:** local Starter.OS vault path and primary computer.
 2. **Private online history 1:** GitHub private repository name or URL.
 3. **Private online history 2:** GitLab private repository name or URL, synchronized from the same approved push.
 4. **Daily local backup:** tool, destination description, schedule, and last successful restore test.
@@ -49,8 +50,8 @@ Personalize exact names and paths during setup:
 4. If GitHub is unavailable, clone the matching GitLab repository instead.
 5. Restore excluded safe files and local app settings from the daily local backup when needed.
 6. Restore any independently versioned nested repositories separately.
-7. Open the Life OS root as one Obsidian vault.
-8. Run `ruby os/validate-life-os.rb` and open `os/me.md` to verify the startup chain.
+7. Open the Starter.OS root as one Obsidian vault.
+8. Run `ruby os/validate-starter-os.rb` and open `os/me.md` to verify the startup chain.
 
 ## synchronization check
 

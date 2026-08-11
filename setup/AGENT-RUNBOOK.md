@@ -1,7 +1,8 @@
 ---
 type: map
 created: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
@@ -33,7 +34,7 @@ source: ai
 1. Read the startup and setup files named in `setup/FIRST-CHAT.md`.
 2. Set the onboarding state in `os/starter-version.md` to `in-progress` after the owner confirms setup should begin.
 3. Confirm this is the intended vault root and inspect whether Git already exists, whether a remote exists, whether there are uncommitted files, and whether any nested folder is an independent repository.
-4. Run `ruby os/validate-life-os.rb`. Separate starter defects from owner-created material.
+4. Run `ruby os/validate-starter-os.rb`. Separate starter defects from owner-created material.
 5. Ask what agent surface the owner is using: Codex, Claude Code, Claude Cowork, or another file-capable agent. Do not require them to understand the distinction yet.
 6. Explain that different agent products may process files locally, remotely, or both. Before importing sensitive material, check the current official privacy and data-handling guidance for the exact product and account plan being used. Do not guess from an older interface or product name.
 7. Check whether Obsidian is installed, whether the folder opens as one vault, and whether the owner has a password manager or another secure recovery-code location.
@@ -150,7 +151,7 @@ On a Mac, recommend Carbon Copy Cloner as the guided example; Time Machine or an
 The owner must approve any purchase. Then guide them to:
 
 1. Connect a dedicated external drive with enough space.
-2. Create a task that includes the entire Life OS vault folder.
+2. Create a task that includes the entire Starter.OS vault folder.
 3. Set it to run daily, or when the destination drive reconnects if that is more reliable for their routine.
 4. Enable snapshot/version retention when the destination and tool support it.
 5. Run the first backup now.
@@ -164,7 +165,7 @@ If no drive is available, finish the context and online-history phases but label
 Verify all of the following:
 
 - The owner can explain that the vault is their durable context and the agent is a replaceable tool.
-- `ruby os/validate-life-os.rb` passes.
+- `ruby os/validate-starter-os.rb` passes.
 - No starter owner names, unconfirmed claims, credentials, or recovery codes are tracked.
 - The local working tree is clean after the approved checkpoint.
 - GitHub is private and two-factor authentication is confirmed.
@@ -217,7 +218,7 @@ Keep `SYSTEM-EXPLAINED.md`, `os/starter-version.md`, `os/recovery.md`, and the r
 
 Before this runbook moves itself:
 
-1. Replace the starter-focused root `readme.md` with a short owner-focused map of the active Life OS and remove its link to `setup/`.
+1. Replace the starter-focused root `readme.md` with a short owner-focused map of the active Starter.OS system and remove its link to `setup/`.
 2. Remove the first-setup and post-setup-learning routes from `knowledge-map.md`; add `log/setup-completion.md` only as a historical setup route.
 3. Remove the temporary setup-folder entry from `os/readme.md`.
 4. Update `AGENTS.md`, `CLAUDE.md`, and the startup note in `os/me.md` so they say onboarding is complete and do not point future agents to active setup files.
@@ -225,7 +226,7 @@ Before this runbook moves itself:
 6. Set both the frontmatter `onboarding` value and visible onboarding state in `os/starter-version.md` to `complete`.
 7. Add `log/setup-completion.md` to `log/readme.md`.
 
-Then move the entire folder, run `ruby os/validate-life-os.rb`, run the security sweep, and confirm active maps contain no `setup/` routes. Create the approved final checkpoint and verify both online histories reached it.
+Then move the entire folder, run `ruby os/validate-starter-os.rb`, run the security sweep, and confirm active maps contain no `setup/` routes. Create the approved final checkpoint and verify both online histories reached it.
 
 Give the owner a short closing message: onboarding is complete, setup materials were preserved in the dated archive, where the completion record lives, and what file future agents read first. Do not ask the owner to manage or delete the archived files.
 

@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-06-19
-updated: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: draft
 authority: canon
 source: ai
@@ -81,4 +81,4 @@ Add routes here after onboarding identifies real recurring tasks. Keep each rout
 
 ## maintenance
 
-Update this map when a recurring task or current source changes. Run `ruby os/validate-life-os.rb` afterward.
+Update this map when a recurring task or current source changes. Run `ruby os/validate-starter-os.rb` afterward.

@@ -1,14 +1,14 @@
 ---
 type: map
 created: 2026-06-19
-updated: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
 ---
 
-# life os starter kit
+# Starter.OS
 
 **Audience:** Owner and agents
 **Lifecycle:** Permanent — rewritten as the personal front door after onboarding.

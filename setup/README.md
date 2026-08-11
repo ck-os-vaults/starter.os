@@ -1,7 +1,8 @@
 ---
 type: map
 created: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
@@ -12,9 +13,9 @@ source: ai
 **Audience:** Owner and setup helper
 **Lifecycle:** Setup only — the entire folder is archived after onboarding.
 
-**Bottom line:** This folder contains everything needed to initialize a personal Life OS. Begin with `FIRST-CHAT.md`; the agent handles the technical documents.
+**Bottom line:** This folder contains everything needed to initialize Starter.OS. Begin with `FIRST-CHAT.md`; the agent handles the technical documents.
 
-**When to read this:** Read only while installing, personalizing, securing, or learning the new Life OS.
+**When to read this:** Read only while installing, personalizing, securing, or learning Starter.OS.
 
 ## owner path
 

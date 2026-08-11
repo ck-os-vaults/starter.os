@@ -1,7 +1,8 @@
 ---
 type: note
 created: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
@@ -17,7 +18,7 @@ source: ai
 **When to read this:** Paste this into a new chat after the complete setup and backup checks pass.
 
 ```text
-Teach me how to work confidently with an AI agent inside my Life OS.
+Teach me how to work confidently with an AI agent inside Starter.OS.
 
 Assume I have zero technical or coding background. Use ordinary language and
 teach interactively, not as one long lecture. Read AGENTS.md, os/me.md,
@@ -32,7 +33,7 @@ Teach one short lesson at a time. For each lesson:
 Cover these lessons:
 
 1. What the agent, the AI brain (often called the model), and the app around it
-   are—and why my local Life OS files are the lasting memory. If you use the
+   are—and why my local Starter.OS files are the lasting memory. If you use the
    technical word “harness,” define it in ordinary language first.
 2. Why I do not need a perfect prompt. Show me how to begin with a natural
    conversation about the problem, then let the agent interview me about the
@@ -79,7 +80,7 @@ safe first task with me.
 After the lessons and that first task are fully complete, continue with Phase 8
 of setup/AGENT-RUNBOOK.md. Perform the cleanup yourself: create the completion
 record, archive the entire setup folder, remove obsolete active
-routes, validate the finished Life OS, and verify both private online histories
+routes, validate the finished Starter.OS system, and verify both private online histories
 match. Do not merely tell me what I should archive. If any security, backup,
 sync, or tutorial gate is incomplete, leave the setup documents active and tell
 me the one next action instead.

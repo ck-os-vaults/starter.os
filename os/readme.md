@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-06-19
-updated: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
@@ -23,6 +23,6 @@ source: ai
 - `starter-version.md` — the reusable foundation version adopted by this edition.
 - `setup/` — temporary first-time setup, interview, tutorial, and completion flow at the vault root.
 - `skill-map.md` and `skills/` — trigger-based routines.
-- `validate-life-os.rb` — privacy and structural acceptance gate.
+- `validate-starter-os.rb` — privacy and structural acceptance gate.
 
 Session handoffs and transcripts live in `log/`, not in the operating layer. Root `AGENTS.md` and `CLAUDE.md` are thin tool-specific entry points that lead here.

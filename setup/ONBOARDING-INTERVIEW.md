@@ -1,8 +1,8 @@
 ---
 type: status
 created: 2026-06-20
-updated: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
@@ -13,7 +13,7 @@ source: ai
 **Audience:** Agents
 **Lifecycle:** Setup only — archive with the `setup/` folder after onboarding.
 
-**Bottom line:** A conversational interview that learns enough context to fill the existing Life OS documents. It does not redesign the folder system unless the owner's real needs clearly require one small adjustment.
+**Bottom line:** A conversational interview that learns enough context to fill the existing Starter.OS documents. It does not redesign the folder system unless the owner's real needs clearly require one small adjustment.
 
 **When to read this:** Read during first setup or an owner-approved context refresh.
 

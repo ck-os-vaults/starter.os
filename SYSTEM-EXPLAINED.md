@@ -1,8 +1,8 @@
 ---
 type: note
 created: 2026-06-20
-updated: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: reference
 source: ai
@@ -13,7 +13,7 @@ source: ai
 **Audience:** Owner
 **Lifecycle:** Permanent
 
-**Bottom line:** Your Life OS becomes a private agent context machine: ordinary documents that help different AI agents understand you and your work without depending on one app, one company, or one giant chat history.
+**Bottom line:** Starter.OS becomes your private agent context machine: ordinary documents that help different AI agents understand you and your work without depending on one app, one company, or one giant chat history.
 
 **When to read this:** Read before setup when you want the whole idea in simple terms.
 

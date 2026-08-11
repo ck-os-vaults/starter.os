@@ -1,7 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-reviewed: 2026-06-20
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
@@ -27,7 +28,7 @@ Run after imports/restructures, periodically, or when retrieval surfaces the wro
 6. Set authority and source honestly.
 7. Ensure top summaries describe real contents and read triggers.
 8. Update maps and indexes when lifecycle or location changed.
-9. Run `ruby os/validate-life-os.rb` and resolve every failure.
+9. Run `ruby os/validate-starter-os.rb` and resolve every failure.
 10. Report counts, conflicts, and owner decisions.
 
 ## boundaries

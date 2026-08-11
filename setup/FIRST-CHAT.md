@@ -1,7 +1,8 @@
 ---
 type: note
 created: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
@@ -29,7 +30,7 @@ You do **not** need GitHub, GitLab, Git, or backup knowledge. The agent will han
 ## paste this into your first chat
 
 ```text
-Help me set up this Life OS Starter Kit as my private agent context machine.
+Help me set up this Starter.OS kit as my private agent context machine.
 
 Assume I have zero technical or coding knowledge. Speak in everyday language,
 give me one small step at a time, and do the technical work yourself whenever

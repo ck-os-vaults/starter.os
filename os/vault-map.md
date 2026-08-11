@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-06-19
-updated: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
@@ -10,7 +10,7 @@ source: ai
 
 # vault map
 
-**Bottom line:** Structural source of truth for the Life OS. The top-level lanes are stable; onboarding fills them with context and adds lower-level folders only when the owner's real work requires them.
+**Bottom line:** Structural source of truth for Starter.OS. The top-level lanes are stable; onboarding fills them with context and adds lower-level folders only when the owner's real work requires them.
 
 **When to read this:** Read before creating, moving, routing, or structurally reorganizing files.
 

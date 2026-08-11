@@ -28,6 +28,7 @@ SECRET_SHAPES = {
   "Anthropic key" => /sk-ant-[A-Za-z0-9_-]{20,}/,
   "AWS key" => /AKIA[0-9A-Z]{16}/
 }.freeze
+RETIRED_BRAND = /\blife(?:[.\s_-]+)os\b/i
 ONBOARDING_STATES = %w[not-started in-progress tutorial-pending complete].freeze
 TEMPORARY_SETUP_FILES = %w[
   setup/README.md
@@ -64,6 +65,7 @@ end
 
 audited_files.each do |file|
   text = File.read(file)
+  add_error.call(file, "retired predecessor branding remains in active content") if text.match?(RETIRED_BRAND)
   match = text.match(/\A---\n(.*?)\n---\n/m)
   unless match
     add_error.call(file, "missing or malformed YAML frontmatter")
