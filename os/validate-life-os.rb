@@ -15,7 +15,7 @@ ENTRY_EXEMPTIONS = %w[AGENTS.md CLAUDE.md].freeze
 TEMPLATE_EXEMPTIONS = Dir["agent/templates/*.md"].reject { |file| File.basename(file) == "readme.md" }.freeze
 REQUIRED_KEYS = %w[type created reviewed status authority source].freeze
 ALLOWED = {
-  "type" => %w[note map identity skill daily weekly monthly journal decision-log status],
+  "type" => %w[note map identity skill spec handoff daily weekly monthly journal decision-log status],
   "status" => %w[living draft superseded done archived],
   "authority" => %w[canon spec reference exploratory],
   "source" => %w[owner ai]

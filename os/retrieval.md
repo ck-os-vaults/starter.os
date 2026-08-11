@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-06-19
-updated: 2026-08-03
-reviewed: 2026-08-03
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: canon
 source: ai
@@ -41,13 +41,13 @@ Every active durable note uses YAML frontmatter:
 
 ```yaml
 ---
-type: note            # note | map | identity | skill | daily | weekly | monthly | journal | decision-log | status
+type: note            # note | map | identity | skill | spec | handoff | daily | weekly | monthly | journal | decision-log | status
 created: YYYY-MM-DD
 updated: YYYY-MM-DD    # content last changed; omit when unknown
 reviewed: YYYY-MM-DD   # currency/metadata last checked
 status: living         # living | draft | superseded | done | archived
 authority: reference   # canon | spec | reference | exploratory
-source: owner          # owner | ai
+source: owner          # owner | ai (drafter provenance; ai may become canon after owner approval)
 superseded_by: file.md # required only when status is superseded
 domain: optional
 applies_to: optional
@@ -62,6 +62,8 @@ related: optional
 - **reviewed** changes when someone audits currency or metadata.
 
 Never invent dates, approval, or authority. When uncertain, use `draft`, `reference`, and `source: ai`.
+
+Use `type: map` for routing readmes. Use `type: note` for ordinary reference and method documents; `reference` belongs under `authority`, and `method` is not a type. `source` records who drafted the words, while `authority` and `status` record approval and currency.
 
 ## top summary convention
 
