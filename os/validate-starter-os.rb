@@ -70,6 +70,7 @@ required_paths = %w[
   life/areas/health/readme.md
   life/areas/home/readme.md
   life/areas/relationships/readme.md
+  life/areas/finances/readme.md
   life/projects/readme.md
   life/knowledge/people/owner.md
   life/records/readme.md

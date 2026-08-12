@@ -20,6 +20,7 @@ required = %w[
   life/areas/health/readme.md
   life/areas/home/readme.md
   life/areas/relationships/readme.md
+  life/areas/finances/readme.md
   os/AGENTS.md
   os/agent-rules.md
   os/vault-map.md
