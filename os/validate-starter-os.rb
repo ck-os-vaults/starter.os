@@ -32,6 +32,7 @@ ALLOWED = {
   "source" => %w[owner ai]
 }.freeze
 ONBOARDING_STATES = %w[not-started in-progress tutorial-pending complete].freeze
+BUSINESS_MODEL = "business-model"
 SECRET_SHAPES = {
   "private key" => /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
   "GitHub token" => /(?:ghp|gho|github_pat)_[A-Za-z0-9_]{20,}/,
@@ -77,7 +78,7 @@ required_paths.each { |path| add_error.call(path, "required path is missing") un
 
 all_markdown = Dir["**/*.md"].sort
 active_markdown = all_markdown.reject do |file|
-  file.start_with?("life/archive/", "setup/business-template/") ||
+  file.start_with?("life/archive/") ||
     file.include?("/archive/") ||
     file.start_with?("biz/") && file.split("/").length > 2 && file.include?("/archive/")
 end
@@ -87,6 +88,7 @@ business_entries = if Dir.exist?("biz")
 else
   []
 end
+real_business_entries = business_entries.reject { |name| name == BUSINESS_MODEL }
 entry_exemptions = ENTRY_EXEMPTIONS.dup
 business_entries.each do |business|
   entry_exemptions.concat(["biz/#{business}/AGENTS.md", "biz/#{business}/CLAUDE.md"])
@@ -223,7 +225,7 @@ end
 add_error.call(".git", "vault root must never be a Git repository") if File.exist?(".git")
 add_error.call("biz/.git", "biz container must never be a Git repository") if File.exist?("biz/.git")
 
-declared_repos = ["os", "life"] + business_entries.map { |name| "biz/#{name}" }
+declared_repos = ["os", "life"] + real_business_entries.map { |name| "biz/#{name}" }
 all_git_dirs = Dir.glob("**/.git", File::FNM_DOTMATCH).select { |path| File.directory?(path) }.sort
 all_git_dirs.each do |git_dir|
   root = File.dirname(git_dir)

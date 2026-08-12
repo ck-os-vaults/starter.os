@@ -19,7 +19,8 @@ source: ai
 ```text
 STARTER.os/                one Obsidian vault; choose the STARTER name during setup
 ├── biz/                   business vaults
-│   └── <business>/        one repository for each real business
+│   ├── business-model/    generic starting model; not a real business or repository
+│   └── <business>/        one repository for each confirmed real business
 ├── life/                  private personal vault and repository
 ├── os/                    shared operating vault and repository
 └── setup/                 temporary onboarding files
@@ -38,6 +39,7 @@ The public repository is arranged the same way so the system is understandable a
 - `os/` owns identity, agent rules, routing, retrieval, recovery, templates, and reusable routines.
 - `life/` owns current personal state, areas, projects, knowledge, and records.
 - `biz/<business>/` owns that business's foundations, decisions, knowledge, status, and implementation source.
+- `biz/business-model/` shows the first-business structure. It stays generic; use it as the source when creating a confirmed business.
 
 Each intended repository uses private GitHub `origin` as primary and private GitLab `backup` as an exact mirror. Publication goes to GitHub first, then GitLab.
 

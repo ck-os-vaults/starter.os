@@ -19,7 +19,8 @@ source: ai
 ```text
 STARTER.os/                example root; replace STARTER during setup
 ├── biz/                   business vaults; the container is not a repository
-│   └── <business>/        one repository per real business
+│   ├── business-model/    generic example; not a real business or repository
+│   └── <business>/        one repository per confirmed real business
 ├── life/                  personal vault and repository
 └── os/                    shared operating vault and repository
 ```
@@ -31,6 +32,7 @@ The vault root contains one `.obsidian/` configuration plus thin `AGENTS.md` and
 - `os/` owns shared identity, rules, maps, recovery, integrations, templates, and routines.
 - `life/` owns personal knowledge, responsibilities, projects, current state, and records.
 - `biz/<business>/` owns that business's documents, status, decisions, knowledge, applications, and source.
+- `biz/business-model/` is the reusable starting structure. It does not own current work and never becomes a Git repository.
 - The root and `biz/` never own Git history.
 - No repository contains another repository or submodule.
 

@@ -26,17 +26,17 @@ end
 stop("the destination exists and is not a folder") if destination.exist? && !destination.directory?
 stop("the destination folder is not empty") if destination.directory? && !destination.children.empty?
 
-%w[AGENTS.md CLAUDE.md os life setup].each do |required|
+%w[AGENTS.md CLAUDE.md biz os life setup].each do |required|
   stop("source path is missing: #{required}") unless SOURCE_ROOT.join(required).exist?
 end
-stop("business template is missing") unless SETUP_SOURCE.join("business-template").directory?
+stop("business model is missing") unless SOURCE_ROOT.join("biz", "business-model").directory?
 stop("business helper is missing") unless ADD_BUSINESS.file?
 
 FileUtils.mkdir_p(destination)
 %w[AGENTS.md CLAUDE.md os life setup].each do |name|
   FileUtils.cp_r(SOURCE_ROOT.join(name), destination.join(name), preserve: true)
 end
-FileUtils.mkdir_p(destination.join("biz"))
+FileUtils.cp_r(SOURCE_ROOT.join("biz"), destination.join("biz"), preserve: true)
 FileUtils.cp(ADD_BUSINESS, destination.join("setup", "add-business.rb"), preserve: true)
 
 puts "Created #{destination.basename} at #{destination}"

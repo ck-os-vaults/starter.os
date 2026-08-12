@@ -1,0 +1,27 @@
+---
+type: map
+created: 2026-08-11
+updated: 2026-08-11
+reviewed: 2026-08-11
+status: draft
+authority: reference
+source: ai
+---
+
+# business model
+
+**Bottom line:** Generic starting structure for a confirmed business. This folder is an example only: do not add owner context, initialize Git, or publish it.
+
+**When to read this:** Read to understand what a real business repository starts with. Use it only as a source for `biz/<business>/` after the owner confirms that business exists.
+
+## purpose
+
+Copy this model into a confirmed `biz/<business>/` folder, then replace this placeholder with the owner-confirmed purpose, audience/customer, operating model, boundaries, and stable foundation.
+
+## boundaries
+
+Record what the business does, does not do, and which actions require owner approval. Do not infer doctrine from an idea or old file.
+
+## repository ownership
+
+This repository owns the business's documents, knowledge, decisions, applications, and source. GitHub `origin` is primary; GitLab `backup` is exact private mirror. No nested repositories are allowed.

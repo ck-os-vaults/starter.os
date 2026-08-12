@@ -29,7 +29,11 @@ required = %w[
   setup/AGENT-RUNBOOK.md
   setup/ONBOARDING-INTERVIEW.md
   setup/OPERATOR-GUIDE.md
-  setup/business-template/AGENTS.md
+  biz/business-model/AGENTS.md
+  biz/business-model/readme.md
+  biz/business-model/status.md
+  biz/business-model/knowledge-map.md
+  biz/business-model/decisions.md
   scripts/create-vault.rb
   scripts/add-business.rb
 ]
@@ -135,7 +139,7 @@ Dir.mktmpdir("starter-os-kit-") do |tmp|
 end
 
 if errors.empty?
-  puts "PASS starter kit: direct biz/life/os source, custom root naming, privacy, creation, business template, refusal, and installed validator passed."
+  puts "PASS starter kit: direct biz/life/os source, custom root naming, privacy, business model, creation, refusal, and installed validator passed."
   exit 0
 end
 
