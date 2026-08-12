@@ -33,7 +33,7 @@ source: ai
 
 - The private root uses the chosen `<NAME>.os` name and contains the three lowercase top-level vaults `biz/`, `life/`, and `os/`.
 - The root and `biz/` are plain containers; `os/`, `life/`, and each real business are independent repositories.
-- `biz/business-model/` remains a generic example and is never personalized, initialized, or published as a real repository.
+- `biz/business-model/` is renamed to the first confirmed `biz/<business>/` before personalizing, initializing, or publishing that business repository.
 - `ruby os/validate-starter-os.rb` passes from the generated vault root.
 - Owner context is confirmed and routed at the correct level.
 - Every repository is private on GitHub and GitLab; local, `origin`, and `backup` refs match.

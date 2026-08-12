@@ -134,6 +134,8 @@ Dir.mktmpdir("starter-os-kit-") do |tmp|
 
   business_output, business_status = Open3.capture2e("ruby", "setup/add-business.rb", "sample-business", chdir: vault)
   add_error.call("business creation failed: #{business_output.strip}") unless business_status.success?
+  add_error.call("business model was not renamed") if File.directory?(File.join(vault, "biz", "business-model"))
+  add_error.call("named first business is missing") unless File.directory?(File.join(vault, "biz", "sample-business"))
 
   validation_output, validation_status = Open3.capture2e("ruby", "os/validate-starter-os.rb", chdir: vault)
   add_error.call("installed-vault validation failed:\n#{validation_output}") unless validation_status.success?

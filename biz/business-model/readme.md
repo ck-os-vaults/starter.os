@@ -10,13 +10,13 @@ source: ai
 
 # business model
 
-**Bottom line:** Generic starting structure for a confirmed business. This folder is an example only: do not add owner context, initialize Git, or publish it.
+**Bottom line:** Generic starting structure for the first confirmed business. Rename this folder during setup, then add owner-confirmed context and initialize Git only after review.
 
-**When to read this:** Read to understand what a real business repository starts with. Use it only as a source for `biz/<business>/` after the owner confirms that business exists.
+**When to read this:** Read to understand what a real business repository starts with. Rename it to `biz/<business>/` after the owner confirms that first business exists.
 
 ## purpose
 
-Copy this model into a confirmed `biz/<business>/` folder, then replace this placeholder with the owner-confirmed purpose, audience/customer, operating model, boundaries, and stable foundation.
+Rename this model to a confirmed `biz/<business>/` folder, then replace this placeholder with the owner-confirmed purpose, audience/customer, operating model, boundaries, and stable foundation.
 
 ## boundaries
 

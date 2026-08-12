@@ -81,7 +81,7 @@ Translate answers into four ownership levels:
 
 Use the existing Life lanes before adding subfolders. A business idea, client mention, side interest, or hoped-for future project does not automatically justify a repository.
 
-`biz/business-model/` is a visible generic example. It is not a real business, does not receive owner context, and never receives a Git remote. Keep it intact; the business helper copies it when the owner confirms a real business.
+`biz/business-model/` is the visible first-business model. It is not a real business and does not receive owner context or a Git remote under that generic name. Once the owner confirms the first real business, rename the model before personalizing it.
 
 Do not edit during discovery.
 
@@ -101,7 +101,7 @@ Wait for the owner to correct the package and explicitly confirm accuracy. Then:
 
 - personalize `os/me.md`, `life/now.md`, `life/knowledge/people/owner.md`, and the two knowledge maps;
 - update `os/agent-rules.md`, `os/recovery.md`, and `os/integrations.md` only with confirmed choices;
-- create each approved business by running `ruby setup/add-business.rb <lowercase-kebab-name>` from the generated vault root; it copies `biz/business-model/` into the new business;
+- rename the first confirmed business by running `ruby setup/add-business.rb <lowercase-kebab-name>` from the generated vault root; it renames `biz/business-model/` to `biz/<lowercase-kebab-name>/`;
 - personalize that business's `readme.md`, `status.md`, `AGENTS.md`, `decisions.md`, and `knowledge-map.md` without inventing doctrine;
 - keep agent-drafted or unconfirmed content `source: ai` and safely marked draft/reference;
 - run `ruby os/validate-starter-os.rb` and resolve every failure.
