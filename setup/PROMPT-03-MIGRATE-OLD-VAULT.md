@@ -99,7 +99,11 @@ PHASE 2 — obtain and verify the current Starter.OS source
    temporary source copy as needed; do not merely report the failure and stop.
 5. Determine what replaces `STARTER` from the existing vault name and current
    owner context. Preserve a clear existing name; otherwise choose a concise
-   descriptive name. Keep the `.os` suffix. Record the choice and continue.
+   descriptive name. Keep the `.os` suffix. Record both the intended final path
+   and a collision-free temporary build path. The temporary path must be
+   `<temporary-parent>/<NAME>.os`, where `<temporary-parent>` is a new empty
+   sibling folder such as `.starter-os-rebuild-YYYY-MM-DD`; never try to create
+   a second sibling with the same path as the existing vault.
 
 PHASE 3 — create the autonomous migration manifest
 
@@ -170,8 +174,10 @@ After the manifest passes its phase review and before changing any source:
 
 PHASE 5 — build the clean target shell
 
-1. Use the verified Starter.OS generator to create a new sibling `<NAME>.os`
-   folder. Refuse any non-empty destination.
+1. Create the new empty temporary parent recorded in Phase 2. Use the verified
+   Starter.OS generator to create `<temporary-parent>/<NAME>.os`. This preserves
+   the final root basename without colliding with an existing `<NAME>.os` vault.
+   Refuse any non-empty destination or temporary parent containing unknown work.
 2. Confirm the root contains `biz/`, `life/`, `os/`, and temporary `setup/`.
 3. Confirm the root and `biz/` do not contain `.git`.
 4. Open only the new root as the Obsidian vault and agent workspace.
@@ -350,7 +356,18 @@ PHASE 11 — final independent review, cleanup, and archive
    real retrieval task from the root to prove that routing works.
 4. Complete `life/records/sessions/YYYY-MM-DD-setup-completion.md` from
    `setup/SETUP-COMPLETION.md` and complete `setup/MIGRATION-RECEIPT.md`.
-5. Create and verify the scheduled weekly maintenance routine:
+5. Finalize the filesystem paths before configuring path-bound integrations:
+   - verify the old vault still matches the Phase 1 inventory and Phase 4
+     checkpoint;
+   - rename the untouched old vault to its dated
+     `<OLD-NAME>-pre-starter-os-archive-YYYY-MM-DD` path;
+   - move the verified new `<temporary-parent>/<NAME>.os` vault into the intended
+     final `<NAME>.os` path;
+   - remove the temporary parent only when it is empty;
+   - reopen the final root as the agent workspace and Obsidian vault, then rerun
+     the structural validator before continuing.
+6. Create and verify the scheduled weekly maintenance routine only after the
+   new vault is at its final path:
    - read `os/skills/vault-maintenance.md`;
    - use an existing confirmed weekly schedule when one is current; otherwise
      use Sunday at 6:00 PM in the owner's local time zone;
@@ -369,23 +386,22 @@ PHASE 11 — final independent review, cleanup, and archive
      zone, local execution, enabled state, and complete prompt;
    - record its safe identifier, schedule, target, purpose, state, and checked
      date in `os/integrations.md` without credentials.
-6. Replace root AGENTS.md and CLAUDE.md with the permanent pointers from
+7. Replace root AGENTS.md and CLAUDE.md with the permanent pointers from
    `os/templates/root-AGENTS.txt` and `os/templates/root-CLAUDE.txt`.
-7. Remove every active setup/migration route from permanent OS, Life, business,
+8. Remove every active setup/migration route from permanent OS, Life, business,
    and root files.
-8. Set `setup/STARTER-VERSION.md` to `complete`.
-9. Move the entire `setup/` folder unchanged to
+9. Set `setup/STARTER-VERSION.md` to `complete`.
+10. Move the entire `setup/` folder unchanged to
    `life/archive/setup/YYYY-MM-DD/`. Do not leave tutorial, migration, manifest,
    helper, state, or setup files active outside that archive.
-10. Run all three verification passes again after archival and cleanup.
-11. Publish only the repositories changed by cleanup: GitHub first, GitLab
+11. Run all three verification passes again after archival and cleanup.
+12. Publish only the repositories changed by cleanup: GitHub first, GitLab
    second. Verify exact parity and clean trees.
-12. Rename the untouched original vault to its dated
-    `<OLD-NAME>-pre-starter-os-archive-YYYY-MM-DD` path, mark it retired and
-    read-only where practical, and verify its counts/hashes against the source
-    inventory. Do not delete it. Include explicit restore instructions and a
-    later review date in the final report.
-13. Deliver the final report only after all work, publication, mirroring,
+13. Mark the renamed old-vault archive retired and read-only where practical,
+    and verify its counts/hashes against the source inventory. Do not delete it.
+    Include explicit restore instructions and a later review date in the final
+    report.
+14. Deliver the final report only after all work, publication, mirroring,
     archival, cleanup, and verification are complete. Do not ask for a final
     approval to perform any remaining migration task.
 

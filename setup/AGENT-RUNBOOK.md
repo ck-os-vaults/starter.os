@@ -30,11 +30,12 @@ source: ai
 
 1. Read the files named in `PROMPT-01-CREATE-MY-OS.md`.
 2. Confirm the current folder is the public Starter.OS source, not an existing personal vault.
-3. Inspect the source Git status and run `ruby scripts/validate-starter-kit.rb`. Separate source defects from environment problems.
-4. Ask exactly one question: “What would you like to replace STARTER with in STARTER.os?” Keep the `.os` ending. Do not choose for the owner.
-5. After the owner answers, ask where the new `<NAME>.os` folder should live. Explain that it will be private and separate from this public repository.
-6. Refuse a destination that is the public source, inside its `.git`, a non-empty unknown folder, a cloud-shared public location, or an existing vault.
-7. Ask which file-capable agent surface is in use. Check current official privacy, file-access, and permissions guidance for that exact product and account before importing sensitive material.
+3. Check that Obsidian is installed and run `ruby --version`. If Ruby is missing, explain that it runs the kit's local setup and validation helpers, then guide the owner through the current trusted installation route for their operating system. Do not use an unreviewed installer or elevated permissions without owner approval.
+4. Inspect the source Git status and run `ruby scripts/validate-starter-kit.rb`. Separate source defects from environment problems.
+5. Ask exactly one question: “What would you like to replace STARTER with in STARTER.os?” Keep the `.os` ending. Do not choose for the owner.
+6. After the owner answers, ask where the new `<NAME>.os` folder should live. Explain that it will be private and separate from this public repository.
+7. Refuse a destination that is the public source, inside its `.git`, a non-empty unknown folder, a cloud-shared public location, or an existing vault.
+8. Ask which file-capable agent surface is in use. Check current official privacy, file-access, and permissions guidance for that exact product and account before importing sensitive material.
 
 ## phase 1 — generate and open the vault shell
 

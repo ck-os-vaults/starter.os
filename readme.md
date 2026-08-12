@@ -12,7 +12,7 @@ source: ai
 
 **Bottom line:** This repository shows the finished vault structure directly. `STARTER.os` is the example root name; setup asks what the owner wants to replace `STARTER` with before creating the private vault.
 
-**When to read this:** New owners start at `setup/README.md`. Agents and setup helpers use `setup/AGENT-RUNBOOK.md`.
+**When to read this:** New owners start at [`setup/README.md`](setup/README.md). Agents and setup helpers use [`setup/AGENT-RUNBOOK.md`](setup/AGENT-RUNBOOK.md).
 
 ## the structure
 
@@ -30,10 +30,10 @@ The public repository is arranged the same way so the system is understandable a
 
 ## begin
 
-- New user: `setup/README.md` -> `setup/PROMPT-01-CREATE-MY-OS.md`
-- Existing vault: `setup/PROMPT-03-MIGRATE-OLD-VAULT.md` — one autonomous
+- New user: [`setup/README.md`](setup/README.md) -> [`setup/PROMPT-01-CREATE-MY-OS.md`](setup/PROMPT-01-CREATE-MY-OS.md)
+- Existing vault: [`setup/PROMPT-03-MIGRATE-OLD-VAULT.md`](setup/PROMPT-03-MIGRATE-OLD-VAULT.md) — one autonomous
   prompt and runbook for the complete migration
-- Agent: `setup/AGENT-RUNBOOK.md`
+- Agent: [`setup/AGENT-RUNBOOK.md`](setup/AGENT-RUNBOOK.md)
 - Contributor: run `ruby scripts/validate-starter-kit.rb`
 
 ## ownership

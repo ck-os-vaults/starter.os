@@ -48,7 +48,7 @@ required = %w[
 ]
 required.each { |file| add_error.call("missing required source path: #{file}") unless File.exist?(file) }
 
-%w[template migration-v1.md].each do |path|
+%w[archive template migration-v1.md].each do |path|
   add_error.call("obsolete source path remains: #{path}") if File.exist?(path)
 end
 %w[BIZ LIFE OS].each do |path|
@@ -118,7 +118,7 @@ user_files.each { |file| add_error.call("#{file}: missing New User label") unles
 agent_files.each { |file| add_error.call("#{file}: missing Agent label") unless File.file?(file) && File.read(file).match?(/\*\*For: Agent/) }
 
 active_text_files = Dir.glob("**/*", File::FNM_DOTMATCH).select do |file|
-  File.file?(file) && !file.start_with?(".git/", "archive/") && !file.include?("/.DS_Store")
+  File.file?(file) && !file.start_with?(".git/") && !file.include?("/.DS_Store")
 end
 
 secret_shapes = {
