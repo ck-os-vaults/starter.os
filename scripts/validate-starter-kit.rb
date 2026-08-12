@@ -72,6 +72,24 @@ end
 first_prompt = File.file?(prompt_files.first) ? File.read(prompt_files.first) : ""
 add_error.call("#{prompt_files.first}: must ask what replaces STARTER in STARTER.os") unless first_prompt.match?(/replace STARTER.*STARTER\.os/i)
 
+migration_prompt = File.file?(prompt_files.last) ? File.read(prompt_files.last) : ""
+migration_requirements = {
+  "autonomous no-approval instruction" => /Do not ask for approval/i,
+  "prompt-as-runbook instruction" => /prompt file is also the migration runbook/i,
+  "phase completion gate" => /Every phase has the same completion gate/i,
+  "complete old-structure archive" => /complete dated archive of\s+the previous structure/i,
+  "separate OS repository" => /repository set is exactly `os\/`, `life\/`/i,
+  "one repository per business" => /each real `biz\/<business>\/`/i,
+  "GitHub primary remote" => /GitHub as remote `origin`.*primary/im,
+  "identical GitLab mirror" => /GitLab.*remote `backup`.*mirror/im,
+  "final independent review" => /final independent review/i
+}
+migration_requirements.each do |label, pattern|
+  add_error.call("#{prompt_files.last}: missing #{label}") unless migration_prompt.match?(pattern)
+end
+approval_gate = /ask for one consolidated approval|after manifest approval|pause for me to .*approve|wait for approval|pending approval/i
+add_error.call("#{prompt_files.last}: contains an approval gate") if migration_prompt.match?(approval_gate)
+
 user_files = %w[setup/README.md setup/INSTALL.md setup/SYSTEM-EXPLAINED.md]
 agent_files = %w[setup/SETUP-STATUS.md setup/AGENT-RUNBOOK.md setup/ONBOARDING-INTERVIEW.md setup/OPERATOR-GUIDE.md setup/SETUP-COMPLETION.md setup/STARTER-VERSION.md]
 user_files.each { |file| add_error.call("#{file}: missing New User label") unless File.file?(file) && File.read(file).include?("**For: New User**") }

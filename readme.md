@@ -31,7 +31,8 @@ The public repository is arranged the same way so the system is understandable a
 ## begin
 
 - New user: `setup/README.md` -> `setup/PROMPT-01-CREATE-MY-OS.md`
-- Existing vault: `setup/PROMPT-03-MIGRATE-OLD-VAULT.md`
+- Existing vault: `setup/PROMPT-03-MIGRATE-OLD-VAULT.md` — one autonomous
+  prompt and runbook for the complete migration
 - Agent: `setup/AGENT-RUNBOOK.md`
 - Contributor: run `ruby scripts/validate-starter-kit.rb`
 
@@ -42,7 +43,10 @@ The public repository is arranged the same way so the system is understandable a
 - `biz/<business>/` owns that business's foundations, decisions, knowledge, status, and implementation source.
 - `biz/business-model/` shows the first-business structure. During setup, rename it to the owner's first confirmed business before personalizing it.
 
-Each intended repository uses private GitHub `origin` as primary and private GitLab `backup` as an exact mirror. Publication goes to GitHub first, then GitLab.
+Each intended repository uses private GitHub `origin` as primary and private
+GitLab `backup` as an identical mirror. Publication goes to GitHub first, then
+GitLab. The root and `biz/` never become repositories; `os/`, `life/`, and each
+individual business are independently versioned.
 
 ## privacy boundary
 

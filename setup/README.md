@@ -26,8 +26,10 @@ source: ai
 That is all you need to read now.
 
 Already have an older vault? Use `PROMPT-03-MIGRATE-OLD-VAULT.md` instead. It is
-clearly labeled **For: Existing User** and guides the agent through a protected
-audit, rebuild, archive, and triple verification.
+clearly labeled **For: Existing User**. That single file is both the prompt and
+the agent's migration runbook. It directs the agent to preserve the complete old
+structure, rebuild the vault and Git repositories, review every phase, and
+finish with an independent final audit.
 
 ## private steps
 

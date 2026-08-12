@@ -174,6 +174,24 @@ PROMPT_FILES.each do |file|
   add_error.call(file, "expected exactly one prompt block") unless text.scan(/^```text$/).length == 1 && text.scan(/^```$/).length == 1
 end
 
+migration_prompt = "setup/PROMPT-03-MIGRATE-OLD-VAULT.md"
+if File.file?(migration_prompt)
+  migration_text = File.read(migration_prompt)
+  {
+    "autonomous no-approval instruction" => /Do not ask for approval/i,
+    "prompt-as-runbook instruction" => /prompt file is also the migration runbook/i,
+    "phase completion gate" => /Every phase has the same completion gate/i,
+    "complete old-structure archive" => /complete dated archive of\s+the previous structure/i,
+    "GitHub primary remote" => /GitHub as remote `origin`.*primary/im,
+    "identical GitLab mirror" => /GitLab.*remote `backup`.*mirror/im,
+    "final independent review" => /final independent review/i
+  }.each do |label, pattern|
+    add_error.call(migration_prompt, "missing #{label}") unless migration_text.match?(pattern)
+  end
+  approval_gate = /ask for one consolidated approval|after manifest approval|pause for me to .*approve|wait for approval|pending approval/i
+  add_error.call(migration_prompt, "contains an approval gate") if migration_text.match?(approval_gate)
+end
+
 # Validate Markdown links in active files.
 active_markdown.each do |file|
   next if PROMPT_FILES.include?(file)

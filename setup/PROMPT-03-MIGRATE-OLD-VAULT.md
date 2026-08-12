@@ -8,10 +8,19 @@ Migrate my existing vault completely into the current Starter.OS structure.
 Use the current Starter.OS repository as the structural and operating source:
 https://github.com/ck-os-vaults/starter.os
 
-Assume I am not technical. Explain important choices in everyday language,
-handle safe technical work yourself, and keep me informed with short phase
-updates. Continue through the entire migration unless a real owner decision,
-credential step, external approval, or safety blocker requires me.
+Assume I am not technical. Handle the entire migration yourself and keep me
+informed with short phase updates. Do not ask for approval, confirmation, or
+routine decisions. Infer names and destinations from the existing vault, make
+the safest conservative choice when something is unclear, record that choice,
+and continue until the migration is completely finished. Pause only when an
+external sign-in or credential entry physically requires me; ask for that one
+action without requesting or exposing the credential, then resume immediately.
+
+This prompt file is also the migration runbook. Keep
+`setup/PROMPT-03-MIGRATE-OLD-VAULT.md` available in the new vault throughout
+the work. Re-read it before every phase, after any context reset or agent
+handoff, and before declaring completion. Track every numbered requirement in
+`setup/MIGRATION-RECEIPT.md`; do not rely on chat memory.
 
 The finished private vault must use this structure:
 
@@ -26,19 +35,29 @@ The finished private vault must use this structure:
 
 The root and `biz/` are plain containers, never Git repositories. `os/`,
 `life/`, and each real `biz/<business>/` are separate private repositories.
-GitHub `origin` is primary. GitLab `backup` is the exact mirror. Setup and
+GitHub `origin` is primary. GitLab `backup` is the identical mirror. Setup and
 migration files are temporary and must be archived together when complete.
+
+Every phase has the same completion gate: perform the phase, inspect the actual
+result, run the relevant checks, fix every failure, repeat the checks, and write
+the evidence to `setup/MIGRATION-RECEIPT.md`. Do not start the next phase until
+the current phase passes. After all phases, perform the independent final
+review required below.
 
 Non-negotiable safety rules:
 
-- Do not migrate destructively in place by default. Build a clean sibling
-  `<NAME>.os` vault and preserve the original vault as the rollback source.
+- Do not migrate destructively in place. Build a clean sibling `<NAME>.os`
+  vault. The untouched original vault becomes the complete dated archive of
+  the previous structure, including hidden files, Git history, ignored files,
+  attachments, and `.obsidian/` state.
 - Never use reset, clean, force-push, history rewriting, or bulk deletion.
 - Never discard dirty, untracked, ignored, hidden, or conflicting files.
 - Never edit an archive after it is created.
 - Never ask for or store passwords, one-time codes, recovery codes, tokens,
   API keys, private keys, seed phrases, or credentials.
-- Never publish a repository or change its visibility without my approval.
+- Create only private repositories. Use an already authenticated GitHub/GitLab
+  session when available; if authentication is required, ask me only to sign
+  in and then continue without another approval gate.
 - Never copy my private information back into the public Starter.OS source.
 - Treat current facts, decisions, and owner-written meaning separately from
   agent inference. Do not invent missing context or promote drafts as truth.
@@ -75,12 +94,14 @@ PHASE 2 — obtain and verify the current Starter.OS source
 3. Read its AGENTS.md, readme.md, setup/AGENT-RUNBOOK.md,
    setup/ONBOARDING-INTERVIEW.md, os/agent-rules.md, os/retrieval.md,
    os/vault-map.md, and os/knowledge-map.md.
-4. Run `ruby scripts/validate-starter-kit.rb`. Stop if the source kit itself
-   fails validation.
-5. Ask what I want to replace `STARTER` with in `STARTER.os`, unless my current
-   vault already has a confirmed name I want to keep. Keep the `.os` suffix.
+4. Run `ruby scripts/validate-starter-kit.rb`. Do not use the source kit until
+   it passes. Refresh the checkout, diagnose the failure, and fix or replace the
+   temporary source copy as needed; do not merely report the failure and stop.
+5. Determine what replaces `STARTER` from the existing vault name and current
+   owner context. Preserve a clear existing name; otherwise choose a concise
+   descriptive name. Keep the `.os` suffix. Record the choice and continue.
 
-PHASE 3 — create the migration manifest and decision gate
+PHASE 3 — create the autonomous migration manifest
 
 Create one complete manifest before reorganizing content. For every source
 file or coherent folder, record:
@@ -93,7 +114,7 @@ file or coherent folder, record:
 - authority/source when known;
 - important links or dependents;
 - reason and confidence;
-- whether owner confirmation is needed.
+- uncertainty level and the conservative disposition used.
 
 Audit specifically for:
 
@@ -107,33 +128,45 @@ Audit specifically for:
   invalid frontmatter, uncontrolled tags, and stale metadata values;
 - attachments or exports whose privacy, ownership, or usefulness is unclear.
 
-Present one concise review package containing:
+Write one concise review package inside the manifest containing:
 
 1. confirmed root name;
 2. proposed businesses and the first business name;
 3. keep/update/archive/review/exclude totals;
 4. sensitive or external-action blockers;
-5. the few genuine owner decisions;
+5. every conservative judgment the agent made for unclear material;
 6. the exact new repository boundaries;
 7. the rollback plan.
 
-Ask for one consolidated approval of the manifest and unresolved owner choices.
-Do not ask me to approve obvious mechanical routing one file at a time.
+Do not ask for approval of the manifest or stop for unresolved organizational
+choices. Resolve each item conservatively: preserve rather than delete, archive
+rather than promote uncertain material, keep owner-written meaning separate
+from inference, and prefer the current Starter.OS rules when old operating
+instructions conflict. Record the reasoning, verify manifest coverage, and
+continue.
 
 PHASE 4 — create rollback checkpoints
 
-After manifest approval and before changing the old vault:
+After the manifest passes its phase review and before changing any source:
 
-1. Preserve the existing vault exactly as found. If its Git tree is clean and
-   safe, create a clearly named pre-migration commit/tag such as
-   `pre-starter-os-migration-YYYY-MM-DD`. If it is dirty or unsafe to commit,
-   preserve a complete dated filesystem snapshot and record hashes/counts.
-2. Push a checkpoint only to an already-approved private remote, and only after
-   a secret/privacy review. Never turn an untracked secret into a commit.
-3. Record the original path, commit/tag or snapshot, remotes, file counts,
-   excluded secrets, and restore steps in the migration manifest.
-4. Keep the old vault available and unchanged until the new vault passes all
-   three final verification passes and I confirm the switch.
+1. Preserve the existing vault exactly as found. Do not reorganize it. If the
+   migration requires touching it, first create a byte-for-byte dated sibling
+   snapshot and work only from the snapshot or a separate copy.
+2. Give the untouched source a dated archival identity such as
+   `<OLD-NAME>-pre-starter-os-archive-YYYY-MM-DD`. Rename it only after the new
+   vault passes final verification; until then, record that final archive name
+   in the manifest.
+3. Preserve its complete directory tree, hidden files, `.git` history,
+   branches, tags, untracked and ignored files, attachments, and `.obsidian/`
+   state. Keep secrets local and excluded from any new commit or remote.
+4. Do not add a commit, tag, stash, or other mutation to the old vault. Record
+   its existing Git state and use the unchanged filesystem archive, verified by
+   hashes and counts, as the rollback checkpoint.
+5. Record the archive path, original path, existing commit/tags, remotes,
+   file counts, hashes, sensitive exclusions, and tested restore steps in the
+   migration manifest.
+6. Never nest this full old-vault archive inside `os/`, `life/`, or a business
+   repository. It is the preserved historical structure, not active context.
 
 PHASE 5 — build the clean target shell
 
@@ -206,11 +239,14 @@ file:
    meaningful history in records/archive; add receipts where a move or merge
    would otherwise be hard to trace.
 9. Review every current claim in `os/me.md`, `life/now.md`, business readmes,
-   business status files, decisions, recovery, integrations, and maps. Confirm
-   stale facts with me or mark a visible currency gap. Do not silently guess.
+   business status files, decisions, recovery, integrations, and maps. Resolve
+   stale facts from the strongest current evidence. If evidence is insufficient,
+   mark a visible currency gap, keep the uncertain claim out of current truth,
+   record the disposition, and continue. Do not silently guess.
 10. Remove empty generated placeholders only when their route is unnecessary
     and the manifest records the action. Keep the four generic Life area
-    starters unless I confirm a different set.
+    starters unless the source clearly establishes a different current set; in
+    that case, migrate the evidenced set and record the change.
 
 PHASE 8 — privacy, security, and file audit
 
@@ -227,20 +263,37 @@ PHASE 9 — create the new repository and backup topology
 
 Only after content, metadata, and privacy reviews pass:
 
-1. Initialize independent Git repositories in `os/`, `life/`, and every real
-   `biz/<business>/`. Never initialize Git at the vault root or `biz/`.
-2. Create clear foundation commits separately. Do not mix repository histories.
-3. Pause for me to create/sign into private accounts, approve repository
-   creation, enable two-factor security, and store recovery codes privately.
-4. Create blank private GitHub repositories as `origin` and push GitHub first.
-5. Create blank private GitLab mirrors as `backup` and push GitLab second.
-6. Verify intended local, GitHub, and GitLab branch/tag sets and commit IDs
-   match for every repository. Never use multiple push URLs as a substitute for
-   two remotes.
-7. Configure full-vault protection for `.obsidian/`, ignored safe attachments,
-   and other files Git intentionally excludes. Complete a harmless restore test.
-8. Record recovery topology, remote names, backup schedule, last successful
-   backup, and last restore test in `os/recovery.md` without credentials.
+1. Audit and retire the old Git process in active documentation, scripts,
+   automations, hooks, and recovery instructions. Preserve the old root
+   repository and its complete history only inside the dated old-vault archive.
+2. Confirm the new repository set is exactly `os/`, `life/`, and one repository
+   for each real `biz/<business>/`. Never initialize Git at the vault root or
+   `biz/`, and never leave a business as a nested repository or submodule.
+3. Initialize each new repository independently and create a clear foundation
+   commit. Do not mix OS, Life, or business histories. Do not copy an old root
+   `.git` directory into the new vault.
+4. Use an authenticated session to create a private GitHub repository for each
+   new repository. Configure GitHub as remote `origin`, make it the primary
+   source of truth, and push it first.
+5. Create a corresponding private GitLab repository for each one. Configure it
+   as remote `backup` and mirror the complete intended GitHub ref state to it
+   only after the GitHub push succeeds.
+6. Mirror every intended branch, tag, update, and deletion. GitLab must contain
+   no independent commits or GitLab-only refs. For every repository, compare
+   local, GitHub, and GitLab branch/tag sets and commit IDs and require exact
+   equality. If GitLab differs, repair the mirror from GitHub and recheck.
+7. Update all active Git instructions, maps, agent rules, recovery files, and
+   automation references so they describe only this process: work in the
+   owning repository, commit separately, push GitHub `origin` first, mirror
+   GitLab `backup` second, verify identical refs, and finish with a clean tree.
+8. Never use multiple push URLs as a substitute for the two named remotes.
+   Never use GitLab-first state to overwrite GitHub.
+9. Configure full-vault protection for root `.obsidian/`, ignored safe
+   attachments, the preserved old-vault archive, and every other file Git
+   intentionally excludes. Complete a harmless restore test.
+10. Record the complete repository map, GitHub/GitLab remote names, backup
+    schedule, last successful mirror check, full-vault backup, and last restore
+    test in `os/recovery.md` without credentials.
 
 PHASE 10 — triple verification
 
@@ -280,9 +333,12 @@ PASS C — clean-room recovery and publication parity
   a representative restored file with the live target.
 - Confirm GitHub and GitLab match exactly and every live working tree is clean.
 
-PHASE 11 — owner review, cleanup, and archive
+PHASE 11 — final independent review, cleanup, and archive
 
-1. Give me a compact final review before the switch:
+1. Independently review the entire result from the new root without relying on
+   the earlier phase conclusions. Fix every issue and rerun the affected phase
+   gate plus all three verification passes.
+2. Prepare a compact final report:
    - what moved and changed;
    - what was archived or excluded;
    - stale or conflicting information resolved;
@@ -290,24 +346,29 @@ PHASE 11 — owner review, cleanup, and archive
    - validation, restore, and remote-parity results;
    - old-vault rollback location;
    - exact final root structure.
-2. Walk me through a few representative files and one real task. Correct any
-   confusion before closing migration.
-3. Complete `life/records/sessions/YYYY-MM-DD-setup-completion.md` from
+3. Open and inspect representative files from every repository and perform one
+   real retrieval task from the root to prove that routing works.
+4. Complete `life/records/sessions/YYYY-MM-DD-setup-completion.md` from
    `setup/SETUP-COMPLETION.md` and complete `setup/MIGRATION-RECEIPT.md`.
-4. Replace root AGENTS.md and CLAUDE.md with the permanent pointers from
+5. Replace root AGENTS.md and CLAUDE.md with the permanent pointers from
    `os/templates/root-AGENTS.txt` and `os/templates/root-CLAUDE.txt`.
-5. Remove every active setup/migration route from permanent OS, Life, business,
+6. Remove every active setup/migration route from permanent OS, Life, business,
    and root files.
-6. Set `setup/STARTER-VERSION.md` to `complete`.
-7. Move the entire `setup/` folder unchanged to
+7. Set `setup/STARTER-VERSION.md` to `complete`.
+8. Move the entire `setup/` folder unchanged to
    `life/archive/setup/YYYY-MM-DD/`. Do not leave tutorial, migration, manifest,
    helper, state, or setup files active outside that archive.
-8. Run all three verification passes again after archival and cleanup.
-9. Publish only the repositories changed by cleanup: GitHub first, GitLab
+9. Run all three verification passes again after archival and cleanup.
+10. Publish only the repositories changed by cleanup: GitHub first, GitLab
    second. Verify exact parity and clean trees.
-10. Do not delete the original vault. Mark it retired/read-only only after I
-    confirm the new vault is correct. Give me explicit restore instructions and
-    one later date for reviewing whether the retired copy can be removed.
+11. Rename the untouched original vault to its dated
+    `<OLD-NAME>-pre-starter-os-archive-YYYY-MM-DD` path, mark it retired and
+    read-only where practical, and verify its counts/hashes against the source
+    inventory. Do not delete it. Include explicit restore instructions and a
+    later review date in the final report.
+12. Deliver the final report only after all work, publication, mirroring,
+    archival, cleanup, and verification are complete. Do not ask for a final
+    approval to perform any remaining migration task.
 
 Final acceptance requires all of the following:
 
@@ -322,11 +383,15 @@ Final acceptance requires all of the following:
 - validators, security checks, source reconciliation, and clean-room recovery
   all pass;
 - GitHub and GitLab refs match for every intended repository;
+- active Git documentation and automation use GitHub first and an identical
+  GitLab mirror for `os/`, `life/`, and every individual business;
 - full-vault backup and restore are proven;
 - working trees are clean;
 - setup is archived and the everyday vault opens in a fresh, minimal state;
-- the original vault remains recoverable.
+- the complete previous structure is preserved as a dated, tested, recoverable
+  old-vault archive.
 
-Start now with a short explanation of the migration, then inspect the existing
-vault read-only. Ask me only for information you cannot safely discover.
+Start now. Give one short phase update, inspect the existing vault read-only,
+and continue through every phase to completion. Do not ask for approval. Ask
+only for an unavoidable external sign-in action, then resume immediately.
 ```
