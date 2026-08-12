@@ -1,6 +1,6 @@
 ---
 type: map
-created: 2026-06-19
+created: 2026-08-11
 updated: 2026-08-11
 reviewed: 2026-08-11
 status: living
@@ -10,36 +10,42 @@ source: ai
 
 # Starter.OS
 
-**Audience:** Owner and agents
-**Lifecycle:** Permanent — rewritten as the personal front door after onboarding.
+**Bottom line:** Starter.OS is a public installation kit for creating a private, owner-controlled context system. The finished system is one Obsidian vault with separate Git repositories for shared operating rules, personal life, and each real business.
 
-**Bottom line:** A private, model-independent agent context machine for everyday people. One guided setup chat learns the owner, fills durable context documents, protects them with GitHub + GitLab + a daily local backup, and teaches the owner how to work confidently with Codex or Claude.
+**When to read this:** Read for the product overview. New owners start at `setup/README.md`; operators start at `setup/OPERATOR-GUIDE.md`.
 
-**When to read this:** Read for an overview. New owners should open `setup/README.md`; people preparing copies for others should open `setup/OPERATOR-GUIDE.md`.
+## the important distinction
 
-## start
+This public repository is the **kit**, not the owner's vault. Do not use GitHub's **Use this template** button to create a personal edition: one template repository cannot reproduce the required repository boundaries.
 
-- `setup/README.md` — the temporary onboarding package and one clear starting point.
-- `SYSTEM-EXPLAINED.md` — the permanent plain-English system model.
+The setup agent creates a separate private vault from `template/`:
 
-Everything in `setup/` is archived together after onboarding. The other root documents are permanent entry points or maps.
+```text
+owner.os/                  one Obsidian vault; never a Git repository
+├── os/                    shared operating repository
+├── life/                  private personal repository
+└── biz/                   plain container; never a Git repository
+    └── <business>/        one repository for each real business
+```
 
-## the four layers
+The vault root contains only one `.obsidian/` folder, thin `AGENTS.md` and `CLAUDE.md` pointers, and temporary `setup/` material during onboarding.
 
-1. **OS** — identity, working rules, current priorities, retrieval, recovery, and repeatable routines.
-2. **Notes** — current knowledge, areas, projects, businesses, and inbox material.
-3. **Log** — dated records, decisions, owner-authored reflections, conversations, and session handoffs.
-4. **Tools** — Obsidian, Codex, Claude, and future agents. Tools can change; the files remain readable.
+## begin
 
-## design principles
+- New user: `setup/README.md` -> `setup/PROMPT-01-CREATE-MY-OS.md`
+- Setup helper: `setup/OPERATOR-GUIDE.md`
+- Existing version 1 owner: `migration-v1.md`
+- Contributor: run `ruby scripts/validate-starter-kit.rb`
 
-- Context before customization.
-- Existing structure before new folders.
-- Current truth stays separate from historical record.
-- Private by default.
-- The human approves identity, external actions, purchases, and sensitive boundaries.
-- The agent handles safe technical work and explains it without jargon.
-- Every backup is tested, not merely assumed.
-- Setup scaffolding is archived after onboarding so it cannot confuse everyday agent work.
+## operating model
 
-This reusable repository contains no owner's personal context. Each person's edition belongs in its own private repositories and must never be merged back into the starter.
+- `os/` owns identity, shared rules, maps, retrieval, recovery, templates, and routines.
+- `life/` owns current personal state, areas, projects, knowledge, and the permanent record.
+- `biz/<business>/` owns that business's documents, decisions, status, knowledge, and implementation source.
+- The root and `biz/` are containers, never repositories.
+
+Every intended repository uses GitHub `origin` as primary and GitLab `backup` as an exact private ref mirror. Publication goes to GitHub first, then GitLab. A wrap is complete only when the changed repository is clean and local, GitHub, and GitLab refs agree.
+
+## privacy boundary
+
+The reusable kit contains no owner's personal context. Each installed edition belongs in private repositories. Never merge private identity, health, financial, client, family, credential, or business information back into this public repository.

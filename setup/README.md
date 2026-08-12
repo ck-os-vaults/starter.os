@@ -1,6 +1,6 @@
 ---
 type: map
-created: 2026-08-03
+created: 2026-08-11
 updated: 2026-08-11
 reviewed: 2026-08-11
 status: living
@@ -10,28 +10,21 @@ source: ai
 
 # setup
 
-**Audience:** Owner and setup helper
-**Lifecycle:** Setup only — the entire folder is archived after onboarding.
+**For: New User**
 
-**Bottom line:** This folder contains everything needed to initialize Starter.OS. Begin with `FIRST-CHAT.md`; the agent handles the technical documents.
+**Bottom line:** Open one prompt, paste it into your agent, and answer one question at a time. The agent handles the files and setup.
 
-**When to read this:** Read only while installing, personalizing, securing, or learning Starter.OS.
+**When to read this:** Read only during installation and onboarding. Begin with `PROMPT-01-CREATE-MY-OS.md`.
 
-## owner path
+## do this
 
-1. If needed, read `INSTALL.md`.
-2. Open `FIRST-CHAT.md` and paste its prompt into Codex or Claude.
-3. Answer the interview naturally while the agent follows `AGENT-RUNBOOK.md`.
-4. Complete `POST-SETUP-TUTORIAL.md` with the agent.
-5. After every completion check passes, the agent archives this entire folder automatically.
+1. If this folder is not open in an agent, read `INSTALL.md`.
+2. Open `PROMPT-01-CREATE-MY-OS.md`.
+3. Copy the prompt and paste it into your agent.
+4. Answer naturally. The agent will give you one step at a time.
 
-`SHORT-GUIDE.md` is an optional two-minute explanation. The owner does not need to read the agent or operator documents.
+That is all you need to read now.
 
-## agent and operator documents
+## private steps
 
-- `SETUP-STATUS.md` — setup sequence and completion gates for agents.
-- `AGENT-RUNBOOK.md` — complete technical and human-guidance process.
-- `ONBOARDING-INTERVIEW.md` — context interview contract.
-- `OPERATOR-GUIDE.md` — preparing safe personal editions from the reusable starter.
-
-Do not archive this folder early. It remains active until account security, synchronized online histories, tested local backup, tutorial, and first real task are complete.
+You will create passwords, sign in, turn on account security, and save recovery codes yourself. Never paste those secrets into the chat or these files.

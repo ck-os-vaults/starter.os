@@ -1,36 +1,33 @@
 ---
 type: note
-created: 2026-06-20
-updated: 2026-08-03
-reviewed: 2026-08-03
+created: 2026-08-11
+updated: 2026-08-11
+reviewed: 2026-08-11
 status: living
 authority: reference
 source: ai
 ---
 
-# install with an agent
+# install Starter.OS
 
-**Audience:** Owner or setup helper
-**Lifecycle:** Setup only — archive with the `setup/` folder after onboarding.
+**For: New User**
 
-**Bottom line:** Make a private copy of the starter, open that folder in Codex or Claude, then use the single guided prompt in `setup/FIRST-CHAT.md`.
+**Bottom line:** Download this Starter.OS kit, open its folder in an agent, and paste the first prompt. The agent creates your private OS in a separate folder.
 
-**When to read this:** Read when obtaining the starter from GitHub or from a downloaded folder.
+**When to read this:** Read before the first setup conversation.
 
-## easiest path
+## five steps
 
-If you already have GitHub:
+1. Download or clone the public Starter.OS repository.
+2. Open the downloaded folder in the ChatGPT desktop app with Codex, Claude Code, or another agent that can read and edit local files.
+3. Open `setup/PROMPT-01-CREATE-MY-OS.md`.
+4. Copy the prompt and paste it into the agent.
+5. Follow one step at a time.
 
-1. On the starter repository page, select **Use this template**.
-2. Give your copy a private name.
-3. Make sure visibility says **Private**.
-4. Open or clone your new copy with Codex or Claude.
-5. Open `setup/FIRST-CHAT.md` and paste its prompt.
+Do not choose **Use this template** on GitHub. That would create one repository around the whole folder, which conflicts with Starter.OS version 2.
 
-## if you do not have GitHub yet
+Current official Codex setup: https://learn.chatgpt.com/docs/quickstart
 
-Download the starter folder or receive a private copy from the person helping you. Open it in Codex or Claude and paste the prompt in `setup/FIRST-CHAT.md`. The setup agent will guide you through creating and securing GitHub before anything is uploaded.
+## security rule
 
-## important
-
-Do not upload the personalized vault to a public repository. The setup process creates private repositories and verifies their visibility before declaring setup complete.
+Your OS is private. Keep passwords, security codes, recovery codes, and secret keys in your password manager—not in chat or the OS.

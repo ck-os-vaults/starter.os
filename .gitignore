@@ -1,13 +1,10 @@
-.obsidian/
-_review-before-delete/
 .starter-private-denylist
+.DS_Store
+**/.DS_Store
 .claude/
 .codex/
 .trash/
-.DS_Store
-**/.DS_Store
-00_inbox/attachments/
-corpus-media/
+tmp/
 *.log
 *.tmp
 *.swp

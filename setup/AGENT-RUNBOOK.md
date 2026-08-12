@@ -1,6 +1,6 @@
 ---
 type: map
-created: 2026-08-03
+created: 2026-08-11
 updated: 2026-08-11
 reviewed: 2026-08-11
 status: living
@@ -10,236 +10,213 @@ source: ai
 
 # guided setup runbook
 
-**Audience:** Agents
-**Lifecycle:** Setup only — archive with the entire `setup/` folder after onboarding.
+**For: Agent**
 
-**Bottom line:** Agent-only instructions for taking a nontechnical owner from an empty starter to a personalized, validated, secure, redundantly backed-up context system. The owner speaks naturally and completes private browser steps; the agent handles the machinery.
+**Bottom line:** Build a separate private vault, personalize it only after owner confirmation, create one repository per owner boundary, publish GitHub first and GitLab second, and prove recovery before closing onboarding.
 
-**When to read this:** Read after the owner pastes the prompt from `setup/FIRST-CHAT.md`. Continue until every completion gate is satisfied or one physical blocker is named honestly.
+**When to read this:** Read after the owner pastes `PROMPT-01-CREATE-MY-OS.md`. Continue until every gate passes or one honest blocker remains.
 
 ## experience standard
 
-- Assume zero coding, Git, terminal, repository, or backup knowledge.
-- Explain the purpose before the mechanism: “private online history,” not “remote ref,” unless the owner asks.
-- Give one small human step at a time. Wait after sign-in, two-factor, recovery-code, purchase, or browser-approval steps.
-- Perform safe commands, file edits, validation, and diagnostics yourself.
-- Do not dump command output or jargon on the owner. Translate the result.
-- Never request or handle passwords, one-time authentication codes, recovery codes, secret keys, or private tokens.
-- Never put credentials in the vault, chat, commit, shell history, or remote URL.
-- Do not weaken privacy to make setup easier.
-- Keep a visible phase marker: “Phase 3 of 8 complete. Next: secure GitHub.”
+- Assume no coding, Git, repository, terminal, or backup knowledge.
+- Explain purpose before mechanism and give one human step at a time.
+- Perform safe inspection, file changes, validation, and repository work yourself.
+- Pause for choices, sign-ins, two-factor enrollment, recovery-code storage, purchases, permissions, and external actions.
+- Never request or handle passwords, one-time codes, recovery codes, tokens, API keys, private keys, or credentials.
+- Never put credentials in a chat, file, command argument, commit, or Git URL.
+- Show the phase marker throughout: “Phase 4 of 10 complete. Next: create the private GitHub repositories.”
 
-## phase 0 — orient and check
+## phase 0 — orient in the public kit
 
-1. Read the startup and setup files named in `setup/FIRST-CHAT.md`.
-2. Set the onboarding state in `os/starter-version.md` to `in-progress` after the owner confirms setup should begin.
-3. Confirm this is the intended vault root and inspect whether Git already exists, whether a remote exists, whether there are uncommitted files, and whether any nested folder is an independent repository.
-4. Run `ruby os/validate-starter-os.rb`. Separate starter defects from owner-created material.
-5. Ask what agent surface the owner is using: Codex, Claude Code, Claude Cowork, or another file-capable agent. Do not require them to understand the distinction yet.
-6. Explain that different agent products may process files locally, remotely, or both. Before importing sensitive material, check the current official privacy and data-handling guidance for the exact product and account plan being used. Do not guess from an older interface or product name.
-7. Check whether Obsidian is installed, whether the folder opens as one vault, and whether the owner has a password manager or another secure recovery-code location.
-8. Ask whether an external backup drive is available. Record the answer; do not derail the interview.
+1. Read the files named in `PROMPT-01-CREATE-MY-OS.md`.
+2. Confirm the current folder is the public Starter.OS kit, not an existing personal vault.
+3. Inspect the kit's Git status and run `ruby scripts/validate-starter-kit.rb`. Separate kit defects from environment problems.
+4. Ask the owner for a neutral vault name and local destination. Explain that the new folder will be private and separate from this public repository.
+5. Refuse a destination that is the public kit, inside its `.git`, a non-empty unknown folder, a cloud-shared public location, or an existing version 1 vault.
+6. Ask which file-capable agent surface is in use. Check current official privacy, file-access, and permissions guidance for that exact product and account before importing sensitive material.
 
-Explain the system in under two minutes: these files are durable context; the agent reads only what the task needs; GitHub and GitLab keep two locked online histories; a daily drive backup protects files that are intentionally excluded from Git.
+## phase 1 — generate and open the vault shell
 
-## phase 1 — interview for context
-
-Follow `setup/ONBOARDING-INTERVIEW.md` one section at a time.
-
-The goal is to fill the existing context system, not redesign it. Translate answers into four levels:
-
-- stable identity and collaboration preferences → `os/me.md`
-- current priorities, constraints, decisions, and anchors → `os/now.md`
-- deeper personal or professional background → `knowledge/people/owner.md`
-- task-to-context routes → `knowledge-map.md`
-
-Use the existing `areas/`, `projects/`, `business/`, and `knowledge/` lanes. Add a folder only when a real recurring responsibility, business, time-bound project, or knowledge domain cannot be routed clearly without it. Do not create a folder for every interest, document source, or imagined future agent.
-
-Do not edit during the interview.
-
-## phase 2 — confirm and personalize
-
-Present a plain-language context summary containing:
-
-1. Who the owner is and what they want help with.
-2. How the agent should collaborate with them.
-3. Current priorities and important constraints.
-4. Privacy, permission, and high-stakes boundaries.
-5. The existing folders that will hold their work.
-6. Any truly necessary structural adjustment, with one-sentence reasoning.
-7. The exact files that will change.
-
-Ask the owner to correct the summary and say when it is accurate. After approval:
-
-- personalize `os/me.md`, `os/now.md`, `knowledge/people/owner.md`, and `knowledge-map.md`;
-- update environment and backup choices in `os/vault-map.md` and `os/recovery.md`;
-- create only justified project, area, business, or topic folders;
-- leave unconfirmed statements `source: ai` and `status: draft`;
-- mark owner-confirmed context with the owner source value;
-- run the validator and resolve every starter-side failure.
-
-## phase 3 — secure the GitHub copy
-
-Describe GitHub as the first private online history: it stores the safe tracked portion of the vault off the computer and makes earlier versions recoverable.
-
-### account and two-factor security
-
-If the owner needs an account, guide the current GitHub browser flow one click at a time. The owner creates the password and keeps it private.
-
-Guide the owner to GitHub **Settings → Password and authentication** and:
-
-- enable two-factor authentication using an authenticator app, passkey, or security key;
-- add a second authentication method when practical;
-- save recovery codes in the password manager and, ideally, one secure offline location;
-- confirm completion without revealing any code.
-
-Do not proceed to upload until the owner confirms the repository will be private and recovery codes are stored outside the vault.
-
-### repository setup
-
-1. Audit `.gitignore` and the exact candidate files. Exclude credentials, account-recovery files, local app state, caches, transient attachments, large recordings, and independent nested repositories.
-2. Run `security-sweep` and the validator. A real secret blocks the upload.
-3. If this is already the owner's private template repository, verify ownership and visibility. If not, create a new **private** repository with a neutral name. Do not initialize a conflicting README when importing an existing history.
-4. Prefer browser-based authentication through the official GitHub CLI or the system credential manager. The owner completes browser approval; never ask for a token in chat.
-5. Preserve existing starter history, create one clear personalization checkpoint, connect GitHub as the fetch source, and push the current branch.
-6. Verify the remote says Private and that its branch points to the same commit as the local vault.
-
-## phase 4 — secure the GitLab copy and make both pushes travel together
-
-Describe GitLab as the second locked online history, hosted by a different company. Its purpose is redundancy, not a second working location.
-
-### account and two-factor security
-
-Guide the owner through the current GitLab.com account flow. Under **Edit profile → Access → Password and authentication**:
-
-- configure an authenticator or WebAuthn/passkey-capable device;
-- save the one-time recovery codes in the password manager and a secure offline location;
-- confirm completion without sharing codes.
-
-### matching private repository
-
-1. Create a blank **private** GitLab project with the same neutral repository name. Do not add a README, license, or starter commit.
-2. Authenticate through SSH, OAuth credential management, or the official GitLab CLI—whichever is already available and safest on the machine. Keep tokens out of files, chat, command arguments, and remote URLs.
-3. Keep GitHub as the normal fetch location. Configure the existing Git remote with two push URLs: one for GitHub and one for GitLab. Git supports multiple push URLs; an ordinary push to that remote then goes to both services.
-4. Inspect existing push URLs before changing them and avoid duplicates. Do not use destructive mirror pushes.
-5. Push the current branch and relevant tags. Verify local, GitHub, and GitLab branch commit IDs are identical.
-6. Ask whether the owner approves this standing rule: after meaningful completed work, the agent validates, creates a clear checkpoint, and pushes once so both online histories stay synchronized. Record the answer in `os/agent-rules.md` and `os/recovery.md`.
-
-### agent implementation note
-
-Do not make the owner type these commands. Adapt and run them only after checking the existing remote configuration and replacing the examples with the two verified private repository URLs:
+From the public kit, run:
 
 ```sh
-git remote -v
-git config --get-all remote.origin.pushurl
-git remote set-url --add --push origin <github-repository-url>
-git remote set-url --add --push origin <gitlab-repository-url>
-git config --get-all remote.origin.pushurl
-git push origin <current-branch>
+ruby scripts/create-vault.rb /absolute/path/to/chosen-vault
 ```
 
-Keep GitHub as `remote.origin.url` for ordinary fetching. Add the two push URLs only when they are absent; repeated `--add` commands create duplicates. Do not put access tokens in either URL. After pushing, verify the current branch commit independently on both services. Push tags separately only when the repository actually uses tags.
+The script must create:
 
-If one service accepts a push and the other fails, say plainly that the backups are temporarily out of sync. Diagnose the failure, retry the missing destination, and re-check all three commit IDs before calling the wrap complete.
+```text
+<vault>/
+├── AGENTS.md
+├── CLAUDE.md
+├── os/
+├── life/
+├── biz/
+└── setup/
+```
 
-## phase 5 — configure the daily local backup
+Then:
 
-Explain that GitHub and GitLab protect document history, but they deliberately omit passwords, local app settings, transient attachments, and large media. A daily local backup covers the whole vault folder.
+1. Confirm `<vault>` and `<vault>/biz` contain no `.git`.
+2. Confirm no repository exists yet in `os/` or `life/`; initial publication comes only after personalization and security review.
+3. Set `os/starter-version.md` onboarding state to `in-progress`.
+4. Open `<vault>` as the agent workspace and as one Obsidian vault. The owner may need to approve folder access or switch workspaces.
+5. Confirm exactly one `.obsidian/` folder exists at the vault root after Obsidian opens it.
+6. Configure Obsidian's Templates folder as `os/templates` and Daily Notes folder as `life/records/daily`; use `os/templates/daily.md` when the owner wants daily notes.
+7. Run `ruby os/validate-starter-os.rb`. Resolve kit-side failures before interviewing.
 
-On a Mac, recommend Carbon Copy Cloner as the guided example; Time Machine or another reputable local backup tool is acceptable when it meets the same result.
+The root and `biz/` are permanent plain containers. Never initialize Git in either one.
 
-The owner must approve any purchase. Then guide them to:
+## phase 2 — interview without editing
 
-1. Connect a dedicated external drive with enough space.
-2. Create a task that includes the entire Starter.OS vault folder.
-3. Set it to run daily, or when the destination drive reconnects if that is more reliable for their routine.
-4. Enable snapshot/version retention when the destination and tool support it.
-5. Run the first backup now.
-6. Open a harmless copied Markdown file from the destination to prove the backup is readable.
-7. Record the tool, source, destination description, schedule, last successful test date, and recovery steps in `os/recovery.md`—never a drive-encryption password or account credential.
+Follow `ONBOARDING-INTERVIEW.md` one section at a time.
 
-If no drive is available, finish the context and online-history phases but label local backup **incomplete**. Give one next action: obtain or choose the drive. Do not describe the full backup system as complete.
+Translate answers into four ownership levels:
 
-## phase 6 — acceptance test
+- stable identity and shared collaboration preferences -> `os/me.md`
+- current personal priorities and constraints -> `life/now.md`
+- deeper personal context -> `life/knowledge/people/owner.md`
+- business-specific purpose, state, boundaries, decisions, knowledge, and source -> `biz/<business>/`
 
-Verify all of the following:
+Use the existing Life lanes before adding subfolders. A business idea, client mention, side interest, or hoped-for future project does not automatically justify a repository.
 
-- The owner can explain that the vault is their durable context and the agent is a replaceable tool.
-- `ruby os/validate-starter-os.rb` passes.
-- No starter owner names, unconfirmed claims, credentials, or recovery codes are tracked.
-- The local working tree is clean after the approved checkpoint.
-- GitHub is private and two-factor authentication is confirmed.
-- GitLab is private and two-factor authentication is confirmed.
-- Local, GitHub, and GitLab show the same current branch commit.
-- A normal approved wrap pushes to both destinations.
-- The local daily backup completed and a file was opened from it, or the physical blocker is named as incomplete.
-- `os/recovery.md` accurately distinguishes tracked files from full-folder backup coverage.
+Do not edit during discovery.
 
-Give the owner a one-screen result: complete, incomplete, and the one next action if anything remains.
+## phase 3 — confirm and personalize
 
-## phase 7 — hand off to learning and real use
+Present one plain-language package:
 
-Point the owner to `setup/POST-SETUP-TUTORIAL.md`. Offer to start it in a fresh chat so setup mechanics do not consume the tutorial's context.
+1. Stable identity and collaboration preferences.
+2. Current state and important constraints.
+3. Privacy, approval, archive, and publication boundaries.
+4. Existing Life routes that cover the owner's context.
+5. Each business repository that is genuinely needed now.
+6. Import inventory and deferred privacy risks.
+7. Exact files and repositories that will change.
 
-Before handing off, set the onboarding state in `os/starter-version.md` to `tutorial-pending`. The tutorial is part of onboarding; do not call the entire process finished yet.
+Wait for the owner to correct the package and explicitly confirm accuracy. Then:
 
-End with three everyday facts:
+- personalize `os/me.md`, `life/now.md`, `life/knowledge/people/owner.md`, and the two knowledge maps;
+- update `os/agent-rules.md`, `os/recovery.md`, and `os/integrations.md` only with confirmed choices;
+- create each approved business by running `ruby setup/add-business.rb <lowercase-kebab-name>` from the generated vault root;
+- personalize that business's `readme.md`, `status.md`, `AGENTS.md`, `decisions.md`, and `knowledge-map.md` without inventing doctrine;
+- keep agent-drafted or unconfirmed content `source: ai` and safely marked draft/reference;
+- run `ruby os/validate-starter-os.rb` and resolve every failure.
 
-1. Put uncertain material in `00_inbox/`.
-2. Start with a conversation about the problem instead of chasing a perfect prompt.
-3. Ask the agent to wrap meaningful work so the context and both online histories stay current.
+Do not import bulk archives, recordings, exports, or unknown repositories during setup. Produce a later review manifest instead.
 
-## phase 8 — remove the setup scaffolding
+## phase 4 — create GitHub primary repositories
 
-Run this phase only after all security and backup completion gates pass, the owner has completed the post-setup tutorial, and the tutorial's small real task has been wrapped successfully. If GitHub and GitLab are out of sync, the local backup remains incomplete, or the tutorial is unfinished, leave the setup documents active and state the one next action.
+Explain that Git records history separately for each owner boundary. GitHub is the primary remote named `origin`.
 
-The purpose is to keep future agents focused on the owner's real context. Archiving preserves history; it does not delete it.
+### account security
 
-### create the completion record first
+Guide the owner through current GitHub account and two-factor authentication screens. The owner privately creates the password, enrolls an authenticator/passkey/security key, stores recovery methods outside the vault, and confirms completion without revealing codes.
 
-Create `log/setup-completion.md` from `agent/templates/setup-completion.md`. Record only:
+Official references:
 
-- completion date;
-- foundation ID and private edition name;
-- chosen agent application;
-- whether GitHub, GitLab, two-factor security, dual-push synchronization, daily local backup, and restore test passed;
-- the dated archive location;
-- any intentionally deferred import or low-risk follow-up.
+- https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository
+- https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication-recovery-methods
 
-Do not record account recovery codes, credentials, private repository tokens, drive passwords, or unnecessary account identifiers.
+### initialize one repository at a time
 
-### archive the temporary folder
+For `os/`, `life/`, and each approved `biz/<business>/`:
 
-Move the entire `setup/` folder to `archive/setup/YYYY-MM-DD/`. Keep its internal filenames and structure intact so the initialization history remains understandable. Do not copy individual setup documents back into active folders.
+1. Audit the owning `.gitignore` and candidate files.
+2. Run the security sweep. A real secret or unexplained private export blocks publication.
+3. Initialize Git inside the repository root—not the vault root or `biz/`.
+4. Use `main` as the initial branch unless the owner explicitly chooses another standard.
+5. Create one clear local foundation commit.
+6. Create a blank **private** GitHub repository with a neutral matching name. Do not initialize it with a README, license, or `.gitignore`.
+7. Authenticate through the current browser/credential-manager flow; never put a token in a remote URL.
+8. Add GitHub as `origin`, push the intended branch and any intended tags, and verify local and GitHub refs match.
 
-Keep `SYSTEM-EXPLAINED.md`, `os/starter-version.md`, `os/recovery.md`, and the reusable operating rules active. They still help with everyday understanding, upgrades, and recovery.
+Do not publish the next repository until the current repository's primary is verified.
 
-### remove obsolete active routes
+## phase 5 — create GitLab backup mirrors
 
-Before this runbook moves itself:
+Explain that GitLab is the exact private ref mirror, not a competing source of truth. Its remote name is always `backup`.
 
-1. Replace the starter-focused root `readme.md` with a short owner-focused map of the active Starter.OS system and remove its link to `setup/`.
-2. Remove the first-setup and post-setup-learning routes from `knowledge-map.md`; add `log/setup-completion.md` only as a historical setup route.
-3. Remove the temporary setup-folder entry from `os/readme.md`.
-4. Update `AGENTS.md`, `CLAUDE.md`, and the startup note in `os/me.md` so they say onboarding is complete and do not point future agents to active setup files.
-5. Remove any remaining active links to `setup/`.
-6. Set both the frontmatter `onboarding` value and visible onboarding state in `os/starter-version.md` to `complete`.
-7. Add `log/setup-completion.md` to `log/readme.md`.
+Guide current account security and recovery-code storage privately. GitLab's current documentation may change; use:
 
-Then move the entire folder, run `ruby os/validate-starter-os.rb`, run the security sweep, and confirm active maps contain no `setup/` routes. Create the approved final checkpoint and verify both online histories reached it.
+- https://docs.gitlab.com/user/project/
+- https://docs.gitlab.com/user/profile/account/two_factor_authentication/
 
-Give the owner a short closing message: onboarding is complete, setup materials were preserved in the dated archive, where the completion record lives, and what file future agents read first. Do not ask the owner to manage or delete the archived files.
+For each repository:
 
-## official references for current UI and behavior
+1. Create a blank **private** GitLab project with the matching name. Do not initialize it with a README.
+2. Add it as a separate remote named `backup`.
+3. Confirm `origin` points only to GitHub and `backup` points only to GitLab.
+4. Push the intended branch to `backup`, then push intended tags separately when the repository uses tags.
+5. Compare local, `origin`, and `backup` branch/tag sets and commit IDs.
 
-- GitHub two-factor recovery: https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication-recovery-methods
-- GitHub private repository creation: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository
-- GitLab two-factor authentication: https://docs.gitlab.com/user/profile/account/two_factor_authentication/
-- Git multiple push URLs: https://git-scm.com/docs/git-config#Documentation/git-config.txt-remoteltnamegtpushurl
-- Carbon Copy Cloner scheduling: https://support.bombich.com/hc/en-us/articles/20686449773847-How-to-schedule-a-backup
-- OpenAI prompt guidance: https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6
-- Claude Code best practices: https://code.claude.com/docs/en/best-practices
-- Claude Code model configuration: https://code.claude.com/docs/en/model-config
-- Claude Cowork getting started: https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork
+Use two remotes, not multiple push URLs on one remote. Git's documentation explicitly recommends separate remotes when fetching from one place and publishing to another: https://git-scm.com/docs/git-remote
 
-Interfaces change. If a current screen differs, use the current official documentation and explain the updated path instead of guessing.
+## phase 6 — record the standing publication law
+
+Ask whether the owner approves this standing workflow for completed future work:
+
+1. Validate and inspect only the repositories changed by the task.
+2. Create a clear commit in each changed repository.
+3. Push GitHub `origin` first.
+4. Only after GitHub succeeds, push GitLab `backup`.
+5. Verify the intended local, GitHub, and GitLab refs match and the working tree is clean.
+
+Record the confirmed rule in `os/agent-rules.md` and `os/recovery.md`.
+
+If GitHub succeeds and GitLab fails, report partial parity as a blocker and retry the missing backup safely. Never call the wrap complete, force-push, rewrite history, delete refs, or use GitLab divergence to overwrite GitHub without explicit owner authorization.
+
+## phase 7 — configure full-vault protection
+
+Git does not protect the root `.obsidian/`, ignored attachments, safe local settings, or other deliberately untracked files. Configure a full-tree backup for the entire vault.
+
+For a Mac, Carbon Copy Cloner or Time Machine can provide local versioned coverage. An encrypted offsite provider may add device-loss protection. The owner approves purchases and signs in privately.
+
+Require:
+
+1. The complete vault root is included—not only `os/` or `life/`.
+2. The schedule matches the owner's real device/drive habits.
+3. Version or snapshot retention is enabled when supported.
+4. The first backup completes.
+5. A harmless Markdown file is opened from the backup destination.
+6. The tool, source, destination description, schedule, last success, last restore test, and gaps are recorded in `os/recovery.md` without secrets.
+
+If required hardware or offsite access is missing, keep onboarding incomplete and name one next action.
+
+## phase 8 — acceptance and recovery test
+
+Run `ruby os/validate-starter-os.rb`, then verify:
+
+- one Obsidian vault root, one `.obsidian/`, and no root or `biz/` Git repository;
+- `os/`, `life/`, and every real business are independent repositories with no nested Git;
+- private GitHub `origin` and private GitLab `backup` exist for each repo;
+- all intended local, `origin`, and `backup` refs agree;
+- working trees are clean;
+- the security sweep finds no real secrets or inappropriate personal data in the public kit;
+- `os/recovery.md` can rebuild the shell and repository set;
+- the full-tree backup opens a real restored file.
+
+For the strongest test, reconstruct the vault in a temporary location from GitHub, add/fetch GitLab backup remotes, restore the root pointers and `.obsidian/` from full-tree backup, run the validator, and compare the declared repository set. Never use the test restore to overwrite the live vault.
+
+Give the owner a one-screen result: complete, incomplete, and one next action.
+
+## phase 9 — tutorial and first real task
+
+Set `os/starter-version.md` to `tutorial-pending`. Point the owner to `PROMPT-02-FIRST-WORKING-SESSION.md` and begin it in a fresh chat.
+
+Do not call onboarding complete until the lessons and one small real task are finished and wrapped through the publication law.
+
+## phase 10 — archive setup scaffolding
+
+Run only when every earlier gate passes.
+
+1. Create `life/records/sessions/YYYY-MM-DD-setup-completion.md` from `os/templates/setup-completion.md`.
+2. Record the foundation ID, repositories created, agent surface, security confirmations, parity result, backup/restore result, archive destination, and deferred low-risk follow-ups. Never record credentials or recovery codes.
+3. Move the entire root `setup/` folder to `life/archive/setup/YYYY-MM-DD/` without changing its archived contents.
+4. Remove active setup routes from root pointers, `os/me.md`, `os/knowledge-map.md`, and `life/knowledge-map.md`.
+5. Set `os/starter-version.md` onboarding state to `complete`.
+6. Run the validator and security sweep.
+7. Publish changed repositories separately: GitHub first, GitLab second.
+8. Verify clean trees and exact intended ref parity.
+
+The vault root should then contain only `.obsidian/`, `AGENTS.md`, `CLAUDE.md`, `os/`, `life/`, and `biz/`. The setup history remains preserved inside Life but is no longer current agent context.
