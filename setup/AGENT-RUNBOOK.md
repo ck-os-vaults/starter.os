@@ -24,7 +24,7 @@ source: ai
 - Pause for choices, sign-ins, two-factor enrollment, recovery-code storage, purchases, permissions, and external actions.
 - Never request or handle passwords, one-time codes, recovery codes, tokens, API keys, private keys, or credentials.
 - Never put credentials in a chat, file, command argument, commit, or Git URL.
-- Show the phase marker throughout: “Phase 4 of 10 complete. Next: create the private GitHub repositories.”
+- Show the phase marker throughout: “Phase 4 of 11 complete. Next: create the private GitHub repositories.”
 
 ## phase 0 — choose the root name
 
@@ -203,13 +203,48 @@ For the strongest test, reconstruct the vault in a temporary location from GitHu
 
 Give the owner a one-screen result: complete, incomplete, and one next action.
 
-## phase 9 — tutorial and first real task
+## phase 9 — schedule weekly vault maintenance
+
+Create the recurring maintenance task before onboarding closes:
+
+1. Read `os/skills/vault-maintenance.md` and use the weekly day, time, and time
+   zone confirmed during the interview. If the owner expressed no preference,
+   use Sunday at 6:00 PM in the vault owner's local time zone.
+2. Use the current agent application's native recurring-task scheduler. In
+   Codex, create a weekly local scheduled task against the saved `<NAME>.os`
+   root project. The root is a plain multi-repository container, so do not run
+   the task in an isolated Git worktree.
+3. Name it `Weekly OS maintenance` and use this task prompt:
+
+```text
+Run weekly maintenance for this OS. Start at the vault root, read AGENTS.md,
+then read and follow os/skills/vault-maintenance.md from beginning to end. Do
+not begin cleanup until every declared repository has a clean, validated Git
+checkpoint published to GitHub origin and mirrored identically to GitLab
+backup. Complete the retrieval, freshness, archive, validation, publication,
+and final parity gates. Return the routine's concise report.
+```
+
+4. Keep the task enabled. Verify its name, vault-root target, weekly schedule,
+   time zone, local execution environment, and complete prompt by reading the
+   saved task back from the scheduler.
+5. Record the verified task in `os/integrations.md`: safe identifier, target
+   path, schedule/time zone, state, purpose, and checked date. Never record
+   credentials.
+6. Do not create a shell cron job, background daemon, or duplicate reminder. If
+   the current agent cannot create a native recurring local task, keep
+   onboarding incomplete and report that exact blocker.
+
+The routine itself refuses cleanup while `setup/` is active, so its first real
+run begins only after onboarding is archived.
+
+## phase 10 — tutorial and first real task
 
 Set `setup/STARTER-VERSION.md` to `tutorial-pending`. Point the owner to `PROMPT-02-FIRST-WORKING-SESSION.md` and begin it in a fresh chat.
 
 Do not call onboarding complete until the lessons and one small real task are finished and wrapped through the publication law.
 
-## phase 10 — archive setup scaffolding
+## phase 11 — archive setup scaffolding
 
 Run only when every earlier gate passes.
 

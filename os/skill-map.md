@@ -10,7 +10,9 @@ source: ai
 
 # skill map
 
-**Bottom line:** Registry and trigger map for reusable routines stored as ordinary Markdown in `skills/`. A supplied routine is available, not automatically active.
+**Bottom line:** Registry and trigger map for reusable routines stored as
+ordinary Markdown in `skills/`. Setup activates weekly vault maintenance; other
+supplied routines remain available until their trigger is real.
 
 **When to read this:** Read at startup. When a task matches a trigger, open that skill—and only that skill.
 
@@ -29,6 +31,6 @@ source: ai
 | [[decision-log]] | owner confirms a durable choice | dated decision in the owning log |
 | [[drift-recovery]] | restart urge or parallel-system drift | return to the existing plan or justify one narrow change |
 | [[security-sweep]] | before publication or after unknown intake | severity-ordered findings and blockers |
-| [[vault-maintenance]] | monthly or after structural change | validated structure, archive proposals, and backup check |
+| [[vault-maintenance]] | scheduled weekly, after structural change, or when retrieval drifts | pre-cleanup Git checkpoint, current retrieval, safe archives, and mirrored publication |
 
 Add a routine only after repeated use proves it is stable and shared. Business-specific routines stay in their owning business.

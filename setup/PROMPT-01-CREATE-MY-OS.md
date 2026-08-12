@@ -35,7 +35,8 @@ Important:
   or approve another external action.
 - Do not call setup complete until the validator, private repositories,
   GitHub/GitLab parity, account security, full-vault backup, restore test,
-  recovery instructions, tutorial, and first real task all pass.
+  recovery instructions, active scheduled weekly maintenance, tutorial, and
+  first real task all pass.
 
 Start with a two-minute explanation of what you will build. Then ask only what
 I want to replace STARTER with in STARTER.os.

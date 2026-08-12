@@ -350,23 +350,42 @@ PHASE 11 — final independent review, cleanup, and archive
    real retrieval task from the root to prove that routing works.
 4. Complete `life/records/sessions/YYYY-MM-DD-setup-completion.md` from
    `setup/SETUP-COMPLETION.md` and complete `setup/MIGRATION-RECEIPT.md`.
-5. Replace root AGENTS.md and CLAUDE.md with the permanent pointers from
+5. Create and verify the scheduled weekly maintenance routine:
+   - read `os/skills/vault-maintenance.md`;
+   - use an existing confirmed weekly schedule when one is current; otherwise
+     use Sunday at 6:00 PM in the owner's local time zone;
+   - use the agent application's native recurring-task scheduler to create one
+     enabled local task named `Weekly OS maintenance` against the new
+     `<NAME>.os` root, never an isolated worktree, shell cron, daemon, or
+     duplicate reminder;
+   - set its prompt to: `Run weekly maintenance for this OS. Start at the vault
+     root, read AGENTS.md, then read and follow
+     os/skills/vault-maintenance.md from beginning to end. Do not begin cleanup
+     until every declared repository has a clean, validated Git checkpoint
+     published to GitHub origin and mirrored identically to GitLab backup.
+     Complete the retrieval, freshness, archive, validation, publication, and
+     final parity gates. Return the routine's concise report.`;
+   - read the task back and verify its name, root target, weekly schedule, time
+     zone, local execution, enabled state, and complete prompt;
+   - record its safe identifier, schedule, target, purpose, state, and checked
+     date in `os/integrations.md` without credentials.
+6. Replace root AGENTS.md and CLAUDE.md with the permanent pointers from
    `os/templates/root-AGENTS.txt` and `os/templates/root-CLAUDE.txt`.
-6. Remove every active setup/migration route from permanent OS, Life, business,
+7. Remove every active setup/migration route from permanent OS, Life, business,
    and root files.
-7. Set `setup/STARTER-VERSION.md` to `complete`.
-8. Move the entire `setup/` folder unchanged to
+8. Set `setup/STARTER-VERSION.md` to `complete`.
+9. Move the entire `setup/` folder unchanged to
    `life/archive/setup/YYYY-MM-DD/`. Do not leave tutorial, migration, manifest,
    helper, state, or setup files active outside that archive.
-9. Run all three verification passes again after archival and cleanup.
-10. Publish only the repositories changed by cleanup: GitHub first, GitLab
+10. Run all three verification passes again after archival and cleanup.
+11. Publish only the repositories changed by cleanup: GitHub first, GitLab
    second. Verify exact parity and clean trees.
-11. Rename the untouched original vault to its dated
+12. Rename the untouched original vault to its dated
     `<OLD-NAME>-pre-starter-os-archive-YYYY-MM-DD` path, mark it retired and
     read-only where practical, and verify its counts/hashes against the source
     inventory. Do not delete it. Include explicit restore instructions and a
     later review date in the final report.
-12. Deliver the final report only after all work, publication, mirroring,
+13. Deliver the final report only after all work, publication, mirroring,
     archival, cleanup, and verification are complete. Do not ask for a final
     approval to perform any remaining migration task.
 
@@ -385,6 +404,8 @@ Final acceptance requires all of the following:
 - GitHub and GitLab refs match for every intended repository;
 - active Git documentation and automation use GitHub first and an identical
   GitLab mirror for `os/`, `life/`, and every individual business;
+- one enabled weekly maintenance task targets the vault root, follows
+  `os/skills/vault-maintenance.md`, and was verified from saved scheduler state;
 - full-vault backup and restore are proven;
 - working trees are clean;
 - setup is archived and the everyday vault opens in a fresh, minimal state;

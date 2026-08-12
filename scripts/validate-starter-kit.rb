@@ -24,6 +24,7 @@ required = %w[
   os/AGENTS.md
   os/agent-rules.md
   os/vault-map.md
+  os/skills/vault-maintenance.md
   os/validate-starter-os.rb
   setup/README.md
   setup/INSTALL.md
@@ -89,6 +90,27 @@ migration_requirements.each do |label, pattern|
 end
 approval_gate = /ask for one consolidated approval|after manifest approval|pause for me to .*approve|wait for approval|pending approval/i
 add_error.call("#{prompt_files.last}: contains an approval gate") if migration_prompt.match?(approval_gate)
+
+maintenance_file = "os/skills/vault-maintenance.md"
+maintenance_text = File.file?(maintenance_file) ? File.read(maintenance_file) : ""
+maintenance_requirements = {
+  "weekly scheduled trigger" => /scheduled weekly maintenance task/i,
+  "pre-maintenance Git checkpoint" => /pre-maintenance Git checkpoint/i,
+  "checkpoint before cleanup" => /Never begin cleanup until/i,
+  "GitHub-first publication" => /push GitHub `origin` first/i,
+  "identical GitLab mirror" => /identical GitLab mirror/i,
+  "dated archive path" => %r{archive/YYYY-MM-DD-weekly-maintenance/}i,
+  "archive move manifest" => /Create one `manifest\.md`/i,
+  "final parity gate" => /final verification and publication/i
+}
+maintenance_requirements.each do |label, pattern|
+  add_error.call("#{maintenance_file}: missing #{label}") unless maintenance_text.match?(pattern)
+end
+
+setup_runbook = File.file?("setup/AGENT-RUNBOOK.md") ? File.read("setup/AGENT-RUNBOOK.md") : ""
+add_error.call("setup/AGENT-RUNBOOK.md: missing scheduled maintenance setup phase") unless setup_runbook.match?(/phase 9 — schedule weekly vault maintenance/i)
+add_error.call("setup/AGENT-RUNBOOK.md: missing saved-task verification") unless setup_runbook.match?(/read(?:ing)? the\s+saved task back from the scheduler/i)
+add_error.call("#{prompt_files.last}: missing migrated-vault scheduled maintenance") unless migration_prompt.match?(/Create and verify the scheduled weekly maintenance routine/i)
 
 user_files = %w[setup/README.md setup/INSTALL.md setup/SYSTEM-EXPLAINED.md]
 agent_files = %w[setup/SETUP-STATUS.md setup/AGENT-RUNBOOK.md setup/ONBOARDING-INTERVIEW.md setup/OPERATOR-GUIDE.md setup/SETUP-COMPLETION.md setup/STARTER-VERSION.md]

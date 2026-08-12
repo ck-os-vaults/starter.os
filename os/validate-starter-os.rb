@@ -62,6 +62,7 @@ required_paths = %w[
   os/integrations.md
   os/knowledge-map.md
   os/skill-map.md
+  os/skills/vault-maintenance.md
   life/AGENTS.md
   life/CLAUDE.md
   life/readme.md
@@ -192,6 +193,23 @@ if File.file?(migration_prompt)
   add_error.call(migration_prompt, "contains an approval gate") if migration_text.match?(approval_gate)
 end
 
+maintenance_file = "os/skills/vault-maintenance.md"
+if File.file?(maintenance_file)
+  maintenance_text = File.read(maintenance_file)
+  {
+    "weekly scheduled trigger" => /scheduled weekly maintenance task/i,
+    "pre-maintenance Git checkpoint" => /pre-maintenance Git checkpoint/i,
+    "checkpoint before cleanup" => /Never begin cleanup until/i,
+    "GitHub-first publication" => /push GitHub `origin` first/i,
+    "identical GitLab mirror" => /identical GitLab mirror/i,
+    "dated archive path" => %r{archive/YYYY-MM-DD-weekly-maintenance/}i,
+    "archive move manifest" => /Create one `manifest\.md`/i,
+    "final parity gate" => /final verification and publication/i
+  }.each do |label, pattern|
+    add_error.call(maintenance_file, "missing #{label}") unless maintenance_text.match?(pattern)
+  end
+end
+
 # Validate Markdown links in active files.
 active_markdown.each do |file|
   next if PROMPT_FILES.include?(file)
@@ -251,6 +269,8 @@ if onboarding_state == "complete"
   add_error.call("setup/", "temporary setup folder remains active after onboarding") if Dir.exist?("setup")
   completions = Dir["life/records/sessions/*-setup-completion.md"]
   add_error.call("life/records/sessions/", "setup completion record is missing") if completions.empty?
+  integrations_text = File.file?("os/integrations.md") ? File.read("os/integrations.md") : ""
+  add_error.call("os/integrations.md", "verified Weekly OS maintenance task is missing") unless integrations_text.include?("Weekly OS maintenance")
 
   temporary_names = %w[
     README.md INSTALL.md PROMPT-01-CREATE-MY-OS.md PROMPT-02-FIRST-WORKING-SESSION.md

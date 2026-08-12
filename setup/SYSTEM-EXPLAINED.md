@@ -46,6 +46,18 @@ The vault root and `biz/` are simple containers. `os/`, `life/`, and each busine
 
 Passwords, codes, and secret keys belong in the password manager or provider—not the vault.
 
+## how weekly maintenance works
+
+Setup creates one scheduled weekly maintenance task. Before it cleans anything,
+the agent validates every repository, saves completed work to GitHub, mirrors it
+to GitLab, and confirms both copies match.
+
+It then checks current facts, old instructions, unfinished documents, metadata,
+maps, and links. Clearly inactive material moves into a dated archive with a
+manifest showing where it came from and what replaced it. Unclear material stays
+active with a visible review note. The agent validates and saves everything
+again before reporting completion.
+
 ## what success looks like
 
 - You can talk naturally and capture without organizing first.

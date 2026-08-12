@@ -26,8 +26,9 @@ source: ai
 6. Create private GitLab mirrors and configure `backup` remotes.
 7. Configure and test full-vault local/offsite protection.
 8. Validate structure, privacy, recovery, and repository parity.
-9. Complete the tutorial and first real task.
-10. Archive setup scaffolding and verify the everyday system.
+9. Create and verify the scheduled weekly vault-maintenance routine.
+10. Complete the tutorial and first real task.
+11. Archive setup scaffolding and verify the everyday system.
 
 ## completion gate
 
@@ -41,5 +42,7 @@ source: ai
 - One `.obsidian/` folder exists at the vault root.
 - A full-vault backup covers ignored safe files and opens a tested restored file.
 - `os/recovery.md` accurately records the topology without secrets.
+- The weekly vault-maintenance task is active for the vault root at the
+  confirmed local schedule and points to `os/skills/vault-maintenance.md`.
 - The tutorial and first real task are complete.
 - Temporary setup files are archived under `life/archive/setup/<date>/` and a completion record remains in `life/records/sessions/`.

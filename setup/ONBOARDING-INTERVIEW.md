@@ -57,7 +57,14 @@ Never request passwords, authentication codes, recovery codes, seed phrases, pri
 
 ## 8 — retrieval and routines
 
-Learn recurring questions, current-truth locations, common stale-source mistakes, and which routines would solve real repeated work. Draft routines remain available; they do not all become active obligations.
+Learn recurring questions, current-truth locations, common stale-source
+mistakes, and which routines would solve real repeated work. Ask what weekly day,
+time, and time zone the owner wants for required vault maintenance; use Sunday
+at 6:00 PM local when the owner has no preference. Confirm that the scheduled
+routine may create verified Git checkpoints, maintain active files, archive
+evidenced inactive material, and publish under the standing GitHub-first and
+GitLab-mirror workflow. Other draft routines remain available; they do not all
+become active obligations.
 
 ## 9 — confirmation package
 
@@ -71,6 +78,7 @@ Present:
 6. Each justified business repository and its starter files.
 7. Source inventory and deferred-import risks.
 8. Exact files and repositories that will change.
-9. Important unknowns better learned through use.
+9. Weekly maintenance schedule and standing scope.
+10. Important unknowns better learned through use.
 
 Wait for the owner's explicit accuracy confirmation before editing.

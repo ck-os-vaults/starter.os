@@ -29,7 +29,7 @@ Teach me:
 
 Then help me complete one small real task.
 
-After that task is fully wrapped, finish Phase 10 of setup/AGENT-RUNBOOK.md:
+After that task is fully wrapped, finish Phase 11 of setup/AGENT-RUNBOOK.md:
 create the completion record, archive the setup folder, remove active setup
 routes, validate again, publish changed repositories in order, and verify
 GitHub/GitLab parity. If any gate is incomplete, leave setup active and tell me

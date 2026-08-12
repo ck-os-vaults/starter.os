@@ -28,6 +28,11 @@ Fill without secrets:
 - Last successful backup:
 - Last tested restore:
 - Known exclusions or blockers:
+- Weekly maintenance agent/application:
+- Weekly maintenance task name: `Weekly OS maintenance`
+- Weekly maintenance schedule and time zone:
+- Weekly maintenance vault-root target:
+- Last verified scheduled-task state:
 
 Repository registry:
 
@@ -47,7 +52,11 @@ Add one row for each real `biz/<business>/`. Never record credentials, embedded-
 5. Restore root `AGENTS.md` and `CLAUDE.md` from `os/templates/` if missing.
 6. Restore `.obsidian/`, safe ignored attachments, and other non-Git files from the full-vault backup.
 7. Open the vault root in Obsidian.
-8. Run `ruby os/validate-starter-os.rb` and the verification gates below.
+8. Recreate the one local `Weekly OS maintenance` scheduled task from
+   `os/skills/vault-maintenance.md` when it is not restored by the agent
+   application. Target the saved vault root, then read the task back and verify
+   its weekly schedule, time zone, enabled state, and prompt.
+9. Run `ruby os/validate-starter-os.rb` and the verification gates below.
 
 If GitHub is unavailable, clone the verified GitLab mirror, name it `backup`, then add GitHub as `origin` before the next publication. Never use unverified backup divergence to overwrite primary history.
 
@@ -68,6 +77,8 @@ If GitHub is unavailable, clone the verified GitLab mirror, name it `backup`, th
 - Intended branches and tags match local, GitHub `origin`, and GitLab `backup`.
 - `ruby os/validate-starter-os.rb` passes.
 - Active navigation resolves without loading archived or setup material as current context.
+- Exactly one enabled `Weekly OS maintenance` task targets the vault root and
+  follows `os/skills/vault-maintenance.md`.
 - A real ignored file can be opened from the full-vault backup.
 
 Standing publication approval: **unconfirmed during starter state**.

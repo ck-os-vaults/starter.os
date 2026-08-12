@@ -25,6 +25,10 @@ source: ai
 
 That is all you need to read now.
 
+Before setup finishes, the agent also creates a weekly maintenance task that
+saves every repository first, checks for stale information, archives old
+material safely, and verifies GitHub and GitLab again.
+
 Already have an older vault? Use `PROMPT-03-MIGRATE-OLD-VAULT.md` instead. It is
 clearly labeled **For: Existing User**. That single file is both the prompt and
 the agent's migration runbook. It directs the agent to preserve the complete old
