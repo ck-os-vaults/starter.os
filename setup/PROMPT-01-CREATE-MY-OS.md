@@ -19,8 +19,13 @@ First read:
 Then follow setup/AGENT-RUNBOOK.md from beginning to end.
 
 Important:
-- This public repository is only the kit. Create my private OS in a separate
-  folder after asking me for its name and location.
+- The example root name is STARTER.os. First ask me exactly: "What would you
+  like to replace STARTER with in STARTER.os?" Use my answer for the private
+  root name and keep the `.os` ending. Ask for its location only after I answer.
+- The private root must contain the three lowercase top-level vaults `biz/`,
+  `life/`, and `os/`.
+- This public repository is the reusable source. Create my private OS in a
+  separate folder; do not personalize the public checkout.
 - Interview me one short section at a time. Do not change my personal context
   until you show me the summary and I confirm it is accurate.
 - Create only the businesses I confirm are real and need their own repository.
@@ -32,6 +37,6 @@ Important:
   GitHub/GitLab parity, account security, full-vault backup, restore test,
   recovery instructions, tutorial, and first real task all pass.
 
-Start with a two-minute explanation of what you will build. Then ask only for
-the name and location of my new OS.
+Start with a two-minute explanation of what you will build. Then ask only what
+I want to replace STARTER with in STARTER.os.
 ```

@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby
 
-require "date"
 require "open3"
 require "pathname"
 require "tmpdir"
-require "yaml"
 
 ROOT = Pathname.new(File.expand_path("..", __dir__))
 Dir.chdir(ROOT)
@@ -16,7 +14,13 @@ required = %w[
   AGENTS.md
   CLAUDE.md
   readme.md
-  migration-v1.md
+  biz
+  life/AGENTS.md
+  life/knowledge-map.md
+  os/AGENTS.md
+  os/agent-rules.md
+  os/vault-map.md
+  os/validate-starter-os.rb
   setup/README.md
   setup/INSTALL.md
   setup/PROMPT-01-CREATE-MY-OS.md
@@ -25,17 +29,18 @@ required = %w[
   setup/AGENT-RUNBOOK.md
   setup/ONBOARDING-INTERVIEW.md
   setup/OPERATOR-GUIDE.md
+  setup/business-template/AGENTS.md
   scripts/create-vault.rb
   scripts/add-business.rb
-  template/vault/AGENTS.md
-  template/vault/CLAUDE.md
-  template/vault/os/agent-rules.md
-  template/vault/os/vault-map.md
-  template/vault/os/validate-starter-os.rb
-  template/vault/life/knowledge-map.md
-  template/business/AGENTS.md
 ]
-required.each { |file| add_error.call("missing required kit file: #{file}") unless File.exist?(file) }
+required.each { |file| add_error.call("missing required source path: #{file}") unless File.exist?(file) }
+
+%w[template migration-v1.md].each do |path|
+  add_error.call("obsolete source path remains: #{path}") if File.exist?(path)
+end
+%w[BIZ LIFE OS].each do |path|
+  add_error.call("obsolete uppercase source path remains: #{path}") if Dir.children(".").include?(path)
+end
 
 prompt_files = %w[
   setup/PROMPT-01-CREATE-MY-OS.md
@@ -50,10 +55,13 @@ prompt_files.each do |file|
   add_error.call("#{file}: prompt file must not contain YAML frontmatter") if text.start_with?("---\n")
 end
 
+first_prompt = File.file?(prompt_files.first) ? File.read(prompt_files.first) : ""
+add_error.call("#{prompt_files.first}: must ask what replaces STARTER in STARTER.os") unless first_prompt.match?(/replace STARTER.*STARTER\.os/i)
+
 user_files = %w[setup/README.md setup/INSTALL.md]
 agent_files = %w[setup/SETUP-STATUS.md setup/AGENT-RUNBOOK.md setup/ONBOARDING-INTERVIEW.md setup/OPERATOR-GUIDE.md]
-user_files.each { |file| add_error.call("#{file}: missing New User label") unless File.read(file).include?("**For: New User**") }
-agent_files.each { |file| add_error.call("#{file}: missing Agent label") unless File.read(file).match?(/\*\*For: Agent/) }
+user_files.each { |file| add_error.call("#{file}: missing New User label") unless File.file?(file) && File.read(file).include?("**For: New User**") }
+agent_files.each { |file| add_error.call("#{file}: missing Agent label") unless File.file?(file) && File.read(file).match?(/\*\*For: Agent/) }
 
 active_text_files = Dir.glob("**/*", File::FNM_DOTMATCH).select do |file|
   File.file?(file) && !file.start_with?(".git/", "archive/") && !file.include?("/.DS_Store")
@@ -84,19 +92,14 @@ active_text_files.each do |file|
   end
 end
 
-legacy_patterns = {
-  "single-repo log route" => /(?<!life\/)`log\//,
-  "old current-state path" => /`os\/now\.md`/,
-  "old business container" => /(?<!biz\/)`business\//
-}
-generated_sources = Dir["template/**/*.{md,rb}"] + Dir["setup/*.md"]
-generated_sources.each do |file|
-  next if file.start_with?("archive/")
-  next if file.end_with?("validate-starter-os.rb")
+route_sources = Dir["{os,life,setup}/**/*.{md,rb}"] + %w[AGENTS.md CLAUDE.md readme.md scripts/create-vault.rb scripts/add-business.rb]
+route_sources.each do |file|
+  next unless File.file?(file)
   text = File.read(file)
-  legacy_patterns.each do |label, pattern|
-    add_error.call("#{file}: contains #{label}") if text.match?(pattern)
-  end
+  add_error.call("#{file}: contains obsolete template/vault route") if text.include?("template/vault")
+  add_error.call("#{file}: contains uppercase OS path") if text.match?(%r{(?<![A-Za-z])OS/})
+  add_error.call("#{file}: contains uppercase LIFE path") if text.match?(%r{(?<![A-Za-z])LIFE/})
+  add_error.call("#{file}: contains uppercase BIZ path") if text.match?(%r{(?<![A-Za-z])BIZ/})
 end
 
 unless errors.empty?
@@ -106,28 +109,33 @@ unless errors.empty?
 end
 
 Dir.mktmpdir("starter-os-kit-") do |tmp|
-  vault = File.join(tmp, "owner-os")
+  vault = File.join(tmp, "NOVA.os")
   create_output, create_status = Open3.capture2e("ruby", "scripts/create-vault.rb", vault)
   unless create_status.success?
-    add_error.call("generated-vault creation failed: #{create_output.strip}")
+    add_error.call("vault creation failed: #{create_output.strip}")
     next
   end
+
+  expected_roots = %w[AGENTS.md CLAUDE.md biz life os setup]
+  actual_roots = Dir.children(vault).sort
+  add_error.call("generated root does not match biz/life/os structure: #{actual_roots.join(', ')}") unless actual_roots == expected_roots
+  add_error.call("custom root name was not preserved") unless File.basename(vault) == "NOVA.os"
 
   business_output, business_status = Open3.capture2e("ruby", "setup/add-business.rb", "sample-business", chdir: vault)
-  unless business_status.success?
-    add_error.call("business creation failed: #{business_output.strip}")
-    next
-  end
+  add_error.call("business creation failed: #{business_output.strip}") unless business_status.success?
 
   validation_output, validation_status = Open3.capture2e("ruby", "os/validate-starter-os.rb", chdir: vault)
-  add_error.call("generated-vault validation failed:\n#{validation_output}") unless validation_status.success?
+  add_error.call("installed-vault validation failed:\n#{validation_output}") unless validation_status.success?
 
   add_error.call("generated vault root became a Git repository") if File.exist?(File.join(vault, ".git"))
   add_error.call("generated biz container became a Git repository") if File.exist?(File.join(vault, "biz", ".git"))
+
+  refusal_output, refusal_status = Open3.capture2e("ruby", "scripts/create-vault.rb", vault)
+  add_error.call("non-empty destination was not refused") if refusal_status.success? || !refusal_output.include?("not empty")
 end
 
 if errors.empty?
-  puts "PASS starter kit: source privacy clean; generated vault, business template, and validator passed."
+  puts "PASS starter kit: direct biz/life/os source, custom root naming, privacy, creation, business template, refusal, and installed validator passed."
   exit 0
 end
 

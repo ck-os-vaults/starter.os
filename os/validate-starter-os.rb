@@ -133,7 +133,7 @@ audited_files.each do |file|
     next unless data[key]
     begin
       dates[key] = Date.parse(data[key].to_s)
-    rescue Date::Error
+    rescue ArgumentError
       add_error.call(file, "invalid #{key} date: #{data[key]}")
     end
   end
@@ -262,8 +262,8 @@ active_markdown.each do |file|
     add_error.call(file, "contains #{label}-shaped text") if text.match?(pattern)
   end
   add_error.call(file, "contains old os/now.md route") if text.include?("`os/now.md`")
-  add_error.call(file, "contains old root log route") if text.match?(/(?<!life\/)`log\//)
-  add_error.call(file, "contains old business/ container route") if text.match?(/(?<!biz\/)`business\//)
+  add_error.call(file, "contains old root log route") if text.match?(/`log\//)
+  add_error.call(file, "contains old business/ container route") if text.match?(/`business\//)
 end
 
 required_ignores = {

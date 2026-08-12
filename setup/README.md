@@ -12,7 +12,7 @@ source: ai
 
 **For: New User**
 
-**Bottom line:** Open one prompt, paste it into your agent, and answer one question at a time. The agent handles the files and setup.
+**Bottom line:** Open one prompt, paste it into your agent, and answer one question at a time. The first question chooses what replaces `STARTER` in `STARTER.os`; the agent handles the files and setup.
 
 **When to read this:** Read only during installation and onboarding. Begin with `PROMPT-01-CREATE-MY-OS.md`.
 

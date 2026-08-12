@@ -12,7 +12,7 @@ source: ai
 
 **For: New User**
 
-**Bottom line:** Download this Starter.OS kit, open its folder in an agent, and paste the first prompt. The agent creates your private OS in a separate folder.
+**Bottom line:** Download Starter.OS, open its folder in an agent, and paste the first prompt. The agent asks what should replace `STARTER` in `STARTER.os`, then creates that private root with `biz/`, `life/`, and `os/` inside it.
 
 **When to read this:** Read before the first setup conversation.
 
@@ -24,7 +24,7 @@ source: ai
 4. Copy the prompt and paste it into the agent.
 5. Follow one step at a time.
 
-Do not choose **Use this template** on GitHub. That would create one repository around the whole folder, which conflicts with Starter.OS version 2.
+Do not personalize the downloaded public folder. The setup agent makes the separate private copy for you.
 
 Current official Codex setup: https://learn.chatgpt.com/docs/quickstart
 

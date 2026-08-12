@@ -1,13 +1,18 @@
-# Starter.OS agent entry
+# Starter.OS root
 
-This repository is the public Starter.OS installation kit. It is not a person's live vault and must never receive private owner context.
+This root supports two states.
 
-Read `readme.md`, then follow the route that matches the task:
+## public source checkout
 
-- installing or personalizing a new vault: `setup/README.md` -> `setup/SETUP-STATUS.md` -> `setup/AGENT-RUNBOOK.md`
-- maintaining the public kit: `readme.md` -> `scripts/validate-starter-kit.rb`
-- migrating a version 1 personal edition: `migration-v1.md`
+If this root contains `.git/`, treat it as the public Starter.OS source. Do not add personal context. Read `readme.md`, then use:
 
-The generated vault has its own root `AGENTS.md` and operating chain. Never treat files under `template/` as the current owner's identity. Preserve the public/private boundary, never copy personal data back into this repository, and never place credentials in either location.
+- new installation: `setup/README.md` -> `setup/SETUP-STATUS.md` -> `setup/AGENT-RUNBOOK.md`
+- source maintenance: `readme.md` -> `scripts/validate-starter-kit.rb`
 
-When this repository is checked out inside a larger operating system with an owning repository contract, follow that contract first; this file adds only Starter.OS-specific boundaries.
+The visible `biz/`, `life/`, and `os/` folders are the reusable source structure. Create the owner's private vault separately.
+
+## private installed vault
+
+If this root does not contain `.git/`, read `os/AGENTS.md` first and follow the boot chain in `os/me.md`. Then follow the nearest repository-level `AGENTS.md` inside `life/` or a business.
+
+Never place passwords, security codes, recovery codes, tokens, API keys, private keys, or other credentials in chat, files, commands, commits, or remote URLs.

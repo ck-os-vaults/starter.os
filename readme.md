@@ -10,42 +10,37 @@ source: ai
 
 # Starter.OS
 
-**Bottom line:** Starter.OS is a public installation kit for creating a private, owner-controlled context system. The finished system is one Obsidian vault with separate Git repositories for shared operating rules, personal life, and each real business.
+**Bottom line:** This repository shows the finished vault structure directly. `STARTER.os` is the example root name; setup asks what the owner wants to replace `STARTER` with before creating the private vault.
 
-**When to read this:** Read for the product overview. New owners start at `setup/README.md`; operators start at `setup/OPERATOR-GUIDE.md`.
+**When to read this:** New owners start at `setup/README.md`. Agents and setup helpers use `setup/AGENT-RUNBOOK.md`.
 
-## the important distinction
-
-This public repository is the **kit**, not the owner's vault. Do not use GitHub's **Use this template** button to create a personal edition: one template repository cannot reproduce the required repository boundaries.
-
-The setup agent creates a separate private vault from `template/`:
+## the structure
 
 ```text
-owner.os/                  one Obsidian vault; never a Git repository
-├── os/                    shared operating repository
-├── life/                  private personal repository
-└── biz/                   plain container; never a Git repository
-    └── <business>/        one repository for each real business
+STARTER.os/                one Obsidian vault; choose the STARTER name during setup
+├── biz/                   business vaults
+│   └── <business>/        one repository for each real business
+├── life/                  private personal vault and repository
+├── os/                    shared operating vault and repository
+└── setup/                 temporary onboarding files
 ```
 
-The vault root contains only one `.obsidian/` folder, thin `AGENTS.md` and `CLAUDE.md` pointers, and temporary `setup/` material during onboarding.
+The public repository is arranged the same way so the system is understandable at a glance. During setup, the agent creates a separate private copy with the owner's chosen root name. The private root and `biz/` are plain containers; `os/`, `life/`, and every real business inside `biz/` have independent Git histories.
 
 ## begin
 
 - New user: `setup/README.md` -> `setup/PROMPT-01-CREATE-MY-OS.md`
-- Setup helper: `setup/OPERATOR-GUIDE.md`
-- Existing version 1 owner: `migration-v1.md`
+- Agent: `setup/AGENT-RUNBOOK.md`
 - Contributor: run `ruby scripts/validate-starter-kit.rb`
 
-## operating model
+## ownership
 
-- `os/` owns identity, shared rules, maps, retrieval, recovery, templates, and routines.
-- `life/` owns current personal state, areas, projects, knowledge, and the permanent record.
-- `biz/<business>/` owns that business's documents, decisions, status, knowledge, and implementation source.
-- The root and `biz/` are containers, never repositories.
+- `os/` owns identity, agent rules, routing, retrieval, recovery, templates, and reusable routines.
+- `life/` owns current personal state, areas, projects, knowledge, and records.
+- `biz/<business>/` owns that business's foundations, decisions, knowledge, status, and implementation source.
 
-Every intended repository uses GitHub `origin` as primary and GitLab `backup` as an exact private ref mirror. Publication goes to GitHub first, then GitLab. A wrap is complete only when the changed repository is clean and local, GitHub, and GitLab refs agree.
+Each intended repository uses private GitHub `origin` as primary and private GitLab `backup` as an exact mirror. Publication goes to GitHub first, then GitLab.
 
 ## privacy boundary
 
-The reusable kit contains no owner's personal context. Each installed edition belongs in private repositories. Never merge private identity, health, financial, client, family, credential, or business information back into this public repository.
+This public source contains no owner's personal context. Never personalize the public checkout or commit credentials. The agent creates and personalizes a separate private vault.

@@ -26,41 +26,42 @@ source: ai
 - Never put credentials in a chat, file, command argument, commit, or Git URL.
 - Show the phase marker throughout: “Phase 4 of 10 complete. Next: create the private GitHub repositories.”
 
-## phase 0 — orient in the public kit
+## phase 0 — choose the root name
 
 1. Read the files named in `PROMPT-01-CREATE-MY-OS.md`.
-2. Confirm the current folder is the public Starter.OS kit, not an existing personal vault.
-3. Inspect the kit's Git status and run `ruby scripts/validate-starter-kit.rb`. Separate kit defects from environment problems.
-4. Ask the owner for a neutral vault name and local destination. Explain that the new folder will be private and separate from this public repository.
-5. Refuse a destination that is the public kit, inside its `.git`, a non-empty unknown folder, a cloud-shared public location, or an existing version 1 vault.
-6. Ask which file-capable agent surface is in use. Check current official privacy, file-access, and permissions guidance for that exact product and account before importing sensitive material.
+2. Confirm the current folder is the public Starter.OS source, not an existing personal vault.
+3. Inspect the source Git status and run `ruby scripts/validate-starter-kit.rb`. Separate source defects from environment problems.
+4. Ask exactly one question: “What would you like to replace STARTER with in STARTER.os?” Keep the `.os` ending. Do not choose for the owner.
+5. After the owner answers, ask where the new `<NAME>.os` folder should live. Explain that it will be private and separate from this public repository.
+6. Refuse a destination that is the public source, inside its `.git`, a non-empty unknown folder, a cloud-shared public location, or an existing vault.
+7. Ask which file-capable agent surface is in use. Check current official privacy, file-access, and permissions guidance for that exact product and account before importing sensitive material.
 
 ## phase 1 — generate and open the vault shell
 
 From the public kit, run:
 
 ```sh
-ruby scripts/create-vault.rb /absolute/path/to/chosen-vault
+ruby scripts/create-vault.rb /absolute/path/to/NAME.os
 ```
 
 The script must create:
 
 ```text
-<vault>/
+NAME.os/
 ├── AGENTS.md
 ├── CLAUDE.md
-├── os/
-├── life/
 ├── biz/
+├── life/
+├── os/
 └── setup/
 ```
 
 Then:
 
-1. Confirm `<vault>` and `<vault>/biz` contain no `.git`.
+1. Confirm `NAME.os` and `NAME.os/biz` contain no `.git`.
 2. Confirm no repository exists yet in `os/` or `life/`; initial publication comes only after personalization and security review.
 3. Set `os/starter-version.md` onboarding state to `in-progress`.
-4. Open `<vault>` as the agent workspace and as one Obsidian vault. The owner may need to approve folder access or switch workspaces.
+4. Open `NAME.os` as the agent workspace and as one Obsidian vault. The owner may need to approve folder access or switch workspaces.
 5. Confirm exactly one `.obsidian/` folder exists at the vault root after Obsidian opens it.
 6. Configure Obsidian's Templates folder as `os/templates` and Daily Notes folder as `life/records/daily`; use `os/templates/daily.md` when the owner wants daily notes.
 7. Run `ruby os/validate-starter-os.rb`. Resolve kit-side failures before interviewing.
@@ -219,4 +220,4 @@ Run only when every earlier gate passes.
 7. Publish changed repositories separately: GitHub first, GitLab second.
 8. Verify clean trees and exact intended ref parity.
 
-The vault root should then contain only `.obsidian/`, `AGENTS.md`, `CLAUDE.md`, `os/`, `life/`, and `biz/`. The setup history remains preserved inside Life but is no longer current agent context.
+The vault root should then contain only `.obsidian/`, `AGENTS.md`, `CLAUDE.md`, `biz/`, `life/`, and `os/`. The setup history remains preserved inside Life but is no longer current agent context.

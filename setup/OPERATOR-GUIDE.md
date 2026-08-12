@@ -19,10 +19,10 @@ source: ai
 ## safe preparation
 
 1. Use a clean public Starter.OS checkout.
-2. Let the owner choose the private vault and repository names.
+2. Ask what should replace `STARTER` in `STARTER.os`; keep the `.os` ending and use that as the private root name.
 3. Optionally preload a welcome note or interview notes marked unconfirmed.
 4. Run the normal interview and wait for the owner's accuracy confirmation.
-5. Create only the `os`, `life`, and confirmed real-business repositories.
+5. Preserve the top-level `biz/`, `life/`, and `os/` structure and create only confirmed real-business repositories inside `biz/`.
 6. Keep every owner repository private and owned by the owner.
 7. Let the owner complete passwords, two-factor authentication, recovery codes, and credential storage privately.
 8. Never merge personal edition content back into the public kit.
@@ -30,5 +30,3 @@ source: ai
 ## upgrades
 
 System foundations and personal editions change at different speeds. Compare versions, protect personalized files, apply only the relevant structural or rule change, validate each affected repository, and update `os/starter-version.md` only after the edition actually adopts the change.
-
-Version 1 editions require the controlled process in `migration-v1.md`; do not install version 2 over them.

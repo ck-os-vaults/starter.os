@@ -3,11 +3,9 @@
 require "fileutils"
 require "pathname"
 
-KIT_ROOT = Pathname.new(File.expand_path("..", __dir__))
-VAULT_TEMPLATE = KIT_ROOT.join("template", "vault")
-BUSINESS_TEMPLATE = KIT_ROOT.join("template", "business")
-SETUP_SOURCE = KIT_ROOT.join("setup")
-ADD_BUSINESS = KIT_ROOT.join("scripts", "add-business.rb")
+SOURCE_ROOT = Pathname.new(File.expand_path("..", __dir__))
+SETUP_SOURCE = SOURCE_ROOT.join("setup")
+ADD_BUSINESS = SOURCE_ROOT.join("scripts", "add-business.rb")
 
 def stop(message)
   warn "Cannot create vault: #{message}"
@@ -15,39 +13,31 @@ def stop(message)
 end
 
 raw_destination = ARGV.shift
-stop("provide one destination path") if raw_destination.to_s.strip.empty?
+stop("provide the full destination ending in .os") if raw_destination.to_s.strip.empty?
 stop("unexpected options: #{ARGV.join(' ')}") unless ARGV.empty?
 
 destination = Pathname.new(File.expand_path(raw_destination))
-kit_real = KIT_ROOT.realpath
-destination_parent = destination.parent.exist? ? destination.parent.realpath : destination.parent
+source_real = SOURCE_ROOT.realpath
 
-if destination == KIT_ROOT || destination.to_s.start_with?("#{kit_real}/")
-  stop("the private vault must be outside the public Starter.OS kit")
+stop("the root folder name must end in .os, such as STARTER.os or ALEX.os") unless destination.basename.to_s.match?(/\A.+\.os\z/i)
+if destination == SOURCE_ROOT || destination.to_s.start_with?("#{source_real}/")
+  stop("the private vault must be outside the public Starter.OS source")
 end
+stop("the destination exists and is not a folder") if destination.exist? && !destination.directory?
+stop("the destination folder is not empty") if destination.directory? && !destination.children.empty?
 
-if destination.exist? && !destination.directory?
-  stop("the destination exists and is not a folder")
+%w[AGENTS.md CLAUDE.md os life setup].each do |required|
+  stop("source path is missing: #{required}") unless SOURCE_ROOT.join(required).exist?
 end
-
-if destination.directory? && !destination.children.empty?
-  stop("the destination folder is not empty")
-end
-
-[VAULT_TEMPLATE, BUSINESS_TEMPLATE, SETUP_SOURCE, ADD_BUSINESS].each do |required|
-  stop("kit file is missing: #{required.relative_path_from(KIT_ROOT)}") unless required.exist?
-end
+stop("business template is missing") unless SETUP_SOURCE.join("business-template").directory?
+stop("business helper is missing") unless ADD_BUSINESS.file?
 
 FileUtils.mkdir_p(destination)
-
-VAULT_TEMPLATE.children.each do |entry|
-  FileUtils.cp_r(entry, destination.join(entry.basename), preserve: true)
+%w[AGENTS.md CLAUDE.md os life setup].each do |name|
+  FileUtils.cp_r(SOURCE_ROOT.join(name), destination.join(name), preserve: true)
 end
-
 FileUtils.mkdir_p(destination.join("biz"))
-FileUtils.cp_r(SETUP_SOURCE, destination.join("setup"), preserve: true)
-FileUtils.cp_r(BUSINESS_TEMPLATE, destination.join("setup", "business-template"), preserve: true)
 FileUtils.cp(ADD_BUSINESS, destination.join("setup", "add-business.rb"), preserve: true)
 
-puts "Created Starter.OS vault shell at #{destination}"
+puts "Created #{destination.basename} at #{destination}"
 puts "Next: open that folder as the agent workspace and Obsidian vault."

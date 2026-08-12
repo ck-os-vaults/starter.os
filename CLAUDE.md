@@ -1,3 +1,3 @@
-# Claude entry
+# Starter.OS agent pointer
 
-Read `AGENTS.md` and follow the same Starter.OS routes and boundaries used by every other agent.
+Read `AGENTS.md` and follow its public-source or private-vault route.

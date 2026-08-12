@@ -18,7 +18,7 @@ source: ai
 
 ## phases
 
-1. Orient in the public kit and choose the private vault location.
+1. Orient in the public source, ask what replaces `STARTER` in `STARTER.os`, then choose the private vault location.
 2. Generate the vault shell and confirm Obsidian/agent access.
 3. Interview for stable, current, deeper, and business-specific context.
 4. Confirm the summary and personalize the generated files.
@@ -31,6 +31,7 @@ source: ai
 
 ## completion gate
 
+- The private root uses the chosen `<NAME>.os` name and contains the three lowercase top-level vaults `biz/`, `life/`, and `os/`.
 - The root and `biz/` are plain containers; `os/`, `life/`, and each real business are independent repositories.
 - `ruby os/validate-starter-os.rb` passes from the generated vault root.
 - Owner context is confirmed and routed at the correct level.

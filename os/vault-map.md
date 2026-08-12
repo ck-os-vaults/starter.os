@@ -10,18 +10,18 @@ source: ai
 
 # vault map
 
-**Bottom line:** One Obsidian vault has three visible roots: shared operating context in `os/`, personal context in `life/`, and independently owned businesses in `biz/`.
+**Bottom line:** One `<NAME>.os` root contains three top-level vaults: businesses in `biz/`, personal context in `life/`, and shared operating context in `os/`.
 
 **When to read this:** Read before creating, moving, routing, renaming, archiving, or changing a repository boundary.
 
 ## visible structure
 
 ```text
-owner.os/                  one vault; never a Git repository
-├── os/                    shared operating repository
-├── life/                  personal repository
-└── biz/                   plain business container; never a Git repository
-    └── <business>/        one repository per real business
+STARTER.os/                example root; replace STARTER during setup
+├── biz/                   business vaults; the container is not a repository
+│   └── <business>/        one repository per real business
+├── life/                  personal vault and repository
+└── os/                    shared operating vault and repository
 ```
 
 The vault root contains one `.obsidian/` configuration plus thin `AGENTS.md` and `CLAUDE.md` pointers. During onboarding only, it also contains temporary `setup/` material.
