@@ -29,6 +29,7 @@ Load deeper context only when it materially helps.
 
 - Time-bound work: `projects/readme.md`.
 - Ongoing responsibilities: `areas/readme.md`.
+- Starter areas: `areas/health/`, `areas/home/`, and `areas/relationships/`. They are generic until the owner confirms useful context.
 
 ## inbox
 

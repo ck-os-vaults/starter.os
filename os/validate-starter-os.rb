@@ -67,6 +67,9 @@ required_paths = %w[
   life/knowledge-map.md
   life/00_inbox/readme.md
   life/areas/readme.md
+  life/areas/health/readme.md
+  life/areas/home/readme.md
+  life/areas/relationships/readme.md
   life/projects/readme.md
   life/knowledge/people/owner.md
   life/records/readme.md

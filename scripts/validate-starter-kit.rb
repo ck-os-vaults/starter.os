@@ -17,6 +17,9 @@ required = %w[
   biz
   life/AGENTS.md
   life/knowledge-map.md
+  life/areas/health/readme.md
+  life/areas/home/readme.md
+  life/areas/relationships/readme.md
   os/AGENTS.md
   os/agent-rules.md
   os/vault-map.md

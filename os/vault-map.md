@@ -43,6 +43,7 @@ Create a business repository only when a real business needs independent current
 - `life/00_inbox/` — raw or unclear capture waiting to be routed.
 - `life/now.md` — last confirmed current personal state and currency gaps.
 - `life/areas/` — ongoing responsibilities without a finish line.
+- `life/areas/health/`, `life/areas/home/`, and `life/areas/relationships/` — generic starter areas; not current owner claims.
 - `life/projects/` — time-bound personal work outside a business.
 - `life/knowledge/` — durable personal reference and people context.
 - `life/records/` — daily, weekly, monthly, journal, conversations, sessions, and decisions.
