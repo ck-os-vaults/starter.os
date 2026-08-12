@@ -29,6 +29,9 @@ required = %w[
   setup/INSTALL.md
   setup/PROMPT-01-CREATE-MY-OS.md
   setup/PROMPT-02-FIRST-WORKING-SESSION.md
+  setup/SYSTEM-EXPLAINED.md
+  setup/SETUP-COMPLETION.md
+  setup/STARTER-VERSION.md
   setup/SETUP-STATUS.md
   setup/AGENT-RUNBOOK.md
   setup/ONBOARDING-INTERVIEW.md
@@ -66,8 +69,8 @@ end
 first_prompt = File.file?(prompt_files.first) ? File.read(prompt_files.first) : ""
 add_error.call("#{prompt_files.first}: must ask what replaces STARTER in STARTER.os") unless first_prompt.match?(/replace STARTER.*STARTER\.os/i)
 
-user_files = %w[setup/README.md setup/INSTALL.md]
-agent_files = %w[setup/SETUP-STATUS.md setup/AGENT-RUNBOOK.md setup/ONBOARDING-INTERVIEW.md setup/OPERATOR-GUIDE.md]
+user_files = %w[setup/README.md setup/INSTALL.md setup/SYSTEM-EXPLAINED.md]
+agent_files = %w[setup/SETUP-STATUS.md setup/AGENT-RUNBOOK.md setup/ONBOARDING-INTERVIEW.md setup/OPERATOR-GUIDE.md setup/SETUP-COMPLETION.md setup/STARTER-VERSION.md]
 user_files.each { |file| add_error.call("#{file}: missing New User label") unless File.file?(file) && File.read(file).include?("**For: New User**") }
 agent_files.each { |file| add_error.call("#{file}: missing Agent label") unless File.file?(file) && File.read(file).match?(/\*\*For: Agent/) }
 

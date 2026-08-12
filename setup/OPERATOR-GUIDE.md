@@ -29,4 +29,4 @@ source: ai
 
 ## upgrades
 
-System foundations and personal editions change at different speeds. Compare versions, protect personalized files, apply only the relevant structural or rule change, validate each affected repository, and update `os/starter-version.md` only after the edition actually adopts the change.
+System foundations and personal editions change at different speeds. Compare versions, protect personalized files, apply only the relevant structural or rule change, and validate each affected repository before adopting it.

@@ -10,15 +10,17 @@ source: ai
 
 # how the system works
 
+**For: New User**
+
 **Bottom line:** Your system is one private folder of readable files. Agents use a few maps to find the right context, while separate repositories keep shared rules, personal life, and businesses from overwriting one another.
 
 **When to read this:** Read when you want the plain-English model of the finished system.
 
 ## the three parts
 
-1. **OS:** who you are, how agents should work, where information belongs, and how the system recovers.
-2. **Life:** current personal state, responsibilities, projects, knowledge, and records.
-3. **Businesses:** one separate workspace for each real business, including its own status, decisions, knowledge, rules, and source.
+1. **os:** who you are, how agents should work, where information belongs, and how the system recovers.
+2. **life:** current personal state, responsibilities, projects, knowledge, and records.
+3. **biz:** one separate workspace for each real business, including its own status, decisions, knowledge, rules, and source.
 
 Obsidian opens all three as one vault. Agents begin with small routing files and load only what a task needs.
 

@@ -21,7 +21,6 @@ source: ai
 - `decision.md` — one owner decision draft.
 - `project-status.md` — project state and next action.
 - `project-agents.md` — local project agent contract scaffold.
-- `setup-completion.md` — one-time record created immediately before onboarding scaffolding is archived.
 
 After creating a note, replace every placeholder and keep it `draft` until its content is usable.
 

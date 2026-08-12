@@ -39,5 +39,3 @@ Start at `../biz/<business>/AGENTS.md`, then follow that repository's current st
 4. Living routed knowledge.
 5. Draft or exploratory material.
 6. Historical records and archives for provenance only.
-
-During onboarding, follow root `setup/SETUP-STATUS.md`. After completion, setup is historical and must not appear in active routes.

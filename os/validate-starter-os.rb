@@ -15,6 +15,9 @@ PROMPT_FILES = %w[
   setup/PROMPT-01-CREATE-MY-OS.md
   setup/PROMPT-02-FIRST-WORKING-SESSION.md
 ].freeze
+SETUP_STATE_FILE = "setup/STARTER-VERSION.md"
+SETUP_COMPLETION_TEMPLATE = "setup/SETUP-COMPLETION.md"
+SETUP_TEMPLATE_EXEMPTIONS = [SETUP_COMPLETION_TEMPLATE].freeze
 ENTRY_EXEMPTIONS = %w[
   AGENTS.md
   CLAUDE.md
@@ -58,8 +61,6 @@ required_paths = %w[
   os/integrations.md
   os/knowledge-map.md
   os/skill-map.md
-  os/starter-version.md
-  os/system-explained.md
   life/AGENTS.md
   life/CLAUDE.md
   life/readme.md
@@ -98,7 +99,7 @@ business_entries.each do |business|
   entry_exemptions.concat(["biz/#{business}/AGENTS.md", "biz/#{business}/CLAUDE.md"])
 end
 
-audited_files = active_markdown - entry_exemptions - TEMPLATE_EXEMPTIONS - PROMPT_FILES
+audited_files = active_markdown - entry_exemptions - TEMPLATE_EXEMPTIONS - SETUP_TEMPLATE_EXEMPTIONS - PROMPT_FILES
 
 audited_files.each do |file|
   text = File.read(file)
@@ -196,13 +197,34 @@ audited_files.each do |file|
 end
 
 # Validate onboarding state and setup lifecycle.
-starter_version = metadata["os/starter-version.md"] || {}
-onboarding_state = starter_version["onboarding"].to_s
-add_error.call("os/starter-version.md", "invalid onboarding state: #{onboarding_state.inspect}") unless ONBOARDING_STATES.include?(onboarding_state)
+state_file = if File.file?(SETUP_STATE_FILE)
+  SETUP_STATE_FILE
+else
+  archived_states = Dir["life/archive/setup/*/STARTER-VERSION.md"].sort
+  add_error.call("life/archive/setup/", "expected one archived setup state file") unless archived_states.length == 1
+  archived_states.first
+end
 
-if File.file?("os/starter-version.md")
-  visible_state = File.read("os/starter-version.md").match(/^- Onboarding state: `([^`]+)`$/)&.captures&.first
-  add_error.call("os/starter-version.md", "visible onboarding state does not match frontmatter") if ONBOARDING_STATES.include?(onboarding_state) && visible_state != onboarding_state
+starter_version = if state_file == SETUP_STATE_FILE
+  metadata[state_file] || {}
+elsif state_file && File.file?(state_file)
+  match = File.read(state_file).match(/\A---\n(.*?)\n---\n/m)
+  begin
+    match ? YAML.safe_load(match[1], permitted_classes: [Date], aliases: false) || {} : {}
+  rescue StandardError => e
+    add_error.call(state_file, "invalid YAML: #{e.message}")
+    {}
+  end
+else
+  {}
+end
+
+onboarding_state = starter_version["onboarding"].to_s
+add_error.call(state_file || SETUP_STATE_FILE, "invalid onboarding state: #{onboarding_state.inspect}") unless ONBOARDING_STATES.include?(onboarding_state)
+
+if state_file && File.file?(state_file)
+  visible_state = File.read(state_file).match(/^- Onboarding state: `([^`]+)`$/)&.captures&.first
+  add_error.call(state_file, "visible onboarding state does not match frontmatter") if ONBOARDING_STATES.include?(onboarding_state) && visible_state != onboarding_state
 end
 
 if onboarding_state == "complete"
@@ -213,6 +235,7 @@ if onboarding_state == "complete"
   temporary_names = %w[
     README.md INSTALL.md PROMPT-01-CREATE-MY-OS.md PROMPT-02-FIRST-WORKING-SESSION.md
     SETUP-STATUS.md AGENT-RUNBOOK.md ONBOARDING-INTERVIEW.md OPERATOR-GUIDE.md
+    SYSTEM-EXPLAINED.md SETUP-COMPLETION.md STARTER-VERSION.md
   ]
   active_markdown.each do |file|
     text = File.read(file)
@@ -222,6 +245,7 @@ if onboarding_state == "complete"
   end
 else
   add_error.call("setup/", "setup folder is required until onboarding is complete") unless Dir.exist?("setup")
+  add_error.call(SETUP_STATE_FILE, "required during setup") unless File.file?(SETUP_STATE_FILE)
   PROMPT_FILES.each { |file| add_error.call(file, "required during onboarding") unless File.exist?(file) }
 end
 

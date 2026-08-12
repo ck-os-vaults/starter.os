@@ -60,7 +60,7 @@ Then:
 
 1. Confirm `NAME.os` and `NAME.os/biz` contain no `.git`.
 2. Confirm no repository exists yet in `os/` or `life/`; initial publication comes only after personalization and security review.
-3. Set `os/starter-version.md` onboarding state to `in-progress`.
+3. Set `setup/STARTER-VERSION.md` onboarding state to `in-progress`.
 4. Open `NAME.os` as the agent workspace and as one Obsidian vault. The owner may need to approve folder access or switch workspaces.
 5. Confirm exactly one `.obsidian/` folder exists at the vault root after Obsidian opens it.
 6. Configure Obsidian's Templates folder as `os/templates` and Daily Notes folder as `life/records/daily`; use `os/templates/daily.md` when the owner wants daily notes.
@@ -205,7 +205,7 @@ Give the owner a one-screen result: complete, incomplete, and one next action.
 
 ## phase 9 — tutorial and first real task
 
-Set `os/starter-version.md` to `tutorial-pending`. Point the owner to `PROMPT-02-FIRST-WORKING-SESSION.md` and begin it in a fresh chat.
+Set `setup/STARTER-VERSION.md` to `tutorial-pending`. Point the owner to `PROMPT-02-FIRST-WORKING-SESSION.md` and begin it in a fresh chat.
 
 Do not call onboarding complete until the lessons and one small real task are finished and wrapped through the publication law.
 
@@ -213,11 +213,11 @@ Do not call onboarding complete until the lessons and one small real task are fi
 
 Run only when every earlier gate passes.
 
-1. Create `life/records/sessions/YYYY-MM-DD-setup-completion.md` from `os/templates/setup-completion.md`.
+1. Create `life/records/sessions/YYYY-MM-DD-setup-completion.md` from `setup/SETUP-COMPLETION.md`.
 2. Record the foundation ID, repositories created, agent surface, security confirmations, parity result, backup/restore result, archive destination, and deferred low-risk follow-ups. Never record credentials or recovery codes.
-3. Move the entire root `setup/` folder to `life/archive/setup/YYYY-MM-DD/` without changing its archived contents.
-4. Remove active setup routes from root pointers, `os/me.md`, `os/knowledge-map.md`, and `life/knowledge-map.md`.
-5. Set `os/starter-version.md` onboarding state to `complete`.
+3. Set `setup/STARTER-VERSION.md` onboarding state to `complete`.
+4. Move the entire root `setup/` folder to `life/archive/setup/YYYY-MM-DD/` without changing its archived contents.
+5. Remove active setup routes from root pointers, `os/me.md`, `os/knowledge-map.md`, and `life/knowledge-map.md`.
 6. Run the validator and security sweep.
 7. Publish changed repositories separately: GitHub first, GitLab second.
 8. Verify clean trees and exact intended ref parity.

@@ -60,5 +60,3 @@ Start at `00_inbox/readme.md`, then use `../os/skills/inbox-triage.md`. Raw capt
 5. Living personal reference.
 6. Draft or exploratory material.
 7. Dated records and archives for history only.
-
-During onboarding, root `setup/` supplies temporary instructions. Remove that route after setup is archived.

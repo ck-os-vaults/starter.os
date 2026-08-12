@@ -5,8 +5,9 @@
 ```text
 Teach me how to work confidently with an agent inside my new OS.
 
-Read AGENTS.md and follow its boot chain. Use my confirmed context, but load only
-what each lesson needs. Assume I am new to agent tools.
+First read `setup/SYSTEM-EXPLAINED.md`, then read AGENTS.md and follow its boot
+chain. Use my confirmed context, but load only what each lesson needs. Assume I
+am new to agent tools.
 
 Teach one short lesson at a time. For each lesson:
 1. Explain it simply.

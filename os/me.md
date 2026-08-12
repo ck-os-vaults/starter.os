@@ -39,8 +39,6 @@ Read on trigger:
 - `os/recovery.md` — for Git, backup, device migration, or restore work.
 - `os/integrations.md` — before publishing, connecting an API, installing an operational tool, or retiring an external service.
 
-During onboarding, also follow `setup/SETUP-STATUS.md`. After onboarding, setup is archived and must not load as current context.
-
 ## who I am
 
 To be written from the owner's confirmed onboarding summary:

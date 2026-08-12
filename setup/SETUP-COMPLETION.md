@@ -9,6 +9,8 @@ source: ai
 
 # setup completion
 
+**For: Agent**
+
 **Bottom line:** Onboarding and the first-use tutorial were completed on YYYY-MM-DD. Temporary setup material is preserved in the dated archive and is not current operating context.
 
 **When to read this:** Read only when confirming how this edition was initialized or locating its archived setup history.
