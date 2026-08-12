@@ -29,6 +29,7 @@ required = %w[
   setup/INSTALL.md
   setup/PROMPT-01-CREATE-MY-OS.md
   setup/PROMPT-02-FIRST-WORKING-SESSION.md
+  setup/PROMPT-03-MIGRATE-OLD-VAULT.md
   setup/SYSTEM-EXPLAINED.md
   setup/SETUP-COMPLETION.md
   setup/STARTER-VERSION.md
@@ -56,12 +57,14 @@ end
 prompt_files = %w[
   setup/PROMPT-01-CREATE-MY-OS.md
   setup/PROMPT-02-FIRST-WORKING-SESSION.md
+  setup/PROMPT-03-MIGRATE-OLD-VAULT.md
 ]
 prompt_files.each do |file|
   next unless File.file?(file)
   text = File.read(file)
   add_error.call("#{file}: missing Copy and paste label") unless text.match?(/^# Copy and paste/)
-  add_error.call("#{file}: missing New User label") unless text.include?("**For: New User**")
+  expected_audience = file.include?("MIGRATE") ? "**For: Existing User**" : "**For: New User**"
+  add_error.call("#{file}: missing #{expected_audience} label") unless text.include?(expected_audience)
   add_error.call("#{file}: expected exactly one prompt block") unless text.scan(/^```text$/).length == 1 && text.scan(/^```$/).length == 1
   add_error.call("#{file}: prompt file must not contain YAML frontmatter") if text.start_with?("---\n")
 end

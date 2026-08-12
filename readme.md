@@ -31,6 +31,7 @@ The public repository is arranged the same way so the system is understandable a
 ## begin
 
 - New user: `setup/README.md` -> `setup/PROMPT-01-CREATE-MY-OS.md`
+- Existing vault: `setup/PROMPT-03-MIGRATE-OLD-VAULT.md`
 - Agent: `setup/AGENT-RUNBOOK.md`
 - Contributor: run `ruby scripts/validate-starter-kit.rb`
 

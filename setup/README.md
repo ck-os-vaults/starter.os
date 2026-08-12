@@ -25,6 +25,10 @@ source: ai
 
 That is all you need to read now.
 
+Already have an older vault? Use `PROMPT-03-MIGRATE-OLD-VAULT.md` instead. It is
+clearly labeled **For: Existing User** and guides the agent through a protected
+audit, rebuild, archive, and triple verification.
+
 ## private steps
 
 You will create passwords, sign in, turn on account security, and save recovery codes yourself. Never paste those secrets into the chat or these files.

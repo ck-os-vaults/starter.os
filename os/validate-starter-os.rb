@@ -14,6 +14,7 @@ Dir.chdir(ROOT)
 PROMPT_FILES = %w[
   setup/PROMPT-01-CREATE-MY-OS.md
   setup/PROMPT-02-FIRST-WORKING-SESSION.md
+  setup/PROMPT-03-MIGRATE-OLD-VAULT.md
 ].freeze
 SETUP_STATE_FILE = "setup/STARTER-VERSION.md"
 SETUP_COMPLETION_TEMPLATE = "setup/SETUP-COMPLETION.md"
@@ -168,7 +169,8 @@ PROMPT_FILES.each do |file|
   next unless File.exist?(file)
   text = File.read(file)
   add_error.call(file, "missing Copy and paste label") unless text.match?(/^# Copy and paste/)
-  add_error.call(file, "missing New User label") unless text.include?("**For: New User**")
+  expected_audience = file.include?("MIGRATE") ? "**For: Existing User**" : "**For: New User**"
+  add_error.call(file, "missing #{expected_audience} label") unless text.include?(expected_audience)
   add_error.call(file, "expected exactly one prompt block") unless text.scan(/^```text$/).length == 1 && text.scan(/^```$/).length == 1
 end
 
@@ -234,6 +236,7 @@ if onboarding_state == "complete"
 
   temporary_names = %w[
     README.md INSTALL.md PROMPT-01-CREATE-MY-OS.md PROMPT-02-FIRST-WORKING-SESSION.md
+    PROMPT-03-MIGRATE-OLD-VAULT.md
     SETUP-STATUS.md AGENT-RUNBOOK.md ONBOARDING-INTERVIEW.md OPERATOR-GUIDE.md
     SYSTEM-EXPLAINED.md SETUP-COMPLETION.md STARTER-VERSION.md
   ]
