@@ -31,8 +31,8 @@ source: ai
 - [ ] GitLab `backup` repositories are private and two-factor security is enabled.
 - [ ] Intended local, `origin`, and `backup` refs match for every repository.
 - [ ] Full-vault backup completed and a restored file opened successfully.
-- [ ] Scheduled weekly vault maintenance is active, correctly targeted, and
-      recorded without credentials.
+- [ ] Start-of-work Git preflight and repository closeout were tested.
+- [ ] Any requested maintenance schedule is active, correctly targeted, and recorded without credentials.
 - [ ] Post-setup tutorial and first real task completed.
 - [ ] Temporary setup routes were removed from active maps.
 

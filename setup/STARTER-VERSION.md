@@ -1,8 +1,8 @@
 ---
 type: status
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: living
 authority: reference
 source: ai
@@ -19,7 +19,7 @@ onboarding: not-started
 
 ## current state
 
-- Foundation ID: `2026-08-11-multi-repo-v2`
+- Foundation ID: `2026-08-14-sync-workflow-v3`
 - Onboarding state: `not-started`
 
 Use `in-progress`, `tutorial-pending`, then `complete` in both frontmatter and the visible line. Before moving `setup/` to `life/archive/setup/YYYY-MM-DD/`, set this file to `complete`.

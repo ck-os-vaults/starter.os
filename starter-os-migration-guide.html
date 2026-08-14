@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Move Your Vault to Starter.OS</title>
+  <meta name="description" content="A simple, step-by-step guide for safely moving an existing Obsidian vault into Starter.OS.">
+  <style>
+    :root {
+      --ink: #13213c;
+      --muted: #526078;
+      --line: #d9e1ec;
+      --soft: #f3f7fc;
+      --paper: #ffffff;
+      --accent: #2458d3;
+      --accent-dark: #173f9e;
+      --safe: #087861;
+      --safe-soft: #eaf8f4;
+      --warn: #8a4b08;
+      --warn-soft: #fff5e6;
+      --max: 860px;
+      --radius: 14px;
+      --shadow: 0 14px 38px rgba(19, 33, 60, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--soft);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--soft);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.62;
+    }
+
+    a { color: var(--accent-dark); }
+
+    a:hover { text-decoration-thickness: 2px; }
+
+    button, a.button {
+      min-height: 48px;
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 750;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    summary:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #8eb0ff;
+      outline-offset: 3px;
+    }
+
+    .topline {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 5px;
+      z-index: 10;
+      background: #d8e1ef;
+    }
+
+    .topline span {
+      display: block;
+      height: 100%;
+      background: var(--safe);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 420ms cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .masthead {
+      color: #fff;
+      background: #14264b;
+      border-bottom: 1px solid #20396e;
+    }
+
+    .masthead-inner {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      padding: 22px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .wordmark {
+      font-size: 15px;
+      font-weight: 850;
+      letter-spacing: .08em;
+    }
+
+    .audience {
+      color: #dce7ff;
+      font-size: 14px;
+    }
+
+    main {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      padding: 68px 0 90px;
+    }
+
+    .hero {
+      padding: 0 0 54px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.12;
+      letter-spacing: -.035em;
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 13ch;
+      font-size: clamp(2.7rem, 8vw, 5.25rem);
+      font-weight: 860;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 4vw, 2.45rem);
+      font-weight: 820;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .lede {
+      max-width: 65ch;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 1.18rem;
+    }
+
+    .hero-actions,
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button-primary {
+      color: #fff;
+      background: var(--accent);
+    }
+
+    .button-primary:hover { background: var(--accent-dark); }
+
+    .button-secondary {
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid #bdc9d9 !important;
+      text-decoration: none;
+    }
+
+    .button-secondary:hover { background: #edf3fb; }
+
+    .version {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-intro {
+      max-width: 68ch;
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+
+    .notice {
+      margin-top: 28px;
+      padding: 21px 22px;
+      background: var(--warn-soft);
+      border: 1px solid #efd2ac;
+      border-radius: var(--radius);
+      color: #5b3510;
+    }
+
+    .notice strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--warn);
+    }
+
+    .checklist {
+      margin-top: 28px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .check-row {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .check-row:last-child { border-bottom: 0; }
+
+    .check-row input {
+      width: 21px;
+      height: 21px;
+      margin: 3px 0 0;
+      accent-color: var(--safe);
+      cursor: pointer;
+    }
+
+    .check-row label {
+      cursor: pointer;
+      font-weight: 680;
+    }
+
+    .check-row small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 450;
+    }
+
+    .steps {
+      margin-top: 28px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 22px;
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .step:first-child { border-top: 0; }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      color: #fff;
+      background: var(--accent);
+      border-radius: 50%;
+      font-weight: 850;
+      line-height: 1;
+    }
+
+    .step p {
+      max-width: 68ch;
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .step ul,
+    .done-list {
+      margin: 14px 0 0;
+      padding-left: 22px;
+    }
+
+    .step li,
+    .done-list li {
+      margin: 8px 0;
+    }
+
+    .plain-path {
+      display: inline-block;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      padding: 2px 7px;
+      color: #273956;
+      background: #e8eef7;
+      border-radius: 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .91em;
+    }
+
+    .prompt-panel {
+      margin-top: 28px;
+      background: #14264b;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .prompt-actions {
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .copy-button {
+      color: #112240;
+      background: #fff;
+    }
+
+    .copy-button:hover { background: #eaf0fa; }
+
+    .copy-status {
+      min-height: 1.5em;
+      color: #cfddff;
+      font-size: 14px;
+    }
+
+    details {
+      background: #fff;
+      border-top: 1px solid #314a79;
+    }
+
+    summary {
+      padding: 18px 20px;
+      color: var(--accent-dark);
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    pre {
+      max-height: 560px;
+      margin: 0;
+      padding: 24px 20px 30px;
+      overflow: auto;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      color: #1f2d45;
+      background: #f7f9fc;
+      border-top: 1px solid var(--line);
+      font: 13px/1.58 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .what-happens {
+      margin-top: 28px;
+      padding: 24px;
+      background: var(--safe-soft);
+      border: 1px solid #b8dfd4;
+      border-radius: var(--radius);
+    }
+
+    .what-happens h3 { color: #075e4e; }
+
+    .what-happens p {
+      margin: 9px 0 0;
+      color: #285c52;
+    }
+
+    .done-list {
+      padding: 0;
+      list-style: none;
+    }
+
+    .done-list li {
+      position: relative;
+      padding-left: 31px;
+    }
+
+    .done-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .25em;
+      width: 20px;
+      height: 20px;
+      background: no-repeat center / 18px 18px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23087861' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5 5L20 6.5'/%3E%3C/svg%3E");
+    }
+
+    .stop-line {
+      margin-top: 28px;
+      padding: 18px 20px;
+      color: #fff;
+      background: #14264b;
+      border-radius: var(--radius);
+      font-weight: 720;
+    }
+
+    footer {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      padding: 34px 0 44px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 620px) {
+      body { font-size: 16px; }
+
+      .masthead-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      main { padding-top: 44px; }
+
+      .hero { padding-bottom: 42px; }
+
+      .section { padding: 42px 0; }
+
+      .step {
+        grid-template-columns: 42px 1fr;
+        gap: 15px;
+      }
+
+      .step-number {
+        width: 38px;
+        height: 38px;
+      }
+
+      button, a.button {
+        width: 100%;
+        text-align: center;
+      }
+
+      .prompt-actions { align-items: stretch; }
+
+      .copy-status { text-align: center; }
+    }
+
+    @media print {
+      body, html { background: #fff; }
+
+      .topline,
+      .hero-actions,
+      .prompt-actions,
+      .version { display: none !important; }
+
+      .masthead {
+        color: var(--ink);
+        background: #fff;
+        border-bottom: 2px solid var(--ink);
+      }
+
+      .audience { color: var(--muted); }
+
+      main {
+        width: 100%;
+        padding: 30px 0;
+      }
+
+      .section { break-inside: avoid; }
+
+      .prompt-panel {
+        color: var(--ink);
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: none;
+      }
+
+      details { display: block; }
+
+      details > summary { display: none; }
+
+      details > pre {
+        display: block;
+        max-height: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="wordmark">STARTER.OS</div>
+      <div class="audience">Migration guide for an existing vault</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Move your vault without losing your past.</h1>
+      <p class="lede">You do not need to understand Git or reorganize anything yourself. Your coding agent will build a clean new Starter.OS, preserve your old vault as a dated archive, and check its work before it finishes.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#start">Start the checklist</a>
+        <button class="button-secondary" type="button" onclick="window.print()">Print or save as PDF</button>
+      </div>
+      <p class="version">Based on the verified Starter.OS migration runbook · August 12, 2026</p>
+    </section>
+
+    <section class="section" id="start">
+      <h2>Before you start</h2>
+      <p class="section-intro">Check these four things. Your progress stays only in this browser on this computer.</p>
+
+      <div class="checklist" aria-label="Before you start checklist">
+        <div class="check-row">
+          <input class="progress-check" type="checkbox" id="ready-old-vault">
+          <label for="ready-old-vault">Your old Obsidian vault is on this computer.<small>Leave it exactly where it is. Do not rename, move, clean up, or delete anything.</small></label>
+        </div>
+        <div class="check-row">
+          <input class="progress-check" type="checkbox" id="ready-apps">
+          <label for="ready-apps">Obsidian and a coding agent are installed.<small>Codex in the ChatGPT desktop app works well because it can read and edit a local folder.</small></label>
+        </div>
+        <div class="check-row">
+          <input class="progress-check" type="checkbox" id="ready-accounts">
+          <label for="ready-accounts">You can sign in to GitHub and GitLab.<small>The agent will create private repositories in both. You enter all passwords and security codes yourself.</small></label>
+        </div>
+        <div class="check-row">
+          <input class="progress-check" type="checkbox" id="ready-time">
+          <label for="ready-time">You can leave your computer on while the migration runs.<small>A complete migration may take a while because every file, link, backup, and repository must be checked.</small></label>
+        </div>
+      </div>
+
+      <div class="notice" role="note">
+        <strong>Keep every secret private.</strong>
+        Never paste a password, one-time code, recovery code, token, API key, private key, or seed phrase into chat or a file. When a sign-in window appears, type the secret directly into that trusted window.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Do these steps in order</h2>
+      <p class="section-intro">Your only job is to open the right folder, paste the prompt, and handle private sign-ins when asked.</p>
+
+      <div class="steps">
+        <article class="step">
+          <div class="step-number" aria-hidden="true">1</div>
+          <div>
+            <h3>Open your old vault in Codex</h3>
+            <p>In Codex, choose <strong>Open folder</strong> and select the main folder of the Obsidian vault you already use. It is the folder that contains all of your current notes.</p>
+            <p><strong>Important:</strong> open your old private vault—not the public Starter.OS download.</p>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-number" aria-hidden="true">2</div>
+          <div>
+            <h3>Give Codex the official Starter.OS source</h3>
+            <p>The migration prompt already tells Codex where to find it. You can open the link below first if you want to see the public source. Do not add personal notes to that public folder.</p>
+            <div class="button-row">
+              <a class="button button-secondary" href="https://github.com/ck-os-vaults/starter.os" target="_blank" rel="noopener">Open Starter.OS on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="step" id="copy">
+          <div class="step-number" aria-hidden="true">3</div>
+          <div>
+            <h3>Copy and send the migration prompt</h3>
+            <p>Press the blue button below. Return to Codex, paste the entire prompt into a new task, and send it once. You do not need to read or edit the long prompt.</p>
+
+            <div class="prompt-panel">
+              <div class="prompt-actions">
+                <button class="copy-button" type="button" id="copyPrompt">Copy the complete migration prompt</button>
+                <span class="copy-status" id="copyStatus" aria-live="polite"></span>
+              </div>
+              <details>
+                <summary>Show the complete prompt</summary>
+                <pre id="promptText">Migrate my existing vault completely into the current Starter.OS structure.
+
+Use the current Starter.OS repository as the structural and operating source:
+https://github.com/ck-os-vaults/starter.os
+
+Assume I am not technical. Handle the entire migration yourself and keep me
+informed with short phase updates. Do not ask for approval, confirmation, or
+routine decisions. Infer names and destinations from the existing vault, make
+the safest conservative choice when something is unclear, record that choice,
+and continue until the migration is completely finished. Pause only when an
+external sign-in or credential entry physically requires me; ask for that one
+action without requesting or exposing the credential, then resume immediately.
+
+This prompt file is also the migration runbook. Keep
+`setup/PROMPT-03-MIGRATE-OLD-VAULT.md` available in the new vault throughout
+the work. Re-read it before every phase, after any context reset or agent
+handoff, and before declaring completion. Track every numbered requirement in
+`setup/MIGRATION-RECEIPT.md`; do not rely on chat memory.
+
+The finished private vault must use this structure:
+
+&lt;NAME&gt;.os/
+├── AGENTS.md
+├── CLAUDE.md
+├── biz/
+│   └── &lt;first-business&gt;/
+├── life/
+├── os/
+└── .obsidian/
+
+The root and `biz/` are plain containers, never Git repositories. `os/`,
+`life/`, and each real `biz/&lt;business&gt;/` are separate private repositories.
+GitHub `origin` is primary. GitLab `backup` is the identical mirror. Setup and
+migration files are temporary and must be archived together when complete.
+
+Every phase has the same completion gate: perform the phase, inspect the actual
+result, run the relevant checks, fix every failure, repeat the checks, and write
+the evidence to `setup/MIGRATION-RECEIPT.md`. Do not start the next phase until
+the current phase passes. After all phases, perform the independent final
+review required below.
+
+Non-negotiable safety rules:
+
+- Do not migrate destructively in place. Build a clean sibling `&lt;NAME&gt;.os`
+  vault. The untouched original vault becomes the complete dated archive of
+  the previous structure, including hidden files, Git history, ignored files,
+  attachments, and `.obsidian/` state.
+- Never use reset, clean, force-push, history rewriting, or bulk deletion.
+- Never discard dirty, untracked, ignored, hidden, or conflicting files.
+- Never edit an archive after it is created.
+- Never ask for or store passwords, one-time codes, recovery codes, tokens,
+  API keys, private keys, seed phrases, or credentials.
+- Create only private repositories. Use an already authenticated GitHub/GitLab
+  session when available; if authentication is required, ask me only to sign
+  in and then continue without another approval gate.
+- Never copy my private information back into the public Starter.OS source.
+- Treat current facts, decisions, and owner-written meaning separately from
+  agent inference. Do not invent missing context or promote drafts as truth.
+- Questionable, stale, duplicated, or unclear material goes to review or a
+  dated archive; it is not silently deleted or left in active routes.
+
+Follow every phase below. Keep all migration work products inside the new
+vault's `setup/` folder so they archive together at the end.
+
+PHASE 1 — orient and protect the source
+
+1. Confirm the root of my existing vault. Read its AGENTS.md, CLAUDE.md,
+   readmes, maps, current-state files, and nearest repository instructions.
+2. Inspect before writing:
+   - Git status, branch, commit, remotes, tags, worktrees, submodules, and
+     nested `.git` folders;
+   - tracked, untracked, ignored, hidden, and symlinked files;
+   - `.obsidian/`, plugins, attachments, media, scripts, exports, and large
+     files;
+   - all Markdown files, frontmatter, tags/properties, links, and wikilinks.
+3. Do not stash, clean, reset, checkout, commit, move, rename, or delete yet.
+4. Identify any secrets, credential-shaped text, public/private exposure, or
+   files that should never be copied or published. Report blockers without
+   printing secret values.
+5. Record the source Git state and a full file inventory in
+   `setup/MIGRATION-MANIFEST.md` in the new vault once it exists.
+
+PHASE 2 — obtain and verify the current Starter.OS source
+
+1. If a clean current Starter.OS checkout containing this prompt is already
+   available, use it. Otherwise download or clone the repository above into a
+   temporary folder outside my old vault.
+2. Do not personalize or commit to the public Starter.OS checkout.
+3. Read its AGENTS.md, readme.md, setup/AGENT-RUNBOOK.md,
+   setup/ONBOARDING-INTERVIEW.md, os/agent-rules.md, os/retrieval.md,
+   os/vault-map.md, and os/knowledge-map.md.
+4. Run `ruby scripts/validate-starter-kit.rb`. Do not use the source kit until
+   it passes. Refresh the checkout, diagnose the failure, and fix or replace the
+   temporary source copy as needed; do not merely report the failure and stop.
+5. Determine what replaces `STARTER` from the existing vault name and current
+   owner context. Preserve a clear existing name; otherwise choose a concise
+   descriptive name. Keep the `.os` suffix. Record both the intended final path
+   and a collision-free temporary build path. The temporary path must be
+   `&lt;temporary-parent&gt;/&lt;NAME&gt;.os`, where `&lt;temporary-parent&gt;` is a new empty
+   sibling folder such as `.starter-os-rebuild-YYYY-MM-DD`; never try to create
+   a second sibling with the same path as the existing vault.
+
+PHASE 3 — create the autonomous migration manifest
+
+Create one complete manifest before reorganizing content. For every source
+file or coherent folder, record:
+
+- current path and file type;
+- proposed new owner and destination;
+- action: keep, update, archive, review, or exclude;
+- whether it is current, historical, duplicated, stale, generated, sensitive,
+  or uncertain;
+- authority/source when known;
+- important links or dependents;
+- reason and confidence;
+- uncertainty level and the conservative disposition used.
+
+Audit specifically for:
+
+- contradictory current facts, expired priorities, old dates presented as
+  current, abandoned projects, obsolete instructions, and stale status files;
+- duplicate notes, near-duplicate names, conflicting foundations, orphaned
+  files, broken routes, empty placeholders, and files that no map can reach;
+- personal material inside business files, business material inside personal
+  files, and reusable OS rules mixed into either one;
+- old folder names, inconsistent capitalization, ambiguous wikilink targets,
+  invalid frontmatter, uncontrolled tags, and stale metadata values;
+- attachments or exports whose privacy, ownership, or usefulness is unclear.
+
+Write one concise review package inside the manifest containing:
+
+1. confirmed root name;
+2. proposed businesses and the first business name;
+3. keep/update/archive/review/exclude totals;
+4. sensitive or external-action blockers;
+5. every conservative judgment the agent made for unclear material;
+6. the exact new repository boundaries;
+7. the rollback plan.
+
+Do not ask for approval of the manifest or stop for unresolved organizational
+choices. Resolve each item conservatively: preserve rather than delete, archive
+rather than promote uncertain material, keep owner-written meaning separate
+from inference, and prefer the current Starter.OS rules when old operating
+instructions conflict. Record the reasoning, verify manifest coverage, and
+continue.
+
+PHASE 4 — create rollback checkpoints
+
+After the manifest passes its phase review and before changing any source:
+
+1. Preserve the existing vault exactly as found. Do not reorganize it. If the
+   migration requires touching it, first create a byte-for-byte dated sibling
+   snapshot and work only from the snapshot or a separate copy.
+2. Give the untouched source a dated archival identity such as
+   `&lt;OLD-NAME&gt;-pre-starter-os-archive-YYYY-MM-DD`. Rename it only after the new
+   vault passes final verification; until then, record that final archive name
+   in the manifest.
+3. Preserve its complete directory tree, hidden files, `.git` history,
+   branches, tags, untracked and ignored files, attachments, and `.obsidian/`
+   state. Keep secrets local and excluded from any new commit or remote.
+4. Do not add a commit, tag, stash, or other mutation to the old vault. Record
+   its existing Git state and use the unchanged filesystem archive, verified by
+   hashes and counts, as the rollback checkpoint.
+5. Record the archive path, original path, existing commit/tags, remotes,
+   file counts, hashes, sensitive exclusions, and tested restore steps in the
+   migration manifest.
+6. Never nest this full old-vault archive inside `os/`, `life/`, or a business
+   repository. It is the preserved historical structure, not active context.
+
+PHASE 5 — build the clean target shell
+
+1. Create the new empty temporary parent recorded in Phase 2. Use the verified
+   Starter.OS generator to create `&lt;temporary-parent&gt;/&lt;NAME&gt;.os`. This preserves
+   the final root basename without colliding with an existing `&lt;NAME&gt;.os` vault.
+   Refuse any non-empty destination or temporary parent containing unknown work.
+2. Confirm the root contains `biz/`, `life/`, `os/`, and temporary `setup/`.
+3. Confirm the root and `biz/` do not contain `.git`.
+4. Open only the new root as the Obsidian vault and agent workspace.
+5. Preserve one root `.obsidian/`. Review old Obsidian settings and plugins;
+   carry forward only understood, safe, useful settings. Do not blindly copy
+   stale plugin state, workspace history, caches, or secrets.
+6. Set `setup/STARTER-VERSION.md` to `in-progress`.
+7. Add `setup/MIGRATION-MANIFEST.md`, `setup/MIGRATION-RECEIPT.md`, and any
+   temporary review lists. These must remain inside `setup/`.
+
+PHASE 6 — rebuild structure and migrate content
+
+Use the current `os/vault-map.md` and `os/retrieval.md`, not the old layout, as
+the destination rules. Typical old routes may map as follows, but inspect the
+actual meaning before moving anything:
+
+- old inbox/capture -&gt; `life/00_inbox/`;
+- old areas -&gt; `life/areas/`;
+- old personal projects -&gt; `life/projects/`;
+- old personal knowledge -&gt; `life/knowledge/`;
+- old logs, journal, conversations, decisions, and sessions -&gt; matching
+  `life/records/` lanes;
+- old current personal state -&gt; `life/now.md`;
+- shared identity, agent behavior, retrieval, recovery, maps, templates, and
+  reusable routines -&gt; reviewed current files in `os/`;
+- each real business -&gt; its own `biz/&lt;business&gt;/` repository;
+- inactive or superseded material -&gt; a dated archive owned by `life/` or the
+  relevant business;
+- uncertain material -&gt; a dated review folder referenced by the manifest.
+
+For the first confirmed business, rename `biz/business-model/` by running
+`ruby setup/add-business.rb &lt;lowercase-kebab-name&gt;`. Then personalize its
+foundations from confirmed source material. Do not leave `business-model/`
+active after the first business is named. Create additional business folders
+only for real confirmed businesses, using the same foundation shape.
+
+Do not copy old OS files wholesale over the new OS. Compare rule by rule. Keep
+valuable owner preferences and proven routines, adopt the current Starter.OS
+structure and safety boundaries, resolve conflicts explicitly, and archive the
+superseded originals.
+
+Copy first, verify, then retire old locations. Do not remove the preserved
+source vault during this migration.
+
+PHASE 7 — normalize every active file and retrieval route
+
+Perform a complete metadata and retrieval audit across every active Markdown
+file:
+
+1. Apply the schema and allowed values in `os/retrieval.md`.
+2. Check every frontmatter key, tag/property, date, status, authority, source,
+   supersession pointer, and archive marker.
+3. Preserve a reliable original creation date. If it is unknown, use the
+   migration date and record that provenance in the manifest rather than
+   pretending the date is original.
+4. Use one clear H1. For routed notes that require them, include one
+   `Bottom line` and one `When to read this` before the first H2.
+5. Normalize ordinary filenames and folders to lowercase kebab-case. Keep dated
+   records in `YYYY-MM-DD` form. Fix case-sensitive paths and references.
+6. Resolve every Markdown link and wikilink. Check anchors, relative paths,
+   renamed files, duplicate basenames, and links into archives.
+7. Ensure maps and readmes route only to current useful sources. Historical or
+   review material must not outrank or masquerade as current truth.
+8. Reconcile duplicate and conflicting facts. Keep one current owner; preserve
+   meaningful history in records/archive; add receipts where a move or merge
+   would otherwise be hard to trace.
+9. Review every current claim in `os/me.md`, `life/now.md`, business readmes,
+   business status files, decisions, recovery, integrations, and maps. Resolve
+   stale facts from the strongest current evidence. If evidence is insufficient,
+   mark a visible currency gap, keep the uncertain claim out of current truth,
+   record the disposition, and continue. Do not silently guess.
+10. Remove empty generated placeholders only when their route is unnecessary
+    and the manifest records the action. Keep the four generic Life area
+    starters unless the source clearly establishes a different current set; in
+    that case, migrate the evidenced set and record the change.
+
+PHASE 8 — privacy, security, and file audit
+
+1. Scan active and proposed committed files for secrets, private keys, tokens,
+   credentials, recovery codes, environment files, embedded-token URLs, private
+   exports, and accidental public data.
+2. Audit `.gitignore` in `os/`, `life/`, and every business before Git setup.
+3. Inspect attachments, media, binary files, symlinks, scripts, dependencies,
+   generated output, and files above normal size. Keep only intentional items.
+4. Confirm no real private data entered the public Starter.OS checkout.
+5. Report findings by exact path without exposing secret contents.
+
+PHASE 9 — create the new repository and backup topology
+
+Only after content, metadata, and privacy reviews pass:
+
+1. Audit and retire the old Git process in active documentation, scripts,
+   automations, hooks, and recovery instructions. Preserve the old root
+   repository and its complete history only inside the dated old-vault archive.
+2. Confirm the new repository set is exactly `os/`, `life/`, and one repository
+   for each real `biz/&lt;business&gt;/`. Never initialize Git at the vault root or
+   `biz/`, and never leave a business as a nested repository or submodule.
+3. Initialize each new repository independently and create a clear foundation
+   commit. Do not mix OS, Life, or business histories. Do not copy an old root
+   `.git` directory into the new vault.
+4. Use an authenticated session to create a private GitHub repository for each
+   new repository. Configure GitHub as remote `origin`, make it the primary
+   source of truth, and push it first.
+5. Create a corresponding private GitLab repository for each one. Configure it
+   as remote `backup` and mirror the complete intended GitHub ref state to it
+   only after the GitHub push succeeds.
+6. Mirror every intended branch, tag, update, and deletion. GitLab must contain
+   no independent commits or GitLab-only refs. For every repository, compare
+   local, GitHub, and GitLab branch/tag sets and commit IDs and require exact
+   equality. If GitLab differs, repair the mirror from GitHub and recheck.
+7. Update all active Git instructions, maps, agent rules, recovery files, and
+   automation references so they describe only this process: work in the
+   owning repository, commit separately, push GitHub `origin` first, mirror
+   GitLab `backup` second, verify identical refs, and finish with a clean tree.
+8. Never use multiple push URLs as a substitute for the two named remotes.
+   Never use GitLab-first state to overwrite GitHub.
+9. Configure full-vault protection for root `.obsidian/`, ignored safe
+   attachments, the preserved old-vault archive, and every other file Git
+   intentionally excludes. Complete a harmless restore test.
+10. Record the complete repository map, GitHub/GitLab remote names, backup
+    schedule, last successful mirror check, full-vault backup, and last restore
+    test in `os/recovery.md` without credentials.
+
+PHASE 10 — triple verification
+
+Run three independent passes. A pass must be repeated after any fix.
+
+PASS A — mechanical and structural
+
+- Run `ruby os/validate-starter-os.rb` and every relevant repository-specific
+  validator/test.
+- Recheck required paths, lowercase names, frontmatter, tags/properties, dates,
+  one-H1 rules, summaries, broken Markdown links, unresolved/ambiguous
+  wikilinks, stale old routes, secret patterns, ignore rules, `.obsidian/`
+  placement, nested Git, and repository boundaries.
+- Confirm working trees contain only intentional changes.
+
+PASS B — semantic and source-to-target reconciliation
+
+- Reconcile every source file against `setup/MIGRATION-MANIFEST.md`; no file may
+  be missing, silently dropped, or counted twice.
+- Compare source and target counts and hashes where appropriate.
+- Open representative files from identity, current state, each area, projects,
+  knowledge, every record lane, every business, archives, attachments, and
+  Obsidian configuration.
+- Re-read all maps, status files, foundations, decisions, agent rules,
+  retrieval rules, recovery instructions, and integration records for stale,
+  contradictory, duplicated, overbroad, or invented content.
+- Confirm archives are preserved, read-only, and absent from current startup
+  routes.
+
+PASS C — clean-room recovery and publication parity
+
+- Reconstruct the new vault in a temporary location from the private GitHub
+  repositories, attach/fetch the GitLab backup remotes, and restore the root
+  pointers plus safe non-Git files from full-vault backup.
+- Run the installed validator in the reconstructed vault.
+- Compare the declared repository set, intended branches/tags, commit IDs, and
+  a representative restored file with the live target.
+- Confirm GitHub and GitLab match exactly and every live working tree is clean.
+
+PHASE 11 — final independent review, cleanup, and archive
+
+1. Independently review the entire result from the new root without relying on
+   the earlier phase conclusions. Fix every issue and rerun the affected phase
+   gate plus all three verification passes.
+2. Prepare a compact final report:
+   - what moved and changed;
+   - what was archived or excluded;
+   - stale or conflicting information resolved;
+   - unresolved review items and residual risks;
+   - validation, restore, and remote-parity results;
+   - old-vault rollback location;
+   - exact final root structure.
+3. Open and inspect representative files from every repository and perform one
+   real retrieval task from the root to prove that routing works.
+4. Complete `life/records/sessions/YYYY-MM-DD-setup-completion.md` from
+   `setup/SETUP-COMPLETION.md` and complete `setup/MIGRATION-RECEIPT.md`.
+5. Finalize the filesystem paths before configuring path-bound integrations:
+   - verify the old vault still matches the Phase 1 inventory and Phase 4
+     checkpoint;
+   - rename the untouched old vault to its dated
+     `&lt;OLD-NAME&gt;-pre-starter-os-archive-YYYY-MM-DD` path;
+   - move the verified new `&lt;temporary-parent&gt;/&lt;NAME&gt;.os` vault into the intended
+     final `&lt;NAME&gt;.os` path;
+   - remove the temporary parent only when it is empty;
+   - reopen the final root as the agent workspace and Obsidian vault, then rerun
+     the structural validator before continuing.
+6. Verify the everyday Git workflow after the new vault reaches its final path:
+   - read `os/skills/git-sync-preflight.md` and `os/skills/eod-wrap.md`;
+   - demonstrate one clean relevant-repository preflight and exact local,
+     GitHub, and GitLab parity;
+   - confirm completed changes use repository closeout: validate, inspect,
+     commit, push GitHub first, mirror GitLab, and verify a clean matching tree;
+   - record that hosted cloud work cannot prove local pull or GitLab parity;
+   - ask whether the owner wants recurring maintenance. Create and verify one
+     native vault-root task following `os/skills/vault-maintenance.md` only if
+     requested; never create cron, a daemon, frequent polling, or duplicates.
+7. Replace root AGENTS.md and CLAUDE.md with the permanent pointers from
+   `os/templates/root-AGENTS.txt` and `os/templates/root-CLAUDE.txt`.
+8. Remove every active setup/migration route from permanent OS, Life, business,
+   and root files.
+9. Set `setup/STARTER-VERSION.md` to `complete`.
+10. Move the entire `setup/` folder unchanged to
+   `life/archive/setup/YYYY-MM-DD/`. Do not leave tutorial, migration, manifest,
+   helper, state, or setup files active outside that archive.
+11. Run all three verification passes again after archival and cleanup.
+12. Publish only the repositories changed by cleanup: GitHub first, GitLab
+   second. Verify exact parity and clean trees.
+13. Mark the renamed old-vault archive retired and read-only where practical,
+    and verify its counts/hashes against the source inventory. Do not delete it.
+    Include explicit restore instructions and a later review date in the final
+    report.
+14. Deliver the final report only after all work, publication, mirroring,
+    archival, cleanup, and verification are complete. Do not ask for a final
+    approval to perform any remaining migration task.
+
+Final acceptance requires all of the following:
+
+- the new root contains only `.obsidian/`, AGENTS.md, CLAUDE.md, `biz/`,
+  `life/`, and `os/`;
+- the first business model has been renamed to the confirmed first business;
+- every source item has a manifest disposition and every active item has one
+  clear owner;
+- all active metadata, retrieval properties, links, routes, names, current
+  claims, decisions, and maps have been reviewed;
+- questionable and historical material is preserved outside active context;
+- validators, security checks, source reconciliation, and clean-room recovery
+  all pass;
+- GitHub and GitLab refs match for every intended repository;
+- active Git documentation and automation use GitHub first and an identical
+  GitLab mirror for `os/`, `life/`, and every individual business;
+- start-of-work Git preflight and repository closeout are tested, and any
+  owner-requested maintenance task is verified from saved scheduler state;
+- full-vault backup and restore are proven;
+- working trees are clean;
+- setup is archived and the everyday vault opens in a fresh, minimal state;
+- the complete previous structure is preserved as a dated, tested, recoverable
+  old-vault archive.
+
+Start now. Give one short phase update, inspect the existing vault read-only,
+and continue through every phase to completion. Do not ask for approval. Ask
+only for an unavoidable external sign-in action, then resume immediately.</pre>
+              </details>
+            </div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-number" aria-hidden="true">4</div>
+          <div>
+            <h3>Let Codex work</h3>
+            <p>Codex should give you short phase updates and continue on its own. Do not start moving files while it works. If Codex asks a routine question or asks for permission to continue, remind it to follow the migration prompt and make the safest conservative choice.</p>
+            <div class="what-happens">
+              <h3>The only normal reasons it should pause</h3>
+              <p>A trusted website or app needs you to sign in, approve folder access, turn on account security, or privately save recovery information. Complete that one action, then tell Codex: <strong>“Done. Please continue the migration.”</strong></p>
+            </div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-number" aria-hidden="true">5</div>
+          <div>
+            <h3>Do not accept an early “finished”</h3>
+            <p>Codex is finished only after it confirms the new vault, old-vault archive, private repositories, backups, recovery test, everyday synchronization workflow, and final checks all passed.</p>
+            <p>If it stops early, paste: <strong>“Re-read setup/PROMPT-03-MIGRATE-OLD-VAULT.md and setup/MIGRATION-RECEIPT.md. Continue from the first incomplete requirement until every final acceptance item passes.”</strong></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How you know it is truly complete</h2>
+      <p class="section-intro">The final report should confirm every item below in plain language.</p>
+
+      <ul class="done-list">
+        <li>Your new <span class="plain-path">&lt;NAME&gt;.os</span> vault opens normally in Obsidian.</li>
+        <li>Your complete old vault still exists as a dated, untouched archive that can be restored.</li>
+        <li>Your active files were reviewed; unclear or old material was preserved for review or archived, not silently deleted.</li>
+        <li><span class="plain-path">os</span>, <span class="plain-path">life</span>, and each real business have separate private GitHub repositories and identical private GitLab backups.</li>
+        <li>A full-vault backup includes the files Git does not protect, and a harmless restore test succeeded.</li>
+        <li>All validators and privacy checks pass, all repositories are clean, and GitHub and GitLab match.</li>
+        <li>The weekly <strong>Weekly OS maintenance</strong> task is enabled for the new vault.</li>
+        <li>Temporary setup files are archived, leaving a clean everyday vault.</li>
+      </ul>
+
+      <div class="stop-line">Do not delete the old-vault archive after migration. Keep it until you have used the new system successfully and completed a later, deliberate archive review.</div>
+    </section>
+  </main>
+
+  <footer>
+    This guide contains no personal information and sends no data anywhere. The migration itself should be performed only inside your private local vault and private accounts.
+  </footer>
+
+  <script>
+    (function () {
+      var checks = Array.prototype.slice.call(document.querySelectorAll('.progress-check'));
+      var progressBar = document.getElementById('progressBar');
+      var storageKey = 'starter-os-migration-guide-checks';
+
+      function updateProgress() {
+        var complete = checks.filter(function (item) { return item.checked; }).length;
+        progressBar.style.transform = 'scaleX(' + (complete / checks.length) + ')';
+      }
+
+      try {
+        var saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+        checks.forEach(function (item) {
+          item.checked = Boolean(saved[item.id]);
+        });
+      } catch (error) {}
+
+      checks.forEach(function (item) {
+        item.addEventListener('change', function () {
+          var state = {};
+          checks.forEach(function (check) { state[check.id] = check.checked; });
+          try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (error) {}
+          updateProgress();
+        });
+      });
+
+      updateProgress();
+
+      document.getElementById('copyPrompt').addEventListener('click', function () {
+        var text = document.getElementById('promptText').textContent;
+        var status = document.getElementById('copyStatus');
+
+        function success() {
+          status.textContent = 'Copied. Paste it into Codex and send.';
+        }
+
+        function fallback() {
+          var area = document.createElement('textarea');
+          area.value = text;
+          area.setAttribute('readonly', '');
+          area.style.position = 'fixed';
+          area.style.opacity = '0';
+          document.body.appendChild(area);
+          area.select();
+          try {
+            document.execCommand('copy');
+            success();
+          } catch (error) {
+            status.textContent = 'Copy failed. Open the prompt below and copy it manually.';
+          }
+          document.body.removeChild(area);
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text).then(success).catch(fallback);
+        } else {
+          fallback();
+        }
+      });
+    }());
+  </script>
+</body>
+</html>

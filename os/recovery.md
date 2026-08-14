@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: draft
 authority: canon
 source: ai
@@ -28,11 +28,10 @@ Fill without secrets:
 - Last successful backup:
 - Last tested restore:
 - Known exclusions or blockers:
-- Weekly maintenance agent/application:
-- Weekly maintenance task name: `Weekly OS maintenance`
-- Weekly maintenance schedule and time zone:
-- Weekly maintenance vault-root target:
-- Last verified scheduled-task state:
+- Optional maintenance agent/application:
+- Optional maintenance task name and schedule:
+- Maintenance vault-root target:
+- Last verified maintenance-task state:
 
 Repository registry:
 

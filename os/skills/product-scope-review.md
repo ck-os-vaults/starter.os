@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: draft
 authority: exploratory
 source: ai
@@ -16,7 +16,7 @@ Keep product, automation, workflow, and system ideas grounded and appropriately 
 
 ## trigger
 
-New product, feature, screen, workflow, automation, or prototype idea.
+Calm idea-stage product, feature, screen, workflow, automation, prototype, or parallel-system proposal. Overwhelm-driven attempts to abandon a current plan route to [[drift-recovery]].
 
 ## steps
 
@@ -31,4 +31,4 @@ New product, feature, screen, workflow, automation, or prototype idea.
 
 - Do not turn early ideas into large systems.
 - Extend existing structures before creating parallel ones.
-- Challenge vague scope before implementation.
+- Name vague scope before implementation, then propose the sharper version.

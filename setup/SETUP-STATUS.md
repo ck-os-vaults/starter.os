@@ -1,8 +1,8 @@
 ---
 type: status
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: living
 authority: canon
 source: ai
@@ -26,7 +26,7 @@ source: ai
 6. Create private GitLab mirrors and configure `backup` remotes.
 7. Configure and test full-vault local/offsite protection.
 8. Validate structure, privacy, recovery, and repository parity.
-9. Create and verify the scheduled weekly vault-maintenance routine.
+9. Verify start-of-work Git preflight and closeout; configure scheduled maintenance only if the owner wants it.
 10. Complete the tutorial and first real task.
 11. Archive setup scaffolding and verify the everyday system.
 
@@ -42,7 +42,7 @@ source: ai
 - One `.obsidian/` folder exists at the vault root.
 - A full-vault backup covers ignored safe files and opens a tested restored file.
 - `os/recovery.md` accurately records the topology without secrets.
-- The weekly vault-maintenance task is active for the vault root at the
-  confirmed local schedule and points to `os/skills/vault-maintenance.md`.
+- Start-of-work Git preflight and repository closeout are understood and tested.
+- Any owner-requested maintenance schedule is correctly targeted and verified.
 - The tutorial and first real task are complete.
 - Temporary setup files are archived under `life/archive/setup/<date>/` and a completion record remains in `life/records/sessions/`.

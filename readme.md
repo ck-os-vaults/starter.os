@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: living
 authority: canon
 source: ai
@@ -31,8 +31,8 @@ The public repository is arranged the same way so the system is understandable a
 ## begin
 
 - New user: [`setup/README.md`](setup/README.md) -> [`setup/PROMPT-01-CREATE-MY-OS.md`](setup/PROMPT-01-CREATE-MY-OS.md)
-- Existing vault: [`setup/PROMPT-03-MIGRATE-OLD-VAULT.md`](setup/PROMPT-03-MIGRATE-OLD-VAULT.md) — one autonomous
-  prompt and runbook for the complete migration
+- Existing vault: [`starter-os-migration-guide.html`](starter-os-migration-guide.html) for the visual guide, then
+  [`setup/PROMPT-03-MIGRATE-OLD-VAULT.md`](setup/PROMPT-03-MIGRATE-OLD-VAULT.md) for the complete migration prompt
 - Agent: [`setup/AGENT-RUNBOOK.md`](setup/AGENT-RUNBOOK.md)
 - Contributor: run `ruby scripts/validate-starter-kit.rb`
 

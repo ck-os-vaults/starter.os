@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: living
 authority: canon
 source: ai
@@ -204,40 +204,24 @@ For the strongest test, reconstruct the vault in a temporary location from GitHu
 
 Give the owner a one-screen result: complete, incomplete, and one next action.
 
-## phase 9 — schedule weekly vault maintenance
+## phase 9 — verify the everyday Git workflow
 
-Create the recurring maintenance task before onboarding closes:
-
-1. Read `os/skills/vault-maintenance.md` and use the weekly day, time, and time
-   zone confirmed during the interview. If the owner expressed no preference,
-   use Sunday at 6:00 PM in the vault owner's local time zone.
-2. Use the current agent application's native recurring-task scheduler. In
-   Codex, create a weekly local scheduled task against the saved `<NAME>.os`
-   root project. The root is a plain multi-repository container, so do not run
-   the task in an isolated Git worktree.
-3. Name it `Weekly OS maintenance` and use this task prompt:
-
-```text
-Run weekly maintenance for this OS. Start at the vault root, read AGENTS.md,
-then read and follow os/skills/vault-maintenance.md from beginning to end. Do
-not begin cleanup until every declared repository has a clean, validated Git
-checkpoint published to GitHub origin and mirrored identically to GitLab
-backup. Complete the retrieval, freshness, archive, validation, publication,
-and final parity gates. Return the routine's concise report.
-```
-
-4. Keep the task enabled. Verify its name, vault-root target, weekly schedule,
-   time zone, local execution environment, and complete prompt by reading the
-   saved task back from the scheduler.
-5. Record the verified task in `os/integrations.md`: safe identifier, target
-   path, schedule/time zone, state, purpose, and checked date. Never record
-   credentials.
-6. Do not create a shell cron job, background daemon, or duplicate reminder. If
-   the current agent cannot create a native recurring local task, keep
-   onboarding incomplete and report that exact blocker.
-
-The routine itself refuses cleanup while `setup/` is active, so its first real
-run begins only after onboarding is archived.
+1. Read `os/skills/git-sync-preflight.md` and `os/skills/eod-wrap.md`.
+2. In one relevant repository, demonstrate a clean start-of-work preflight:
+   fetch both remotes and verify local, GitHub, and GitLab parity without
+   changing history.
+3. Explain the cloud boundary: a hosted cloud chat may update GitHub, but local
+   pull and GitLab parity remain pending until a local session verifies them.
+4. Confirm that meaningful completed file changes use repository closeout:
+   validate, inspect, commit, push GitHub first, mirror GitLab, and verify a
+   clean matching state. Full personal/project wrap happens only when requested
+   or required by project instructions.
+5. Ask whether the owner wants recurring vault maintenance. If no, record that
+   maintenance is on demand. If yes, create one native scheduled task targeting
+   the saved vault root and following `os/skills/vault-maintenance.md`; read the
+   saved task back and record its safe configuration in `os/integrations.md`.
+6. Do not create cron jobs, background daemons, frequent polling, or duplicate
+   reminders.
 
 ## phase 10 — tutorial and first real task
 

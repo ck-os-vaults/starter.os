@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-08-03
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: living
 authority: canon
 source: ai
@@ -16,7 +16,7 @@ Stop credentials, account-recovery material, private data, unsafe exports, or un
 
 ## trigger
 
-Before the first GitHub/GitLab publication, after unknown or bulk imports, before public work, and before committing unreviewed sensitive material.
+Unknown-origin, sensitive, dependency-related, public-facing, or otherwise risk-bearing changes; the first publication; or an explicit owner request. Routine known-source documentation changes do not require this skill.
 
 ## steps
 

@@ -62,6 +62,7 @@ required_paths = %w[
   os/integrations.md
   os/knowledge-map.md
   os/skill-map.md
+  os/skills/git-sync-preflight.md
   os/skills/vault-maintenance.md
   life/AGENTS.md
   life/CLAUDE.md
@@ -197,7 +198,7 @@ maintenance_file = "os/skills/vault-maintenance.md"
 if File.file?(maintenance_file)
   maintenance_text = File.read(maintenance_file)
   {
-    "weekly scheduled trigger" => /scheduled weekly maintenance task/i,
+    "optional scheduled trigger" => /owner-approved schedule/i,
     "pre-maintenance Git checkpoint" => /pre-maintenance Git checkpoint/i,
     "checkpoint before cleanup" => /Never begin cleanup until/i,
     "GitHub-first publication" => /push GitHub `origin` first/i,

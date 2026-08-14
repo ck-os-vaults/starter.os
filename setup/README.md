@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: living
 authority: canon
 source: ai
@@ -25,9 +25,10 @@ source: ai
 
 That is all you need to read now.
 
-Before setup finishes, the agent also creates a weekly maintenance task that
-saves every repository first, checks for stale information, archives old
-material safely, and verifies GitHub and GitLab again.
+Before setup finishes, the agent verifies the everyday Git workflow: relevant
+repositories are checked at the start of substantive local work and completed
+changes are validated, published GitHub-first, mirrored to GitLab, and verified
+at closeout. Scheduled maintenance is optional.
 
 Already have an older vault? Use [`PROMPT-03-MIGRATE-OLD-VAULT.md`](PROMPT-03-MIGRATE-OLD-VAULT.md) instead. It is
 clearly labeled **For: Existing User**. That single file is both the prompt and

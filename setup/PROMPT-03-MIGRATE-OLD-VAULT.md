@@ -366,26 +366,16 @@ PHASE 11 — final independent review, cleanup, and archive
    - remove the temporary parent only when it is empty;
    - reopen the final root as the agent workspace and Obsidian vault, then rerun
      the structural validator before continuing.
-6. Create and verify the scheduled weekly maintenance routine only after the
-   new vault is at its final path:
-   - read `os/skills/vault-maintenance.md`;
-   - use an existing confirmed weekly schedule when one is current; otherwise
-     use Sunday at 6:00 PM in the owner's local time zone;
-   - use the agent application's native recurring-task scheduler to create one
-     enabled local task named `Weekly OS maintenance` against the new
-     `<NAME>.os` root, never an isolated worktree, shell cron, daemon, or
-     duplicate reminder;
-   - set its prompt to: `Run weekly maintenance for this OS. Start at the vault
-     root, read AGENTS.md, then read and follow
-     os/skills/vault-maintenance.md from beginning to end. Do not begin cleanup
-     until every declared repository has a clean, validated Git checkpoint
-     published to GitHub origin and mirrored identically to GitLab backup.
-     Complete the retrieval, freshness, archive, validation, publication, and
-     final parity gates. Return the routine's concise report.`;
-   - read the task back and verify its name, root target, weekly schedule, time
-     zone, local execution, enabled state, and complete prompt;
-   - record its safe identifier, schedule, target, purpose, state, and checked
-     date in `os/integrations.md` without credentials.
+6. Verify the everyday Git workflow after the new vault reaches its final path:
+   - read `os/skills/git-sync-preflight.md` and `os/skills/eod-wrap.md`;
+   - demonstrate one clean relevant-repository preflight and exact local,
+     GitHub, and GitLab parity;
+   - confirm completed changes use repository closeout: validate, inspect,
+     commit, push GitHub first, mirror GitLab, and verify a clean matching tree;
+   - record that hosted cloud work cannot prove local pull or GitLab parity;
+   - ask whether the owner wants recurring maintenance. Create and verify one
+     native vault-root task following `os/skills/vault-maintenance.md` only if
+     requested; never create cron, a daemon, frequent polling, or duplicates.
 7. Replace root AGENTS.md and CLAUDE.md with the permanent pointers from
    `os/templates/root-AGENTS.txt` and `os/templates/root-CLAUDE.txt`.
 8. Remove every active setup/migration route from permanent OS, Life, business,
@@ -420,8 +410,8 @@ Final acceptance requires all of the following:
 - GitHub and GitLab refs match for every intended repository;
 - active Git documentation and automation use GitHub first and an identical
   GitLab mirror for `os/`, `life/`, and every individual business;
-- one enabled weekly maintenance task targets the vault root, follows
-  `os/skills/vault-maintenance.md`, and was verified from saved scheduler state;
+- start-of-work Git preflight and repository closeout are tested, and any
+  owner-requested maintenance task is verified from saved scheduler state;
 - full-vault backup and restore are proven;
 - working trees are clean;
 - setup is archived and the everyday vault opens in a fresh, minimal state;

@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-08-03
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: draft
 authority: exploratory
 source: ai
@@ -16,7 +16,7 @@ Keep the context system getting wiser instead of merely larger by promoting dura
 
 ## trigger
 
-Monthly after the vault has enough real history, or on explicit request. Do not run during initial setup.
+After the vault has enough meaningful history, during an owner-approved periodic review or on explicit request. Do not run merely because time passed.
 
 ## steps
 
@@ -27,6 +27,7 @@ Monthly after the vault has enough real history, or on explicit request. Do not 
 5. Add a receipt link to the source record and preserve the original words in `life/records/`.
 6. Promote only a small number per run; defer weak or one-off candidates.
 7. Update the watermark and report what changed.
+8. List clearly done or superseded session records as candidates for [[vault-maintenance]]. Do not move files or duplicate archive rules here.
 
 ## boundaries
 

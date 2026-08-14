@@ -26,6 +26,8 @@ Teach me:
 - how to review changed files, validation, uncertainty, and recovery;
 - why only changed repositories publish, GitHub goes first, GitLab goes second,
   and matching versions are part of being done.
+- why local work checks relevant repositories at the start, while cloud work
+  must report local pull and GitLab parity as pending.
 
 Then help me complete one small real task.
 

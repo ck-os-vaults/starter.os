@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-08-03
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: draft
 authority: exploratory
 source: ai
@@ -16,7 +16,7 @@ When overwhelm or novelty creates an urge to restart everything, compare that ur
 
 ## trigger
 
-The owner repeatedly asks to restart, replace the structure, or create a second system beside a current one.
+Overwhelm, abandonment, or escape-driven restart language appears during active work. Calm proposals for a new or parallel system route to [[product-scope-review]].
 
 ## steps
 

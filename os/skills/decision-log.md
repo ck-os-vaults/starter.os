@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-08-03
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: draft
 authority: exploratory
 source: ai
@@ -16,11 +16,11 @@ Preserve a durable owner-confirmed choice and its reason so future sessions buil
 
 ## trigger
 
-The owner makes or explicitly confirms a choice that should still guide work later.
+The owner asks to record a confirmed choice, or an explicitly triggered wrap requires the decision to be logged.
 
 ## steps
 
-1. Confirm it is a decision, not exploration, mood, or an agent recommendation.
+1. Confirm both authorization and durability. Exploration, mood, and agent recommendations do not qualify.
 2. Choose one owner: a business or project decision file when the decision belongs there; otherwise `life/records/decisions.md`.
 3. Match the existing format and append a dated entry with Decision, Why, and an optional Revisit condition.
 4. Name what it supersedes when relevant.
@@ -30,5 +30,6 @@ The owner makes or explicitly confirms a choice that should still guide work lat
 ## boundaries
 
 - Never log an unconfirmed agent opinion as the owner's decision.
+- A decision reached during read-only discussion is not itself permission to modify a log; ask once whether to record it.
 - Decision records are append-only; newer entries supersede older ones.
 - Summarize sensitive details and reference their private source.

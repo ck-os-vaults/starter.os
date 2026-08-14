@@ -1,14 +1,14 @@
 ---
 type: skill
 created: 2026-08-03
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: living
 authority: canon
 source: ai
 ---
 
-# weekly vault maintenance
+# vault maintenance
 
 ## purpose
 
@@ -17,8 +17,9 @@ keeping retrieval, archives, and every repository recoverable.
 
 ## trigger
 
-Run from the scheduled weekly maintenance task. Also run after a bulk import,
-major reorganization, or repeated retrieval failure.
+Run from an owner-approved schedule, on explicit request, after a bulk import or
+major reorganization, or when routing repeatedly fails. Scheduling is optional;
+do not create a recurring task unless the owner wants one.
 
 ## required inputs
 
@@ -82,7 +83,8 @@ needed:
    use path-qualified links when names are ambiguous, and never route through
    archived material as current truth.
 5. Find orphaned active notes, broken links, missing destinations, duplicate
-   basenames, and files whose owner is unclear.
+   basenames, and files whose owner is unclear. Flag aging inbox material for
+   [[inbox-triage]] rather than triaging it here.
 6. Update confirmed current facts and routes. Mark unresolved currency gaps
    visibly rather than guessing.
 7. Run the validator. Fix and repeat until the active system passes before any
@@ -90,8 +92,14 @@ needed:
 
 ## phase 3 — archive safely
 
-A file may move only when evidence shows it is inactive, done, superseded,
-duplicated by a named current source, or an obsolete setup/export artifact.
+An archive candidate must satisfy every canonical eligibility test:
+
+1. explicit evidence that it is done, superseded, duplicated by a named current source, or an obsolete setup/export artifact
+2. one clear owning repository
+3. no active dependency
+4. a recorded current replacement or disposition
+
+Age alone never proves staleness. Other skills may nominate candidates but must not restate these tests or move them.
 
 For each archive candidate:
 
@@ -150,3 +158,6 @@ Return one concise report containing:
   high-impact decisions under the label of maintenance.
 - Do not rewrite Git history, force-push, delete remote refs, or use GitLab-first
   state to overwrite GitHub.
+- [[distill]] owns content promotion. This routine owns currentness, routing,
+  archive decisions, approved structural remediation, and backup health.
+  [[security-sweep]] owns targeted defensive privacy and repository-hygiene detection.

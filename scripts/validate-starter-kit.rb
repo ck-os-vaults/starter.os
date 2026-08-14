@@ -3,6 +3,7 @@
 require "open3"
 require "pathname"
 require "tmpdir"
+require "cgi"
 
 ROOT = Pathname.new(File.expand_path("..", __dir__))
 Dir.chdir(ROOT)
@@ -14,6 +15,7 @@ required = %w[
   AGENTS.md
   CLAUDE.md
   readme.md
+  starter-os-migration-guide.html
   biz
   life/AGENTS.md
   life/knowledge-map.md
@@ -24,6 +26,7 @@ required = %w[
   os/AGENTS.md
   os/agent-rules.md
   os/vault-map.md
+  os/skills/git-sync-preflight.md
   os/skills/vault-maintenance.md
   os/validate-starter-os.rb
   setup/README.md
@@ -94,7 +97,7 @@ add_error.call("#{prompt_files.last}: contains an approval gate") if migration_p
 maintenance_file = "os/skills/vault-maintenance.md"
 maintenance_text = File.file?(maintenance_file) ? File.read(maintenance_file) : ""
 maintenance_requirements = {
-  "weekly scheduled trigger" => /scheduled weekly maintenance task/i,
+  "optional scheduled trigger" => /owner-approved schedule/i,
   "pre-maintenance Git checkpoint" => /pre-maintenance Git checkpoint/i,
   "checkpoint before cleanup" => /Never begin cleanup until/i,
   "GitHub-first publication" => /push GitHub `origin` first/i,
@@ -108,9 +111,16 @@ maintenance_requirements.each do |label, pattern|
 end
 
 setup_runbook = File.file?("setup/AGENT-RUNBOOK.md") ? File.read("setup/AGENT-RUNBOOK.md") : ""
-add_error.call("setup/AGENT-RUNBOOK.md: missing scheduled maintenance setup phase") unless setup_runbook.match?(/phase 9 — schedule weekly vault maintenance/i)
-add_error.call("setup/AGENT-RUNBOOK.md: missing saved-task verification") unless setup_runbook.match?(/read(?:ing)? the\s+saved task back from the scheduler/i)
-add_error.call("#{prompt_files.last}: missing migrated-vault scheduled maintenance") unless migration_prompt.match?(/Create and verify the scheduled weekly maintenance routine/i)
+add_error.call("setup/AGENT-RUNBOOK.md: missing everyday Git workflow phase") unless setup_runbook.match?(/phase 9 — verify the everyday Git workflow/i)
+add_error.call("setup/AGENT-RUNBOOK.md: missing cloud synchronization boundary") unless setup_runbook.match?(/hosted cloud chat may update GitHub/i)
+add_error.call("#{prompt_files.last}: missing migrated-vault Git workflow verification") unless migration_prompt.match?(/Verify the everyday Git workflow/i)
+
+migration_guide = File.file?("starter-os-migration-guide.html") ? File.read("starter-os-migration-guide.html") : ""
+embedded_prompt = migration_guide[/<pre id="promptText">(.*?)<\/pre>/m, 1]
+canonical_prompt = migration_prompt[/```text\n(.*?)\n```/m, 1]
+if embedded_prompt.nil? || canonical_prompt.nil? || CGI.unescapeHTML(embedded_prompt).strip != canonical_prompt.strip
+  add_error.call("starter-os-migration-guide.html: embedded prompt differs from canonical migration prompt")
+end
 
 user_files = %w[setup/README.md setup/INSTALL.md setup/SYSTEM-EXPLAINED.md]
 agent_files = %w[setup/SETUP-STATUS.md setup/AGENT-RUNBOOK.md setup/ONBOARDING-INTERVIEW.md setup/OPERATOR-GUIDE.md setup/SETUP-COMPLETION.md setup/STARTER-VERSION.md]

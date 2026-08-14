@@ -1,8 +1,8 @@
 ---
 type: note
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: living
 authority: reference
 source: ai
@@ -46,17 +46,21 @@ The vault root and `biz/` are simple containers. `os/`, `life/`, and each busine
 
 Passwords, codes, and secret keys belong in the password manager or provider—not the vault.
 
-## how weekly maintenance works
+## how everyday synchronization works
 
-Setup creates one scheduled weekly maintenance task. Before it cleans anything,
-the agent validates every repository, saves completed work to GitHub, mirrors it
-to GitLab, and confirms both copies match.
+At the start of substantive local repository work, the agent checks only the
+relevant repositories and safely brings a clean local `main` forward from
+GitHub. At closeout, completed changes are validated and committed, then pushed
+to GitHub first and mirrored to GitLab. The work is complete only when all three
+copies match and the changed repository is clean.
 
-It then checks current facts, old instructions, unfinished documents, metadata,
-maps, and links. Clearly inactive material moves into a dated archive with a
-manifest showing where it came from and what replaced it. Unclear material stays
-active with a visible review note. The agent validates and saves everything
-again before reporting completion.
+Hosted cloud work can update GitHub but cannot prove that a local checkout or
+GitLab mirror is current. It reports those steps as pending for the next local
+session.
+
+Vault maintenance checks current facts, routes, metadata, and archive
+candidates. It runs on request or on an optional owner-approved schedule; the
+system does not require constant background polling.
 
 ## what success looks like
 

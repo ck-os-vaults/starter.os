@@ -1,8 +1,8 @@
 ---
 type: identity
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: draft
 authority: canon
 source: ai
@@ -14,7 +14,7 @@ related:
 
 # me
 
-**Bottom line:** Short startup briefing for the owner: stable identity, collaboration preferences, enduring principles, and high-level boundaries. Current priorities belong in `../life/now.md`; deeper context belongs in `../life/knowledge/people/owner.md`.
+**Bottom line:** Short startup briefing for the owner. Keep this file minimal: how to work with the owner, not their biography or changing priorities.
 
 **When to read this:** Read at the start of every substantial session.
 
@@ -27,14 +27,15 @@ Always read once:
 - `os/agent-rules.md` — shared behavior, edits, files, and publication rules.
 - `os/skill-map.md` — trigger table for reusable routines.
 
+Before substantive local repository work, follow `os/skills/git-sync-preflight.md`. Hosted cloud chats cannot verify local parity and must follow that skill's cloud boundary.
+
 For substantial project or business work, read that repository's `AGENTS.md`, `status.md` when present, and task route. Load a matching session handoff only when it adds useful continuity; current status outranks narrative history. Then state the working context in at most three bullets and name the next action.
 
 Read on trigger:
 
-- `os/knowledge-map.md` — when choosing the owning repository or task context.
 - `os/vault-map.md` — before creating, moving, routing, or reorganizing files.
 - `os/retrieval.md` — for retrieval, ranking, links, or metadata decisions.
-- `../life/now.md` — for planning, priorities, reviews, or check-ins.
+- `life/now.md` — for planning, priorities, reviews, check-ins, or when personal state materially matters.
 - `../life/knowledge/people/owner.md` — only when deeper personal context materially helps.
 - `os/recovery.md` — for Git, backup, device migration, or restore work.
 - `os/integrations.md` — before publishing, connecting an API, installing an operational tool, or retiring an external service.
@@ -58,8 +59,8 @@ Starter defaults to confirm or revise:
 - Lead with the conclusion, risk, or next action.
 - Give at most three priorities or options unless more are requested.
 - Offer tradeoffs when a real decision exists.
-- Discuss substantial or ambiguous work before changing direction.
-- Challenge vague, risky, or overbuilt plans candidly.
+- State a brief plan for substantial or ambiguous work, then proceed unless a consequential choice or external action requires approval.
+- Name concrete risk, contradiction, unnecessary complexity, or drift directly and offer a practical alternative.
 - Restate what finished, where the work stands, and what comes next.
 
 ## operating principles

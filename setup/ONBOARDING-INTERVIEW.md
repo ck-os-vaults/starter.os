@@ -1,8 +1,8 @@
 ---
 type: status
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: living
 authority: canon
 source: ai
@@ -78,7 +78,7 @@ Present:
 6. Each justified business repository and its starter files.
 7. Source inventory and deferred-import risks.
 8. Exact files and repositories that will change.
-9. Weekly maintenance schedule and standing scope.
+9. Whether scheduled maintenance is useful; if yes, its schedule and standing scope.
 10. Important unknowns better learned through use.
 
 Wait for the owner's explicit accuracy confirmation before editing.

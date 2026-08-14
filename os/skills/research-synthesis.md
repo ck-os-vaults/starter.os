@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-14
+reviewed: 2026-08-14
 status: draft
 authority: exploratory
 source: ai
@@ -12,7 +12,7 @@ source: ai
 
 ## purpose
 
-Turn source-heavy research into a decision-ready brief with evidence, caveats, and a next action.
+Turn source-heavy research into a decision-ready brief with evidence, caveats, and a next action. Save a routed note only when a write is authorized.
 
 ## trigger
 
@@ -25,7 +25,8 @@ Market scans, comparisons, current information, source intelligence, or research
 3. Prefer primary and current sources.
 4. Separate fact, assumption, and interpretation.
 5. State conclusion, strongest evidence, strongest caveat, and next action.
-6. Save only durable findings in the appropriate home.
+6. Answer in chat by default.
+7. Save durable findings only when the owner asks or an authorized workflow requires it; otherwise name the proposed destination without modifying files.
 
 ## boundaries
 

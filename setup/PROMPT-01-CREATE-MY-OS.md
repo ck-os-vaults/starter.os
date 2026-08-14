@@ -35,7 +35,7 @@ Important:
   or approve another external action.
 - Do not call setup complete until the validator, private repositories,
   GitHub/GitLab parity, account security, full-vault backup, restore test,
-  recovery instructions, active scheduled weekly maintenance, tutorial, and
+  recovery instructions, tested start-of-work and closeout synchronization, tutorial, and
   first real task all pass.
 
 Start with a two-minute explanation of what you will build. Then ask only what
