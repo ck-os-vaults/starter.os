@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-11
-updated: 2026-08-14
-reviewed: 2026-08-14
+updated: 2026-08-15
+reviewed: 2026-08-15
 status: living
 authority: canon
 source: ai
@@ -12,7 +12,7 @@ source: ai
 
 **For: Agent**
 
-**Bottom line:** Build a separate private vault, personalize it only after owner confirmation, create one repository per owner boundary, publish GitHub first and GitLab second, and prove recovery before closing onboarding.
+**Bottom line:** Build a separate private vault, personalize it only after owner confirmation, create one repository per owner boundary, publish under the shared Git publication law, and prove recovery before closing onboarding.
 
 **When to read this:** Read after the owner pastes `PROMPT-01-CREATE-MY-OS.md`. Continue until every gate passes or one honest blocker remains.
 
@@ -137,9 +137,9 @@ For `os/`, `life/`, and each approved `biz/<business>/`:
 
 Do not publish the next repository until the current repository's primary is verified.
 
-## phase 5 — create GitLab backup mirrors
+## phase 5 — configure automatic GitLab backup mirrors
 
-Explain that GitLab is the exact private ref mirror, not a competing source of truth. Its remote name is always `backup`.
+Explain that GitHub is canonical and GitLab is its automatic read-only downstream backup for people. Its recovery remote name is `backup`; agents never push to it directly.
 
 Guide current account security and recovery-code storage privately. GitLab's current documentation may change; use:
 
@@ -151,8 +151,10 @@ For each repository:
 1. Create a blank **private** GitLab project with the matching name. Do not initialize it with a README.
 2. Add it as a separate remote named `backup`.
 3. Confirm `origin` points only to GitHub and `backup` points only to GitLab.
-4. Push the intended branch to `backup`, then push intended tags separately when the repository uses tags.
-5. Compare local, `origin`, and `backup` branch/tag sets and commit IDs.
+4. Add `.github/workflows/gitlab-mirror.yml` using the public Starter.OS workflow as the pattern and replace only the GitLab repository URL.
+5. Guide the owner through creating a GitLab project access token with the **Maintainer** role and only the **write_repository** scope. The owner handles the displayed value privately.
+6. Guide the owner through saving that value in the matching GitHub repository as the Actions secret `GITLAB_MIRROR_TOKEN`. Never request, view, or handle the token.
+7. Run `github-to-gitlab-mirror` manually from GitHub Actions and require its branch-and-tag verification step to succeed.
 
 Use two remotes, not multiple push URLs on one remote. Git's documentation explicitly recommends separate remotes when fetching from one place and publishing to another: https://git-scm.com/docs/git-remote
 
@@ -162,13 +164,12 @@ Ask whether the owner approves this standing workflow for completed future work:
 
 1. Validate and inspect only the repositories changed by the task.
 2. Create a clear commit in each changed repository.
-3. Push GitHub `origin` first.
-4. Only after GitHub succeeds, push GitLab `backup`.
-5. Verify the intended local, GitHub, and GitLab refs match and the working tree is clean.
+3. Push only GitHub `origin`.
+4. Confirm the automatic mirror Action succeeds and the working tree is clean.
 
 Record the confirmed rule in `os/agent-rules.md` and `os/recovery.md`.
 
-If GitHub succeeds and GitLab fails, report partial parity as a blocker and retry the missing backup safely. Never call the wrap complete, force-push, rewrite history, delete refs, or use GitLab divergence to overwrite GitHub without explicit owner authorization.
+If the mirror Action fails, report the blocker and repair the workflow, repository-scoped token, or GitLab permission from GitHub. Never bypass it with a direct GitLab push.
 
 ## phase 7 — configure full-vault protection
 
@@ -208,13 +209,12 @@ Give the owner a one-screen result: complete, incomplete, and one next action.
 
 1. Read `os/skills/git-sync-preflight.md` and `os/skills/eod-wrap.md`.
 2. In one relevant repository, demonstrate a clean start-of-work preflight:
-   fetch both remotes and verify local, GitHub, and GitLab parity without
-   changing history.
-3. Explain the cloud boundary: a hosted cloud chat may update GitHub, but local
-   pull and GitLab parity remain pending until a local session verifies them.
+   fetch GitHub and verify local/GitHub parity without changing history.
+3. Explain the cloud boundary: a hosted cloud chat may update GitHub, but the
+   local pull remains pending until a local session verifies it.
 4. Confirm that meaningful completed file changes use repository closeout:
-   validate, inspect, commit, push GitHub first, mirror GitLab, and verify a
-   clean matching state. Full personal/project wrap happens only when requested
+   validate, inspect, commit, follow the shared publication law, and verify a
+   clean state. Full personal/project wrap happens only when requested
    or required by project instructions.
 5. Ask whether the owner wants recurring vault maintenance. If no, record that
    maintenance is on demand. If yes, create one native scheduled task targeting
@@ -239,7 +239,7 @@ Run only when every earlier gate passes.
 4. Move the entire root `setup/` folder to `life/archive/setup/YYYY-MM-DD/` without changing its archived contents.
 5. Remove active setup routes from root pointers, `os/me.md`, `os/knowledge-map.md`, and `life/knowledge-map.md`.
 6. Run the validator and security sweep.
-7. Publish changed repositories separately: GitHub first, GitLab second.
-8. Verify clean trees and exact intended ref parity.
+7. Publish changed repositories separately under the shared Git publication law.
+8. Verify clean trees and successful publication.
 
 The vault root should then contain only `.obsidian/`, `AGENTS.md`, `CLAUDE.md`, `biz/`, `life/`, and `os/`. The setup history remains preserved inside Life but is no longer current agent context.

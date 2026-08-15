@@ -280,26 +280,26 @@ Only after content, metadata, and privacy reviews pass:
    `.git` directory into the new vault.
 4. Use an authenticated session to create a private GitHub repository for each
    new repository. Configure GitHub as remote `origin`, make it the primary
-   source of truth, and push it first.
+   source of truth, and publish it there.
 5. Create a corresponding private GitLab repository for each one. Configure it
-   as remote `backup` and mirror the complete intended GitHub ref state to it
-   only after the GitHub push succeeds.
-6. Mirror every intended branch, tag, update, and deletion. GitLab must contain
-   no independent commits or GitLab-only refs. For every repository, compare
-   local, GitHub, and GitLab branch/tag sets and commit IDs and require exact
-   equality. If GitLab differs, repair the mirror from GitHub and recheck.
+   as remote `backup`.
+6. Install the shared `.github/workflows/gitlab-mirror.yml` workflow. Guide the
+   owner through privately creating a repository-scoped GitLab project token
+   with only `write_repository`, saving it in GitHub Actions as
+   `GITLAB_MIRROR_TOKEN`, and running the workflow once. Never request, view,
+   copy, or handle the token. Confirm every intended branch, tag, update, and
+   deletion is mirrored and GitLab contains no independent commits or
+   GitLab-only refs.
 7. Update all active Git instructions, maps, agent rules, recovery files, and
-   automation references so they describe only this process: work in the
-   owning repository, commit separately, push GitHub `origin` first, mirror
-   GitLab `backup` second, verify identical refs, and finish with a clean tree.
-8. Never use multiple push URLs as a substitute for the two named remotes.
-   Never use GitLab-first state to overwrite GitHub.
+   automation references so agents publish only to GitHub and use the shared
+   Git publication law in `os/agent-rules.md`.
+8. Agents must never push directly to GitLab or use multiple push URLs.
 9. Configure full-vault protection for root `.obsidian/`, ignored safe
    attachments, the preserved old-vault archive, and every other file Git
    intentionally excludes. Complete a harmless restore test.
 10. Record the complete repository map, GitHub/GitLab remote names, backup
-    schedule, last successful mirror check, full-vault backup, and last restore
-    test in `os/recovery.md` without credentials.
+    schedule, mirror workflow, last successful Action check, full-vault backup,
+    and last restore test in `os/recovery.md` without credentials.
 
 PHASE 10 — triple verification
 
@@ -368,11 +368,10 @@ PHASE 11 — final independent review, cleanup, and archive
      the structural validator before continuing.
 6. Verify the everyday Git workflow after the new vault reaches its final path:
    - read `os/skills/git-sync-preflight.md` and `os/skills/eod-wrap.md`;
-   - demonstrate one clean relevant-repository preflight and exact local,
-     GitHub, and GitLab parity;
-   - confirm completed changes use repository closeout: validate, inspect,
-     commit, push GitHub first, mirror GitLab, and verify a clean matching tree;
-   - record that hosted cloud work cannot prove local pull or GitLab parity;
+   - demonstrate one clean relevant-repository preflight;
+   - confirm completed changes use repository closeout under the shared Git
+     publication law and finish with a successful mirror Action and clean tree;
+   - record that hosted cloud work cannot prove the local checkout has pulled;
    - ask whether the owner wants recurring maintenance. Create and verify one
      native vault-root task following `os/skills/vault-maintenance.md` only if
      requested; never create cron, a daemon, frequent polling, or duplicates.
@@ -385,8 +384,8 @@ PHASE 11 — final independent review, cleanup, and archive
    `life/archive/setup/YYYY-MM-DD/`. Do not leave tutorial, migration, manifest,
    helper, state, or setup files active outside that archive.
 11. Run all three verification passes again after archival and cleanup.
-12. Publish only the repositories changed by cleanup: GitHub first, GitLab
-   second. Verify exact parity and clean trees.
+12. Publish only the repositories changed by cleanup under the shared Git
+    publication law. Verify successful mirror Actions and clean trees.
 13. Mark the renamed old-vault archive retired and read-only where practical,
     and verify its counts/hashes against the source inventory. Do not delete it.
     Include explicit restore instructions and a later review date in the final
@@ -407,9 +406,11 @@ Final acceptance requires all of the following:
 - questionable and historical material is preserved outside active context;
 - validators, security checks, source reconciliation, and clean-room recovery
   all pass;
-- GitHub and GitLab refs match for every intended repository;
-- active Git documentation and automation use GitHub first and an identical
-  GitLab mirror for `os/`, `life/`, and every individual business;
+- GitHub and GitLab refs match for every intended repository after the mirror
+  Action succeeds;
+- active Git documentation makes GitHub the only agent publication target and
+  uses an automatic GitLab mirror for `os/`, `life/`, and every individual
+  business;
 - start-of-work Git preflight and repository closeout are tested, and any
   owner-requested maintenance task is verified from saved scheduler state;
 - full-vault backup and restore are proven;

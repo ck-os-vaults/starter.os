@@ -1,8 +1,8 @@
 ---
 type: status
 created: 2026-08-11
-updated: 2026-08-14
-reviewed: 2026-08-14
+updated: 2026-08-15
+reviewed: 2026-08-15
 status: living
 authority: canon
 source: ai
@@ -51,7 +51,7 @@ Learn devices, apps, cloud drives, source-of-truth locations, import candidates,
 
 ## 7 — permissions and privacy
 
-Learn approval requirements, local-edit expectations, archive policy, protected files, high-stakes boundaries, external actions, and whether the agent may commit and publish completed work under the GitHub-first/GitLab-second standing workflow.
+Learn approval requirements, local-edit expectations, archive policy, protected files, high-stakes boundaries, external actions, and whether the agent may commit and publish completed work under the standing Git workflow.
 
 Never request passwords, authentication codes, recovery codes, seed phrases, private keys, API keys, or tokens.
 
@@ -62,9 +62,9 @@ mistakes, and which routines would solve real repeated work. Ask what weekly day
 time, and time zone the owner wants for required vault maintenance; use Sunday
 at 6:00 PM local when the owner has no preference. Confirm that the scheduled
 routine may create verified Git checkpoints, maintain active files, archive
-evidenced inactive material, and publish under the standing GitHub-first and
-GitLab-mirror workflow. Other draft routines remain available; they do not all
-become active obligations.
+evidenced inactive material, and publish under the standing Git publication
+workflow. Other draft routines remain available; they do not all become active
+obligations.
 
 ## 9 — confirmation package
 

@@ -24,16 +24,16 @@ Teach me:
 - how to correct direction early and approve one meaningful layer at a time;
 - how to keep chats focused and save durable truth in files;
 - how to review changed files, validation, uncertainty, and recovery;
-- why only changed repositories publish, GitHub goes first, GitLab goes second,
-  and matching versions are part of being done.
+- why only changed repositories publish, GitHub is the only agent publication
+  target, and GitHub Actions keeps GitLab current automatically;
 - why local work checks relevant repositories at the start, while cloud work
-  must report local pull and GitLab parity as pending.
+  must report the local pull as pending.
 
 Then help me complete one small real task.
 
 After that task is fully wrapped, finish Phase 11 of setup/AGENT-RUNBOOK.md:
 create the completion record, archive the setup folder, remove active setup
-routes, validate again, publish changed repositories in order, and verify
-GitHub/GitLab parity. If any gate is incomplete, leave setup active and tell me
+routes, validate again, publish changed repositories, and verify the mirror
+Action. If any gate is incomplete, leave setup active and tell me
 the one next action.
 ```

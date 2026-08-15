@@ -1,8 +1,8 @@
 ---
 type: status
 created: 2026-08-11
-updated: 2026-08-14
-reviewed: 2026-08-14
+updated: 2026-08-15
+reviewed: 2026-08-15
 status: living
 authority: canon
 source: ai
@@ -23,7 +23,7 @@ source: ai
 3. Interview for stable, current, deeper, and business-specific context.
 4. Confirm the summary and personalize the generated files.
 5. Create and secure private GitHub primary repositories.
-6. Create private GitLab mirrors and configure `backup` remotes.
+6. Create private GitLab mirrors and configure the automatic GitHub Actions workflow.
 7. Configure and test full-vault local/offsite protection.
 8. Validate structure, privacy, recovery, and repository parity.
 9. Verify start-of-work Git preflight and closeout; configure scheduled maintenance only if the owner wants it.

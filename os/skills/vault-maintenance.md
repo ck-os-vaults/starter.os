@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-08-03
-updated: 2026-08-14
-reviewed: 2026-08-14
+updated: 2026-08-15
+reviewed: 2026-08-15
 status: living
 authority: canon
 source: ai
@@ -53,18 +53,17 @@ For every declared repository, independently:
 1. Inspect the branch, status, untracked files, remotes, and existing work.
 2. Run the installed validator and security sweep before saving anything.
 3. If completed intentional work is unsaved, review its exact scope, commit it
-   in its owning repository, push GitHub `origin` first, then push GitLab
-   `backup` second.
+   in its owning repository, and follow the Git publication law in
+   `os/agent-rules.md`.
 4. Do not absorb unknown, unfinished, sensitive, or unrelated changes into the
    checkpoint. Resolve them safely or exclude that repository from maintenance
    and report the blocker; do not clean around them.
-5. Compare the intended local, GitHub, and GitLab branches, tags, and commit
-   IDs. Require identical refs and a clean working tree.
+5. Require a clean working tree and record the published GitHub commit.
 6. Record the verified pre-maintenance commit ID for each repository in the
    run report.
 
 Do not continue to cleanup unless every repository has a recoverable,
-privacy-safe starting point on GitHub and an identical GitLab mirror.
+privacy-safe starting point on GitHub.
 
 ## phase 2 — audit active truth and retrieval
 
@@ -131,12 +130,9 @@ holding systems.
    unrelated changes, archive edits, secrets, and stale routes.
 4. For each changed repository, commit only its maintenance work with a clear
    message. Skip unchanged repositories and never create empty commits.
-5. Push GitHub `origin` first, then mirror GitLab `backup` second.
-6. Require identical intended branches, tags, and commit IDs across local,
-   GitHub, and GitLab, plus clean working trees.
-7. If a check fails, fix it and repeat this phase. If GitHub succeeds but
-   GitLab fails, report partial parity as a blocker and retry the mirror; never
-   call maintenance complete.
+5. Follow the Git publication law in `os/agent-rules.md`.
+6. Require clean working trees.
+7. If a check fails, fix it and repeat this phase.
 
 ## output
 
@@ -147,7 +143,7 @@ Return one concise report containing:
 - archive manifest paths and current replacements;
 - validation and security results;
 - final commit IDs for changed repositories;
-- GitHub/GitLab parity and clean-tree status;
+- publication and clean-tree status;
 - at most three follow-ups that genuinely require the owner.
 
 ## boundaries
@@ -156,8 +152,7 @@ Return one concise report containing:
   active, do not push; report the missing prerequisite.
 - Do not reinterpret owner-authored meaning, alter protected doctrine, or make
   high-impact decisions under the label of maintenance.
-- Do not rewrite Git history, force-push, delete remote refs, or use GitLab-first
-  state to overwrite GitHub.
+- Do not rewrite Git history, force-push, or delete remote refs.
 - [[distill]] owns content promotion. This routine owns currentness, routing,
   archive decisions, approved structural remediation, and backup health.
   [[security-sweep]] owns targeted defensive privacy and repository-hygiene detection.

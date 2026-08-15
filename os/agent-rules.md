@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-15
+reviewed: 2026-08-15
 status: living
 authority: canon
 source: ai
@@ -62,11 +62,10 @@ External approval includes sending, posting, publishing, inviting, buying, subsc
 
 Once the owner approves the standing workflow:
 
-- GitHub `origin` is primary. Push every intended branch, tag, update, or deletion to GitHub first.
-- GitLab `backup` is the exact private ref mirror. After GitHub succeeds, apply the same intended ref state to GitLab.
-- A wrap is complete only when each published local ref, its GitHub ref, and its GitLab ref resolve to the same commit, intended branch/tag sets match, and the working tree is clean.
-- If GitHub succeeds and GitLab fails, report partial parity as a blocker and retry safely. Never describe it as complete.
-- Never use GitLab-first state to overwrite GitHub, force-push, rewrite history, or remove remote refs without explicit current owner authorization.
+- GitHub `origin` is canonical and the only remote agents publish to. Push every intended branch, tag, update, or deletion to GitHub.
+- GitLab is an automatic read-only downstream backup. Each repository's `github-to-gitlab-mirror` Action mirrors all GitHub branches and tags after a push, prunes refs removed from GitHub, and runs hourly as a Dependabot fallback.
+- Agents never push directly to GitLab. After publishing GitHub, confirm the mirror Action succeeded. If it fails, report the blocker and repair the workflow, repository-scoped token, or GitLab permission from GitHub; do not bypass the automation.
+- A wrap is complete only when the intended local ref matches GitHub, the mirror Action succeeds, and the working tree is clean.
 - At the end of meaningful file-changing work, validate, inspect, commit, publish, and verify each changed repository separately. Skip unchanged repositories and read-only sessions.
 
 Standing publication approval: **unconfirmed during starter state**.

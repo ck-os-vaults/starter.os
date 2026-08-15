@@ -28,4 +28,4 @@ Read:
 
 - Validate the project.
 - Update current status when work materially changed.
-- Publish only the owning changed repository under the GitHub-first/GitLab-second rule.
+- Publish only the owning changed repository under the shared Git publication law.

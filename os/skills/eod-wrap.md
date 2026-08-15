@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-updated: 2026-08-14
-reviewed: 2026-08-14
+updated: 2026-08-15
+reviewed: 2026-08-15
 status: draft
 authority: exploratory
 source: ai
@@ -30,8 +30,7 @@ Repository closeout validates and synchronizes changed repositories. A full wrap
 1. Inspect each affected repository separately: branch, tree, diff, and intended scope.
 2. Run the owning validator. Run [[security-sweep]] only for risk-bearing changes.
 3. Commit only intended completed work when the standing publication workflow is approved.
-4. Push GitHub `origin` first, then the identical state to GitLab `backup`.
-5. Verify local, GitHub, and GitLab match and the working tree is clean.
+4. Follow the Git publication law in `os/agent-rules.md`.
 
 ### full wrap
 
@@ -43,7 +42,7 @@ Repository closeout validates and synchronizes changed repositories. A full wrap
 
 ## outputs
 
-- Repository closeout: validation, commit, changed files, and verified remote parity.
+- Repository closeout: validation, commit, changed files, and publication status.
 - Full wrap: concise record, next priorities, required status or handoff updates, and repository closeout.
 
 ## boundaries
@@ -53,4 +52,3 @@ Repository closeout validates and synchronizes changed repositories. A full wrap
 - Do not create planning, decision, handoff, or status records during routine repository closeout.
 - The vault root and `biz/` are never repositories; `os/`, `life/`, and each business remain independent.
 - A current instruction not to commit/push always wins.
-- Never describe GitHub and GitLab as synchronized without checking. Never use backup-first state to overwrite primary history.

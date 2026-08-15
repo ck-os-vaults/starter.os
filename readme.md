@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-11
-updated: 2026-08-14
-reviewed: 2026-08-14
+updated: 2026-08-15
+reviewed: 2026-08-15
 status: living
 authority: canon
 source: ai
@@ -44,8 +44,7 @@ The public repository is arranged the same way so the system is understandable a
 - `biz/business-model/` shows the first-business structure. During setup, rename it to the owner's first confirmed business before personalizing it.
 
 Each intended repository uses private GitHub `origin` as primary and private
-GitLab `backup` as an identical mirror. Publication goes to GitHub first, then
-GitLab. The root and `biz/` never become repositories; `os/`, `life/`, and each
+GitLab `backup` as an identical automatic mirror. The root and `biz/` never become repositories; `os/`, `life/`, and each
 individual business are independently versioned.
 
 ## privacy boundary
