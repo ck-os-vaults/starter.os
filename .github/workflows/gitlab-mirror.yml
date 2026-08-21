@@ -68,15 +68,26 @@ jobs:
               'refs/mirror-source/heads/*:refs/heads/*' \
               'refs/mirror-source/tags/*:refs/tags/*'
 
-          github_refs="$(mktemp)"
-          gitlab_refs="$(mktemp)"
-          git ls-remote --heads --tags origin | sort > "${github_refs}"
-          GIT_ASKPASS="${askpass}" GIT_ASKPASS_REQUIRE=force GIT_TERMINAL_PROMPT=0 \
-            git ls-remote --heads --tags gitlab | sort > "${gitlab_refs}"
+          mirror_status="$(
+            GIT_ASKPASS="${askpass}" GIT_ASKPASS_REQUIRE=force GIT_TERMINAL_PROMPT=0 \
+              git push --dry-run --porcelain --force --prune gitlab \
+                'refs/mirror-source/heads/*:refs/heads/*' \
+                'refs/mirror-source/tags/*:refs/tags/*'
+          )"
+          printf '%s\n' "${mirror_status}"
 
-          if ! diff -u "${github_refs}" "${gitlab_refs}"; then
-            echo "::error::GitLab branches or tags do not exactly match GitHub."
+          mirrored_ref_statuses="$(
+            printf '%s\n' "${mirror_status}" | awk '/^[ =*+!-][[:space:]].*:.*/ { print }'
+          )"
+
+          if [ -z "${mirrored_ref_statuses}" ]; then
+            echo "::error::GitLab dry-run returned no mirrored ref statuses."
             exit 1
           fi
 
-          echo "Verified: GitLab branches and tags exactly match GitHub."
+          if ! printf '%s\n' "${mirrored_ref_statuses}" | awk 'substr($0, 1, 1) != "=" { exit 1 }'; then
+            echo "::error::GitLab dry-run found mirrored refs that are not up to date."
+            exit 1
+          fi
+
+          echo "Verified: all mirrored branches and tags are up to date after the atomic push."
