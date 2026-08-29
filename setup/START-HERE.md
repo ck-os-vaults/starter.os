@@ -1,23 +1,31 @@
-# Start here
+# Owner setup: start here
 
 Starter.OS gives you one private workspace where a Chief of Staff can coordinate personal projects and businesses without mixing their ownership or loading unnecessary context. The system calls this role the COS until you choose a name.
 
-## New system
+**Public Starter.OS repository:** [github.com/ck-os-vaults/starter.os](https://github.com/ck-os-vaults/starter.os)
 
-Open this repository in a file-capable agent and say:
+**This is the only setup file the owner needs to read.** The other files in `setup/` are instructions for the agent. You do not need to run scripts, design folders, or study the system yourself.
+
+Your part is short: choose one path below, paste its prompt into a file-capable agent, answer one compact question group if needed, and approve or rename the proposed structure and preview. The agent inspects, designs, builds, migrates, and validates the system.
+
+## Owner path 1: create a new system
+
+Open this repository in your file-capable agent. **Copy and paste these exact words into the agent's prompt:**
 
 > Read `AGENTS.md` and `setup/AGENT-SETUP.md`. Help me create my private Starter.OS. Show me the proposed name, location, file map, and repository plan before making changes.
 
-The agent will infer what it can, ask only essential naming or boundary questions, show one short approval card, and then create a separate preview.
+The agent will infer what it can, ask one compact group of essential naming or boundary questions, and show one short approval card before creating a separate unpersonalized preview. A final confirmation activates and personalizes that preview; it is not a second interview.
 
-## Existing system
+## Owner path 2: redesign an existing system
 
-Use [`MIGRATE-V1.md`](MIGRATE-V1.md). Migration is a complete system redesign built beside your current vault. Your current vault remains untouched.
+Migration is a complete system redesign built beside your current vault. Your current vault remains untouched. You do not need to read the migration instructions; the agent does.
 
-Open this repository in a file-capable agent and say:
+Open this repository in your file-capable agent. **Copy and paste these exact words into the agent's prompt:**
 
-> Read `AGENTS.md` and `setup/MIGRATE-V1.md`. My current vault is at `[CURRENT VAULT PATH]`. Redesign it as a separate Starter.OS 2 system. Infer what you can, ask only essential questions, let me rename and approve the proposed COS, projects, and businesses, and never change or delete anything in my current vault.
+> Read `AGENTS.md` and `setup/MIGRATE-V1.md`. Find my current personal OS or vault on this computer without changing it. Show me the exact source path and wait for my confirmation before treating it as the migration source. Then redesign it as a separate Starter.OS 2 system. Infer what you can, ask only essential questions, let me rename and approve the proposed COS, projects, and businesses, and never change or delete anything in my current vault.
 
-## Private steps
+Migration uses the same two short gates: approve the proposed structure, then inspect and approve the generated preview before any copied material becomes the new active system.
+
+## What remains yours
 
 You handle sign-ins, purchases, recovery codes, and secret values privately. An agent may use an already authorized credential system, but should never ask you to paste secrets into chat or store them in the vault.

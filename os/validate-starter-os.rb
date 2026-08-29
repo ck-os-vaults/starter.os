@@ -27,6 +27,7 @@ required = %w[
   life/CLAUDE.md
   life/now.md
   life/knowledge-map.md
+  life/documents/readme.md
   life/projects/readme.md
   life/wiki/owner.md
   life/records/readme.md
@@ -72,9 +73,10 @@ Dir.glob("biz/*").select { |path| File.directory?(path) }.each do |business|
 end
 
 skill_map = File.file?("os/skill-map.md") ? File.read("os/skill-map.md") : ""
-skill_map.scan(/\[\[([a-z0-9-]+)\]\]/).flatten.uniq.each do |skill|
-  add.call("registered skill missing: os/skills/#{skill}.md") unless File.file?("os/skills/#{skill}.md")
-end
+actual_skills = Dir.glob("os/skills/*.md").map { |path| File.basename(path, ".md") }.reject { |name| name == "readme" }.sort
+registered_skills = skill_map.scan(/^\|\s*\[\[([a-z0-9-]+)\]\]/).flatten.uniq.sort
+(registered_skills - actual_skills).each { |skill| add.call("registered skill missing: os/skills/#{skill}.md") }
+(actual_skills - registered_skills).each { |skill| add.call("unregistered skill file: os/skills/#{skill}.md") }
 
 secret_shapes = {
   "private key" => /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,

@@ -5,6 +5,7 @@ require "pathname"
 require "tmpdir"
 require "digest"
 require "fileutils"
+require "csv"
 
 ROOT = Pathname.new(File.expand_path("..", __dir__))
 Dir.chdir(ROOT)
@@ -23,6 +24,7 @@ required = %w[
   scripts/create-vault.rb
   scripts/add-project.rb
   scripts/add-business.rb
+  scripts/verify-migration.rb
   os/AGENTS.md
   os/me.md
   os/vault-map.md
@@ -35,6 +37,7 @@ required = %w[
   life/AGENTS.md
   life/now.md
   life/knowledge-map.md
+  life/documents/readme.md
   life/projects/readme.md
   life/wiki/owner.md
   life/records/readme.md
@@ -61,24 +64,57 @@ setup_files = Dir.glob("setup/*").select { |path| File.file?(path) }.sort
 expected_setup = %w[setup/AGENT-SETUP.md setup/MIGRATE-V1.md setup/QUICK-SETUP.md setup/START-HERE.md]
 add.call("setup is not the four-file contract: #{setup_files.join(', ')}") unless setup_files == expected_setup
 
+actual_skills = Dir.glob("os/skills/*.md").map { |path| File.basename(path, ".md") }.reject { |name| name == "readme" }.sort
+skill_map_text = File.file?("os/skill-map.md") ? File.read("os/skill-map.md") : ""
+registered_skills = skill_map_text.scan(/^\|\s*\[\[([a-z0-9-]+)\]\]/).flatten.uniq.sort
+(registered_skills - actual_skills).each { |skill| add.call("registered skill missing: os/skills/#{skill}.md") }
+(actual_skills - registered_skills).each { |skill| add.call("unregistered skill file: os/skills/#{skill}.md") }
+
 migration = File.file?("setup/MIGRATE-V1.md") ? File.read("setup/MIGRATE-V1.md") : ""
 start_here = File.file?("setup/START-HERE.md") ? File.read("setup/START-HERE.md") : ""
+agent_setup = File.file?("setup/AGENT-SETUP.md") ? File.read("setup/AGENT-SETUP.md") : ""
+quick_setup = File.file?("setup/QUICK-SETUP.md") ? File.read("setup/QUICK-SETUP.md") : ""
+add.call("owner setup page is not clearly identified") unless start_here.include?("only setup file the owner needs to read")
+add.call("owner setup page is missing the public GitHub address") unless start_here.include?("https://github.com/ck-os-vaults/starter.os")
+add.call("owner paths must each say to copy and paste the exact prompt") unless start_here.scan(/copy and paste these exact words/i).length == 2
+add.call("owner setup still contains an editable migration placeholder") if start_here.include?("[CURRENT VAULT PATH]")
+add.call("owner setup does not preserve COS-until-named language") unless start_here.include?("COS until you choose a name")
+{
+  "AGENT-SETUP" => agent_setup,
+  "QUICK-SETUP" => quick_setup,
+  "MIGRATE-V1" => migration
+}.each do |name, text|
+  add.call("#{name} is not clearly labeled agent-only") unless text.include?("Audience: Agent only") && text.include?("START-HERE.md")
+end
 add.call("new-system launch prompt is missing") unless start_here.include?("Read `AGENTS.md` and `setup/AGENT-SETUP.md`")
-add.call("migration launch prompt is missing") unless start_here.include?("Read `AGENTS.md` and `setup/MIGRATE-V1.md`") && start_here.include?("[CURRENT VAULT PATH]")
+add.call("migration launch prompt is missing") unless start_here.include?("Read `AGENTS.md` and `setup/MIGRATE-V1.md`") && start_here.include?("Show me the exact source path and wait for my confirmation")
 {
   "read-only inventory" => /Inventory.*without changing/i,
+  "source path approval" => /Show the exact path and wait for the owner's confirmation/i,
   "complete redesign" => /complete system redesign/i,
   "untouched original" => /existing vault remains untouched/i,
-  "complete file accounting" => /Every existing file must be accounted for/i,
+  "complete file accounting" => /Every existing content path must be classified exactly once/i,
   "proposed project names" => /propose concise names for every personal project and business/i,
   "editable owner naming" => /every proposed name visibly editable/i,
   "compact questions" => /Ask one compact group of questions only/i,
   "approval gate" => /Wait for the owner to approve or rename/i,
   "separate preview" => /separate Starter\.OS 2 vault/i,
+  "shared clean generator" => /scripts\/create-vault\.rb/i,
+  "adoption gate" => /adoption gate, not another interview/i,
+  "executable migration proof" => /scripts\/verify-migration\.rb verify/i,
   "no old-vault deletion" => /Deleting the old vault is never part of migration/i,
   "short orientation" => /Do not add a tutorial course, exercises, or a required first task/i
 }.each { |label, pattern| add.call("migration contract missing #{label}") unless migration.match?(pattern) }
 add.call("migration contains forbidden no-approval instruction") if migration.match?(/do not ask for approval/i)
+
+forbidden_starter_skills = %w[drift-recovery evidence-research independent-review project-handoff task-reconciliation]
+forbidden_starter_skills.each do |skill|
+  add.call("provider- or harness-dependent starter skill remains: os/skills/#{skill}.md") if File.exist?("os/skills/#{skill}.md")
+end
+
+browser_skill = File.file?("os/skills/browser-use.md") ? File.read("os/skills/browser-use.md") : ""
+add.call("browser skill does not require the native browser first") unless browser_skill.match?(/native or in-app browser.*whenever it is available/im)
+add.call("browser skill does not approval-gate external browsers") unless browser_skill.match?(/ask the owner before using an external browser/i)
 
 source_files = Dir.glob("**/*", File::FNM_DOTMATCH).select do |path|
   File.file?(path) && !path.start_with?(".git/")
@@ -144,6 +180,12 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     validate_output, validate_status = Open3.capture2e("ruby", "os/validate-starter-os.rb", chdir: vault)
     add.call("installed validation failed:\n#{validate_output}") unless validate_status.success?
 
+    rogue_skill = File.join(vault, "os", "skills", "unregistered-example.md")
+    File.write(rogue_skill, "# unregistered example\n")
+    rogue_output, rogue_status = Open3.capture2e("ruby", "os/validate-starter-os.rb", chdir: vault)
+    add.call("unregistered installed skill was not rejected") if rogue_status.success? || !rogue_output.include?("unregistered skill file")
+    FileUtils.rm_f(rogue_skill)
+
     refusal_output, refusal_status = Open3.capture2e("ruby", "scripts/create-vault.rb", vault)
     add.call("non-empty destination was not refused") if refusal_status.success? || !refusal_output.include?("not empty")
 
@@ -151,16 +193,61 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     FileUtils.mkdir_p(File.join(legacy, "life", "00_inbox"))
     FileUtils.mkdir_p(File.join(legacy, "life", "areas", "health"))
     FileUtils.mkdir_p(File.join(legacy, "life", "archive"))
+    FileUtils.mkdir_p(File.join(legacy, "life", "assets"))
     File.write(File.join(legacy, "life", "00_inbox", "note.md"), "unique legacy note\n")
     File.write(File.join(legacy, "life", "areas", "health", "care.md"), "unique health record\n")
     File.write(File.join(legacy, "life", "archive", "history.md"), "unique archived history\n")
+    File.binwrite(File.join(legacy, "life", "assets", "sample.bin"), "\x00\xFFlegacy\x10".b)
+    File.write(File.join(legacy, ".DS_Store"), "obsolete finder metadata\n")
     before = Dir.glob(File.join(legacy, "**", "*"), File::FNM_DOTMATCH).select { |path| File.file?(path) }.to_h do |path|
       [path.delete_prefix("#{legacy}/"), Digest::SHA256.file(path).hexdigest]
     end
 
     preview = File.join(tmp, "PREVIEW.os")
+    source_snapshot = File.join(tmp, "source-snapshot.json")
+    snapshot_output, snapshot_status = Open3.capture2e("ruby", "scripts/verify-migration.rb", "snapshot", legacy, source_snapshot)
+    add.call("migration source snapshot failed: #{snapshot_output.strip}") unless snapshot_status.success?
     preview_output, preview_status = Open3.capture2e("ruby", "scripts/create-vault.rb", preview)
     add.call("migration preview generation failed: #{preview_output.strip}") unless preview_status.success?
+    if preview_status.success? && snapshot_status.success?
+      FileUtils.mkdir_p(File.join(preview, "life", "projects", "imported"))
+      FileUtils.mkdir_p(File.join(preview, "life", "projects", "health"))
+      FileUtils.mkdir_p(File.join(preview, "life", "documents"))
+      FileUtils.cp(File.join(legacy, "life", "00_inbox", "note.md"), File.join(preview, "life", "projects", "imported", "note.md"))
+      FileUtils.cp(File.join(legacy, "life", "areas", "health", "care.md"), File.join(preview, "life", "projects", "health", "care.md"))
+      FileUtils.cp(File.join(legacy, "life", "assets", "sample.bin"), File.join(preview, "life", "documents", "sample.bin"))
+
+      manifest = File.join(tmp, "migration-map.tsv")
+      rows = [
+        %w[source_path disposition destination_path reason],
+        [".DS_Store", "exclude", "", "obsolete Finder metadata"],
+        ["life/00_inbox/note.md", "copy", "life/projects/imported/note.md", ""],
+        ["life/archive/history.md", "unresolved", "", "owner must choose its durable home"],
+        ["life/areas/health/care.md", "copy", "life/projects/health/care.md", ""],
+        ["life/assets/sample.bin", "copy", "life/documents/sample.bin", ""]
+      ]
+      File.write(manifest, rows.map { |row| CSV.generate_line(row, col_sep: "\t") }.join)
+      verify_output, verify_status = Open3.capture2e("ruby", "scripts/verify-migration.rb", "verify", legacy, preview, source_snapshot, manifest)
+      add.call("complete migration manifest did not verify: #{verify_output.strip}") unless verify_status.success?
+
+      incomplete_manifest = File.join(tmp, "incomplete-migration-map.tsv")
+      File.write(incomplete_manifest, rows.reject { |row| row.first == "life/assets/sample.bin" }.map { |row| CSV.generate_line(row, col_sep: "\t") }.join)
+      incomplete_output, incomplete_status = Open3.capture2e("ruby", "scripts/verify-migration.rb", "verify", legacy, preview, source_snapshot, incomplete_manifest)
+      add.call("incomplete migration map was not rejected") if incomplete_status.success? || !incomplete_output.include?("unaccounted source paths")
+
+      original_note = File.binread(File.join(legacy, "life", "00_inbox", "note.md"))
+      File.binwrite(File.join(legacy, "life", "00_inbox", "note.md"), "changed after snapshot\n")
+      changed_output, changed_status = Open3.capture2e("ruby", "scripts/verify-migration.rb", "verify", legacy, preview, source_snapshot, manifest)
+      add.call("changed original vault was not rejected") if changed_status.success? || !changed_output.include?("original vault changed")
+      File.binwrite(File.join(legacy, "life", "00_inbox", "note.md"), original_note)
+
+      copied_binary = File.join(preview, "life", "documents", "sample.bin")
+      original_binary = File.binread(copied_binary)
+      File.binwrite(copied_binary, "changed copy\n")
+      mismatch_output, mismatch_status = Open3.capture2e("ruby", "scripts/verify-migration.rb", "verify", legacy, preview, source_snapshot, manifest)
+      add.call("changed copied bytes were not rejected") if mismatch_status.success? || !mismatch_output.include?("copied bytes do not match")
+      File.binwrite(copied_binary, original_binary)
+    end
     after = Dir.glob(File.join(legacy, "**", "*"), File::FNM_DOTMATCH).select { |path| File.file?(path) }.to_h do |path|
       [path.delete_prefix("#{legacy}/"), Digest::SHA256.file(path).hexdigest]
     end
@@ -170,7 +257,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
 end
 
 if errors.empty?
-  puts "PASS Starter.OS 2: source contract, links, privacy, clean install, minimal project, business foundation, refusal, installed validation, and non-destructive v1 preview"
+  puts "PASS Starter.OS 2: source contract, links, privacy, clean install, minimal project, business foundation, refusal, installed validation, exhaustive migration accounting, and non-destructive v1 preview"
   exit 0
 end
 

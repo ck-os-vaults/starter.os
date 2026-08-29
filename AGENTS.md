@@ -6,8 +6,9 @@ This root has two possible roles.
 
 When this root contains `.git/`, it is the reusable Starter.OS source. Do not add personal context. Read `readme.md`, then:
 
-- new installation: `setup/START-HERE.md` then `setup/AGENT-SETUP.md`
-- existing-system migration: `setup/MIGRATE-V1.md`
+- owner-facing entry: `setup/START-HERE.md`
+- agent creating a new installation: `setup/AGENT-SETUP.md`
+- agent migrating an existing system: `setup/MIGRATE-V1.md`
 - source maintenance: `scripts/validate-starter-kit.rb`
 
 Build and validate private systems in a separate location. Never treat the public example as someone's live OS.

@@ -10,7 +10,7 @@ Read `me.md` and follow its startup section. This OS owns durable operating trut
 - Do not create permanent specialist identities by default. Use focused agents for bounded work when useful.
 - Create a user-visible task only when the owner needs a durable workspace and has approved the plan, unless broader task-creation authority was explicitly granted.
 - Treat each approved project task as its operational home. Keep routine reports, approvals, blockers, scheduled work, and project context there.
-- Bring only material cross-project context back to the COS through `skills/task-reconciliation.md`.
+- Keep routine reporting with its project and bring only material cross-project context back to the COS.
 - Prefer the owner's normal local environment. Use cloud execution only for a clear practical reason.
 
 ## Work and changes
@@ -19,6 +19,7 @@ Read `me.md` and follow its startup section. This OS owns durable operating trut
 - Get approval before structural changes, deletion, publication, spending, messages, account changes, or other external commitments.
 - Ordinary safe work inside an approved scope needs no extra approval.
 - Run the owning repository's checks before calling file work complete.
+- Keep every reusable workflow in `os/skills/` and register it in `os/skill-map.md` in the same change. Never let an agent-specific adapter become the only copy.
 - When publication is approved, commit only intended work, push only the configured primary, verify any configured mirror, and leave no unexplained changes.
 - Add rules only for owner-specific behavior an agent could not reliably infer.
 

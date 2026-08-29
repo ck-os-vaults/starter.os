@@ -17,7 +17,8 @@ source: ai
 - Current state: `now.md`
 - Durable owner background: `wiki/owner.md` until personalized
 - Active personal work: `projects/readme.md`
+- Retained personal documents without a project or business owner: `documents/readme.md`
 - Confirmed personal decisions: `records/decisions.md`
 - Record rules: `records/readme.md`
 
-Create Documents only when a real retained file has no project owner. Removed material remains recoverable through Git rather than an internal archive.
+Documents is not an inbox or archive. Removed material remains recoverable through Git rather than an internal archive.

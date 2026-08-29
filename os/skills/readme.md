@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+updated: 2026-08-29
+reviewed: 2026-08-29
 status: living
 authority: reference
 source: ai
@@ -14,4 +14,6 @@ source: ai
 
 **When to read this:** Read when maintaining the routine library, not as general startup context.
 
-Each routine states its purpose, trigger, inputs, steps, output, and boundaries. Keep shared routines here; business-specific methods stay with their business.
+Every reusable shared workflow must live here and be registered in `../skill-map.md` in the same change. Never leave the only copy inside one agent product or plugin. Keep business-specific methods with their business.
+
+Audit this folder during quarterly vault maintenance and after major agent, model, tool, or repository changes. Remove stale or unavailable-tool skills only after owner approval and verified recovery; update the workflow, registry, lifecycle dates, and any adapter together.

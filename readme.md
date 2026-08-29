@@ -19,17 +19,19 @@ The finished system does not include a catch-all inbox, archive folders, fake bu
 
 ## Start here
 
-- New system: [`setup/START-HERE.md`](setup/START-HERE.md)
-- Existing Starter.OS owner: [`setup/MIGRATE-V1.md`](setup/MIGRATE-V1.md)
-- Agent performing setup: [`setup/AGENT-SETUP.md`](setup/AGENT-SETUP.md)
-- Contributor: run `ruby scripts/validate-starter-kit.rb`
+- **Owner:** read only [`setup/START-HERE.md`](setup/START-HERE.md). It contains the prompts for both a new system and an existing-system redesign.
+- **Agent creating a new system:** follow [`setup/AGENT-SETUP.md`](setup/AGENT-SETUP.md) and its shared [`setup/QUICK-SETUP.md`](setup/QUICK-SETUP.md) protocol.
+- **Agent migrating an existing system:** follow [`setup/MIGRATE-V1.md`](setup/MIGRATE-V1.md) and its shared [`setup/QUICK-SETUP.md`](setup/QUICK-SETUP.md) protocol.
+- **Contributor maintaining Starter.OS:** run `ruby scripts/validate-starter-kit.rb`.
+
+Migration uses `scripts/verify-migration.rb` to prove exhaustive path accounting, unchanged source bytes, matching copied files, and clean destination boundaries.
 
 ## Operating model
 
 - A Chief of Staff, referred to as the COS until the owner chooses a name, coordinates the whole system.
 - Each substantial project or business task is its operational home base.
 - Routine reports, approvals, blockers, and scheduled work stay with their project.
-- Only material cross-project context returns to the COS through reconciliation.
+- Only material cross-project context returns to the COS.
 - User-visible tasks, structural changes, deletion, publication, and external commitments require clear authority.
 - Portable workflows live in `os/skills/`; agent-specific adapters remain outside the vault and point back to those workflows.
 

@@ -6,4 +6,4 @@ Life owns the person's current state, active personal projects, durable personal
 - `projects/` contains only real active personal work.
 - `wiki/` contains durable personal knowledge.
 - `records/` contains chronology and confirmed decisions.
-- `documents/` is created only when a retained file lacks a clearer project owner.
+- `documents/` contains retained personal files that lack a clearer project or business owner; its README defines the boundary.

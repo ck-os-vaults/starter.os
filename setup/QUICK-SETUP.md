@@ -1,5 +1,7 @@
 # Quick configuration
 
+> **Audience: Agent only.** This is the shared questioning and approval protocol for setup and migration. The owner should use `START-HERE.md`.
+
 Configure only what the system needs to become useful immediately.
 
 ## Infer first
@@ -10,7 +12,7 @@ Use existing files and the owner's current request to infer the owner name, vaul
 
 Ask one compact group of questions only for choices that cannot be safely inferred. Usually this is limited to:
 
-- the preferred vault name;
+- the preferred vault name and destination;
 - whether the owner wants to name their Chief of Staff, referred to as the COS until named;
 - confirmation or correction of proposed personal project and business names;
 - any approval or privacy boundary that materially differs from the starter defaults.
@@ -19,12 +21,14 @@ Avoid a life-history interview. Do not ask about possible future folders, tools,
 
 ## Approval card
 
-Before creating the private system, show one short card containing:
+Before generating the preview, show one short card containing only relevant sections:
 
-1. Vault name and optional COS name.
-2. Proposed project and business names, each editable by the owner.
-3. Files or existing material assigned to each owner.
+1. Vault name, destination, and optional COS name.
+2. Proposed project and business names, each editable by the owner, only when real work already supports them.
+3. Files or existing material assigned to each owner, only when existing material is being reorganized.
 4. Repository and recovery plan.
 5. Anything genuinely unresolved.
 
-Wait for the owner to approve or rename the proposed structure.
+Do not invent projects, businesses, or file assignments for a first-time owner with no existing material. Wait for the owner to approve or rename the proposed structure.
+
+After generating the unpersonalized preview, show its root tree and the exact files that personalization would change. Ask only for confirmation that this preview should become the private system. Do not start another question round.

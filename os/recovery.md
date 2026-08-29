@@ -10,7 +10,7 @@ source: ai
 
 # recovery
 
-**Bottom line:** Rebuild the plain vault shell, restore each declared repository, restore safe non-Git files from backup, and verify the result.
+**Bottom line:** Rebuild the plain vault shell, restore each declared repository, restore safe non-Git files from backup, and report every recovery layer as verified, configured but unverified, or owner declined.
 
 **When to read this:** During setup, backup checks, device migration, loss, or a restore test.
 
@@ -36,4 +36,4 @@ Add one row for every real `biz/<business>/`. Never record secrets or embedded-t
 4. Open the vault and run `ruby os/validate-starter-os.rb`.
 5. Verify every configured remote and backup layer from actual state.
 
-Git does not protect ignored files, local app state, credentials, caches, or anything never committed. A recovery layer is not trusted until a harmless restore succeeds.
+Git does not protect ignored files, local app state, credentials, caches, or anything never committed. A recovery layer is not `verified` until a harmless restore succeeds. A configured plan without a restore test remains `configured but unverified`; if the owner intentionally skips a layer, record `owner declined` rather than leaving an ambiguous blank.

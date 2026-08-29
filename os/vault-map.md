@@ -32,7 +32,7 @@ The root also contains `.obsidian/` when used with Obsidian and thin `AGENTS.md`
 | current personal state | `life/now.md` |
 | durable personal knowledge | `life/wiki/` |
 | active personal work | `life/projects/<project>/` |
-| retained document without a project owner | `life/documents/`, created only when needed |
+| retained personal document without a project or business owner | `life/documents/` |
 | durable personal decision | `life/records/decisions.md` |
 | business material and implementation | `biz/<business>/` |
 | obsolete material | remove after approval and verified recovery |
