@@ -1,8 +1,8 @@
 ---
 type: decision-log
-created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+created: 2026-08-29
+updated: 2026-08-29
+reviewed: 2026-08-29
 status: living
 authority: canon
 source: ai
@@ -10,8 +10,8 @@ source: ai
 
 # personal decisions
 
-**Bottom line:** Append-only record of durable personal decisions the owner explicitly made or confirmed. Business decisions belong in the owning business.
+**Bottom line:** Append only durable personal decisions the owner explicitly confirms.
 
-**When to read this:** Read when a current personal choice depends on earlier reasoning or when recording a newly confirmed durable decision.
+**When to read this:** Read when current personal work depends on earlier reasoning or when recording a confirmed decision.
 
-Use `../../os/skills/decision-log.md`. Do not log suggestions, tentative preferences, or agent inferences as decisions.
+Business decisions belong to their business. Suggestions and agent inferences are not decisions.

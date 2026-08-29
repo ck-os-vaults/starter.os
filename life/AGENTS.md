@@ -1,4 +1,4 @@
-# Life agent overlay
+# Life entry
 
 Read `../os/AGENTS.md` first, then use `knowledge-map.md` for personal routing.
 

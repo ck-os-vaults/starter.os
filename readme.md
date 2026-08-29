@@ -1,52 +1,38 @@
----
-type: map
-created: 2026-08-11
-updated: 2026-08-15
-reviewed: 2026-08-15
-status: living
-authority: canon
-source: ai
----
-
 # Starter.OS
 
-**Bottom line:** This repository shows the finished vault structure directly. `STARTER.os` is the example root name; setup asks what the owner wants to replace `STARTER` with before creating the private vault.
+Starter.OS is a person-agnostic foundation for running a private Chief of Staff system with local files as durable truth and AI tools as replaceable execution layers.
 
-**When to read this:** New owners start at [`setup/README.md`](setup/README.md). Agents and setup helpers use [`setup/AGENT-RUNBOOK.md`](setup/AGENT-RUNBOOK.md).
-
-## the structure
+## What it creates
 
 ```text
-STARTER.os/                one Obsidian vault; choose the STARTER name during setup
-├── biz/                   business vaults
-│   ├── business-model/    generic first-business model; renamed during setup
-│   └── <business>/        one repository for each confirmed real business
-├── life/                  private personal vault and repository
-├── os/                    shared operating vault and repository
-└── setup/                 temporary onboarding files
+name.os/
+├── AGENTS.md
+├── CLAUDE.md
+├── os/       shared operating context and portable workflows
+├── life/     personal context, projects, knowledge, and records
+└── biz/      empty until a real business is created
 ```
 
-The public repository is arranged the same way so the system is understandable at a glance. During setup, the agent creates a separate private copy with the owner's chosen root name. The private root and `biz/` are plain containers; `os/`, `life/`, and every real business inside `biz/` have independent Git histories.
+The root and `biz/` are plain containers. `os/`, `life/`, and each confirmed `biz/<business>/` are independently owned repositories.
 
-## begin
+The finished system does not include a catch-all inbox, archive folders, fake businesses, empty asset categories, setup scaffolding, or default automations. Structure is added only when real work needs it.
 
-- New user: [`setup/README.md`](setup/README.md) -> [`setup/PROMPT-01-CREATE-MY-OS.md`](setup/PROMPT-01-CREATE-MY-OS.md)
-- Existing vault: [`starter-os-migration-guide.html`](starter-os-migration-guide.html) for the visual guide, then
-  [`setup/PROMPT-03-MIGRATE-OLD-VAULT.md`](setup/PROMPT-03-MIGRATE-OLD-VAULT.md) for the complete migration prompt
-- Agent: [`setup/AGENT-RUNBOOK.md`](setup/AGENT-RUNBOOK.md)
+## Start here
+
+- New system: [`setup/START-HERE.md`](setup/START-HERE.md)
+- Existing Starter.OS owner: [`setup/MIGRATE-V1.md`](setup/MIGRATE-V1.md)
+- Agent performing setup: [`setup/AGENT-SETUP.md`](setup/AGENT-SETUP.md)
 - Contributor: run `ruby scripts/validate-starter-kit.rb`
 
-## ownership
+## Operating model
 
-- `os/` owns identity, agent rules, routing, retrieval, recovery, templates, and reusable routines.
-- `life/` owns current personal state, areas, projects, knowledge, and records.
-- `biz/<business>/` owns that business's foundations, decisions, knowledge, status, and implementation source.
-- `biz/business-model/` shows the first-business structure. During setup, rename it to the owner's first confirmed business before personalizing it.
+- Chief coordinates the whole system.
+- Each substantial project or business task is its operational home base.
+- Routine reports, approvals, blockers, and scheduled work stay with their project.
+- Only material cross-project context returns to Chief through reconciliation.
+- User-visible tasks, structural changes, deletion, publication, and external commitments require clear authority.
+- Portable workflows live in `os/skills/`; agent-specific adapters remain outside the vault and point back to those workflows.
 
-Each intended repository uses private GitHub `origin` as primary and private
-GitLab `backup` as an identical automatic mirror. The root and `biz/` never become repositories; `os/`, `life/`, and each
-individual business are independently versioned.
+## Privacy
 
-## privacy boundary
-
-This public source contains no owner's personal context. Never personalize the public checkout or commit credentials. The agent creates and personalizes a separate private vault.
+This repository is a public blueprint. Never personalize it or add credentials. The setup process creates a separate private vault for its owner.

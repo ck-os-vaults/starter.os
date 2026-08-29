@@ -1,8 +1,8 @@
 ---
 type: status
-created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+created: 2026-08-29
+updated: 2026-08-29
+reviewed: 2026-08-29
 status: draft
 authority: reference
 source: ai
@@ -10,22 +10,22 @@ source: ai
 
 # now
 
-**Bottom line:** Last confirmed snapshot of the owner's current personal state. Keep only priorities, constraints, transitions, and open decisions that materially affect present work.
+**Bottom line:** Last confirmed snapshot of the owner's current priorities, constraints, transitions, and open decisions.
 
-**When to read this:** Read for planning, prioritization, reviews, check-ins, or when current capacity materially changes a task.
+**When to read this:** Read for planning, prioritization, or when current capacity materially changes a task.
 
-## current priorities
+## Current priorities
 
-To be confirmed during onboarding. Keep at most three unless the owner explicitly needs more.
+Confirm during onboarding. Keep no more than three by default.
 
-## current constraints and transitions
+## Constraints and transitions
 
-To be confirmed. Include only conditions that change planning or collaboration.
+Confirm only what materially changes planning.
 
-## open decisions
+## Open decisions
 
-List each decision and what evidence or event would resolve it.
+List each decision and what would resolve it.
 
-## currency gaps
+## Currency gaps
 
-Name any area where the current state is not known. Do not present old personal facts as current without confirmation.
+Name any area that is not currently known. Never present old personal facts as current without confirmation.

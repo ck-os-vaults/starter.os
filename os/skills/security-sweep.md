@@ -25,7 +25,7 @@ Unknown-origin, sensitive, dependency-related, public-facing, or otherwise risk-
 3. Check screenshots, transcripts, exports, and attachments for third-party, client, legal, medical, financial, or account-recovery information.
 4. Confirm local app state, caches, raw media, transient attachments, dependencies, and build output are ignored or intentionally handled.
 5. Confirm the vault root and `biz/` have no `.git`; `os/`, `life/`, and each business have one repository with no nested Git or submodules.
-6. Confirm the exact GitHub destination and visibility before publication. The public starter kit is the only expected public repository.
+6. Confirm the exact publication destination and owner-approved visibility before publication.
 7. Report findings by severity: secret -> private-data exposure -> wrong destination/visibility -> repository hygiene.
 8. A real secret or recovery code blocks the commit or push. Tell the owner which file and issue type without reproducing the value.
 

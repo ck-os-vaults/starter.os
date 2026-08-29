@@ -24,7 +24,7 @@ Run after imports/restructures, periodically, or when retrieval surfaces the wro
 2. List missing/invalid frontmatter and legacy inline metadata.
 3. Cross-check currency against current status, specs, decisions, and owner words.
 4. Set `reviewed` to the audit date; change `updated` only when content/current truth changed.
-5. Mark replacements `superseded` with `superseded_by`; mark historical records `archived`; use `draft` when uncertain.
+5. Mark replaced current files `superseded` with `superseded_by`; leave dated history as history; use `draft` when uncertain.
 6. Set authority and source honestly.
 7. Ensure top summaries describe real contents and read triggers.
 8. Update maps and indexes when lifecycle or location changed.

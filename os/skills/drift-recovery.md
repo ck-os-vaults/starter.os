@@ -16,7 +16,7 @@ When overwhelm or novelty creates an urge to restart everything, compare that ur
 
 ## trigger
 
-Overwhelm, abandonment, or escape-driven restart language appears during active work. Calm proposals for a new or parallel system route to [[product-scope-review]].
+Overwhelm, abandonment, or escape-driven restart language appears during active work. A calm redesign proposal is ordinary planning and does not trigger this workflow.
 
 ## steps
 

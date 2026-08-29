@@ -22,12 +22,12 @@ After the vault has enough meaningful history, during an owner-approved periodic
 
 1. Read relevant record material newer than the last documented distillation review.
 2. Promote a signal only when it corrects current context, recurs independently, is explicitly marked durable by the owner, or reveals a retrieval failure.
-3. Route it to one current home: `life/now.md`, `life/knowledge/people/owner.md`, a topic note, a task map, or `life/records/decisions.md` for a confirmed decision.
+3. Route it to one current home: `life/now.md`, `life/wiki/owner.md`, a project home, or `life/records/decisions.md` for a confirmed decision.
 4. Ask before changing protected identity or behavior files.
 5. Add a receipt link to the source record and preserve the original words in `life/records/`.
 6. Promote only a small number per run; defer weak or one-off candidates.
 7. Update the watermark and report what changed.
-8. List clearly done or superseded session records as candidates for [[vault-maintenance]]. Do not move files or duplicate archive rules here.
+8. List clearly done or superseded temporary material as candidates for [[vault-maintenance]]. Do not move or remove files here.
 
 ## boundaries
 

@@ -1,23 +1,20 @@
 ---
 type: map
-created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+created: 2026-08-29
+updated: 2026-08-29
+reviewed: 2026-08-29
 status: living
-authority: canon
+authority: reference
 source: ai
 ---
 
 # records
 
-**Bottom line:** Personal chronology and provenance: decisions, daily/weekly/monthly notes, owner-authored journal, original conversations, and useful session handoffs. Records preserve history but are cold by default.
+**Bottom line:** Records preserve chronology and explicitly confirmed decisions; they do not become current truth automatically.
 
-**When to read this:** Read when routing a dated record or when current sources need historical evidence.
+**When to read this:** Read before creating or interpreting a personal historical record.
 
-- `decisions.md` — confirmed durable personal decisions.
-- `daily/`, `weekly/`, `monthly/` — operational chronology.
-- `journal/` — owner-authored reflection.
-- `conversations/` — original words and transcripts.
-- `sessions/` — agent handoffs and setup completion records.
-
-Current status, foundations, and curated knowledge outrank records. Record bodies are not silently rewritten after the fact.
+- `decisions.md` is append-only durable decision history.
+- Create `daily/` only if the owner actually uses daily records.
+- Create another record stream only after a real recurring need is proven.
+- Temporary handoffs belong in the project they serve and should be absorbed or removed when closed and Git-recoverable.

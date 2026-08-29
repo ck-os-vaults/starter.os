@@ -1,17 +1,19 @@
 ---
 type: map
-created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
-status: draft
+created: 2026-08-29
+updated: 2026-08-29
+reviewed: 2026-08-29
+status: living
 authority: reference
 source: ai
 ---
 
 # projects
 
-**Bottom line:** Time-bound personal work with a defined outcome. Business projects stay inside their business repository.
+**Bottom line:** Active personal work has one project owner. A new project begins with one home file.
 
-**When to read this:** Read when creating, resuming, routing, or closing a personal project.
+**When to read this:** Read when routing personal work or reviewing active projects.
 
-No projects are assumed. A real project usually needs a short readme, current status, and only the knowledge necessary to complete it. Archive completed projects without deleting their history.
+Create a project only when real ongoing work or a retained project asset exists. Add local rules, decisions, memory, or supporting folders only when that project genuinely needs them.
+
+Use `ruby ../os/scripts/add-project.rb <lowercase-kebab-name>` from `life/`, or `ruby os/scripts/add-project.rb <name>` from the vault root.

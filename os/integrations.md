@@ -1,47 +1,20 @@
 ---
 type: map
-created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+created: 2026-08-29
+updated: 2026-08-29
+reviewed: 2026-08-29
 status: draft
 authority: reference
 source: ai
 ---
 
-# integrations and publishing registry
+# integrations
 
-**Bottom line:** Inventory meaningful external state—repositories, public URLs, hosting, databases, APIs, account connections, scheduled jobs, plugins, and credential types—without storing secret values.
+**Bottom line:** Record only external systems that actually exist, without secret values.
 
-**When to read this:** Before publishing, connecting an API, creating a key, installing an operational tool, changing hosting, rotating credentials, or retiring an external system.
+**When to read this:** Before connecting, changing, publishing through, or retiring an external system.
 
-## rules
+| System | Owner or path | State | Purpose | Credential boundary | Checked |
+|---|---|---|---|---|---|
 
-- Never record a key, token, password, recovery code, private key, customer data, or secret value.
-- Record credential type, owner/provider, where an authorized person retrieves or rotates it, and which local environment variable or ignored file consumes it.
-- Add an entry when an integration becomes real, not when it is merely mentioned in research.
-- Preserve retired entries with date and evidence so external surfaces do not disappear from memory.
-- Package manifests remain the exhaustive library source; this registry names only operationally meaningful dependencies.
-
-## status language
-
-| state | meaning |
-|---|---|
-| `verified active` | live provider state checked on the recorded date |
-| `verified present` | local config or identifier checked; full provider behavior not proven |
-| `historical` | evidence proves prior use; current state not assumed |
-| `unverified` | known but not checked |
-| `planned only` | discussed without a working connection |
-| `retired` | confirmed removed or disconnected |
-
-## registry
-
-| system | owner/path | state | identifier or public URL | credential type and retrieval owner | purpose / retirement route | checked |
-|---|---|---|---|---|---|---|
-
-## attention queue
-
-Add only unresolved owner actions or provider checks. Keep the list short and current.
-
-## research-only providers
-
-Names considered in research stay here until a real account, key, configuration, deployment, or data call exists.
+Use `verified active`, `verified present`, `unverified`, `planned`, or `retired`. Record where an authorized owner retrieves credentials, never the credential itself. Optional browser, research, password-manager, hosting, and automation integrations belong here only after adoption.

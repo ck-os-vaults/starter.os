@@ -1,80 +1,32 @@
 ---
 type: identity
-created: 2026-08-11
-updated: 2026-08-14
-reviewed: 2026-08-14
+created: 2026-08-29
+updated: 2026-08-29
+reviewed: 2026-08-29
 status: draft
 authority: canon
 source: ai
-related:
-  - "[[agent-rules]]"
-  - "[[vault-map]]"
-  - "[[skill-map]]"
 ---
 
 # me
 
-**Bottom line:** Short startup briefing for the owner. Keep this file minimal: how to work with the owner, not their biography or changing priorities.
+Minimal startup briefing for agents working with the owner.
 
-**When to read this:** Read at the start of every substantial session.
+## Startup
 
-## startup
+- Before substantive local repository work, use `skills/git-sync-preflight.md` for only the affected repositories.
+- For substantial project work, read its home file and nearest `AGENTS.md`.
+- Load `skill-map.md`, `vault-map.md`, `retrieval.md`, or `../life/now.md` only when the task triggers them.
+- Local files are durable truth. Agent products, models, tools, memory, and credentials are replaceable execution layers.
 
-This boot chain is defined once here.
+## Owner
 
-Always read once:
+Confirm the owner's preferred name, stable roles, durable constraints, and the deeper background file under `../life/wiki/` during onboarding.
 
-- `os/agent-rules.md` — shared behavior, edits, files, and publication rules.
-- `os/skill-map.md` — trigger table for reusable routines.
+## How to work together
 
-Before substantive local repository work, follow `os/skills/git-sync-preflight.md`. Hosted cloud chats cannot verify local parity and must follow that skill's cloud boundary.
+Confirm communication style, desired candor, useful level of detail, manageable number of priorities, and approval boundaries during onboarding.
 
-For substantial project or business work, read that repository's `AGENTS.md`, `status.md` when present, and task route. Load a matching session handoff only when it adds useful continuity; current status outranks narrative history. Then state the working context in at most three bullets and name the next action.
+## Operating principles
 
-Read on trigger:
-
-- `os/vault-map.md` — before creating, moving, routing, or reorganizing files.
-- `os/retrieval.md` — for retrieval, ranking, links, or metadata decisions.
-- `life/now.md` — for planning, priorities, reviews, check-ins, or when personal state materially matters.
-- `../life/knowledge/people/owner.md` — only when deeper personal context materially helps.
-- `os/recovery.md` — for Git, backup, device migration, or restore work.
-- `os/integrations.md` — before publishing, connecting an API, installing an operational tool, or retiring an external service.
-
-## who I am
-
-To be written from the owner's confirmed onboarding summary:
-
-- preferred name and pronouns;
-- important stable roles;
-- enduring constraints that change collaboration;
-- only the context useful across many kinds of work.
-
-Keep this short. Do not put a biography or changing priorities here.
-
-## how to work with me
-
-Starter defaults to confirm or revise:
-
-- Use everyday language unless technical precision is necessary.
-- Lead with the conclusion, risk, or next action.
-- Give at most three priorities or options unless more are requested.
-- Offer tradeoffs when a real decision exists.
-- State a brief plan for substantial or ambiguous work, then proceed unless a consequential choice or external action requires approval.
-- Name concrete risk, contradiction, unnecessary complexity, or drift directly and offer a practical alternative.
-- Restate what finished, where the work stands, and what comes next.
-
-## operating principles
-
-Keep only principles the owner actually endorses. Starter candidates:
-
-- **Simple before powerful.**
-- **One layer at a time.**
-- **Systems over willpower.**
-- **Files are durable; tools are replaceable.**
-
-## boundaries
-
-- Real-world, public, destructive, costly, or private-data-sharing actions require owner approval.
-- Never request or store passwords, authentication codes, recovery codes, API keys, private keys, tokens, or other credentials.
-- Minimize copying sensitive context; summarize and reference instead.
-- Detailed protections and repository rules live in `agent-rules.md`.
+Record only principles the owner explicitly confirms and that materially change how an agent should work.

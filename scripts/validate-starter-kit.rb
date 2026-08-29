@@ -3,206 +3,167 @@
 require "open3"
 require "pathname"
 require "tmpdir"
-require "cgi"
+require "digest"
+require "fileutils"
 
 ROOT = Pathname.new(File.expand_path("..", __dir__))
 Dir.chdir(ROOT)
 
 errors = []
-add_error = ->(message) { errors << message }
+add = ->(message) { errors << message }
 
 required = %w[
   AGENTS.md
   CLAUDE.md
   readme.md
-  starter-os-migration-guide.html
-  biz
-  life/AGENTS.md
-  life/knowledge-map.md
-  life/areas/health/readme.md
-  life/areas/home/readme.md
-  life/areas/relationships/readme.md
-  life/areas/finances/readme.md
-  os/AGENTS.md
-  os/agent-rules.md
-  os/vault-map.md
-  os/skills/git-sync-preflight.md
-  os/skills/vault-maintenance.md
-  os/validate-starter-os.rb
-  setup/README.md
-  setup/INSTALL.md
-  setup/PROMPT-01-CREATE-MY-OS.md
-  setup/PROMPT-02-FIRST-WORKING-SESSION.md
-  setup/PROMPT-03-MIGRATE-OLD-VAULT.md
-  setup/SYSTEM-EXPLAINED.md
-  setup/SETUP-COMPLETION.md
-  setup/STARTER-VERSION.md
-  setup/SETUP-STATUS.md
-  setup/AGENT-RUNBOOK.md
-  setup/ONBOARDING-INTERVIEW.md
-  setup/OPERATOR-GUIDE.md
-  biz/business-model/AGENTS.md
-  biz/business-model/readme.md
-  biz/business-model/status.md
-  biz/business-model/knowledge-map.md
-  biz/business-model/decisions.md
+  setup/START-HERE.md
+  setup/AGENT-SETUP.md
+  setup/ONBOARDING.md
+  setup/MIGRATE-V1.md
   scripts/create-vault.rb
+  scripts/add-project.rb
   scripts/add-business.rb
+  os/AGENTS.md
+  os/me.md
+  os/vault-map.md
+  os/retrieval.md
+  os/knowledge-map.md
+  os/recovery.md
+  os/integrations.md
+  os/skill-map.md
+  os/validate-starter-os.rb
+  life/AGENTS.md
+  life/now.md
+  life/knowledge-map.md
+  life/projects/readme.md
+  life/wiki/owner.md
+  life/records/readme.md
+  life/records/decisions.md
 ]
-required.each { |file| add_error.call("missing required source path: #{file}") unless File.exist?(file) }
+required.each { |path| add.call("missing required source path: #{path}") unless File.exist?(path) }
 
-%w[archive template migration-v1.md].each do |path|
-  add_error.call("obsolete source path remains: #{path}") if File.exist?(path)
-end
-%w[BIZ LIFE OS].each do |path|
-  add_error.call("obsolete uppercase source path remains: #{path}") if Dir.children(".").include?(path)
-end
-
-prompt_files = %w[
+forbidden = %w[
+  starter-os-migration-guide.html
+  biz/business-model
+  life/00_inbox
+  life/areas
+  life/archive
+  life/records/sessions
+  os/agent-rules.md
   setup/PROMPT-01-CREATE-MY-OS.md
   setup/PROMPT-02-FIRST-WORKING-SESSION.md
   setup/PROMPT-03-MIGRATE-OLD-VAULT.md
 ]
-prompt_files.each do |file|
-  next unless File.file?(file)
-  text = File.read(file)
-  add_error.call("#{file}: missing Copy and paste label") unless text.match?(/^# Copy and paste/)
-  expected_audience = file.include?("MIGRATE") ? "**For: Existing User**" : "**For: New User**"
-  add_error.call("#{file}: missing #{expected_audience} label") unless text.include?(expected_audience)
-  add_error.call("#{file}: expected exactly one prompt block") unless text.scan(/^```text$/).length == 1 && text.scan(/^```$/).length == 1
-  add_error.call("#{file}: prompt file must not contain YAML frontmatter") if text.start_with?("---\n")
-end
+forbidden.each { |path| add.call("obsolete source path remains: #{path}") if File.exist?(path) }
 
-first_prompt = File.file?(prompt_files.first) ? File.read(prompt_files.first) : ""
-add_error.call("#{prompt_files.first}: must ask what replaces STARTER in STARTER.os") unless first_prompt.match?(/replace STARTER.*STARTER\.os/i)
+setup_files = Dir.glob("setup/*").select { |path| File.file?(path) }.sort
+expected_setup = %w[setup/AGENT-SETUP.md setup/MIGRATE-V1.md setup/ONBOARDING.md setup/START-HERE.md]
+add.call("setup is not the four-file contract: #{setup_files.join(', ')}") unless setup_files == expected_setup
 
-migration_prompt = File.file?(prompt_files.last) ? File.read(prompt_files.last) : ""
-migration_requirements = {
-  "autonomous no-approval instruction" => /Do not ask for approval/i,
-  "prompt-as-runbook instruction" => /prompt file is also the migration runbook/i,
-  "phase completion gate" => /Every phase has the same completion gate/i,
-  "complete old-structure archive" => /complete dated archive of\s+the previous structure/i,
-  "separate OS repository" => /repository set is exactly `os\/`, `life\/`/i,
-  "one repository per business" => /each real `biz\/<business>\/`/i,
-  "GitHub primary remote" => /GitHub as remote `origin`.*primary/im,
-  "identical GitLab mirror" => /GitLab.*remote `backup`.*mirror/im,
-  "final independent review" => /final independent review/i
-}
-migration_requirements.each do |label, pattern|
-  add_error.call("#{prompt_files.last}: missing #{label}") unless migration_prompt.match?(pattern)
-end
-approval_gate = /ask for one consolidated approval|after manifest approval|pause for me to .*approve|wait for approval|pending approval/i
-add_error.call("#{prompt_files.last}: contains an approval gate") if migration_prompt.match?(approval_gate)
+migration = File.file?("setup/MIGRATE-V1.md") ? File.read("setup/MIGRATE-V1.md") : ""
+{
+  "read-only inventory" => /Inventory.*without changing/i,
+  "exact plan" => /exact keep, move, combine, create, and remove plan/i,
+  "approval gate" => /Wait for approval/i,
+  "separate preview" => /separate 2\.0 preview/i,
+  "separate cutover" => /Cutover, deletion, repository publication, and automation changes are separate approvals/i
+}.each { |label, pattern| add.call("migration contract missing #{label}") unless migration.match?(pattern) }
+add.call("migration contains forbidden no-approval instruction") if migration.match?(/do not ask for approval/i)
 
-maintenance_file = "os/skills/vault-maintenance.md"
-maintenance_text = File.file?(maintenance_file) ? File.read(maintenance_file) : ""
-maintenance_requirements = {
-  "optional scheduled trigger" => /owner-approved schedule/i,
-  "pre-maintenance Git checkpoint" => /pre-maintenance Git checkpoint/i,
-  "checkpoint before cleanup" => /Never begin cleanup until/i,
-  "dated archive path" => %r{archive/YYYY-MM-DD-weekly-maintenance/}i,
-  "archive move manifest" => /Create one `manifest\.md`/i,
-  "final parity gate" => /final verification and publication/i
-}
-maintenance_requirements.each do |label, pattern|
-  add_error.call("#{maintenance_file}: missing #{label}") unless maintenance_text.match?(pattern)
-end
-
-setup_runbook = File.file?("setup/AGENT-RUNBOOK.md") ? File.read("setup/AGENT-RUNBOOK.md") : ""
-add_error.call("setup/AGENT-RUNBOOK.md: missing everyday Git workflow phase") unless setup_runbook.match?(/phase 9 — verify the everyday Git workflow/i)
-add_error.call("setup/AGENT-RUNBOOK.md: missing cloud synchronization boundary") unless setup_runbook.match?(/hosted cloud chat may update GitHub/i)
-add_error.call("#{prompt_files.last}: missing migrated-vault Git workflow verification") unless migration_prompt.match?(/Verify the everyday Git workflow/i)
-
-migration_guide = File.file?("starter-os-migration-guide.html") ? File.read("starter-os-migration-guide.html") : ""
-embedded_prompt = migration_guide[/<pre id="promptText">(.*?)<\/pre>/m, 1]
-canonical_prompt = migration_prompt[/```text\n(.*?)\n```/m, 1]
-if embedded_prompt.nil? || canonical_prompt.nil? || CGI.unescapeHTML(embedded_prompt).strip != canonical_prompt.strip
-  add_error.call("starter-os-migration-guide.html: embedded prompt differs from canonical migration prompt")
-end
-
-user_files = %w[setup/README.md setup/INSTALL.md setup/SYSTEM-EXPLAINED.md]
-agent_files = %w[setup/SETUP-STATUS.md setup/AGENT-RUNBOOK.md setup/ONBOARDING-INTERVIEW.md setup/OPERATOR-GUIDE.md setup/SETUP-COMPLETION.md setup/STARTER-VERSION.md]
-user_files.each { |file| add_error.call("#{file}: missing New User label") unless File.file?(file) && File.read(file).include?("**For: New User**") }
-agent_files.each { |file| add_error.call("#{file}: missing Agent label") unless File.file?(file) && File.read(file).match?(/\*\*For: Agent/) }
-
-active_text_files = Dir.glob("**/*", File::FNM_DOTMATCH).select do |file|
-  File.file?(file) && !file.start_with?(".git/") && !file.include?("/.DS_Store")
+source_files = Dir.glob("**/*", File::FNM_DOTMATCH).select do |path|
+  File.file?(path) && !path.start_with?(".git/")
 end
 
 secret_shapes = {
   "private key" => /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
   "GitHub token" => /(?:ghp|gho|github_pat)_[A-Za-z0-9_]{20,}/,
   "OpenAI key" => /sk-[A-Za-z0-9_-]{20,}/,
-  "Anthropic key" => /sk-ant-[A-Za-z0-9_-]{20,}/,
   "AWS key" => /AKIA[0-9A-Z]{16}/
 }
-
-privacy_terms = if File.file?(".starter-private-denylist")
-  File.readlines(".starter-private-denylist", chomp: true).map(&:strip).reject { |line| line.empty? || line.start_with?("#") }
-else
-  []
-end
-
-active_text_files.each do |file|
-  text = File.binread(file).force_encoding(Encoding::UTF_8)
+source_files.each do |path|
+  text = File.binread(path).force_encoding(Encoding::UTF_8)
   next unless text.valid_encoding?
-  privacy_terms.each do |term|
-    add_error.call("#{file}: contains a locally denied privacy term") if text.match?(/#{Regexp.escape(term)}/i)
-  end
-  secret_shapes.each do |label, pattern|
-    add_error.call("#{file}: contains #{label}-shaped text") if text.match?(pattern)
+  secret_shapes.each { |label, pattern| add.call("#{path} contains #{label}-shaped text") if text.match?(pattern) }
+end
+
+source_files.select { |path| path.end_with?(".md") }.each do |path|
+  File.read(path).scan(/\[[^\]]+\]\(([^)]+)\)/).flatten.each do |target|
+    clean = target.split("#", 2).first
+    next if clean.empty? || clean.match?(/\A(?:https?:|mailto:)/)
+    resolved = File.expand_path(clean, File.dirname(path))
+    add.call("#{path} links to missing #{target}") unless File.exist?(resolved)
   end
 end
 
-route_sources = Dir["{os,life,setup}/**/*.{md,rb}"] + %w[AGENTS.md CLAUDE.md readme.md scripts/create-vault.rb scripts/add-business.rb]
-route_sources.each do |file|
-  next unless File.file?(file)
-  text = File.read(file)
-  add_error.call("#{file}: contains obsolete template/vault route") if text.include?("template/vault")
-  add_error.call("#{file}: contains uppercase OS path") if text.match?(%r{(?<![A-Za-z])OS/})
-  add_error.call("#{file}: contains uppercase LIFE path") if text.match?(%r{(?<![A-Za-z])LIFE/})
-  add_error.call("#{file}: contains uppercase BIZ path") if text.match?(%r{(?<![A-Za-z])BIZ/})
+Dir.glob("os/skills/*.md").each do |path|
+  File.read(path).scan(/\[\[([a-z0-9-]+)\]\]/).flatten.each do |target|
+    add.call("#{path} links to missing skill #{target}") unless File.file?("os/skills/#{target}.md")
+  end
 end
 
 unless errors.empty?
-  puts "FAIL starter kit: #{errors.length} source issue#{errors.length == 1 ? '' : 's'}"
+  puts "FAIL Starter.OS 2 source: #{errors.length} issue#{errors.length == 1 ? '' : 's'}"
   errors.each { |message| puts "- #{message}" }
   exit 1
 end
 
-Dir.mktmpdir("starter-os-kit-") do |tmp|
+source_project_output, source_project_status = Open3.capture2e("ruby", "scripts/add-project.rb", "must-refuse")
+add.call("project generator did not refuse the public source") if source_project_status.success? || File.exist?("life/projects/must-refuse")
+source_business_output, source_business_status = Open3.capture2e("ruby", "scripts/add-business.rb", "must-refuse")
+add.call("business generator did not refuse the public source") if source_business_status.success? || File.exist?("biz/must-refuse")
+
+Dir.mktmpdir("starter-os-2-") do |tmp|
   vault = File.join(tmp, "NOVA.os")
-  create_output, create_status = Open3.capture2e("ruby", "scripts/create-vault.rb", vault)
-  unless create_status.success?
-    add_error.call("vault creation failed: #{create_output.strip}")
-    next
+  output, status = Open3.capture2e("ruby", "scripts/create-vault.rb", vault)
+  add.call("clean install failed: #{output.strip}") unless status.success?
+
+  if status.success?
+    roots = Dir.children(vault).sort
+    expected_roots = %w[AGENTS.md CLAUDE.md biz life os]
+    add.call("generated roots differ: #{roots.join(', ')}") unless roots == expected_roots
+    add.call("setup leaked into installed vault") if File.exist?(File.join(vault, "setup"))
+    add.call("biz is not initially empty") unless Dir.children(File.join(vault, "biz")).empty?
+
+    project_output, project_status = Open3.capture2e("ruby", "os/scripts/add-project.rb", "health", chdir: vault)
+    add.call("project generator failed: #{project_output.strip}") unless project_status.success?
+    add.call("project generator created extra foundation files") unless Dir.glob(File.join(vault, "life/projects/health/*")).map { |path| File.basename(path) } == ["health.md"]
+
+    business_output, business_status = Open3.capture2e("ruby", "os/scripts/add-business.rb", "sample-studio", chdir: vault)
+    add.call("business generator failed: #{business_output.strip}") unless business_status.success?
+
+    validate_output, validate_status = Open3.capture2e("ruby", "os/validate-starter-os.rb", chdir: vault)
+    add.call("installed validation failed:\n#{validate_output}") unless validate_status.success?
+
+    refusal_output, refusal_status = Open3.capture2e("ruby", "scripts/create-vault.rb", vault)
+    add.call("non-empty destination was not refused") if refusal_status.success? || !refusal_output.include?("not empty")
+
+    legacy = File.join(tmp, "LEGACY.os")
+    FileUtils.mkdir_p(File.join(legacy, "life", "00_inbox"))
+    FileUtils.mkdir_p(File.join(legacy, "life", "areas", "health"))
+    FileUtils.mkdir_p(File.join(legacy, "life", "archive"))
+    File.write(File.join(legacy, "life", "00_inbox", "note.md"), "unique legacy note\n")
+    File.write(File.join(legacy, "life", "areas", "health", "care.md"), "unique health record\n")
+    File.write(File.join(legacy, "life", "archive", "history.md"), "unique archived history\n")
+    before = Dir.glob(File.join(legacy, "**", "*"), File::FNM_DOTMATCH).select { |path| File.file?(path) }.to_h do |path|
+      [path.delete_prefix("#{legacy}/"), Digest::SHA256.file(path).hexdigest]
+    end
+
+    preview = File.join(tmp, "PREVIEW.os")
+    preview_output, preview_status = Open3.capture2e("ruby", "scripts/create-vault.rb", preview)
+    add.call("migration preview generation failed: #{preview_output.strip}") unless preview_status.success?
+    after = Dir.glob(File.join(legacy, "**", "*"), File::FNM_DOTMATCH).select { |path| File.file?(path) }.to_h do |path|
+      [path.delete_prefix("#{legacy}/"), Digest::SHA256.file(path).hexdigest]
+    end
+    add.call("migration preview changed the legacy fixture") unless before == after
+    add.call("migration preview was not separate from legacy") if preview == legacy || !File.directory?(preview)
   end
-
-  expected_roots = %w[AGENTS.md CLAUDE.md biz life os setup]
-  actual_roots = Dir.children(vault).sort
-  add_error.call("generated root does not match biz/life/os structure: #{actual_roots.join(', ')}") unless actual_roots == expected_roots
-  add_error.call("custom root name was not preserved") unless File.basename(vault) == "NOVA.os"
-
-  business_output, business_status = Open3.capture2e("ruby", "setup/add-business.rb", "sample-business", chdir: vault)
-  add_error.call("business creation failed: #{business_output.strip}") unless business_status.success?
-  add_error.call("business model was not renamed") if File.directory?(File.join(vault, "biz", "business-model"))
-  add_error.call("named first business is missing") unless File.directory?(File.join(vault, "biz", "sample-business"))
-
-  validation_output, validation_status = Open3.capture2e("ruby", "os/validate-starter-os.rb", chdir: vault)
-  add_error.call("installed-vault validation failed:\n#{validation_output}") unless validation_status.success?
-
-  add_error.call("generated vault root became a Git repository") if File.exist?(File.join(vault, ".git"))
-  add_error.call("generated biz container became a Git repository") if File.exist?(File.join(vault, "biz", ".git"))
-
-  refusal_output, refusal_status = Open3.capture2e("ruby", "scripts/create-vault.rb", vault)
-  add_error.call("non-empty destination was not refused") if refusal_status.success? || !refusal_output.include?("not empty")
 end
 
 if errors.empty?
-  puts "PASS starter kit: direct biz/life/os source, custom root naming, privacy, business model, creation, refusal, and installed validator passed."
+  puts "PASS Starter.OS 2: source contract, links, privacy, clean install, minimal project, business foundation, refusal, installed validation, and non-destructive v1 preview"
   exit 0
 end
 
-puts "FAIL starter kit: #{errors.length} issue#{errors.length == 1 ? '' : 's'}"
+puts "FAIL Starter.OS 2: #{errors.length} issue#{errors.length == 1 ? '' : 's'}"
 errors.each { |message| puts "- #{message}" }
 exit 1

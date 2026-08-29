@@ -10,18 +10,13 @@ source: ai
 
 # templates
 
-**Bottom line:** Safe starting structures for common notes. New maps, knowledge, decisions, and project status begin as drafts so incomplete material cannot silently rank as current truth.
+**Bottom line:** Minimal starting structures for notes that actually need them.
 
 **When to read this:** Read when choosing a template or configuring Obsidian's core Templates plugin.
 
 - `note.md` — durable knowledge or thinking note.
 - `map.md` — human-facing hub/local index.
 - `daily.md` — brief daily record.
-- `weekly.md` — concise weekly reset.
-- `decision.md` — one owner decision draft.
-- `project-status.md` — project state and next action.
-- `project-agents.md` — local project agent contract scaffold.
+After creating a note, replace every placeholder and keep it `draft` until its content is usable. Do not create a file merely because a template exists.
 
-After creating a note, replace every placeholder and keep it `draft` until its content is usable.
-
-Daily and weekly records belong in `life/records/daily/` and `life/records/weekly/`. Personal reflection belongs in `life/records/journal/`. Business templates and implementation scaffolds stay inside the owning business.
+Create `life/records/daily/` only when the owner uses daily records. Business templates and implementation scaffolds stay inside the owning business.

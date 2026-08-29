@@ -2,27 +2,115 @@
 
 require "fileutils"
 require "pathname"
+require "date"
 
-SETUP_DIR = Pathname.new(__dir__)
-VAULT_ROOT = SETUP_DIR.parent
-MODEL = VAULT_ROOT.join("biz", "business-model")
+script_dir = Pathname.new(__dir__)
+vault_root = script_dir.basename.to_s == "scripts" && script_dir.parent.basename.to_s == "os" ? script_dir.parent.parent : script_dir.parent
+businesses = vault_root.join("biz")
 
 def stop(message)
-  warn "Cannot name first business: #{message}"
+  warn "Cannot add business: #{message}"
   exit 1
 end
 
 name = ARGV.shift.to_s.strip
 stop("provide one lowercase kebab-case business name") if name.empty?
 stop("unexpected options: #{ARGV.join(' ')}") unless ARGV.empty?
-stop("use lowercase kebab-case, such as north-star-studio") unless name.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
-stop("the generic business model is missing or was already named") unless MODEL.directory?
-stop("run this copied helper from the generated vault's setup folder") unless VAULT_ROOT.join("os", "vault-map.md").file?
+stop("use lowercase kebab-case") unless name.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
+stop("run this from an installed Starter.OS vault") unless businesses.directory?
+stop("businesses may be added only inside a private installed vault") if vault_root.join(".git").exist?
 
-destination = VAULT_ROOT.join("biz", name)
-stop("#{destination} already exists") if destination.exist?
+destination = businesses.join(name)
+stop("biz/#{name} already exists") if destination.exist?
 
-FileUtils.mv(MODEL, destination)
+FileUtils.mkdir_p(destination)
+today = Date.today.to_s
 
-puts "Named the first business workspace biz/#{name}/"
-puts "Next: personalize its foundations before initializing Git."
+files = {
+  "AGENTS.md" => <<~TEXT,
+    # #{name} agent entry
+
+    Read `../../os/AGENTS.md` first. This repository owns the business's strategy, decisions, operations, knowledge, and implementation. Read `status.md` for active work and `knowledge-map.md` only when routing is needed.
+
+    Add rules here only when this business genuinely differs from the shared OS.
+  TEXT
+  "CLAUDE.md" => "# Agent pointer\n\nRead `AGENTS.md`.\n",
+  "readme.md" => <<~TEXT,
+    ---
+    type: identity
+    created: #{today}
+    updated: #{today}
+    reviewed: #{today}
+    status: draft
+    authority: canon
+    source: ai
+    ---
+
+    # #{name.tr('-', ' ')}
+
+    **Bottom line:** Confirm the business purpose and boundaries with the owner.
+
+    **When to read this:** Read for durable business identity and scope.
+  TEXT
+  "status.md" => <<~TEXT,
+    ---
+    type: status
+    created: #{today}
+    updated: #{today}
+    reviewed: #{today}
+    status: draft
+    authority: reference
+    source: ai
+    ---
+
+    # status
+
+    **Bottom line:** Confirm the business's current state and next priority.
+
+    **When to read this:** Read before substantive work in this business.
+  TEXT
+  "knowledge-map.md" => <<~TEXT,
+    ---
+    type: map
+    created: #{today}
+    updated: #{today}
+    reviewed: #{today}
+    status: draft
+    authority: canon
+    source: ai
+    ---
+
+    # knowledge map
+
+    **Bottom line:** Route business work to its current authoritative files.
+
+    **When to read this:** Read when the correct business source is unclear.
+
+    - Durable identity and scope: `readme.md`
+    - Current state: `status.md`
+    - Confirmed decisions: `decisions.md`
+  TEXT
+  "decisions.md" => <<~TEXT
+    ---
+    type: decision-log
+    created: #{today}
+    updated: #{today}
+    reviewed: #{today}
+    status: living
+    authority: canon
+    source: ai
+    ---
+
+    # decisions
+
+    **Bottom line:** Append only decisions the owner explicitly confirms.
+
+    **When to read this:** Read when current work depends on an earlier business decision.
+  TEXT
+}
+
+files.each { |path, body| File.write(destination.join(path), body) }
+File.write(destination.join(".gitignore"), ".DS_Store\n.env\n.env.*\nnode_modules/\n")
+File.write(destination.join(".gitattributes"), "* text=auto eol=lf\n*.md text eol=lf\n")
+
+puts "Created biz/#{name} as a minimal independent business repository candidate"

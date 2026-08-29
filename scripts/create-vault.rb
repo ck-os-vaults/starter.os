@@ -4,8 +4,6 @@ require "fileutils"
 require "pathname"
 
 SOURCE_ROOT = Pathname.new(File.expand_path("..", __dir__))
-SETUP_SOURCE = SOURCE_ROOT.join("setup")
-ADD_BUSINESS = SOURCE_ROOT.join("scripts", "add-business.rb")
 
 def stop(message)
   warn "Cannot create vault: #{message}"
@@ -19,25 +17,26 @@ stop("unexpected options: #{ARGV.join(' ')}") unless ARGV.empty?
 destination = Pathname.new(File.expand_path(raw_destination))
 source_real = SOURCE_ROOT.realpath
 
-stop("the root folder name must end in .os, such as STARTER.os or ALEX.os") unless destination.basename.to_s.match?(/\A.+\.os\z/i)
-if destination == SOURCE_ROOT || destination.to_s.start_with?("#{source_real}/")
-  stop("the private vault must be outside the public Starter.OS source")
-end
+stop("the root folder name must end in .os") unless destination.basename.to_s.match?(/\A.+\.os\z/i)
+stop("the private vault must be outside the public source") if destination == SOURCE_ROOT || destination.to_s.start_with?("#{source_real}/")
 stop("the destination exists and is not a folder") if destination.exist? && !destination.directory?
 stop("the destination folder is not empty") if destination.directory? && !destination.children.empty?
 
-%w[AGENTS.md CLAUDE.md biz os life setup].each do |required|
+%w[os life os/templates/root-AGENTS.txt os/templates/root-CLAUDE.txt].each do |required|
   stop("source path is missing: #{required}") unless SOURCE_ROOT.join(required).exist?
 end
-stop("business model is missing") unless SOURCE_ROOT.join("biz", "business-model").directory?
-stop("business helper is missing") unless ADD_BUSINESS.file?
 
 FileUtils.mkdir_p(destination)
-%w[AGENTS.md CLAUDE.md os life setup].each do |name|
+%w[os life].each do |name|
   FileUtils.cp_r(SOURCE_ROOT.join(name), destination.join(name), preserve: true)
 end
-FileUtils.cp_r(SOURCE_ROOT.join("biz"), destination.join("biz"), preserve: true)
-FileUtils.cp(ADD_BUSINESS, destination.join("setup", "add-business.rb"), preserve: true)
+FileUtils.cp(SOURCE_ROOT.join("os", "templates", "root-AGENTS.txt"), destination.join("AGENTS.md"), preserve: true)
+FileUtils.cp(SOURCE_ROOT.join("os", "templates", "root-CLAUDE.txt"), destination.join("CLAUDE.md"), preserve: true)
+FileUtils.mkdir_p(destination.join("biz"))
+FileUtils.mkdir_p(destination.join("os", "scripts"))
+%w[add-project.rb add-business.rb].each do |script|
+  FileUtils.cp(SOURCE_ROOT.join("scripts", script), destination.join("os", "scripts", script), preserve: true)
+end
 
 puts "Created #{destination.basename} at #{destination}"
-puts "Next: open that folder as the agent workspace and Obsidian vault."
+puts "Next: personalize confirmed owner context, then run ruby os/validate-starter-os.rb"

@@ -30,7 +30,7 @@ Repository closeout validates and synchronizes changed repositories. A full wrap
 1. Inspect each affected repository separately: branch, tree, diff, and intended scope.
 2. Run the owning validator. Run [[security-sweep]] only for risk-bearing changes.
 3. Commit only intended completed work when the standing publication workflow is approved.
-4. Follow the Git publication law in `os/agent-rules.md`.
+4. Follow the publication boundary in `os/AGENTS.md` and the configured recovery plan.
 
 ### full wrap
 

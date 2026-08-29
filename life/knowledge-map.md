@@ -1,8 +1,8 @@
 ---
 type: map
-created: 2026-08-11
-updated: 2026-08-11
-reviewed: 2026-08-11
+created: 2026-08-29
+updated: 2026-08-29
+reviewed: 2026-08-29
 status: living
 authority: canon
 source: ai
@@ -10,53 +10,14 @@ source: ai
 
 # life knowledge map
 
-**Bottom line:** Personal task-to-file router. Use it after the shared OS chooses Life as the owner; businesses have separate maps.
+**Bottom line:** Route personal work to its project, durable background to Wiki, and chronology to Records.
 
-**When to read this:** At the start of a personal task or when the correct personal project, area, context, or record is unclear.
+**When to read this:** Read when the correct personal source is unclear.
 
-## current personal state
+- Current state: `now.md`
+- Durable owner background: `wiki/owner.md` until personalized
+- Active personal work: `projects/readme.md`
+- Confirmed personal decisions: `records/decisions.md`
+- Record rules: `records/readme.md`
 
-Read `now.md` for the last confirmed snapshot and currency gaps. Do not present dated priorities, health, finances, relationships, or calendar assumptions as current without confirmation.
-
-## owner context
-
-- Always-on collaboration context: `../os/me.md`.
-- Deeper personal dossier: `knowledge/people/owner.md`.
-
-Load deeper context only when it materially helps.
-
-## personal projects and areas
-
-- Time-bound work: `projects/readme.md`.
-- Ongoing responsibilities: `areas/readme.md`.
-- Starter areas: `areas/health/`, `areas/home/`, `areas/relationships/`, and `areas/finances/`. They are generic until the owner confirms useful context.
-
-## inbox
-
-Start at `00_inbox/readme.md`, then use `../os/skills/inbox-triage.md`. Raw capture never outranks processed context.
-
-## personal knowledge
-
-- Topics and references: `knowledge/topics/readme.md`.
-- People: `knowledge/people/readme.md`.
-- Metadata and conflict rules: `../os/retrieval.md`.
-- Note templates: `../os/templates/readme.md`.
-
-## records and continuity
-
-- Record rules: `records/readme.md`.
-- Durable personal decisions: `records/decisions.md`.
-- Chronology: `records/daily/`, `records/weekly/`, and `records/monthly/`.
-- Reflection: `records/journal/readme.md`.
-- Original conversations: `records/conversations/readme.md`.
-- Session handoffs: `records/sessions/readme.md`; a handoff never outranks current status.
-
-## source hierarchy
-
-1. The owner's current words.
-2. Shared OS rules and `now.md` for explicitly confirmed current state.
-3. Current personal project or area files.
-4. `records/decisions.md`.
-5. Living personal reference.
-6. Draft or exploratory material.
-7. Dated records and archives for history only.
+Create Documents only when a real retained file has no project owner. Removed material remains recoverable through Git rather than an internal archive.

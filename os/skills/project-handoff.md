@@ -1,37 +1,20 @@
 ---
 type: skill
-created: 2026-06-20
-updated: 2026-08-14
-reviewed: 2026-08-14
-status: draft
-authority: exploratory
+created: 2026-08-29
+updated: 2026-08-29
+reviewed: 2026-08-29
+status: living
+authority: canon
 source: ai
 ---
 
 # project handoff
 
-## purpose
+Use only when work must continue across tasks or agents and the project's existing home file is insufficient.
 
-Preserve continuity when work pauses, context grows long, or another agent must resume.
+1. Name the owner, outcome, current state, completed work, remaining work, blockers, approvals, and exact verification evidence.
+2. Put the handoff in the owning project, not in a shared session archive.
+3. Keep it factual and short. Reference canonical files instead of copying them.
+4. Mark temporary handoffs done, absorb durable facts into project truth, and remove the handoff after approval when Git recovery is verified.
 
-## trigger
-
-The owner asks for a handoff, or an explicitly triggered [[eod-wrap]] requires one because authorized work is stopping midstream.
-
-## steps
-
-1. Confirm the handoff is requested or required by the active wrap. Otherwise ask once before writing it.
-2. State the goal and current state.
-3. Separate completed and incomplete work.
-4. List changed/key files and validation results.
-5. Record owner decisions and rationale.
-6. Name blockers and the exact next action.
-7. Reference sensitive context rather than copying it broadly.
-8. Save a personal handoff as `life/records/sessions/YYYY-MM-DD-topic.md`; a business may own a local handoff when its repository contract says so.
-
-## boundaries
-
-- Update real project files first; handoffs are not alternate sources of truth.
-- Do not mark unfinished work complete.
-- Current status/specs outrank old handoffs.
-- Verbatim owner transcripts belong in `life/records/conversations/`, not in an agent handoff.
+Do not create a handoff for an ordinary chat wrap or completed task.

@@ -3,7 +3,6 @@
 .claude/
 .codex/
 .trash/
-00_inbox/attachments/
 corpus-media/
 *.log
 *.tmp
