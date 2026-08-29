@@ -26,10 +26,10 @@ The finished system does not include a catch-all inbox, archive folders, fake bu
 
 ## Operating model
 
-- Chief coordinates the whole system.
+- A Chief of Staff, referred to as the COS until the owner chooses a name, coordinates the whole system.
 - Each substantial project or business task is its operational home base.
 - Routine reports, approvals, blockers, and scheduled work stay with their project.
-- Only material cross-project context returns to Chief through reconciliation.
+- Only material cross-project context returns to the COS through reconciliation.
 - User-visible tasks, structural changes, deletion, publication, and external commitments require clear authority.
 - Portable workflows live in `os/skills/`; agent-specific adapters remain outside the vault and point back to those workflows.
 

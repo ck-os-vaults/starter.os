@@ -18,7 +18,7 @@ required = %w[
   readme.md
   setup/START-HERE.md
   setup/AGENT-SETUP.md
-  setup/ONBOARDING.md
+  setup/QUICK-SETUP.md
   setup/MIGRATE-V1.md
   scripts/create-vault.rb
   scripts/add-project.rb
@@ -53,20 +53,27 @@ forbidden = %w[
   setup/PROMPT-01-CREATE-MY-OS.md
   setup/PROMPT-02-FIRST-WORKING-SESSION.md
   setup/PROMPT-03-MIGRATE-OLD-VAULT.md
+  setup/ONBOARDING.md
 ]
 forbidden.each { |path| add.call("obsolete source path remains: #{path}") if File.exist?(path) }
 
 setup_files = Dir.glob("setup/*").select { |path| File.file?(path) }.sort
-expected_setup = %w[setup/AGENT-SETUP.md setup/MIGRATE-V1.md setup/ONBOARDING.md setup/START-HERE.md]
+expected_setup = %w[setup/AGENT-SETUP.md setup/MIGRATE-V1.md setup/QUICK-SETUP.md setup/START-HERE.md]
 add.call("setup is not the four-file contract: #{setup_files.join(', ')}") unless setup_files == expected_setup
 
 migration = File.file?("setup/MIGRATE-V1.md") ? File.read("setup/MIGRATE-V1.md") : ""
 {
   "read-only inventory" => /Inventory.*without changing/i,
-  "exact plan" => /exact keep, move, combine, create, and remove plan/i,
-  "approval gate" => /Wait for approval/i,
-  "separate preview" => /separate 2\.0 preview/i,
-  "separate cutover" => /Cutover, deletion, repository publication, and automation changes are separate approvals/i
+  "complete redesign" => /complete system redesign/i,
+  "untouched original" => /existing vault remains untouched/i,
+  "complete file accounting" => /Every existing file must be accounted for/i,
+  "proposed project names" => /propose concise names for every personal project and business/i,
+  "editable owner naming" => /every proposed name visibly editable/i,
+  "compact questions" => /Ask one compact group of questions only/i,
+  "approval gate" => /Wait for the owner to approve or rename/i,
+  "separate preview" => /separate Starter\.OS 2 vault/i,
+  "no old-vault deletion" => /Deleting the old vault is never part of migration/i,
+  "short orientation" => /Do not add a tutorial course, exercises, or a required first task/i
 }.each { |label, pattern| add.call("migration contract missing #{label}") unless migration.match?(pattern) }
 add.call("migration contains forbidden no-approval instruction") if migration.match?(/do not ask for approval/i)
 

@@ -1,6 +1,6 @@
 # Start here
 
-Starter.OS gives you one private workspace where a Chief of Staff agent can coordinate personal projects and businesses without mixing their ownership or loading unnecessary context.
+Starter.OS gives you one private workspace where a Chief of Staff can coordinate personal projects and businesses without mixing their ownership or loading unnecessary context. The system calls this role the COS until you choose a name.
 
 ## New system
 
@@ -8,11 +8,11 @@ Open this repository in a file-capable agent and say:
 
 > Read `AGENTS.md` and `setup/AGENT-SETUP.md`. Help me create my private Starter.OS. Show me the proposed name, location, file map, and repository plan before making changes.
 
-The agent will ask a short onboarding interview, create a separate preview, and wait for your approval before installing or publishing it.
+The agent will infer what it can, ask only essential naming or boundary questions, show one short approval card, and then create a separate preview.
 
 ## Existing system
 
-Use [`MIGRATE-V1.md`](MIGRATE-V1.md). Migration is always preview-first. Your current files remain untouched until you approve an exact move and removal plan.
+Use [`MIGRATE-V1.md`](MIGRATE-V1.md). Migration is a complete system redesign built beside your current vault. Your current vault remains untouched.
 
 ## Private steps
 

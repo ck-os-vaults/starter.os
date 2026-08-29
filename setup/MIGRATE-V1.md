@@ -1,30 +1,62 @@
-# Migrate an existing system
+# Redesign an existing system
 
-Migration is a controlled redesign, not an automated cleanup. Keep the existing system intact until the replacement is proven.
+Treat migration as a complete system redesign built beside the existing vault. The goal is a clean, current COS system without losing or deleting anything.
 
-## Agent contract
+## Non-negotiable safety rule
 
-1. Read the current system's `AGENTS.md` files and repository status.
-2. Inventory all active files, repositories, untracked material, external integrations, and recovery coverage without changing anything.
-3. Classify each item as current truth, durable history, project-owned material, retained document, obsolete scaffolding, duplicate, secret risk, or unresolved.
-4. Map current truth into the Starter.OS 2 structure.
-5. Flag older Starter.OS conventions including `00_inbox`, `areas`, internal archives, session handoffs, generic business models, copied setup folders, default maintenance schedules, and duplicated skills.
-6. Present an exact keep, move, combine, create, and remove plan. Include recovery evidence and unresolved items. Wait for approval.
-7. Generate a separate 2.0 preview. Never overwrite the live vault.
-8. Migrate only approved material. Do not invent current facts or business doctrine.
-9. Run both the installed-vault validator and repository checks. Compare the preview against the approved manifest.
-10. Present the validated preview and remaining gaps. Cutover, deletion, repository publication, and automation changes are separate approvals.
+The existing vault remains untouched. Do not delete, overwrite, rename, or move anything inside it. Build the redesigned system in a separate location and copy material into it. Every existing file must be accounted for in the migration map; unresolved material stays safely in the original vault until the owner decides where it belongs.
 
-## Default mapping
+## 1. Understand the current system
 
-| Earlier location | Starter.OS 2 destination |
-|---|---|
-| current personal priorities | `life/now.md` |
-| durable owner background | `life/wiki/<owner>.md` |
-| active personal work | `life/projects/<project>/<project>.md` |
-| retained unowned document | `life/documents/` only when one actually exists |
-| durable personal decision | `life/records/decisions.md` |
-| real business | independent `biz/<business>/` repository |
-| obsolete or duplicated material | remove only after approval and verified recovery |
+Read the current rules, maps, repository state, and actual files. Infer the owner's identity, current work, project boundaries, businesses, preferences, and existing COS-like role from evidence. Do not ask the owner to explain information already present.
 
-Do not create an archive inside the new system merely to preserve the old layout. The untouched original, Git history, and verified backup provide migration recovery.
+Inventory user-created content, system scaffolding, repositories, untracked files, external integrations, and recovery coverage without changing anything. Record counts and paths without exposing sensitive contents.
+
+## 2. Design the replacement
+
+Design the entire Starter.OS 2 structure around the owner's real material:
+
+- propose the vault name;
+- refer to the coordinating role as the Chief of Staff or COS until the owner names it;
+- propose concise names for every personal project and business;
+- assign every existing user-created file to a proposed owner;
+- separate current truth, supporting knowledge, records, documents, implementation, and system rules;
+- exclude obsolete system scaffolding from the new active system while preserving it untouched in the original vault.
+
+Do not preserve an old folder merely because it existed. Reorganize its contents according to the new ownership model.
+
+## 3. Ask only essential questions
+
+Ask one compact group of questions only for choices that cannot be inferred safely. Usually this is limited to the vault name, optional COS name, ambiguous file ownership, and confirmation or correction of proposed project and business names.
+
+Do not conduct a biography, workflow, tool, or life-history interview. Do not ask one question at a time when a short approval card will resolve everything faster.
+
+## 4. Get naming and structure approval
+
+Show one concise approval card:
+
+1. Proposed vault and optional COS name.
+2. Proposed projects and businesses, with the current files assigned to each.
+3. Wiki, Records, Documents, and OS material.
+4. Unresolved files or sensitive boundaries.
+5. New repository and recovery map.
+
+Make every proposed name visibly editable. Wait for the owner to approve or rename the COS, projects, businesses, and vault before building the preview.
+
+## 5. Build the redesigned preview
+
+Generate a separate Starter.OS 2 vault. Copy every mapped user-created file into its approved new location without changing the original. Preserve original file contents unless the owner explicitly approves consolidation or rewriting. Record the source and destination for every copied file.
+
+Do not create a catch-all archive or import obsolete empty scaffolding into the new active system. Anything unresolved remains listed and safe in the untouched original vault.
+
+## 6. Validate and hand back control
+
+Run the installed-vault validator, repository checks, link checks, file-count reconciliation, and a source-versus-destination manifest review. Confirm that the original vault is byte-for-byte unchanged and every user-created source file is copied or explicitly unresolved.
+
+Present the redesigned preview, the migration map, and any unresolved items. Using the new vault, publishing repositories, or changing automations requires owner approval. Deleting the old vault is never part of migration.
+
+Finish with this short orientation, personalized only where useful:
+
+> Your COS is your main home base. Tell it the outcome you want in plain language; it will use the right project context, show a short plan before consequential work, and ask only when your decision or approval is truly needed. Project tasks keep their own routine work and reports, while your COS brings together only what affects the bigger picture. You can now return to your next real task.
+
+Do not add a tutorial course, exercises, or a required first task.
