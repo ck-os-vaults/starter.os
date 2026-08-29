@@ -62,6 +62,9 @@ expected_setup = %w[setup/AGENT-SETUP.md setup/MIGRATE-V1.md setup/QUICK-SETUP.m
 add.call("setup is not the four-file contract: #{setup_files.join(', ')}") unless setup_files == expected_setup
 
 migration = File.file?("setup/MIGRATE-V1.md") ? File.read("setup/MIGRATE-V1.md") : ""
+start_here = File.file?("setup/START-HERE.md") ? File.read("setup/START-HERE.md") : ""
+add.call("new-system launch prompt is missing") unless start_here.include?("Read `AGENTS.md` and `setup/AGENT-SETUP.md`")
+add.call("migration launch prompt is missing") unless start_here.include?("Read `AGENTS.md` and `setup/MIGRATE-V1.md`") && start_here.include?("[CURRENT VAULT PATH]")
 {
   "read-only inventory" => /Inventory.*without changing/i,
   "complete redesign" => /complete system redesign/i,
