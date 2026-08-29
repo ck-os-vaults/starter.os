@@ -55,7 +55,7 @@ Show one concise approval card:
 2. Proposed projects and businesses, with the current files assigned to each.
 3. Wiki, Records, Documents, and OS material.
 4. Unresolved files or sensitive boundaries.
-5. New repository and recovery map, with each layer labeled `verified`, `configured but unverified`, or `owner declined`.
+5. New repository and recovery map, following `GITHUB-SETUP.md` and labeling each layer `verified`, `configured but unverified`, or `owner declined`.
 
 Make every proposed name visibly editable. Wait for the owner to approve or rename the COS, projects, businesses, and vault before building the preview.
 

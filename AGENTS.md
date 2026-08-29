@@ -7,6 +7,7 @@ This root has two possible roles.
 When this root contains `.git/`, it is the reusable Starter.OS source. Do not add personal context. Read `readme.md`, then:
 
 - owner-facing entry: `setup/START-HERE.md`
+- owner repository connection or mirror upgrade: `setup/GITHUB-SETUP.md`
 - agent creating a new installation: `setup/AGENT-SETUP.md`
 - agent migrating an existing system: `setup/MIGRATE-V1.md`
 - source maintenance: `scripts/validate-starter-kit.rb`

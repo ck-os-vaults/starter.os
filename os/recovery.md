@@ -23,10 +23,12 @@ source: ai
 
 | Local path | Purpose | Primary remote | Optional mirror | Visibility |
 |---|---|---|---|---|
-| `os/` | shared operating system | confirm | optional | private |
-| `life/` | personal context | confirm | optional | private |
+| `os/` | shared operating system | GitHub `origin`: confirm | automatic GitLab downstream: optional | private |
+| `life/` | personal context | GitHub `origin`: confirm | automatic GitLab downstream: optional | private |
 
 Add one row for every real `biz/<business>/`. Never record secrets or embedded-token URLs.
+
+GitHub is canonical. Agents push only to GitHub. When GitLab is used, configure it as an automatic downstream mirror following the source setup guide and verify commit parity; do not use routine dual agent pushes as the recovery system.
 
 ## Restore
 

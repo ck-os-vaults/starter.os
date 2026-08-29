@@ -26,7 +26,7 @@ Before generating the preview, show one short card containing only relevant sect
 1. Vault name, destination, and optional COS name.
 2. Proposed project and business names, each editable by the owner, only when real work already supports them.
 3. Files or existing material assigned to each owner, only when existing material is being reorganized.
-4. Repository and recovery plan.
+4. Repository and recovery plan, with GitHub as canonical and GitLab offered only as an optional automatic downstream mirror under `GITHUB-SETUP.md`.
 5. Anything genuinely unresolved.
 
 Do not invent projects, businesses, or file assignments for a first-time owner with no existing material. Wait for the owner to approve or rename the proposed structure.

@@ -18,6 +18,7 @@ required = %w[
   CLAUDE.md
   readme.md
   setup/START-HERE.md
+  setup/GITHUB-SETUP.md
   setup/AGENT-SETUP.md
   setup/QUICK-SETUP.md
   setup/MIGRATE-V1.md
@@ -61,8 +62,8 @@ forbidden = %w[
 forbidden.each { |path| add.call("obsolete source path remains: #{path}") if File.exist?(path) }
 
 setup_files = Dir.glob("setup/*").select { |path| File.file?(path) }.sort
-expected_setup = %w[setup/AGENT-SETUP.md setup/MIGRATE-V1.md setup/QUICK-SETUP.md setup/START-HERE.md]
-add.call("setup is not the four-file contract: #{setup_files.join(', ')}") unless setup_files == expected_setup
+expected_setup = %w[setup/AGENT-SETUP.md setup/GITHUB-SETUP.md setup/MIGRATE-V1.md setup/QUICK-SETUP.md setup/START-HERE.md]
+add.call("setup is not the five-file contract: #{setup_files.join(', ')}") unless setup_files == expected_setup
 
 actual_skills = Dir.glob("os/skills/*.md").map { |path| File.basename(path, ".md") }.reject { |name| name == "readme" }.sort
 skill_map_text = File.file?("os/skill-map.md") ? File.read("os/skill-map.md") : ""
@@ -74,7 +75,9 @@ migration = File.file?("setup/MIGRATE-V1.md") ? File.read("setup/MIGRATE-V1.md")
 start_here = File.file?("setup/START-HERE.md") ? File.read("setup/START-HERE.md") : ""
 agent_setup = File.file?("setup/AGENT-SETUP.md") ? File.read("setup/AGENT-SETUP.md") : ""
 quick_setup = File.file?("setup/QUICK-SETUP.md") ? File.read("setup/QUICK-SETUP.md") : ""
-add.call("owner setup page is not clearly identified") unless start_here.include?("only setup file the owner needs to read")
+github_setup = File.file?("setup/GITHUB-SETUP.md") ? File.read("setup/GITHUB-SETUP.md") : ""
+recovery = File.file?("os/recovery.md") ? File.read("os/recovery.md") : ""
+add.call("owner setup page is not clearly identified") unless start_here.include?("main setup file for the owner")
 add.call("owner setup page is missing the public GitHub address") unless start_here.include?("https://github.com/ck-os-vaults/starter.os")
 add.call("owner paths must each say to copy and paste the exact prompt") unless start_here.scan(/copy and paste these exact words/i).length == 2
 add.call("owner setup still contains an editable migration placeholder") if start_here.include?("[CURRENT VAULT PATH]")
@@ -106,6 +109,17 @@ add.call("migration launch prompt is missing") unless start_here.include?("Read 
   "short orientation" => /Do not add a tutorial course, exercises, or a required first task/i
 }.each { |label, pattern| add.call("migration contract missing #{label}") unless migration.match?(pattern) }
 add.call("migration contains forbidden no-approval instruction") if migration.match?(/do not ask for approval/i)
+
+add.call("GitHub setup is not clearly owner-facing") unless github_setup.include?("Audience: Owner")
+add.call("GitHub setup does not provide both exact owner prompts") unless github_setup.scan(/copy and paste these exact words/i).length == 2
+add.call("GitHub setup does not make GitHub canonical origin") unless github_setup.match?(/GitHub as the canonical remote named `origin`/i)
+add.call("GitHub setup does not define GitLab as an automatic downstream mirror") unless github_setup.match?(/GitLab.*automatic downstream mirror/im)
+add.call("GitHub setup does not forbid routine dual agent pushes") unless github_setup.match?(/Do not keep GitLab as a second routine agent push target/i)
+add.call("GitHub setup is missing the existing-system upgrade prompt") unless github_setup.include?("Audit my existing GitHub and GitLab repository connections")
+add.call("GitHub setup does not cover the GitLab pull-mirror route") unless github_setup.include?("Settings > Repository > Mirroring repositories")
+add.call("GitHub setup does not cover the GitHub Actions fallback") unless github_setup.match?(/GitHub Actions mirror/i)
+add.call("recovery contract does not require GitHub-only agent pushes") unless recovery.match?(/Agents push only to GitHub/i)
+add.call("recovery contract still directs routine dual pushes") if recovery.match?(/push.*GitHub.*and.*GitLab/i)
 
 forbidden_starter_skills = %w[drift-recovery evidence-research independent-review project-handoff task-reconciliation]
 forbidden_starter_skills.each do |skill|

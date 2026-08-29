@@ -40,7 +40,9 @@ Add supporting files only when actual content or a proven recurring workflow req
 
 Run `ruby os/validate-starter-os.rb`. Review files for secrets and unintended personal material. Initialize and publish only the approved repositories. Never initialize Git at the vault root or `biz/`.
 
-GitHub is the recommended primary named `origin`. Configure a second remote and full-vault backup only when the owner chooses them. Report each recovery layer as `verified`, `configured but unverified`, or `owner declined`; never imply that a plan is working recovery.
+Follow `GITHUB-SETUP.md` for repository connection or upgrade. GitHub is the canonical primary named `origin`. GitLab is an optional automatic downstream mirror, not a second routine agent push target. Configure it only when the owner chooses it, then push only to GitHub and verify that GitLab reaches the same commit automatically.
+
+Configure a full-vault backup only when the owner chooses one. Report every recovery layer as `verified`, `configured but unverified`, or `owner declined`; never imply that a plan is working recovery.
 
 ## 6. Return the owner to work
 

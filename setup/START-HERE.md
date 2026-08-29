@@ -4,7 +4,7 @@ Starter.OS gives you one private workspace where a Chief of Staff can coordinate
 
 **Public Starter.OS repository:** [github.com/ck-os-vaults/starter.os](https://github.com/ck-os-vaults/starter.os)
 
-**This is the only setup file the owner needs to read.** The other files in `setup/` are instructions for the agent. You do not need to run scripts, design folders, or study the system yourself.
+**This is the main setup file for the owner.** The only other owner-facing page is [`GITHUB-SETUP.md`](GITHUB-SETUP.md), used when GitHub needs to be connected or an existing GitHub and GitLab setup needs to be upgraded. The remaining files in `setup/` are instructions for the agent. You do not need to run scripts, design folders, or study the system yourself.
 
 Your part is short: choose one path below, paste its prompt into a file-capable agent, answer one compact question group if needed, and approve or rename the proposed structure and preview. The agent inspects, designs, builds, migrates, and validates the system.
 
@@ -25,6 +25,10 @@ Open this repository in your file-capable agent. **Copy and paste these exact wo
 > Read `AGENTS.md` and `setup/MIGRATE-V1.md`. Find my current personal OS or vault on this computer without changing it. Show me the exact source path and wait for my confirmation before treating it as the migration source. Then redesign it as a separate Starter.OS 2 system. Infer what you can, ask only essential questions, let me rename and approve the proposed COS, projects, and businesses, and never change or delete anything in my current vault.
 
 Migration uses the same two short gates: approve the proposed structure, then inspect and approve the generated preview before any copied material becomes the new active system.
+
+## Optional repository connection
+
+If GitHub is not connected, or if agents currently push separately to both GitHub and GitLab, use [`GITHUB-SETUP.md`](GITHUB-SETUP.md). It provides an exact prompt for each situation. GitHub remains canonical; GitLab is an optional automatic mirror rather than a second agent push target.
 
 ## What remains yours
 

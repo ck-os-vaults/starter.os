@@ -20,6 +20,7 @@ The finished system does not include a catch-all inbox, archive folders, fake bu
 ## Start here
 
 - **Owner:** read only [`setup/START-HERE.md`](setup/START-HERE.md). It contains the prompts for both a new system and an existing-system redesign.
+- **Owner connecting repositories:** use [`setup/GITHUB-SETUP.md`](setup/GITHUB-SETUP.md) only when GitHub is not connected or existing GitHub and GitLab repositories need the automatic-mirror upgrade.
 - **Agent creating a new system:** follow [`setup/AGENT-SETUP.md`](setup/AGENT-SETUP.md) and its shared [`setup/QUICK-SETUP.md`](setup/QUICK-SETUP.md) protocol.
 - **Agent migrating an existing system:** follow [`setup/MIGRATE-V1.md`](setup/MIGRATE-V1.md) and its shared [`setup/QUICK-SETUP.md`](setup/QUICK-SETUP.md) protocol.
 - **Contributor maintaining Starter.OS:** run `ruby scripts/validate-starter-kit.rb`.
