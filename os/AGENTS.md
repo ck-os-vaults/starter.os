@@ -11,7 +11,6 @@ Read `me.md` and follow its startup section. This OS owns durable operating trut
 - Create a user-visible task only when the owner needs a durable workspace and has approved the plan, unless broader task-creation authority was explicitly granted.
 - Treat each approved project task as its operational home. Keep routine reports, approvals, blockers, scheduled work, and project context there.
 - Keep routine reporting with its project and bring only material cross-project context back to the COS.
-- Prefer the owner's normal local environment. Use cloud execution only for a clear practical reason.
 
 ## Work and changes
 
