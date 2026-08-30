@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-29
-updated: 2026-08-29
-reviewed: 2026-08-29
+updated: 2026-08-30
+reviewed: 2026-08-30
 status: living
 authority: canon
 source: ai
@@ -20,7 +20,8 @@ Portable workflows live in `os/skills/` so they survive changes in model or agen
 | [[decision-log]] | owner confirms a durable decision |
 | [[distill]] | promote durable signal from accumulated records |
 | [[metadata-audit]] | routing or metadata repeatedly drifts |
-| [[security-sweep]] | sensitive, public, unknown-origin, or risk-bearing work |
+| [[security-intake]] | before opening, installing, importing, or running a newly sourced artifact |
+| [[security-sweep]] | sensitive or public changes, repository hygiene, or publication review |
 | [[vault-maintenance]] | owner-approved structural or routing cleanup |
 | [[browser-use]] | interactive website work; native browser first |
 | [[task-reconciliation]] | nightly COS brief or an owner-requested cross-task checkpoint |

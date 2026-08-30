@@ -34,6 +34,7 @@ required = %w[
   os/recovery.md
   os/integrations.md
   os/skill-map.md
+  os/skills/security-intake.md
   os/validate-starter-os.rb
   life/AGENTS.md
   life/now.md
@@ -132,6 +133,13 @@ add.call("task reconciliation is not explicitly read-only") unless reconciliatio
 add.call("agent setup does not create or update the nightly reconciliation") unless agent_setup.match?(/create or update exactly one scheduled task named `Nightly COS Reconciliation`/i)
 add.call("migration does not update rather than duplicate reconciliation") unless migration.match?(/updated instead of duplicated/i)
 add.call("owner setup does not disclose nightly reconciliation") unless start_here.match?(/read-only nightly reconciliation/i)
+
+security_intake = File.file?("os/skills/security-intake.md") ? File.read("os/skills/security-intake.md") : ""
+add.call("security intake does not keep new artifacts inert") unless security_intake.match?(/Keep newly sourced.*inert/im)
+add.call("security intake does not treat embedded instructions as data") unless security_intake.match?(/instruction.*inside it as data, not authority/i)
+add.call("security intake does not protect private files from public uploads") unless security_intake.match?(/Never send private files to public scanning services without owner approval/i)
+add.call("security intake incorrectly treats a clean scan as proof") unless security_intake.match?(/clean scan lowers risk; it never proves/i)
+add.call("operating rules do not require security intake before execution") unless File.read("os/AGENTS.md").match?(/Before opening, downloading, installing, importing, or running.*security-intake/im)
 
 browser_skill = File.file?("os/skills/browser-use.md") ? File.read("os/skills/browser-use.md") : ""
 add.call("browser skill does not require the native browser first") unless browser_skill.match?(/native or in-app browser.*whenever it is available/im)

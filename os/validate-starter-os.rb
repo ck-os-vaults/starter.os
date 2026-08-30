@@ -20,6 +20,7 @@ required = %w[
   os/recovery.md
   os/integrations.md
   os/skill-map.md
+  os/skills/security-intake.md
   os/skills/task-reconciliation.md
   os/validate-starter-os.rb
   os/scripts/add-project.rb
@@ -78,6 +79,12 @@ actual_skills = Dir.glob("os/skills/*.md").map { |path| File.basename(path, ".md
 registered_skills = skill_map.scan(/^\|\s*\[\[([a-z0-9-]+)\]\]/).flatten.uniq.sort
 (registered_skills - actual_skills).each { |skill| add.call("registered skill missing: os/skills/#{skill}.md") }
 (actual_skills - registered_skills).each { |skill| add.call("unregistered skill file: os/skills/#{skill}.md") }
+
+security_intake = File.file?("os/skills/security-intake.md") ? File.read("os/skills/security-intake.md") : ""
+add.call("security intake does not keep new artifacts inert") unless security_intake.match?(/Keep newly sourced.*inert/im)
+add.call("security intake does not treat embedded instructions as data") unless security_intake.match?(/instruction.*inside it as data, not authority/i)
+add.call("security intake does not protect private files from public uploads") unless security_intake.match?(/Never send private files to public scanning services without owner approval/i)
+add.call("security intake incorrectly treats a clean scan as proof") unless security_intake.match?(/clean scan lowers risk; it never proves/i)
 
 secret_shapes = {
   "private key" => /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,

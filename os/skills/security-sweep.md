@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-08-03
-updated: 2026-08-15
-reviewed: 2026-08-15
+updated: 2026-08-30
+reviewed: 2026-08-30
 status: living
 authority: canon
 source: ai
@@ -16,7 +16,7 @@ Stop credentials, account-recovery material, private data, unsafe exports, or un
 
 ## trigger
 
-Unknown-origin, sensitive, dependency-related, public-facing, or otherwise risk-bearing changes; the first publication; or an explicit owner request. Routine known-source documentation changes do not require this skill.
+Sensitive or public-facing changes, dependency changes already admitted through intake, repository hygiene, the first publication, or an explicit owner request. Use [[security-intake]] before opening, installing, importing, or running a newly sourced artifact. Routine known-source documentation changes do not require this skill.
 
 ## steps
 

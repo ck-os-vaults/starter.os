@@ -19,6 +19,7 @@ Read `me.md` and follow its startup section. This OS owns durable operating trut
 - Ordinary safe work inside an approved scope needs no extra approval.
 - Run the owning repository's checks before calling file work complete.
 - Keep every reusable workflow in `os/skills/` and register it in `os/skill-map.md` in the same change. Never let an agent-specific adapter become the only copy.
+- Before opening, downloading, installing, importing, or running a newly sourced or unknown link, attachment, installer, package, plugin, skill, script, or repository, run `skills/security-intake.md` and keep the artifact inert until its origin and behavior are understood.
 - When publication is approved, commit only intended work, push only the configured primary, verify any configured mirror, and leave no unexplained changes.
 - Add rules only for owner-specific behavior an agent could not reliably infer.
 
