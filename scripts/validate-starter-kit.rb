@@ -121,10 +121,17 @@ add.call("GitHub setup does not cover the GitHub Actions fallback") unless githu
 add.call("recovery contract does not require GitHub-only agent pushes") unless recovery.match?(/Agents push only to GitHub/i)
 add.call("recovery contract still directs routine dual pushes") if recovery.match?(/push.*GitHub.*and.*GitLab/i)
 
-forbidden_starter_skills = %w[drift-recovery evidence-research independent-review project-handoff task-reconciliation]
+forbidden_starter_skills = %w[drift-recovery evidence-research independent-review project-handoff]
 forbidden_starter_skills.each do |skill|
   add.call("provider- or harness-dependent starter skill remains: os/skills/#{skill}.md") if File.exist?("os/skills/#{skill}.md")
 end
+
+reconciliation_skill = File.file?("os/skills/task-reconciliation.md") ? File.read("os/skills/task-reconciliation.md") : ""
+add.call("task reconciliation skill is missing its nightly scheduled-task contract") unless reconciliation_skill.include?("Nightly COS Reconciliation") && reconciliation_skill.match?(/3:00 AM.*verified local timezone/i)
+add.call("task reconciliation is not explicitly read-only") unless reconciliation_skill.match?(/remain read-only/i)
+add.call("agent setup does not create or update the nightly reconciliation") unless agent_setup.match?(/create or update exactly one scheduled task named `Nightly COS Reconciliation`/i)
+add.call("migration does not update rather than duplicate reconciliation") unless migration.match?(/updated instead of duplicated/i)
+add.call("owner setup does not disclose nightly reconciliation") unless start_here.match?(/read-only nightly reconciliation/i)
 
 browser_skill = File.file?("os/skills/browser-use.md") ? File.read("os/skills/browser-use.md") : ""
 add.call("browser skill does not require the native browser first") unless browser_skill.match?(/native or in-app browser.*whenever it is available/im)

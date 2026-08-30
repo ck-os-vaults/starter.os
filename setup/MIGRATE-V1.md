@@ -56,6 +56,7 @@ Show one concise approval card:
 3. Wiki, Records, Documents, and OS material.
 4. Unresolved files or sensitive boundaries.
 5. New repository and recovery map, following `GITHUB-SETUP.md` and labeling each layer `verified`, `configured but unverified`, or `owner declined`.
+6. The single `Nightly COS Reconciliation` scheduled task: 3:00 AM in the owner's verified local timezone, read-only, and delivered to the main COS task. Identify any existing reconciliation automation that will be updated instead of duplicated.
 
 Make every proposed name visibly editable. Wait for the owner to approve or rename the COS, projects, businesses, and vault before building the preview.
 
@@ -85,7 +86,7 @@ ruby scripts/verify-migration.rb verify /absolute/path/to/OLD.os /absolute/path/
 
 The verifier must confirm that the original content snapshot is byte-for-byte unchanged, every original content path is classified exactly once, every copied destination exists with matching bytes, excluded and unresolved paths have reasons, and the destination keeps the clean Starter.OS tree and Git boundaries.
 
-Present the redesigned preview, the migration map, verifier result, and any unresolved items. Using the new vault, publishing repositories, or changing automations requires owner approval. Deleting the old vault is never part of migration.
+Present the redesigned preview, the migration map, verifier result, and any unresolved items. Using the new vault or publishing repositories requires owner approval. After the owner adopts the system, create or update exactly one `Nightly COS Reconciliation` scheduled task under the contract in `os/skills/task-reconciliation.md`; the approved setup card authorizes only that automation change. Verify its destination and active status. Deleting the old vault is never part of migration.
 
 Finish with this short orientation, personalized only where useful:
 

@@ -23,6 +23,7 @@ Portable workflows live in `os/skills/` so they survive changes in model or agen
 | [[security-sweep]] | sensitive, public, unknown-origin, or risk-bearing work |
 | [[vault-maintenance]] | owner-approved structural or routing cleanup |
 | [[browser-use]] | interactive website work; native browser first |
+| [[task-reconciliation]] | nightly COS brief or an owner-requested cross-task checkpoint |
 
 ## Creation contract
 

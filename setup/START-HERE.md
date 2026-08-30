@@ -8,6 +8,8 @@ Starter.OS gives you one private workspace where a Chief of Staff can coordinate
 
 Your part is short: choose one path below, paste its prompt into a file-capable agent, answer one compact question group if needed, and approve or rename the proposed structure and preview. The agent inspects, designs, builds, migrates, and validates the system.
 
+The finished setup includes one read-only nightly reconciliation delivered to your main COS task. It keeps the command view current without moving routine project reports out of their project tasks.
+
 ## Owner path 1: create a new system
 
 Open this repository in your file-capable agent. **Copy and paste these exact words into the agent's prompt:**

@@ -20,6 +20,7 @@ required = %w[
   os/recovery.md
   os/integrations.md
   os/skill-map.md
+  os/skills/task-reconciliation.md
   os/validate-starter-os.rb
   os/scripts/add-project.rb
   os/scripts/add-business.rb

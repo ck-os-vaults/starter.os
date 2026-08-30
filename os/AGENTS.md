@@ -10,7 +10,7 @@ Read `me.md` and follow its startup section. This OS owns durable operating trut
 - Do not create permanent specialist identities by default. Use focused agents for bounded work when useful.
 - Create a user-visible task only when the owner needs a durable workspace and has approved the plan, unless broader task-creation authority was explicitly granted.
 - Treat each approved project task as its operational home. Keep routine reports, approvals, blockers, scheduled work, and project context there.
-- Keep routine reporting with its project and bring only material cross-project context back to the COS.
+- Keep routine reporting with its project and bring only material cross-project context back to the COS through `skills/task-reconciliation.md`, normally in the single nightly scheduled brief.
 
 ## Work and changes
 

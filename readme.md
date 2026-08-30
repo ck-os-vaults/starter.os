@@ -15,7 +15,7 @@ name.os/
 
 The root and `biz/` are plain containers. `os/`, `life/`, and each confirmed `biz/<business>/` are independently owned repositories.
 
-The finished system does not include a catch-all inbox, archive folders, fake businesses, empty asset categories, setup scaffolding, or default automations. Structure is added only when real work needs it.
+The finished system does not include a catch-all inbox, archive folders, fake businesses, empty asset categories, setup scaffolding, or unnecessary automations. Its one default automation is the read-only nightly COS reconciliation. Structure is added only when real work needs it.
 
 ## Start here
 
@@ -33,6 +33,7 @@ Migration uses `scripts/verify-migration.rb` to prove exhaustive path accounting
 - Each substantial project or business task is its operational home base.
 - Routine reports, approvals, blockers, and scheduled work stay with their project.
 - Only material cross-project context returns to the COS.
+- One nightly read-only reconciliation keeps the main COS task current and stays silent when nothing material changed.
 - User-visible tasks, structural changes, deletion, publication, and external commitments require clear authority.
 - Portable workflows live in `os/skills/`; agent-specific adapters remain outside the vault and point back to those workflows.
 

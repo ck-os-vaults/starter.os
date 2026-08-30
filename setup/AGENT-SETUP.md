@@ -46,10 +46,12 @@ Configure a full-vault backup only when the owner chooses one. Report every reco
 
 ## 6. Return the owner to work
 
+After the owner adopts the system and the main COS task is verified, create or update exactly one scheduled task named `Nightly COS Reconciliation`. Target the main COS task, schedule it for 3:00 AM every night in the owner's verified local timezone, and instruct it to follow `os/skills/task-reconciliation.md`. It is read-only, stays silent when nothing material changed, and uses an economical model capable of reliable summarization. Verify its name, schedule, destination, instructions, and active status. Never create a duplicate. If scheduled tasks are unavailable, report that as the one unresolved setup item.
+
 Give this short orientation, personalized only where useful:
 
 > Your COS is your main home base. Tell it the outcome you want in plain language; it will use the right project context, show a short plan before consequential work, and ask only when your decision or approval is truly needed. Project tasks keep their own routine work and reports, while your COS brings together only what affects the bigger picture. You can now return to your next real task.
 
-Do not turn orientation into a course, exercise, or required first task. Do not create scheduled tasks by default. If the owner later approves one, its routine output stays in the owning project task; only material context is reconciled with the COS.
+Do not turn orientation into a course, exercise, or required first task. Do not create any other scheduled task by default. Routine project output stays in the owning project task; only material context is reconciled with the COS.
 
-Setup is complete when the owner has adopted the preview, the private vault validates, its recovery status is truthful, the brief orientation is delivered, and no temporary setup content remains inside it.
+Setup is complete when the owner has adopted the preview, the private vault validates, its recovery status is truthful, the nightly reconciliation is verified or explicitly reported unavailable, the brief orientation is delivered, and no temporary setup content remains inside it.
