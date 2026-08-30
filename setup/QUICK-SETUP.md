@@ -27,7 +27,7 @@ Before generating the preview, show one short card containing only relevant sect
 2. Proposed project and business names, each editable by the owner, only when real work already supports them.
 3. Files or existing material assigned to each owner, only when existing material is being reorganized.
 4. Repository and recovery plan, with GitHub as canonical and GitLab offered only as an optional automatic downstream mirror under `GITHUB-SETUP.md`.
-5. The single `Nightly COS Reconciliation` scheduled task: 3:00 AM in the owner's verified local timezone, read-only, and delivered to the main COS task.
+5. Two read-only nightly scheduled tasks in the owner's verified local timezone: `Nightly COS Reconciliation` at 3:00 AM, delivered to the main COS task, and `Nightly Security Integrity` at 3:30 AM under the system's main execution scope. Identify matching tasks that will be updated instead of duplicated.
 6. Anything genuinely unresolved.
 
 Do not invent projects, businesses, or file assignments for a first-time owner with no existing material. Wait for the owner to approve or rename the proposed structure.

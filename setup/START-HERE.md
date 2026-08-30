@@ -8,7 +8,7 @@ Starter.OS gives you one private workspace where a Chief of Staff can coordinate
 
 Your part is short: choose one path below, paste its prompt into a file-capable agent, answer one compact question group if needed, and approve or rename the proposed structure and preview. The agent inspects, designs, builds, migrates, and validates the system.
 
-The finished setup includes one read-only nightly reconciliation delivered to your main COS task. It keeps the command view current without moving routine project reports out of their project tasks.
+The finished setup includes two nightly routines: a read-only nightly reconciliation delivered to your main COS task and a read-only security integrity check that watches for material system drift. Clean runs stay silent, and neither routine changes your files.
 
 ## Owner path 1: create a new system
 

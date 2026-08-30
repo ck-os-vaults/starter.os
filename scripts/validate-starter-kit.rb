@@ -130,9 +130,16 @@ end
 reconciliation_skill = File.file?("os/skills/task-reconciliation.md") ? File.read("os/skills/task-reconciliation.md") : ""
 add.call("task reconciliation skill is missing its nightly scheduled-task contract") unless reconciliation_skill.include?("Nightly COS Reconciliation") && reconciliation_skill.match?(/3:00 AM.*verified local timezone/i)
 add.call("task reconciliation is not explicitly read-only") unless reconciliation_skill.match?(/remain read-only/i)
-add.call("agent setup does not create or update the nightly reconciliation") unless agent_setup.match?(/create or update exactly one scheduled task named `Nightly COS Reconciliation`/i)
+add.call("agent setup does not create or update the two nightly routines") unless agent_setup.match?(/create or update exactly two scheduled tasks/i) && agent_setup.include?("Nightly COS Reconciliation") && agent_setup.include?("Nightly Security Integrity")
 add.call("migration does not update rather than duplicate reconciliation") unless migration.match?(/updated instead of duplicated/i)
 add.call("owner setup does not disclose nightly reconciliation") unless start_here.match?(/read-only nightly reconciliation/i)
+
+security_sweep = File.file?("os/skills/security-sweep.md") ? File.read("os/skills/security-sweep.md") : ""
+add.call("security sweep is missing its nightly integrity contract") unless security_sweep.include?("Nightly Security Integrity") && security_sweep.match?(/3:30 AM.*verified local timezone/i)
+add.call("nightly integrity contract is not read-only and fail-closed") unless security_sweep.match?(/remain read-only/i) && security_sweep.match?(/incomplete coverage rather than a clean result/i)
+add.call("nightly integrity contract permits unsafe automatic action") unless security_sweep.match?(/may not open or execute unknown artifacts.*run a deep scan/im)
+add.call("migration does not update rather than duplicate security integrity") unless migration.match?(/matching automations.*updated instead of duplicated/i)
+add.call("owner setup does not disclose nightly security integrity") unless start_here.match?(/security integrity check/i)
 
 security_intake = File.file?("os/skills/security-intake.md") ? File.read("os/skills/security-intake.md") : ""
 add.call("security intake does not keep new artifacts inert") unless security_intake.match?(/Keep newly sourced.*inert/im)

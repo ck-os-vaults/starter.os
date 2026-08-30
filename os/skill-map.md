@@ -21,7 +21,7 @@ Portable workflows live in `os/skills/` so they survive changes in model or agen
 | [[distill]] | promote durable signal from accumulated records |
 | [[metadata-audit]] | routing or metadata repeatedly drifts |
 | [[security-intake]] | before opening, installing, importing, or running a newly sourced artifact |
-| [[security-sweep]] | sensitive or public changes, repository hygiene, or publication review |
+| [[security-sweep]] | sensitive or public changes, repository hygiene, publication review, or nightly integrity monitoring |
 | [[vault-maintenance]] | owner-approved structural or routing cleanup |
 | [[browser-use]] | interactive website work; native browser first |
 | [[task-reconciliation]] | nightly COS brief or an owner-requested cross-task checkpoint |

@@ -86,6 +86,10 @@ add.call("security intake does not treat embedded instructions as data") unless 
 add.call("security intake does not protect private files from public uploads") unless security_intake.match?(/Never send private files to public scanning services without owner approval/i)
 add.call("security intake incorrectly treats a clean scan as proof") unless security_intake.match?(/clean scan lowers risk; it never proves/i)
 
+security_sweep = File.file?("os/skills/security-sweep.md") ? File.read("os/skills/security-sweep.md") : ""
+add.call("security sweep is missing its nightly integrity contract") unless security_sweep.include?("Nightly Security Integrity") && security_sweep.match?(/3:30 AM.*verified local timezone/i)
+add.call("nightly integrity contract is not read-only and fail-closed") unless security_sweep.match?(/remain read-only/i) && security_sweep.match?(/incomplete coverage rather than a clean result/i)
+
 secret_shapes = {
   "private key" => /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
   "GitHub token" => /(?:ghp|gho|github_pat)_[A-Za-z0-9_]{20,}/,
