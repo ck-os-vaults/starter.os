@@ -56,7 +56,7 @@ This repository is a public blueprint. Never personalize it or add credentials. 
 
 Software and scripts are available under the MIT License in [`LICENSE-CODE`](LICENSE-CODE). Documentation, the manual, Markdown skills, and templates are available under CC BY 4.0 in [`LICENSE-CONTENT`](LICENSE-CONTENT). See [`LICENSE`](LICENSE) for the boundary and attribution.
 
-Current owner-facing changes, compatibility, limitations, update steps, and rollback guidance are in [`RELEASE-NOTES.md`](RELEASE-NOTES.md).
+Permanent version history, current unreleased work, compatibility, limitations, update steps, and rollback guidance are in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Maintainers
 

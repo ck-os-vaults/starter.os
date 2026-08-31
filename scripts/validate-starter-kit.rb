@@ -42,7 +42,7 @@ source_before.keys.select { |path| ROOT.join(path).symlink? }.each do |path|
 end
 
 required = %w[
-  AGENTS.md CLAUDE.md readme.md RELEASE-NOTES.md LICENSE LICENSE-CODE LICENSE-CONTENT
+  AGENTS.md CLAUDE.md readme.md CHANGELOG.md LICENSE LICENSE-CODE LICENSE-CONTENT
   release-manifest.json
   setup/START-HERE.md setup/AGENT-SETUP.md setup/QUICK-SETUP.md
   setup/GIT-SETUP.md setup/MIGRATE.md setup/UPDATE.md
@@ -61,7 +61,7 @@ required = %w[
 required.each { |path| add.call("missing required source path: #{path}") unless File.exist?(path) }
 
 forbidden = %w[
-  setup/GITHUB-SETUP.md setup/MIGRATE-V1.md starter-os-migration-guide.html
+  RELEASE-NOTES.md setup/GITHUB-SETUP.md setup/MIGRATE-V1.md starter-os-migration-guide.html
   biz/business-model life/00_inbox life/areas life/archive
   life/records/sessions os/agent-rules.md setup/ONBOARDING.md
 ]
@@ -144,10 +144,12 @@ add.call("public automation docs still require a specific model") if [agent_setu
 add.call("code license is not MIT") unless File.read("LICENSE-CODE").include?("MIT License") && File.read("LICENSE-CODE").include?("Copyright (c) 2026 CK")
 add.call("content license is not CC BY 4.0") unless File.read("LICENSE-CONTENT").match?(/Creative\s+Commons\s+Attribution\s+4\.0\s+International/m)
 add.call("license boundary omits source marks") unless File.read("LICENSE").match?(/Name and marks/i)
-if File.file?("RELEASE-NOTES.md")
-  release_notes = File.read("RELEASE-NOTES.md")
-  add.call("release notes do not identify 2.0.0") unless release_notes.include?("## 2.0.0")
-  add.call("release notes omit compatibility, limitations, update, or rollback") unless %w[Compatibility limitations Update Rollback].all? { |word| release_notes.match?(/#{word}/i) }
+if File.file?("CHANGELOG.md")
+  changelog = File.read("CHANGELOG.md")
+  add.call("changelog does not identify Unreleased and 2.0.0") unless changelog.include?("## [Unreleased]") && changelog.include?("## [2.0.0] - 2026-08-30")
+  add.call("changelog does not define semantic versioning") unless changelog.match?(/semantic versioning/i) && changelog.match?(/major versions/i) && changelog.match?(/minor versions/i) && changelog.match?(/patch versions/i)
+  add.call("changelog omits owner-facing release guidance") unless %w[Compatibility limitations Updating Rollback].all? { |word| changelog.match?(/#{word}/i) }
+  add.call("changelog omits security history") unless changelog.match?(/^### Security$/)
 end
 
 if File.file?("release-manifest.json")

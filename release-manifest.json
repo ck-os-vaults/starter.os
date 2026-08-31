@@ -535,6 +535,10 @@
       "sha256": "ad2fddeb55e55ee5a1c6cd70204996f418b0355dd2981d68e66912a4304e25d6"
     },
     {
+      "path": "CHANGELOG.md",
+      "sha256": "6698c7b81f16ccd4ac9a09d75f0112d4bc5494704835c3003048ee8b062d8e60"
+    },
+    {
       "path": "CLAUDE.md",
       "sha256": "2e892bd89cf7270931d3870db1eb9e61ba23a946848e6edaaf926beb68dda3e7"
     },
@@ -549,10 +553,6 @@
     {
       "path": "LICENSE-CONTENT",
       "sha256": "354397ee32f72c29fceaebeedeaf22bd44b3c15c2b6a4bfa6b460088cac3f4a1"
-    },
-    {
-      "path": "RELEASE-NOTES.md",
-      "sha256": "44a6838e557e1ca2c599980a3e639430ed1b6aabef06fef08d6d1492d9c93aed"
     },
     {
       "path": "biz/.gitkeep",
@@ -740,7 +740,7 @@
     },
     {
       "path": "readme.md",
-      "sha256": "e68eb8b953cef75a12d541c6fe0a62da2db9aa2852858e0a93d7da4d08736af3"
+      "sha256": "22ef0346daf231a598a93b9aa9ae91367e81d8f44712ee082258627f60c3fc94"
     },
     {
       "path": "scripts/add-business.rb",
@@ -764,7 +764,7 @@
     },
     {
       "path": "scripts/validate-starter-kit.rb",
-      "sha256": "3d57c84021f223dcd18fffcef2d42ada38e5d776faad027b5fdd542d1e6aced2"
+      "sha256": "41685bc2194a1a7568c273ef3e4495ffe1042f2c22cf487026e19a05c8dcdfef"
     },
     {
       "path": "scripts/verify-migration.rb",
