@@ -1,0 +1,26 @@
+Starter.OS uses two licenses.
+
+Code license
+
+Ruby scripts, validators, update tooling, and machine-readable release machinery are licensed under the MIT License in LICENSE-CODE.
+
+Content license
+
+Documentation, the manual, Markdown skills, agent instructions, text templates, and other written content are licensed under Creative Commons Attribution 4.0 International in LICENSE-CONTENT.
+
+Attribution for shared content:
+
+Starter.OS by CK
+https://github.com/ck-os-vaults/starter.os
+Licensed under CC BY 4.0
+https://creativecommons.org/licenses/by/4.0/
+
+When sharing modified content, identify that changes were made and retain the attribution and license link.
+
+Name and marks
+
+The software and content licenses do not grant trademark rights or permission to imply that CK endorses a modified distribution. They do not prevent accurate references to Starter.OS or the attribution required by CC BY 4.0.
+
+Third-party material
+
+Third-party material, if any, keeps its own license and must be identified with the material. No third-party material is knowingly included in this release without a compatible notice.

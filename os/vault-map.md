@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-29
-updated: 2026-08-29
-reviewed: 2026-08-29
+updated: 2026-08-30
+reviewed: 2026-08-30
 status: living
 authority: canon
 source: ai
@@ -10,31 +10,39 @@ source: ai
 
 # vault map
 
-**Bottom line:** One Obsidian vault contains shared operating context in `os/`, the owner's personal world in `life/`, and independently owned businesses in `biz/`.
+**Bottom line:** One vault contains shared operating context in `os/`, the owner's personal world in `life/`, and independently owned businesses in `biz/`.
 
 **When to read this:** Read before creating, moving, renaming, removing, or changing a repository boundary.
 
 ```text
-name.os/                 plain vault container; never a Git repository
-├── os/                  shared OS repository
-├── life/                personal repository
-└── biz/                 plain container; never a Git repository
-    └── <business>/      one repository for each confirmed real business
+name.os/                 plain vault container; not a Git repository by default
+├── AGENTS.md             generated agent entry
+├── CLAUDE.md             optional thin agent adapter
+├── os/                   shared OS repository
+│   ├── manual.md         protected plain-language explanation
+│   ├── license.md        product license and attribution notice
+│   ├── release.json      generated installed-version record
+│   ├── skills/           portable reusable workflows
+│   └── templates/        managed starting structures
+├── life/                 personal repository
+└── biz/                  plain container; not a Git repository by default
+    └── <business>/       one repository for each confirmed real business
 ```
 
-The root also contains `.obsidian/` when used with Obsidian and thin `AGENTS.md` and `CLAUDE.md` pointers.
+`.obsidian/` may exist when the owner uses Obsidian. The public `setup/` folder is distribution scaffolding and never belongs in an installed vault.
 
 ## Routing
 
 | Material | Owner |
 |---|---|
-| shared operating context or portable workflow | `os/` |
+| shared rules, manual, maps, templates, or portable workflow | `os/` |
+| installed release identity | `os/release.json` |
 | current personal state | `life/now.md` |
 | durable personal knowledge | `life/wiki/` |
 | active personal work | `life/projects/<project>/` |
-| retained personal document without a project or business owner | `life/documents/` |
+| retained personal document without a clearer owner | `life/documents/` |
 | durable personal decision | `life/records/decisions.md` |
 | business material and implementation | `biz/<business>/` |
-| obsolete material | remove after approval and verified recovery |
+| obsolete material | remove only after approval and verified recovery |
 
-Do not create a catch-all inbox. If ownership is unclear, ask whether the item belongs to an existing project, a new project, Wiki, Documents, or a business. Do not create empty categories for possible future material.
+Unknown files are owner-owned. Do not create a catch-all inbox or archive. If ownership is unclear, ask whether the material belongs to an existing project, a new real project, Wiki, Documents, or a business.

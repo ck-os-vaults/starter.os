@@ -1,35 +1,84 @@
-# Quick configuration
+# Shared guided setup protocol
 
-> **Audience: Agent only.** This is the shared questioning and approval protocol for setup and migration. The owner should use `START-HERE.md`.
+> **Audience: Agent only.** Use this from setup, migration, or update. The owner normally provides only the public repository link.
 
-Configure only what the system needs to become useful immediately.
+## 1. Determine the route read-only
 
-## Infer first
+Inspect only enough to distinguish:
 
-Use existing files and the owner's current request to infer the owner name, vault name, active work, likely project boundaries, real businesses, collaboration preferences, and approval boundaries. Do not ask the owner to repeat information already available.
+- **setup** — no existing personal system to preserve;
+- **migration** — another personal system exists;
+- **update** — an existing Starter.OS exists.
 
-## Ask only what is necessary
+Do not mutate, install, authenticate, clone over an existing folder, or inspect unrelated private locations. If the route remains genuinely ambiguous, ask one plain question.
 
-Ask one compact group of questions only for choices that cannot be safely inferred. Usually this is limited to:
+## 2. Discover Git before proposing changes
 
-- the preferred vault name and destination;
-- whether the owner wants to name their Chief of Staff, referred to as the COS until named;
-- confirmation or correction of proposed personal project and business names;
-- any approval or privacy boundary that materially differs from the starter defaults.
+For every in-scope repository or proposed repository, determine without exposing credentials:
 
-Avoid a life-history interview. Do not ask about possible future folders, tools, routines, or automations.
+- exact local path and whether it is a Git repository;
+- current branch, working-tree state, untracked work, and last commit;
+- configured remotes, provider, default branch, and reachable commit identity;
+- which remote currently acts as primary;
+- whether another service receives direct pushes or automatic mirroring;
+- visibility when it can be verified safely;
+- whether local history, the primary, and every mirror agree;
+- which unique files are outside Git coverage.
 
-## Approval card
+Do not pull, merge, switch, stash, rewrite, initialize, create a remote, or change configuration during discovery. Preserve existing history.
 
-Before generating the preview, show one short card containing only relevant sections:
+## 3. Infer first, ask once
 
-1. Vault name, destination, and optional COS name.
-2. Proposed project and business names, each editable by the owner, only when real work already supports them.
-3. Files or existing material assigned to each owner, only when existing material is being reorganized.
-4. Repository and recovery plan, with GitHub as canonical and GitLab offered only as an optional automatic downstream mirror under `GITHUB-SETUP.md`.
-5. Two read-only nightly scheduled tasks in the owner's verified local timezone: `Nightly COS Reconciliation` at 3:00 AM, delivered to the main COS task, and `Nightly Security Integrity` at 3:30 AM under the system's main execution scope. Identify matching tasks that will be updated instead of duplicated.
-6. Anything genuinely unresolved.
+Infer names, paths, real projects, businesses, repository structure, execution needs, timezone, existing automations, and approval boundaries from current evidence.
 
-Do not invent projects, businesses, or file assignments for a first-time owner with no existing material. Wait for the owner to approve or rename the proposed structure.
+Ask one compact group only for material choices that cannot be inferred safely. Usually these are:
 
-After generating the unpersonalized preview, show its root tree and the exact files that personalization would change. Ask only for confirmation that this preview should become the private system. Do not start another question round.
+- desired vault name and destination;
+- optional name for the Chief of Staff;
+- confirmation of the setup, migration, or update route;
+- the chosen primary Git destination when more than one valid choice exists;
+- whether local-only Git is intentional after its device-loss limitation is explained;
+- ambiguous file ownership or proposed structural changes;
+- local, cloud, on-demand, or hybrid execution needs;
+- a separate yes or no for each standard automation.
+
+Do not conduct a biography, tool, or future-feature interview.
+
+## 4. Show one approval card
+
+Include only relevant sections:
+
+1. **Route and result** — setup, preserve-first migration, or update; exact source and destination.
+2. **Files** — what changes, what remains untouched, and every conflict or unresolved item.
+3. **Git and recovery** — repositories, one primary for each, optional automatic mirrors, the recovery point, and uncovered content.
+4. **Ownership** — proposed Chief, projects, and businesses only when real work supports them.
+5. **Execution** — where the Chief and project work will run, without making a vendor mandatory.
+6. **Automations** — existing equivalents, the owner's yes or no for each standard routine, proposed schedule, destination, access, and likely cost.
+7. **Approval boundaries** — exact consequential actions the owner is authorizing.
+
+Wait for approval. Silence is not approval.
+
+## 5. Automation choice contract
+
+Explain in plain language:
+
+- `Nightly Chief Reconciliation`: suggested at 3:00 AM in the owner's verified timezone, read-only, silent when nothing material changed, and delivered to the main Chief task.
+- `Nightly System Security Check`: suggested at 3:30 AM, read-only and fail-closed, silent only after complete clean coverage, and delivered to the system's chosen security or Chief destination.
+
+Ask for a separate yes or no. When accepted, locate equivalent existing routines by purpose as well as name, update instead of duplicate, use the available owner-approved scheduler, and point the instructions to the matching portable skill. No particular model or agent is required.
+
+Verify name, schedule, timezone, destination, instructions, source access, runtime or model, active status, and first eligible run. Report `verified`, `configured but unverified`, `unavailable`, or `owner declined`.
+
+## 6. Finish with proof
+
+Run the route-specific tools and full installed validation. Return a concise receipt containing:
+
+- installed or target version;
+- files changed, preserved, forked, deferred, or unresolved;
+- Git primary and mirror commit identities;
+- recovery point and exact rollback route;
+- automation status;
+- validation results;
+- anything still unverified.
+
+Do not call a route complete while a required check is merely assumed.

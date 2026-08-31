@@ -1,8 +1,8 @@
 ---
-type: map
+type: recovery
 created: 2026-08-29
-updated: 2026-08-29
-reviewed: 2026-08-29
+updated: 2026-08-30
+reviewed: 2026-08-30
 status: draft
 authority: canon
 source: ai
@@ -10,32 +10,57 @@ source: ai
 
 # recovery
 
-**Bottom line:** Rebuild the plain vault shell, restore each declared repository, restore safe non-Git files from backup, and report every recovery layer as verified, configured but unverified, or owner declined.
+**Bottom line:** Git history is required protection for normal changes; an off-device primary and independent backup close different recovery gaps.
 
-**When to read this:** During setup, backup checks, device migration, loss, or a restore test.
+**When to read this:** Before setup, migration, update, structural change, publication, device replacement, or restore work.
 
-## Topology
+## Repository protection
 
-- Local vault path: confirm during onboarding
-- Primary computer: confirm during onboarding
-- Full-vault backup: confirm during onboarding
-- Last restore test: unverified
+| Repository | Local path | Primary | Primary commit | Mirror | Mirror commit | Status | Checked |
+|---|---|---|---|---|---|---|---|
 
-| Local path | Purpose | Primary remote | Optional mirror | Visibility |
-|---|---|---|---|---|
-| `os/` | shared operating system | GitHub `origin`: confirm | automatic GitLab downstream: optional | private |
-| `life/` | personal context | GitHub `origin`: confirm | automatic GitLab downstream: optional | private |
+Each repository has one primary. Agents push only to it. A secondary Git service is an automatic downstream mirror of the primary and is verified only when it reaches the same commit.
 
-Add one row for every real `biz/<business>/`. Never record secrets or embedded-token URLs.
+Use:
 
-GitHub is canonical. Agents push only to GitHub. When GitLab is used, configure it as an automatic downstream mirror following the source setup guide and verify commit parity; do not use routine dual agent pushes as the recovery system.
+- `verified`;
+- `configured but unverified`;
+- `local only; device loss not covered`;
+- `owner declined`;
+- `unavailable`.
 
-## Restore
+GitHub, GitLab, another Git host, or local-only Git may be primary. Do not record credential-bearing URLs.
 
-1. Create the plain vault root and `biz/` container without Git.
-2. Restore or clone each declared repository into its exact path.
-3. Restore root pointers, `.obsidian/`, and safe ignored files from the full-vault backup.
-4. Open the vault and run `ruby os/validate-starter-os.rb`.
-5. Verify every configured remote and backup layer from actual state.
+## Additional recovery layers
 
-Git does not protect ignored files, local app state, credentials, caches, or anything never committed. A recovery layer is not `verified` until a harmless restore succeeds. A configured plan without a restore test remains `configured but unverified`; if the owner intentionally skips a layer, record `owner declined` rather than leaving an ambiguous blank.
+| Layer | Scope | Location | State | Last restore proof | Checked |
+|---|---|---|---|---|---|
+| Git working history | tracked files in each repository | repositories above | unverified |  |  |
+| Off-device primary | committed repository content | providers above | unverified |  |  |
+| Automatic Git mirror | second committed copy | providers above | unverified |  |  |
+| Full-file backup | untracked, ignored, hidden, and non-repository content | confirm during setup | unverified |  |  |
+| Credential recovery | access needed to restore services | approved credential manager | unverified |  |  |
+
+A planned layer is not a working backup. A successful upload is not a restore test. Say exactly what is uncovered.
+
+## Before a meaningful change
+
+1. Run repository preflight.
+2. Identify tracked, untracked, ignored, hidden, and external content.
+3. Create and read back the approved local Git commit.
+4. Verify the primary has that commit when one exists.
+5. Verify every enabled mirror has the same commit.
+6. Add a separate recovery point for anything the Git commit does not cover.
+7. Explain the exact restore route before mutation.
+
+## Restore order
+
+1. Stop writes and identify the exact failed change.
+2. Preserve the current failed state for inspection when safe.
+3. Restore the affected repository from the named pre-change commit.
+4. Restore uncovered content from the named full-file backup.
+5. Recover service access through the credential manager, never from the vault.
+6. Run `validate-starter-os.rb`.
+7. Verify the primary and mirrors again before resuming work.
+
+Never claim recovery is complete from a clean current folder alone.

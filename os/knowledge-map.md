@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-29
-updated: 2026-08-29
-reviewed: 2026-08-29
+updated: 2026-08-30
+reviewed: 2026-08-30
 status: living
 authority: canon
 source: ai
@@ -10,15 +10,20 @@ source: ai
 
 # operating knowledge map
 
-**Bottom line:** Route each task to one owning repository before loading detailed context.
+**Bottom line:** Route each question to one owning source before loading more context.
 
 **When to read this:** Read when ownership or the current source is unclear.
 
-- Shared behavior: `AGENTS.md` and `me.md`
-- Structure: `vault-map.md`
+- Plain-language product explanation: `manual.md`
+- Product license boundary and attribution: `license.md`
+- Shared operating behavior: `AGENTS.md` and `me.md`
+- Structure and ownership: `vault-map.md`
 - Retrieval and metadata: `retrieval.md`
-- Repositories and restore: `recovery.md`
-- External systems: `integrations.md`
-- Portable workflows: `skill-map.md`
+- Git, backup, and restore: `recovery.md`
+- External systems and scheduled routines: `integrations.md`
+- Portable workflows and classifications: `skill-map.md`
+- Installed Starter.OS version and managed-file identities: `release.json`
 - Personal work: `../life/knowledge-map.md`
 - Business work: `../biz/<business>/AGENTS.md`
+
+The manual explains. Canonical operating and project files control behavior.

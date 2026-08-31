@@ -1,0 +1,122 @@
+# Update an existing Starter.OS
+
+> **Audience: Agent only.** The owner normally starts with the public repository link. Read `START-HERE.md`, `QUICK-SETUP.md`, and `GIT-SETUP.md`.
+
+Update the existing system in place without replacing owner information or silently overwriting customization.
+
+## Step 1: confirm source, target, and versions
+
+Verify the public Starter.OS source with:
+
+```sh
+ruby scripts/validate-starter-kit.rb
+```
+
+Confirm one installed Starter.OS target. Read its `os/release.json` when present. If it is absent, label the installation `unversioned legacy Starter.OS`; do not guess its baseline.
+
+## Step 2: discover Git and current protection
+
+Follow the Git discovery in `QUICK-SETUP.md` for every in-scope repository.
+
+Stop before update if there is unexplained divergence, an unsafe detached state, a rebase or merge in progress, or unique uncommitted content without additional recovery coverage. Do not stash, reset, switch, pull, or discard work to make the update easier.
+
+If Git is missing, guide the owner through local Git setup and an initial recovery commit before applying the update. Local-only Git is allowed only with its device-loss limitation stated and recorded.
+
+## Step 3: create the deterministic plan
+
+Write the plan outside the installed vault:
+
+```sh
+ruby scripts/update-vault.rb plan /absolute/path/to/NAME.os /absolute/path/to/update-plan.json
+```
+
+Show the owner:
+
+- installed and target versions;
+- managed files that will be added or updated;
+- owner-owned files that remain untouched;
+- local modifications and legacy files that require a choice;
+- explicit forks and available upstream changes;
+- deprecated files that will be preserved;
+- the Git recovery commit and any additional backup coverage;
+- exact rollback instructions.
+
+For each conflict, offer:
+
+- **keep as my fork** — preserve the local file and stop future automatic replacement;
+- **replace with Starter.OS** — install the reviewed upstream file;
+- **defer** — make no change to that artifact and leave the update incomplete.
+
+Do not select for the owner.
+
+## Step 4: approve one transition
+
+Use the shared approval card. The update approval must name:
+
+- exact target release;
+- exact plan file identity;
+- every conflict decision;
+- files outside recovery coverage;
+- Git primary and mirror actions;
+- any structural or deprecated behavior;
+- a separate yes or no for each standard automation.
+
+Silence is not approval.
+
+## Step 5: apply only the approved plan
+
+The tool rechecks that neither source nor target changed after planning.
+
+For a plan without conflicts:
+
+```sh
+ruby scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json
+```
+
+For reviewed conflicts, add one option per exact path:
+
+```sh
+ruby scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json --keep path/to/local-file --replace path/to/managed-file
+```
+
+`--keep` records an explicit owner fork in place. `--replace` installs the upstream managed file. Any conflict without an approved choice stops the apply. The updater never deletes unknown or deprecated owner content.
+
+The protected product manual stays at `os/manual.md`. If its local copy changed and the owner wants to preserve that explanation, use an owner-approved fork destination while restoring the current product manual:
+
+```sh
+ruby scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json --fork os/manual.md=life/manual.md
+```
+
+Then record the chosen manual fork path in `os/me.md`. The tool refuses `--keep os/manual.md` because leaving a personalized file at the protected product path would make future explanations ambiguous.
+
+## Step 6: validate and verify Git
+
+Run:
+
+```sh
+ruby os/validate-starter-os.rb
+```
+
+Review the exact diff. Commit only intended update changes to the approved repositories, push only to the primary, and verify every enabled automatic mirror reaches the same commit.
+
+If validation or verification fails, stop and restore the pre-update Git commit before another attempt. Do not stack fixes on an unknown partial state.
+
+## Step 7: guide the automation choices
+
+Audit existing routines by purpose and name. Offer `Nightly Chief Reconciliation` and `Nightly System Security Check` separately.
+
+When accepted, update matching routines to the current portable skills and verify their name, schedule, timezone, destination, instructions, access, runtime, active status, and first eligible run. Do not create duplicates. Record declined, unavailable, or unverified states truthfully.
+
+## Step 8: give the update receipt
+
+Report:
+
+- previous and installed version;
+- updated, added, preserved, forked, deferred, deprecated, and unresolved paths;
+- validation results;
+- local recovery commit;
+- primary and mirror commit identities;
+- both automation outcomes;
+- exact rollback route.
+
+An update is complete only when no artifact remains silently conflicted, the installed vault validates, Git recovery and publication are truthful, enabled mirrors are verified or named as unresolved, and both automation choices have recorded outcomes.

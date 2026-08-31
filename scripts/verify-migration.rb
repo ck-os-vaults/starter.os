@@ -104,16 +104,22 @@ when "verify"
     seen[source_path] = true
 
     disposition = row["disposition"].to_s.strip
-    stop("line #{line} has invalid disposition: #{disposition}") unless %w[copy exclude unresolved].include?(disposition)
+    allowed_dispositions = %w[preserve copy transform merge exclude unresolved]
+    stop("line #{line} has invalid disposition: #{disposition}") unless allowed_dispositions.include?(disposition)
     counts[disposition] += 1
 
-    if disposition == "copy"
+    if %w[preserve copy].include?(disposition)
       destination_path = safe_relative(row["destination_path"], "line #{line} destination_path")
       target = destination.join(destination_path)
       stop("line #{line} copied destination is missing: #{destination_path}") unless File.file?(target) || File.symlink?(target)
       actual = content_entry(destination, destination_path)
       original = expected.fetch(source_path)
       stop("line #{line} copied bytes do not match: #{source_path} -> #{destination_path}") unless actual.slice("type", "sha256", "size") == original.slice("type", "sha256", "size")
+    elsif %w[transform merge].include?(disposition)
+      destination_path = safe_relative(row["destination_path"], "line #{line} destination_path")
+      target = destination.join(destination_path)
+      stop("line #{line} #{disposition} destination is missing: #{destination_path}") unless File.file?(target) || File.symlink?(target)
+      stop("line #{line} #{disposition} requires a reason") if row["reason"].to_s.strip.empty?
     else
       stop("line #{line} #{disposition} requires a reason") if row["reason"].to_s.strip.empty?
       stop("line #{line} #{disposition} must not name a destination") unless row["destination_path"].to_s.strip.empty?
@@ -135,7 +141,8 @@ when "verify"
   stop("destination vault root must not be a Git repository") if destination.join(".git").exist?
   stop("destination biz container must not be a Git repository") if destination.join("biz", ".git").exist?
 
-  puts "PASS migration: #{expected.length} paths accounted for (#{counts['copy']} copied, #{counts['exclude']} excluded, #{counts['unresolved']} unresolved); original unchanged; destination boundaries valid"
+  summary = %w[preserve copy transform merge exclude unresolved].map { |name| "#{counts[name]} #{name}" }.join(", ")
+  puts "PASS migration: #{expected.length} paths accounted for (#{summary}); original unchanged; destination boundaries valid"
 
 else
   stop("usage: verify-migration.rb snapshot SOURCE SNAPSHOT | verify SOURCE DESTINATION SNAPSHOT MIGRATION_MAP.tsv")

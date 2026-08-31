@@ -1,6 +1,20 @@
 # Starter.OS
 
-Starter.OS is a person-agnostic foundation for running a private Chief of Staff system with local files as durable truth and AI tools as replaceable execution layers.
+Starter.OS is a free, person-agnostic repository brain for a private AI Chief of Staff. Your files are the durable source of truth. Models, agents, apps, and computers are replaceable ways to work with them.
+
+## Start with one link
+
+Copy this repository link and paste it into a file-capable agent:
+
+**https://github.com/ck-os-vaults/starter.os**
+
+That is the whole normal starting prompt. The repository instructions tell the agent how to determine whether you need:
+
+1. a new Starter.OS setup;
+2. a preserve-first migration from another system; or
+3. an update to an existing Starter.OS.
+
+The agent will inspect first, explain the plan in plain language, and wait for approval before consequential changes. [`setup/START-HERE.md`](setup/START-HERE.md) explains the same process if you want to read it yourself.
 
 ## What it creates
 
@@ -8,35 +22,42 @@ Starter.OS is a person-agnostic foundation for running a private Chief of Staff 
 name.os/
 ├── AGENTS.md
 ├── CLAUDE.md
-├── os/       shared operating context and portable workflows
-├── life/     personal context, projects, knowledge, and records
+├── os/       shared rules, the manual, skills, maps, and validation
+├── life/     private personal context, projects, knowledge, and records
 └── biz/      empty until a real business is created
 ```
 
-The root and `biz/` are plain containers. `os/`, `life/`, and each confirmed `biz/<business>/` are independently owned repositories.
+The installed system does not include the public `setup/` folder. Ongoing guidance lives where it belongs, including the protected plain-language manual at `os/manual.md`.
 
-The finished system does not include a catch-all inbox, archive folders, fake businesses, empty asset categories, setup scaffolding, or unnecessary automations. Its one default automation is the read-only nightly COS reconciliation. Structure is added only when real work needs it.
+## What the guided process handles
 
-## Start here
+- discovers existing Git history, repositories, remotes, and uncommitted work;
+- establishes one primary Git destination, or records a local-only choice and its device-loss risk;
+- configures any secondary Git service as an automatic mirror of the primary;
+- preserves existing files before reorganizing or updating anything;
+- validates the finished system and gives a recovery receipt;
+- offers `Nightly Chief Reconciliation` and `Nightly System Security Check`, then creates or updates only the routines the owner accepts.
 
-- **Owner:** read only [`setup/START-HERE.md`](setup/START-HERE.md). It contains the prompts for both a new system and an existing-system redesign.
-- **Owner connecting repositories:** use [`setup/GITHUB-SETUP.md`](setup/GITHUB-SETUP.md) only when GitHub is not connected or existing GitHub and GitLab repositories need the automatic-mirror upgrade.
-- **Agent creating a new system:** follow [`setup/AGENT-SETUP.md`](setup/AGENT-SETUP.md) and its shared [`setup/QUICK-SETUP.md`](setup/QUICK-SETUP.md) protocol.
-- **Agent migrating an existing system:** follow [`setup/MIGRATE-V1.md`](setup/MIGRATE-V1.md) and its shared [`setup/QUICK-SETUP.md`](setup/QUICK-SETUP.md) protocol.
-- **Contributor maintaining Starter.OS:** run `ruby scripts/validate-starter-kit.rb`.
+Git is part of the fully protected standard path. GitHub is where Starter.OS is distributed, but an owner's private primary may be GitHub, GitLab, another Git host, or local Git only. Agents push only to the chosen primary.
 
-Migration uses `scripts/verify-migration.rb` to prove exhaustive path accounting, unchanged source bytes, matching copied files, and clean destination boundaries.
+## Agent and model independence
 
-## Operating model
+The portable product is the repository itself: Markdown instructions, skills, templates, manifests, and deterministic tools. Codex, ChatGPT, Claude, Hermes, Goose, and other file-capable agents can use the same foundation. Provider-specific files are thin adapters, not the source of truth. Owners are encouraged to customize or fork their private copy.
 
-- A Chief of Staff, referred to as the COS until the owner chooses a name, coordinates the whole system.
-- Each substantial project or business task is its operational home base.
-- Routine reports, approvals, blockers, and scheduled work stay with their project.
-- Only material cross-project context returns to the COS.
-- One nightly read-only reconciliation keeps the main COS task current and stays silent when nothing material changed.
-- User-visible tasks, structural changes, deletion, publication, and external commitments require clear authority.
-- Portable workflows live in `os/skills/`; agent-specific adapters remain outside the vault and point back to those workflows.
+## Skills and automations
+
+Portable workflows live in `os/skills/` and are classified in `os/skill-map.md`. Skills never run merely because they exist. Scheduled routines require an explicit owner choice and must be verified after creation or update.
 
 ## Privacy
 
-This repository is a public blueprint. Never personalize it or add credentials. The setup process creates a separate private vault for its owner.
+This repository is a public blueprint. Never personalize it or add credentials. The guided process creates a separate private system. Do not use a public fork as the private working repository.
+
+## Licenses
+
+Software and scripts are available under the MIT License in [`LICENSE-CODE`](LICENSE-CODE). Documentation, the manual, Markdown skills, and templates are available under CC BY 4.0 in [`LICENSE-CONTENT`](LICENSE-CONTENT). See [`LICENSE`](LICENSE) for the boundary and attribution.
+
+Current owner-facing changes, compatibility, limitations, update steps, and rollback guidance are in [`RELEASE-NOTES.md`](RELEASE-NOTES.md).
+
+## Maintainers
+
+Run `ruby scripts/validate-starter-kit.rb` before publication. The release manifest and validators cover clean installation, migration accounting, managed-file updates, protected manual behavior, and privacy checks.

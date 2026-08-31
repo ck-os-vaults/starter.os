@@ -40,6 +40,6 @@ source: owner
 ---
 ```
 
-Use `status: living`, `draft`, `superseded`, or `done`; `authority: canon`, `spec`, `reference`, or `exploratory`; and `source: owner` or `ai`. A superseded file names its replacement.
+Use `status: living`, `draft`, `superseded`, or `done`; `authority: canon`, `spec`, `reference`, or `exploratory`; and `source: owner`, `ai`, or `starter-os`. Use `starter-os` only for a protected upstream product artifact. A superseded file names its replacement.
 
 Routed knowledge should open with a short **Bottom line:** and **When to read this:**. Historical records remain history and never outrank current truth.

@@ -10,36 +10,41 @@ source: ai
 
 # task reconciliation
 
-**Bottom line:** Bring only meaningful cross-project progress into one concise nightly COS brief without copying routine project reports or creating another memory system.
+**Bottom line:** Bring only meaningful cross-project progress into one concise Chief brief without copying routine project reports or creating another memory system.
 
-**When to read this:** During the approved nightly reconciliation, when the owner asks for a cross-task checkpoint, or after meaningful work finishes in another user-visible task. Do not use it for ordinary single-task summaries or work already synthesized in its owning task.
+**When to read this:** During an owner-approved reconciliation, when the owner asks for a cross-project checkpoint, or after meaningful work finishes in another task. Do not use it for ordinary single-task summaries.
 
-## Procedure
+## procedure
 
-1. Identify the main COS task, the last visible reconciliation, and only the active or recently changed tasks since that cutoff. If no prior reconciliation exists, use the start of the current day.
-2. Read compact task status and final results instead of full transcripts. Capture only material outcomes, confirmed decisions, blockers, anything waiting on the owner, the next action and owner, and durable output locations.
-3. Resolve duplicate work and surface conflicts. Never silently choose between contradictory claims or recommendations.
-4. Keep routine project reporting in its project task. Bring a project into the COS brief only when it affects priorities, requires owner attention, changes shared context, or creates a cross-project dependency.
-5. Report repository publication state when a changed repository matters to the checkpoint. Reconciliation does not authorize commits, pushes, record edits, task creation, external messages, or execution of follow-up work.
-6. Return one concise update in the main COS task:
+1. Identify the main Chief task, the last visible reconciliation, and only active or recently changed work since that cutoff.
+2. Read compact status and final results instead of full transcripts. Capture material outcomes, confirmed decisions, blockers, owner questions, next actions and owners, and durable output locations.
+3. Surface duplicate work and conflicts. Never silently choose between contradictory claims.
+4. Keep routine reporting with its project. Include a project only when it affects priorities, requires owner attention, changes shared context, or creates a cross-project dependency.
+5. Report repository publication state when it matters. Reconciliation does not authorize commits, pushes, file edits, task creation, external messages, or follow-up execution.
+6. Return one concise brief:
    - what materially changed;
    - what is waiting on the owner;
-   - the next one to three priorities and their owners; and
+   - the next one to three priorities and owners;
    - durable records updated or still needing approval.
 
-## Scheduled task contract
+## optional scheduled recipe
 
-Maintain exactly one scheduled task named `Nightly COS Reconciliation`, targeting the owner's main COS task and running every night at 3:00 AM in the owner's verified local timezone. It must:
+When the owner accepts this routine, maintain exactly one equivalent scheduled task named `Nightly Chief Reconciliation`.
 
-- read this workflow before reconciling;
+Suggested default: every night at 3:00 AM in the owner's verified timezone, delivered to the main Chief task. The owner may choose another schedule or destination.
+
+It must:
+
+- read this portable workflow;
 - remain read-only and execute no follow-up work;
-- inspect only enough recent task context to produce the brief;
+- inspect only enough recent task context to make the brief;
 - stay silent when nothing material changed;
-- use an economical model capable of reliable summarization; and
+- use any available economical runtime or model capable of reliable summarization;
+- use only sources available to its local or cloud scheduler;
 - be updated rather than duplicated when its schedule, destination, or instructions change.
 
-If the agent environment cannot create scheduled tasks or cannot verify the destination, report the exact unresolved setup item instead of simulating an automation.
+Verify its name, schedule, timezone, destination, instructions, source access, runtime or model, active status, and first eligible run. If scheduling or destination verification is unavailable, report the exact gap instead of simulating success.
 
-## Boundaries
+## boundaries
 
 Do not create a reconciliation log, dashboard, memory file, or parallel status system. Do not treat brainstorming, reviewer dissent, tentative recommendations, or unverified completion claims as durable decisions. Preserve links and locations instead of copying large outputs.

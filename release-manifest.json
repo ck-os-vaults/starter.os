@@ -1,0 +1,798 @@
+{
+  "format": 1,
+  "product": "Starter.OS",
+  "version": "2.0.0",
+  "released": "2026-08-30",
+  "supported_updates": [
+    "unversioned-legacy",
+    "2.0.0"
+  ],
+  "licenses": {
+    "code": "MIT",
+    "content": "CC-BY-4.0"
+  },
+  "directories": [
+    "biz"
+  ],
+  "generated": [
+    {
+      "path": "os/release.json",
+      "ownership": "generated",
+      "update": "regenerate-from-release-manifest"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "AGENTS.md",
+      "path": "AGENTS.md",
+      "source": "os/templates/root-AGENTS.txt",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "f58afce2dc1578b7863a3a272585604926aad72b80ae18f0bb0ab8b52ea11fe1"
+    },
+    {
+      "id": "CLAUDE.md",
+      "path": "CLAUDE.md",
+      "source": "os/templates/root-CLAUDE.txt",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "649b8d01a0c560474f64cb1cf12b4b72840704299daf9fd499003fba5e9aa946"
+    },
+    {
+      "id": "life/.gitattributes",
+      "path": "life/.gitattributes",
+      "source": "life/.gitattributes",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "5b14b5140a67cd1701286c10f605c4aed86a414605257988b0ea3632c8dc2dc8"
+    },
+    {
+      "id": "life/.gitignore",
+      "path": "life/.gitignore",
+      "source": "life/.gitignore",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "3db3ac28d6f6fca6373496d193499ce7e4f612d881a1c85bde2ddb51ec0b0ac3"
+    },
+    {
+      "id": "life/AGENTS.md",
+      "path": "life/AGENTS.md",
+      "source": "life/AGENTS.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "f2d76fb7ccb654ccea6a5d3baf1e0fb2c4248d1e9581e54546ee496cb5f99791"
+    },
+    {
+      "id": "life/CLAUDE.md",
+      "path": "life/CLAUDE.md",
+      "source": "life/CLAUDE.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "5b4d5d89b9dba3112405358108877063c1df17c26c158113885b90be7899c91d"
+    },
+    {
+      "id": "life/documents/readme.md",
+      "path": "life/documents/readme.md",
+      "source": "life/documents/readme.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "c556d327fa8de78060f34fba09ef4534ef7bf2b76c533d7515a4b4343e7442bd"
+    },
+    {
+      "id": "life/knowledge-map.md",
+      "path": "life/knowledge-map.md",
+      "source": "life/knowledge-map.md",
+      "ownership": "owner-owned",
+      "permitted_editor": "owner and approved agents",
+      "update": "seed-once-then-preserve",
+      "deprecation": "preserve-and-report",
+      "sha256": "7779559c00369adf216708a033b4bf67ff64fd8a524b6a6aa3c2c5f5b72b9365"
+    },
+    {
+      "id": "life/now.md",
+      "path": "life/now.md",
+      "source": "life/now.md",
+      "ownership": "owner-owned",
+      "permitted_editor": "owner and approved agents",
+      "update": "seed-once-then-preserve",
+      "deprecation": "preserve-and-report",
+      "sha256": "18602f555dbc764417758a6a7c337fb8752f437fa87320435e809204350ae937"
+    },
+    {
+      "id": "life/projects/readme.md",
+      "path": "life/projects/readme.md",
+      "source": "life/projects/readme.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "5e3b1cf02b48d6ae24c378c35aa3907f654a5db0ccc13a448afd3e10802d623a"
+    },
+    {
+      "id": "life/readme.md",
+      "path": "life/readme.md",
+      "source": "life/readme.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "775e774eec8e44543b5f845d14ed5a066f5091dcc6e5f207d3468cd5d9c80a8a"
+    },
+    {
+      "id": "life/records/decisions.md",
+      "path": "life/records/decisions.md",
+      "source": "life/records/decisions.md",
+      "ownership": "owner-owned",
+      "permitted_editor": "owner and approved agents",
+      "update": "seed-once-then-preserve",
+      "deprecation": "preserve-and-report",
+      "sha256": "f0a28fb1726d9f4091a9f7cb8ff2d629a3fadb45d3351e73231eccaed916c6b3"
+    },
+    {
+      "id": "life/records/readme.md",
+      "path": "life/records/readme.md",
+      "source": "life/records/readme.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "b3a01800659083cc4d460f04042cebd872d3214180c4a9580003a12002a702b8"
+    },
+    {
+      "id": "life/wiki/owner.md",
+      "path": "life/wiki/owner.md",
+      "source": "life/wiki/owner.md",
+      "ownership": "owner-owned",
+      "permitted_editor": "owner and approved agents",
+      "update": "seed-once-then-preserve",
+      "deprecation": "preserve-and-report",
+      "sha256": "3dd1e1348f61c64b1431ef2323e746f59519d2fd62f0dac656bf40efe33ac5ed"
+    },
+    {
+      "id": "os/.gitattributes",
+      "path": "os/.gitattributes",
+      "source": "os/.gitattributes",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "7c47084ae5de9c8ccef6e5d82d3529aef290fec6fbaf5338b9c3510ab4f60897"
+    },
+    {
+      "id": "os/.gitignore",
+      "path": "os/.gitignore",
+      "source": "os/.gitignore",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "21860d76e18298d0088464d4dfc4a2946531e3cc410bf4919ccfa954bb455f1b"
+    },
+    {
+      "id": "os/AGENTS.md",
+      "path": "os/AGENTS.md",
+      "source": "os/AGENTS.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "42d1f4e58d7d91c5e12de247177a63986759e0b76e74e6c4159f227c1d1f7aea"
+    },
+    {
+      "id": "os/CLAUDE.md",
+      "path": "os/CLAUDE.md",
+      "source": "os/CLAUDE.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "2d08717c0fb7e26acb3c45fc8e47adf078b34b963230879338a2964d9ab7065d"
+    },
+    {
+      "id": "os/integrations.md",
+      "path": "os/integrations.md",
+      "source": "os/integrations.md",
+      "ownership": "owner-owned",
+      "permitted_editor": "owner and approved agents",
+      "update": "seed-once-then-preserve",
+      "deprecation": "preserve-and-report",
+      "sha256": "312850e02f821599e599ed5f622b721002ff376241ec9f7a849cdb532e28309e"
+    },
+    {
+      "id": "os/knowledge-map.md",
+      "path": "os/knowledge-map.md",
+      "source": "os/knowledge-map.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "947336db57438e5f0188b68955974894ac9198ef84428d6a72a54b9a14a83134"
+    },
+    {
+      "id": "os/license.md",
+      "path": "os/license.md",
+      "source": "os/license.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "e4fcdd0ef7a26aa2bea474cc9a8546776e1f79971414b730b79957c7fd73c9bb"
+    },
+    {
+      "id": "os/manual.md",
+      "path": "os/manual.md",
+      "source": "os/manual.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "5c69245c69c35d4c424020699f0de6c77c47b59022b47ee6a26e54c945309d85"
+    },
+    {
+      "id": "os/me.md",
+      "path": "os/me.md",
+      "source": "os/me.md",
+      "ownership": "owner-owned",
+      "permitted_editor": "owner and approved agents",
+      "update": "seed-once-then-preserve",
+      "deprecation": "preserve-and-report",
+      "sha256": "12f7ea4f232b1199b550fe10fa78ade41c42d4ad9e06a7cb552ff4d571bfa74b"
+    },
+    {
+      "id": "os/recovery.md",
+      "path": "os/recovery.md",
+      "source": "os/recovery.md",
+      "ownership": "owner-owned",
+      "permitted_editor": "owner and approved agents",
+      "update": "seed-once-then-preserve",
+      "deprecation": "preserve-and-report",
+      "sha256": "2a1f0f7f221faad6447324a31ae2ba5a414abb7d3a0701e486239bc26cd21acc"
+    },
+    {
+      "id": "os/retrieval.md",
+      "path": "os/retrieval.md",
+      "source": "os/retrieval.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "60f78615ac1ba89af4e69d0835edeaf4acbc0905d94d0c5e0431838aeeece1f4"
+    },
+    {
+      "id": "os/scripts/add-business.rb",
+      "path": "os/scripts/add-business.rb",
+      "source": "scripts/add-business.rb",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "6cb012ac94769faa781c5bd88c5d0b2912145aceb3317ce6846f7b3686e69c26"
+    },
+    {
+      "id": "os/scripts/add-project.rb",
+      "path": "os/scripts/add-project.rb",
+      "source": "scripts/add-project.rb",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "bcb1453b8a9a564efb5dfbaa438e4771c39600b236e1d55b3b3470a81b75d4a8"
+    },
+    {
+      "id": "os/skill-map.md",
+      "path": "os/skill-map.md",
+      "source": "os/skill-map.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "5653281b27954e1c2fce2c1ff2dba032003694109cd2e65d2bf7212c4c84dd1b"
+    },
+    {
+      "id": "os/skills/browser-use.md",
+      "path": "os/skills/browser-use.md",
+      "source": "os/skills/browser-use.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "e517cd32cb8bcd52f361529be3de8a5e38ee3ec3a354f0b4f77ba5866eaf593b"
+    },
+    {
+      "id": "os/skills/daily-brief.md",
+      "path": "os/skills/daily-brief.md",
+      "source": "os/skills/daily-brief.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "955a5a49dfa100b3d97cc3a41b9d512c18267cd1bbd94dc512b9d5cff703d8ad"
+    },
+    {
+      "id": "os/skills/decision-log.md",
+      "path": "os/skills/decision-log.md",
+      "source": "os/skills/decision-log.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "d6b343548f66d748fbd8e8253ee74ead5e7e87ad76fe38eb80608f2f12d051b7"
+    },
+    {
+      "id": "os/skills/distill.md",
+      "path": "os/skills/distill.md",
+      "source": "os/skills/distill.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "24d80987b56e5d1c098a63bd8793d0039fc70048fa60831ea37ce0137f905047"
+    },
+    {
+      "id": "os/skills/drift-recovery.md",
+      "path": "os/skills/drift-recovery.md",
+      "source": "os/skills/drift-recovery.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "e4208be596ce9de467a51434866186a464c4e6f6896456bb69e06565048a08da"
+    },
+    {
+      "id": "os/skills/eod-wrap.md",
+      "path": "os/skills/eod-wrap.md",
+      "source": "os/skills/eod-wrap.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "9a37daa9ec96e92c71cce13c6a89e11dad041f02f4202bef86feb1c346afdf86"
+    },
+    {
+      "id": "os/skills/git-sync-preflight.md",
+      "path": "os/skills/git-sync-preflight.md",
+      "source": "os/skills/git-sync-preflight.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "0451b79ae4ae0513a06a0464ae9aafa60cf91bd87a7c289e7acb0ac663137f59"
+    },
+    {
+      "id": "os/skills/metadata-audit.md",
+      "path": "os/skills/metadata-audit.md",
+      "source": "os/skills/metadata-audit.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "5ae528471972c446dd6fa7b96e42df02a83a89fe191c14414bb84f5c31495de3"
+    },
+    {
+      "id": "os/skills/readme.md",
+      "path": "os/skills/readme.md",
+      "source": "os/skills/readme.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "89ce7e624d9dc740f0d87f319cf380d88047a114192111f6e8f2de0fc32ebff4"
+    },
+    {
+      "id": "os/skills/security-intake.md",
+      "path": "os/skills/security-intake.md",
+      "source": "os/skills/security-intake.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "c67410b2c74dad9b7fefe3cd42af4f5c51fcc1ca7ceadce51c88dc7f7ac1491c"
+    },
+    {
+      "id": "os/skills/security-sweep.md",
+      "path": "os/skills/security-sweep.md",
+      "source": "os/skills/security-sweep.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "2b182d270ba9c88a4e4f69dc04198db75ed0c46c759d713bb8de091155a76dc2"
+    },
+    {
+      "id": "os/skills/task-reconciliation.md",
+      "path": "os/skills/task-reconciliation.md",
+      "source": "os/skills/task-reconciliation.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "4f297e86820ce90d1b6c43bc6128a022dc970862be42536b48725a8fa2d48696"
+    },
+    {
+      "id": "os/skills/vault-maintenance.md",
+      "path": "os/skills/vault-maintenance.md",
+      "source": "os/skills/vault-maintenance.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "70d493d4676e644c5cbd156a41b14235adcd692b3f719017aa305696767268ec"
+    },
+    {
+      "id": "os/templates/daily.md",
+      "path": "os/templates/daily.md",
+      "source": "os/templates/daily.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "dd82137815fa41dc6a86744535cc204d758baab6542f71998fc39b025feba864"
+    },
+    {
+      "id": "os/templates/map.md",
+      "path": "os/templates/map.md",
+      "source": "os/templates/map.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "2d458e3ee0fc86282a74ada3f5da7f5de3c84d23c535d092fee6b15b100b0c33"
+    },
+    {
+      "id": "os/templates/note.md",
+      "path": "os/templates/note.md",
+      "source": "os/templates/note.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "c110f7568f4a8e58bbdf9e7cb0a9a74901576c3af7c2c0c28af32d30604f11c6"
+    },
+    {
+      "id": "os/templates/readme.md",
+      "path": "os/templates/readme.md",
+      "source": "os/templates/readme.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "3237c6fc7a02d1534081a296303ec82fb7af0ffc5908911638e0766c80d21d86"
+    },
+    {
+      "id": "os/templates/root-AGENTS.txt",
+      "path": "os/templates/root-AGENTS.txt",
+      "source": "os/templates/root-AGENTS.txt",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "f58afce2dc1578b7863a3a272585604926aad72b80ae18f0bb0ab8b52ea11fe1"
+    },
+    {
+      "id": "os/templates/root-CLAUDE.txt",
+      "path": "os/templates/root-CLAUDE.txt",
+      "source": "os/templates/root-CLAUDE.txt",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "649b8d01a0c560474f64cb1cf12b4b72840704299daf9fd499003fba5e9aa946"
+    },
+    {
+      "id": "os/validate-starter-os.rb",
+      "path": "os/validate-starter-os.rb",
+      "source": "os/validate-starter-os.rb",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "fe2bf6fb24cd826f2e93847d38530fea465f1b9d95c47078131614aa5b2a370e"
+    },
+    {
+      "id": "os/vault-map.md",
+      "path": "os/vault-map.md",
+      "source": "os/vault-map.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "c8a3917864dc3faa6a0777b906092561f806d7381da0b29f6a2cf2bb5ba3f5e4"
+    }
+  ],
+  "distribution_files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "7c47084ae5de9c8ccef6e5d82d3529aef290fec6fbaf5338b9c3510ab4f60897"
+    },
+    {
+      "path": ".github/readme.md",
+      "sha256": "99716a7686bb86f6cfedb43d0d4acba9b1bc4fb6b3fbd526b41685d90fb635db"
+    },
+    {
+      "path": ".github/workflows/gitlab-mirror.yml",
+      "sha256": "1beb484dbd7f8d4a9626b0771185ad2425817e4311c6e93e2e17d3d844d1f9ee"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "d925b2df5b04f29d6a03dcb44459f24b22394623c1067344059c42b62ada3a09"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ad2fddeb55e55ee5a1c6cd70204996f418b0355dd2981d68e66912a4304e25d6"
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "2e892bd89cf7270931d3870db1eb9e61ba23a946848e6edaaf926beb68dda3e7"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "e2b86457e6771ca89c6cab76e15f75ebc82fbf704c1f7165cd46c6711b73d53d"
+    },
+    {
+      "path": "LICENSE-CODE",
+      "sha256": "f4196d13d09e94fbe88882aa96f484e8d0efe520a3dda4b17d2adc26cfbb45d2"
+    },
+    {
+      "path": "LICENSE-CONTENT",
+      "sha256": "354397ee32f72c29fceaebeedeaf22bd44b3c15c2b6a4bfa6b460088cac3f4a1"
+    },
+    {
+      "path": "RELEASE-NOTES.md",
+      "sha256": "44a6838e557e1ca2c599980a3e639430ed1b6aabef06fef08d6d1492d9c93aed"
+    },
+    {
+      "path": "biz/.gitkeep",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "life/.gitattributes",
+      "sha256": "5b14b5140a67cd1701286c10f605c4aed86a414605257988b0ea3632c8dc2dc8"
+    },
+    {
+      "path": "life/.gitignore",
+      "sha256": "3db3ac28d6f6fca6373496d193499ce7e4f612d881a1c85bde2ddb51ec0b0ac3"
+    },
+    {
+      "path": "life/AGENTS.md",
+      "sha256": "f2d76fb7ccb654ccea6a5d3baf1e0fb2c4248d1e9581e54546ee496cb5f99791"
+    },
+    {
+      "path": "life/CLAUDE.md",
+      "sha256": "5b4d5d89b9dba3112405358108877063c1df17c26c158113885b90be7899c91d"
+    },
+    {
+      "path": "life/documents/readme.md",
+      "sha256": "c556d327fa8de78060f34fba09ef4534ef7bf2b76c533d7515a4b4343e7442bd"
+    },
+    {
+      "path": "life/knowledge-map.md",
+      "sha256": "7779559c00369adf216708a033b4bf67ff64fd8a524b6a6aa3c2c5f5b72b9365"
+    },
+    {
+      "path": "life/now.md",
+      "sha256": "18602f555dbc764417758a6a7c337fb8752f437fa87320435e809204350ae937"
+    },
+    {
+      "path": "life/projects/readme.md",
+      "sha256": "5e3b1cf02b48d6ae24c378c35aa3907f654a5db0ccc13a448afd3e10802d623a"
+    },
+    {
+      "path": "life/readme.md",
+      "sha256": "775e774eec8e44543b5f845d14ed5a066f5091dcc6e5f207d3468cd5d9c80a8a"
+    },
+    {
+      "path": "life/records/decisions.md",
+      "sha256": "f0a28fb1726d9f4091a9f7cb8ff2d629a3fadb45d3351e73231eccaed916c6b3"
+    },
+    {
+      "path": "life/records/readme.md",
+      "sha256": "b3a01800659083cc4d460f04042cebd872d3214180c4a9580003a12002a702b8"
+    },
+    {
+      "path": "life/wiki/owner.md",
+      "sha256": "3dd1e1348f61c64b1431ef2323e746f59519d2fd62f0dac656bf40efe33ac5ed"
+    },
+    {
+      "path": "os/.gitattributes",
+      "sha256": "7c47084ae5de9c8ccef6e5d82d3529aef290fec6fbaf5338b9c3510ab4f60897"
+    },
+    {
+      "path": "os/.gitignore",
+      "sha256": "21860d76e18298d0088464d4dfc4a2946531e3cc410bf4919ccfa954bb455f1b"
+    },
+    {
+      "path": "os/AGENTS.md",
+      "sha256": "42d1f4e58d7d91c5e12de247177a63986759e0b76e74e6c4159f227c1d1f7aea"
+    },
+    {
+      "path": "os/CLAUDE.md",
+      "sha256": "2d08717c0fb7e26acb3c45fc8e47adf078b34b963230879338a2964d9ab7065d"
+    },
+    {
+      "path": "os/integrations.md",
+      "sha256": "312850e02f821599e599ed5f622b721002ff376241ec9f7a849cdb532e28309e"
+    },
+    {
+      "path": "os/knowledge-map.md",
+      "sha256": "947336db57438e5f0188b68955974894ac9198ef84428d6a72a54b9a14a83134"
+    },
+    {
+      "path": "os/license.md",
+      "sha256": "e4fcdd0ef7a26aa2bea474cc9a8546776e1f79971414b730b79957c7fd73c9bb"
+    },
+    {
+      "path": "os/manual.md",
+      "sha256": "5c69245c69c35d4c424020699f0de6c77c47b59022b47ee6a26e54c945309d85"
+    },
+    {
+      "path": "os/me.md",
+      "sha256": "12f7ea4f232b1199b550fe10fa78ade41c42d4ad9e06a7cb552ff4d571bfa74b"
+    },
+    {
+      "path": "os/recovery.md",
+      "sha256": "2a1f0f7f221faad6447324a31ae2ba5a414abb7d3a0701e486239bc26cd21acc"
+    },
+    {
+      "path": "os/retrieval.md",
+      "sha256": "60f78615ac1ba89af4e69d0835edeaf4acbc0905d94d0c5e0431838aeeece1f4"
+    },
+    {
+      "path": "os/skill-map.md",
+      "sha256": "5653281b27954e1c2fce2c1ff2dba032003694109cd2e65d2bf7212c4c84dd1b"
+    },
+    {
+      "path": "os/skills/browser-use.md",
+      "sha256": "e517cd32cb8bcd52f361529be3de8a5e38ee3ec3a354f0b4f77ba5866eaf593b"
+    },
+    {
+      "path": "os/skills/daily-brief.md",
+      "sha256": "955a5a49dfa100b3d97cc3a41b9d512c18267cd1bbd94dc512b9d5cff703d8ad"
+    },
+    {
+      "path": "os/skills/decision-log.md",
+      "sha256": "d6b343548f66d748fbd8e8253ee74ead5e7e87ad76fe38eb80608f2f12d051b7"
+    },
+    {
+      "path": "os/skills/distill.md",
+      "sha256": "24d80987b56e5d1c098a63bd8793d0039fc70048fa60831ea37ce0137f905047"
+    },
+    {
+      "path": "os/skills/drift-recovery.md",
+      "sha256": "e4208be596ce9de467a51434866186a464c4e6f6896456bb69e06565048a08da"
+    },
+    {
+      "path": "os/skills/eod-wrap.md",
+      "sha256": "9a37daa9ec96e92c71cce13c6a89e11dad041f02f4202bef86feb1c346afdf86"
+    },
+    {
+      "path": "os/skills/git-sync-preflight.md",
+      "sha256": "0451b79ae4ae0513a06a0464ae9aafa60cf91bd87a7c289e7acb0ac663137f59"
+    },
+    {
+      "path": "os/skills/metadata-audit.md",
+      "sha256": "5ae528471972c446dd6fa7b96e42df02a83a89fe191c14414bb84f5c31495de3"
+    },
+    {
+      "path": "os/skills/readme.md",
+      "sha256": "89ce7e624d9dc740f0d87f319cf380d88047a114192111f6e8f2de0fc32ebff4"
+    },
+    {
+      "path": "os/skills/security-intake.md",
+      "sha256": "c67410b2c74dad9b7fefe3cd42af4f5c51fcc1ca7ceadce51c88dc7f7ac1491c"
+    },
+    {
+      "path": "os/skills/security-sweep.md",
+      "sha256": "2b182d270ba9c88a4e4f69dc04198db75ed0c46c759d713bb8de091155a76dc2"
+    },
+    {
+      "path": "os/skills/task-reconciliation.md",
+      "sha256": "4f297e86820ce90d1b6c43bc6128a022dc970862be42536b48725a8fa2d48696"
+    },
+    {
+      "path": "os/skills/vault-maintenance.md",
+      "sha256": "70d493d4676e644c5cbd156a41b14235adcd692b3f719017aa305696767268ec"
+    },
+    {
+      "path": "os/templates/daily.md",
+      "sha256": "dd82137815fa41dc6a86744535cc204d758baab6542f71998fc39b025feba864"
+    },
+    {
+      "path": "os/templates/map.md",
+      "sha256": "2d458e3ee0fc86282a74ada3f5da7f5de3c84d23c535d092fee6b15b100b0c33"
+    },
+    {
+      "path": "os/templates/note.md",
+      "sha256": "c110f7568f4a8e58bbdf9e7cb0a9a74901576c3af7c2c0c28af32d30604f11c6"
+    },
+    {
+      "path": "os/templates/readme.md",
+      "sha256": "3237c6fc7a02d1534081a296303ec82fb7af0ffc5908911638e0766c80d21d86"
+    },
+    {
+      "path": "os/templates/root-AGENTS.txt",
+      "sha256": "f58afce2dc1578b7863a3a272585604926aad72b80ae18f0bb0ab8b52ea11fe1"
+    },
+    {
+      "path": "os/templates/root-CLAUDE.txt",
+      "sha256": "649b8d01a0c560474f64cb1cf12b4b72840704299daf9fd499003fba5e9aa946"
+    },
+    {
+      "path": "os/validate-starter-os.rb",
+      "sha256": "fe2bf6fb24cd826f2e93847d38530fea465f1b9d95c47078131614aa5b2a370e"
+    },
+    {
+      "path": "os/vault-map.md",
+      "sha256": "c8a3917864dc3faa6a0777b906092561f806d7381da0b29f6a2cf2bb5ba3f5e4"
+    },
+    {
+      "path": "readme.md",
+      "sha256": "e68eb8b953cef75a12d541c6fe0a62da2db9aa2852858e0a93d7da4d08736af3"
+    },
+    {
+      "path": "scripts/add-business.rb",
+      "sha256": "6cb012ac94769faa781c5bd88c5d0b2912145aceb3317ce6846f7b3686e69c26"
+    },
+    {
+      "path": "scripts/add-project.rb",
+      "sha256": "bcb1453b8a9a564efb5dfbaa438e4771c39600b236e1d55b3b3470a81b75d4a8"
+    },
+    {
+      "path": "scripts/build-release-manifest.rb",
+      "sha256": "6a687a8a2ac0c1bb003a0d7ddcb87f168c98256f551db19532ba295c49b39927"
+    },
+    {
+      "path": "scripts/create-vault.rb",
+      "sha256": "a62beb484f415aaf4c2f108d5e8637d06fb776868584004b14fdf0ca11b09be1"
+    },
+    {
+      "path": "scripts/update-vault.rb",
+      "sha256": "7aaa97365ef42975302c6f4a8a621ac71a944f2df0aead807bbeee402410c866"
+    },
+    {
+      "path": "scripts/validate-starter-kit.rb",
+      "sha256": "3d57c84021f223dcd18fffcef2d42ada38e5d776faad027b5fdd542d1e6aced2"
+    },
+    {
+      "path": "scripts/verify-migration.rb",
+      "sha256": "307282fd5fca27b3eb28ca315e778e3391985a712866fccc702774bed0027765"
+    },
+    {
+      "path": "setup/AGENT-SETUP.md",
+      "sha256": "289d6b563d9470660da0da1ee1e97d8240871c0fe82aa4813e9d89bc8ce38042"
+    },
+    {
+      "path": "setup/GIT-SETUP.md",
+      "sha256": "570d6c06219b46f61e2e5572695568de24548b9d7990d7ab3cdb9384751e82e8"
+    },
+    {
+      "path": "setup/MIGRATE.md",
+      "sha256": "39f12be705d2d2b0870f334fb9ddaf982a95832ec6499a25d50cce40d79ce5dd"
+    },
+    {
+      "path": "setup/QUICK-SETUP.md",
+      "sha256": "9f4d962ea1e02a0cb955f95ce1af57e33868f21f6119876686384409a132dc42"
+    },
+    {
+      "path": "setup/START-HERE.md",
+      "sha256": "ce501be3f92579d4c07de7d8fa74b8d7e415159a600ed78a105b7ff02decff6b"
+    },
+    {
+      "path": "setup/UPDATE.md",
+      "sha256": "a50d6a3f2481e062dd386de2948f225f312126f48d03478fd1533cfa211f76a8"
+    }
+  ]
+}

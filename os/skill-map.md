@@ -10,42 +10,57 @@ source: ai
 
 # skill map
 
-Portable workflows live in `os/skills/` so they survive changes in model or agent product. Agent-specific packages are thin adapters and must not become a second canonical skill vault.
+**Bottom line:** Starter.OS ships useful portable methods, but a skill runs only when its trigger is real and a schedule exists only after the owner accepts it.
 
-| Skill | Trigger |
-|---|---|
-| [[git-sync-preflight]] | before substantive local repository work |
-| [[daily-brief]] | start-of-day or priority planning |
-| [[eod-wrap]] | owner asks to wrap or project rules require it |
-| [[decision-log]] | owner confirms a durable decision |
-| [[distill]] | promote durable signal from accumulated records |
-| [[metadata-audit]] | routing or metadata repeatedly drifts |
-| [[security-intake]] | before opening, installing, importing, or running a newly sourced artifact |
-| [[security-sweep]] | sensitive or public changes, repository hygiene, publication review, or nightly integrity monitoring |
-| [[vault-maintenance]] | owner-approved structural or routing cleanup |
-| [[browser-use]] | interactive website work; native browser first |
-| [[task-reconciliation]] | nightly COS brief or an owner-requested cross-task checkpoint |
+**When to read this:** Read when choosing, adding, updating, scheduling, or auditing a reusable workflow.
+
+## Public skill audit
+
+| Skill | Product role | Trigger | Scheduled recipe |
+|---|---|---|---|
+| [[git-sync-preflight]] | core portable | before substantive repository work | no |
+| [[decision-log]] | core portable | owner confirms a durable decision | no |
+| [[security-intake]] | core portable | before a newly sourced artifact is opened or run | no |
+| [[security-sweep]] | core portable plus optional scheduled routine | sensitive or public work, explicit security review, or accepted nightly check | Nightly System Security Check |
+| [[vault-maintenance]] | core portable | owner-approved structural or routing cleanup | no |
+| [[drift-recovery]] | core portable | sources, copies, or routes conflict or drift | no |
+| [[distill]] | optional portable | accumulated records contain durable signal worth promoting | no |
+| [[metadata-audit]] | optional portable | routing or lifecycle metadata repeatedly drifts | no |
+| [[browser-use]] | optional portable | interactive website work | no |
+| [[daily-brief]] | optional scheduled routine | start-of-day or priority planning | optional owner-defined |
+| [[eod-wrap]] | optional scheduled routine | owner asks to wrap or adopts an end-of-day routine | optional owner-defined |
+| [[task-reconciliation]] | optional scheduled routine | cross-project checkpoint or accepted nightly routine | Nightly Chief Reconciliation |
+
+## Adapter and exclusion audit
+
+- **Harness-specific adapters:** root and repository `CLAUDE.md` files are thin pointers. Scheduler-specific or agent-specific adapters may exist outside the portable skill folder and must point back here.
+- **CK-only or private:** none are shipped. Private methods stay outside the public repository.
+- **Incomplete or unsupported:** none are shipped. A candidate remains outside the release until its trigger, boundaries, dependencies, and validation are clear.
+
+A file appearing in this map does not authorize execution, installation, connection, or scheduling.
 
 ## Creation contract
 
-When the owner creates or materially updates a reusable skill:
+When a broadly reusable workflow is added or materially changed:
 
-1. Create or update the canonical portable workflow in `os/skills/`. A skill that exists only inside an agent product, local cache, plugin, or profile is incomplete.
-2. Register the workflow above in the same change. The file and registry must always agree.
-3. Add a harness adapter only when native discovery or tooling requires one. Keep credentials and harness mechanics there; keep durable workflow intent in `os/skills/`.
-4. Do not add a shared skill that assumes an unavailable model, browser, API, connector, credential, or application. Either document and validate the required integration during setup or keep that workflow outside the starter skill vault.
-5. Run `ruby os/validate-starter-os.rb` and validate any adapter before calling the skill complete.
-
-Project-specific workflows remain with their project and do not enter this registry unless repeated use proves they are broadly reusable.
+1. Keep the canonical intent in `os/skills/`.
+2. Register it here with exactly one product role and a real trigger.
+3. Keep project-specific or owner-specific methods with their owner.
+4. Add a harness adapter only when discovery or tooling needs it.
+5. Declare external tools, data exposure, permissions, cost, and a free or already-owned alternative.
+6. Keep scheduled use opt-in and give it a clear destination and retirement path.
+7. Run `ruby os/validate-starter-os.rb` and validate any adapter.
 
 ## Maintenance contract
 
-Review the skill vault during quarterly vault maintenance and after a major agent, model, tool, or repository migration. The audit must:
+Audit after a major agent, model, tool, repository, or product update:
 
-1. Confirm every file in `os/skills/` is registered and every registered skill exists.
-2. Confirm each skill remains useful, current, model-agnostic, and executable with the owner's actual local capabilities.
-3. Update instructions, lifecycle dates, maps, and adapters together when behavior changes.
-4. Flag obsolete, duplicate, unclear, or unavailable-tool workflows for owner approval before removal.
-5. Run validation and report what was kept, updated, removed, or left unresolved.
+1. Every skill file is registered and every registration resolves.
+2. Every role and trigger still matches the real workflow.
+3. Core skills remain model- and agent-agnostic.
+4. Optional integrations remain optional and truthfully available.
+5. Scheduled routines have explicit owner acceptance and no duplicates.
+6. Stale, private, unsupported, or provider-bound material is removed from the public release or reclassified after approval.
+7. Instructions, lifecycle dates, maps, adapters, and validation change together.
 
-Do not create a scheduled automation merely to satisfy this review cadence; include it in the owner's existing maintenance rhythm unless they explicitly want automation.
+Do not create an automation merely because a recipe exists.

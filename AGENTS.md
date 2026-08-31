@@ -2,17 +2,21 @@
 
 This root has two possible roles.
 
-## Public source checkout
+## Public Starter.OS source
 
-When this root contains `.git/`, it is the reusable Starter.OS source. Do not add personal context. Read `readme.md`, then:
+When this root contains `.git/`, it is the reusable public product. Do not add personal context or treat this example as someone's live OS.
 
-- owner-facing entry: `setup/START-HERE.md`
-- owner repository connection or mirror upgrade: `setup/GITHUB-SETUP.md`
-- agent creating a new installation: `setup/AGENT-SETUP.md`
-- agent migrating an existing system: `setup/MIGRATE-V1.md`
-- source maintenance: `scripts/validate-starter-kit.rb`
+If an owner provides only the public Starter.OS repository link, that is enough to begin. Read `readme.md` and `setup/START-HERE.md`, inspect the owner's current state read-only, and choose the matching route:
 
-Build and validate private systems in a separate location. Never treat the public example as someone's live OS.
+- no existing personal system -> `setup/AGENT-SETUP.md`
+- migration from another personal system to preserve -> `setup/MIGRATE.md`
+- an existing Starter.OS installation -> `setup/UPDATE.md`
+
+Do not ask the owner to find or paste a longer setup prompt. If the route remains ambiguous after safe inspection, ask one plain question and continue.
+
+Every route must discover the current Git setup before changing it, use one chosen primary, treat secondary Git services as automatic mirrors, and guide the owner through the two standard automation choices. Use `setup/GIT-SETUP.md` for the shared repository contract and `setup/QUICK-SETUP.md` for the shared approval card.
+
+Source maintainers run `ruby scripts/validate-starter-kit.rb`. Build and validate private systems in a separate location.
 
 ## Private installed vault
 

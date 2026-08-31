@@ -1,37 +1,63 @@
-# Owner setup: start here
+# Start here
 
-Starter.OS gives you one private workspace where a Chief of Staff can coordinate personal projects and businesses without mixing their ownership or loading unnecessary context. The system calls this role the COS until you choose a name.
+Starter.OS gives you a private repository brain and a Chief of Staff without making you design the system yourself.
 
-**Public Starter.OS repository:** [github.com/ck-os-vaults/starter.os](https://github.com/ck-os-vaults/starter.os)
+## The one-link start
 
-**This is the main setup file for the owner.** The only other owner-facing page is [`GITHUB-SETUP.md`](GITHUB-SETUP.md), used when GitHub needs to be connected or an existing GitHub and GitLab setup needs to be upgraded. The remaining files in `setup/` are instructions for the agent. You do not need to run scripts, design folders, or study the system yourself.
+Paste this link into a file-capable AI agent:
 
-Your part is short: choose one path below, paste its prompt into a file-capable agent, answer one compact question group if needed, and approve or rename the proposed structure and preview. The agent inspects, designs, builds, migrates, and validates the system.
+**https://github.com/ck-os-vaults/starter.os**
 
-The finished setup includes two nightly routines: a read-only nightly reconciliation delivered to your main COS task and a read-only security integrity check that watches for material system drift. Clean runs stay silent, and neither routine changes your files.
+Nothing else is required in the normal path. The repository's root `AGENTS.md` tells the agent to inspect first and guide the correct route:
 
-## Owner path 1: create a new system
+1. **New setup** when you do not have a personal system yet.
+2. **Migration** when you have another system whose files must be preserved.
+3. **Update** when you already use Starter.OS.
 
-Open this repository in your file-capable agent. **Copy and paste these exact words into the agent's prompt:**
+If your agent does not follow repository instructions from a link, use this fallback sentence:
 
-> Read `AGENTS.md` and `setup/AGENT-SETUP.md`. Help me create my private Starter.OS. Show me the proposed name, location, file map, and repository plan before making changes.
+> Read the root `AGENTS.md` in this Starter.OS repository and guide me through the correct owner path.
 
-The agent will infer what it can, ask one compact group of essential naming or boundary questions, and show one short approval card before creating a separate unpersonalized preview. A final confirmation activates and personalizes that preview; it is not a second interview.
+## What happens in every path
 
-## Owner path 2: redesign an existing system
+The agent will:
 
-Migration is a complete system redesign built beside your current vault. Your current vault remains untouched. You do not need to read the migration instructions; the agent does.
+1. inspect your current files, Git repositories, remotes, backups, and existing automations without changing them;
+2. tell you which route applies and explain the proposed result in plain language;
+3. ask one compact group of questions only when an important choice cannot be inferred safely;
+4. show a short approval card before creating, moving, replacing, publishing, or scheduling anything;
+5. protect the current state with Git and any additional recovery coverage that is actually needed;
+6. make only the approved changes;
+7. validate the result and show a completion and rollback receipt.
 
-Open this repository in your file-capable agent. **Copy and paste these exact words into the agent's prompt:**
+You do not need to run commands, design folders, understand Git, or read the agent-only setup files.
 
-> Read `AGENTS.md` and `setup/MIGRATE-V1.md`. Find my current personal OS or vault on this computer without changing it. Show me the exact source path and wait for my confirmation before treating it as the migration source. Then redesign it as a separate Starter.OS 2 system. Infer what you can, ask only essential questions, let me rename and approve the proposed COS, projects, and businesses, and never change or delete anything in my current vault.
+## Git protection
 
-Migration uses the same two short gates: approve the proposed structure, then inspect and approve the generated preview before any copied material becomes the new active system.
+Git version history is part of the fully protected Starter.OS path. The agent first finds out whether you already have Git and how it is configured.
 
-## Optional repository connection
+You choose one primary:
 
-If GitHub is not connected, or if agents currently push separately to both GitHub and GitLab, use [`GITHUB-SETUP.md`](GITHUB-SETUP.md). It provides an exact prompt for each situation. GitHub remains canonical; GitLab is an optional automatic mirror rather than a second agent push target.
+- GitHub;
+- GitLab;
+- another Git service; or
+- local Git only.
+
+A private off-device primary is strongly recommended. Local Git keeps file history but does not protect you if the computer is lost or damaged.
+
+If you use a second Git service, the agent configures it as an automatic mirror from the primary. The agent pushes only to the primary and verifies that the mirror reaches the same commit.
+
+## Two guided automation choices
+
+Every setup, migration, and update explains and offers:
+
+- **Nightly Chief Reconciliation** — gives your main Chief of Staff one short cross-project update only when something important changed.
+- **Nightly System Security Check** — performs a read-only integrity check and reports material risks or checks it could not complete.
+
+You choose yes or no for each. If you say yes, the agent creates or updates the routine and verifies it. If you say no, Starter.OS still works normally.
 
 ## What remains yours
 
-You handle sign-ins, purchases, recovery codes, and secret values privately. An agent may use an already authorized credential system, but should never ask you to paste secrets into chat or store them in the vault.
+You approve names, privacy, repositories, publication, automations, structural changes, and anything consequential. You handle sign-ins, purchases, recovery codes, and secret values privately. An agent may use an already authorized credential system, but it must never ask you to paste secrets into chat or store them in the OS.
+
+After installation, the simple owner manual is `os/manual.md`. The agent can use it to explain the system but may not rewrite it during ordinary work.
