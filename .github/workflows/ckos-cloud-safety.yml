@@ -1,0 +1,32 @@
+name: Starter OS Public Cloud Safety Validation
+
+on:
+  push:
+    branches:
+      - "codex/**"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-kit-policy:
+    name: Public kit policy and validator syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Ruby syntax
+        run: |
+          ruby -c scripts/validate-starter-kit.rb
+          ruby -c os/validate-starter-os.rb
+      - name: Reject credential-shaped content
+        shell: bash
+        run: |
+          set -euo pipefail
+          if rg -n --hidden -g '!/.git/**' -g '!*.lock' '(AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|ghp_[A-Za-z0-9]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}|sk-[A-Za-z0-9]{20,})' .; then exit 1; fi
+      - name: Confirm public kit policy files
+        run: |
+          test -f AGENTS.md
+          test -f CLAUDE.md
+          test -f readme.md
