@@ -37,6 +37,8 @@ required = %w[
   os/skills/drift-recovery.md
   os/skills/security-intake.md
   os/skills/security-sweep.md
+  os/skills/daily-brief.md
+  os/skills/news-report.md
   os/skills/task-reconciliation.md
   os/validate-starter-os.rb
   os/scripts/add-project.rb
@@ -171,12 +173,18 @@ add.call("security intake does not protect private files from public uploads") u
 add.call("security intake incorrectly treats a clean scan as proof") unless security_intake.match?(/clean scan lowers risk; it never proves/i)
 
 security_sweep = File.file?("os/skills/security-sweep.md") ? File.read("os/skills/security-sweep.md") : ""
-add.call("security sweep is missing the optional nightly recipe") unless security_sweep.include?("Nightly System Security Check") && security_sweep.match?(/owner accepts/i)
-add.call("nightly security recipe is not read-only and fail-closed") unless security_sweep.match?(/remain read-only/i) && security_sweep.match?(/incomplete coverage/i)
+add.call("security sweep is missing the optional watch recipe") unless security_sweep.include?("System Security Watch") && security_sweep.match?(/owner accepts/i)
+add.call("security watch is not read-only and fail-closed") unless security_sweep.match?(/remain read-only/i) && security_sweep.match?(/incomplete coverage/i)
 
 reconciliation = File.file?("os/skills/task-reconciliation.md") ? File.read("os/skills/task-reconciliation.md") : ""
-add.call("reconciliation is missing the optional nightly recipe") unless reconciliation.include?("Nightly Chief Reconciliation") && reconciliation.match?(/owner accepts/i)
-add.call("nightly reconciliation is not read-only") unless reconciliation.match?(/remain read-only/i)
+add.call("reconciliation is not routed into the Morning Brief by default") unless reconciliation.match?(/not a separate user-facing report by default/i) && reconciliation.match?(/Morning Brief/i)
+add.call("reconciliation fallback is not read-only") unless reconciliation.match?(/keep it read-only/i)
+
+daily_brief = File.file?("os/skills/daily-brief.md") ? File.read("os/skills/daily-brief.md") : ""
+add.call("Morning Brief recipe is missing") unless daily_brief.include?("Morning Brief") && daily_brief.match?(/owner accepts/i) && daily_brief.match?(/week ahead/i)
+
+news_report = File.file?("os/skills/news-report.md") ? File.read("os/skills/news-report.md") : ""
+add.call("News Report recipe is missing source and citation boundaries") unless news_report.include?("News Report") && news_report.match?(/owner-selected/i) && news_report.match?(/Cite|citation/i)
 
 git_preflight = File.file?("os/skills/git-sync-preflight.md") ? File.read("os/skills/git-sync-preflight.md") : ""
 add.call("Git preflight is not provider-neutral") unless git_preflight.match?(/declared primary/i) && git_preflight.match?(/Secondary.*verification-only/im)
@@ -196,7 +204,7 @@ Dir.glob("{os,life,biz}/**/*", File::FNM_DOTMATCH).select { |path| File.file?(pa
 end
 
 if errors.empty?
-  puts "PASS Starter.OS installed vault: structure, release identity, protected manual, skill registry, Git contract, automation recipes, and privacy checks"
+  puts "PASS Starter.OS installed vault: structure, release identity, protected manual, skill registry, Git contract, recurring workflow recipes, and privacy checks"
   exit 0
 end
 

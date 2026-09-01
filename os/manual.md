@@ -1,7 +1,7 @@
 ---
 type: manual
 created: 2026-08-30
-reviewed: 2026-08-30
+reviewed: 2026-08-31
 status: living
 authority: reference
 source: starter-os
@@ -32,6 +32,8 @@ Start there when you are unsure where work belongs. Tell it the outcome you want
 - show a short plan before important changes;
 - ask when it needs your decision or approval;
 - bring you only the most important updates.
+
+When your agent supports persistent tasks, use one main Chief of Staff home base and one home base for each real project. Routine project work and scheduled reports stay with that project. The Chief of Staff receives only the headlines that change your priorities or need your attention.
 
 The Chief is a role, not a special model. Many capable agents can fill it.
 
@@ -105,15 +107,19 @@ Having a skill does not mean it runs automatically. The trigger must be real, an
 
 You can add, change, or remove skills in your private system. If you change a Starter.OS-managed skill, the next update should treat it as a conflict or an explicit fork, not silently overwrite it.
 
-## The two standard automations
+## Optional recurring workflows
 
-Starter.OS guides every owner through two choices:
+Starter.OS includes portable recipes you can adopt when they fit your tools and life:
 
-**Nightly Chief Reconciliation** reads recent project work and gives your Chief one short update only when something important changed.
+**Morning Brief** prepares you for the day from the calendar, tasks, project state, and week ahead that you have authorized. It ends with a few short questions so your Chief of Staff understands what changed.
 
-**Nightly System Security Check** performs a read-only integrity check. It reports material risks and tells you when a check could not be completed. It does not fix, install, delete, or change anything.
+**News Report** follows sources you choose. It uses citations, explains the news in plain language, tells you why it matters, and recommends whether to adopt, test, watch, or ignore it.
 
-You choose yes or no for each. Saying no does not break Starter.OS. Saying yes authorizes the agent to create or update that routine and verify it. The routine may run locally or in the cloud, depending on the scheduler you choose.
+**System Security Watch** performs a read-only integrity check. It stays quiet when complete checks find nothing meaningful, reports real risk, and tells you when coverage was incomplete. It never fixes or installs anything by itself.
+
+**Task Reconciliation** distills meaningful cross-project changes for a Morning Brief or an explicit checkpoint. It is not another report you must read by default.
+
+These are recipes, not required services or fixed schedules. Your agent first checks which scheduler, sources, destinations, and permissions actually exist. You may adopt, decline, or defer each option. A recurring run should return to its existing home base when possible instead of creating a new task every time.
 
 ## Agents, models, and apps
 
@@ -160,7 +166,7 @@ Before a consequential change, it should show the smallest useful plan and the r
 
 **Update** improves an existing Starter.OS. Owner files stay yours. An unchanged managed file may update automatically after approval. A locally changed managed file becomes a choice: keep your version as a fork, replace it with Starter.OS, or defer.
 
-All three paths begin by discovering Git and end by offering the two standard automations.
+All three paths begin by discovering Git. They explain compatible new workflows and let you adopt, decline, or defer them without changing working customizations silently.
 
 The public `setup/` folder is only the installation doorway. It is not copied into your private system.
 

@@ -26,7 +26,7 @@ Offer one private off-device primary per repository. GitHub, GitLab, another hos
 
 Follow `QUICK-SETUP.md`. Ask one compact question group only if needed, show the exact destination and proposed result, and wait for approval before creating the preview.
 
-Do not invent projects, businesses, interests, folders, integrations, or automations.
+Do not invent projects, businesses, interests, folders, integrations, or recurring routines.
 
 ## Step 4: create an unpersonalized preview
 
@@ -70,11 +70,11 @@ Follow `GIT-SETUP.md`:
 
 Account creation, sign-in, repository creation, visibility changes, publication, and mirror configuration require owner approval.
 
-## Step 7: guide the two automation choices
+## Step 7: guide optional recurring workflows
 
-Use the shared automation contract in `QUICK-SETUP.md`.
+Use the shared recurring-workflow contract in `QUICK-SETUP.md`.
 
-Offer `Nightly Chief Reconciliation` and `Nightly System Security Check` separately. If accepted, create or update each in the owner's chosen local or cloud scheduler, using `os/skills/task-reconciliation.md` and `os/skills/security-sweep.md`. Verify the full configuration. If declined or unavailable, record the truthful status without blocking setup.
+Suggest only compatible recipes. If accepted, create or update each in the owner's chosen scheduler, using the matching portable skill. Verify the full configuration. If declined, deferred, or unavailable, record the truthful status without blocking setup.
 
 ## Step 8: validate and return the owner to work
 
@@ -90,4 +90,4 @@ Finish with this orientation:
 
 > Your Chief of Staff is your main home base. Ask for the outcome you want in ordinary language. Your files hold the lasting truth, project work stays with its project, and the manual explains unfamiliar terms simply. The agent will show a short plan before consequential work and ask when your approval is genuinely needed.
 
-Setup is complete only when the owner adopted the preview, the installed vault validates, Git and recovery status are truthful, every enabled mirror is verified or clearly unresolved, both automation choices have recorded outcomes, and no setup scaffolding remains inside the private vault.
+Setup is complete only when the owner adopted the preview, the installed vault validates, Git and recovery status are truthful, every enabled mirror is verified or clearly unresolved, every offered recurring workflow has a recorded outcome, and no setup scaffolding remains inside the private vault.

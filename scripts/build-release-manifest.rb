@@ -8,8 +8,8 @@ require "set"
 
 ROOT = Pathname.new(File.expand_path("..", __dir__))
 OUTPUT = ROOT.join("release-manifest.json")
-RELEASE_VERSION = "2.0.0"
-RELEASE_DATE = "2026-08-30"
+RELEASE_VERSION = "2.1.0"
+RELEASE_DATE = "2026-08-31"
 
 OWNER_OWNED = Set.new(%w[
   os/me.md
@@ -101,7 +101,7 @@ manifest = {
   "product" => "Starter.OS",
   "version" => RELEASE_VERSION,
   "released" => RELEASE_DATE,
-  "supported_updates" => ["unversioned-legacy", RELEASE_VERSION],
+  "supported_updates" => ["unversioned-legacy", "2.0.0", RELEASE_VERSION],
   "licenses" => {
     "code" => "MIT",
     "content" => "CC-BY-4.0"

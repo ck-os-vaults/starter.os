@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-08-03
-updated: 2026-08-30
-reviewed: 2026-08-30
+updated: 2026-08-31
+reviewed: 2026-08-31
 status: living
 authority: canon
 source: ai
@@ -16,7 +16,7 @@ Stop credentials, recovery material, private data, unsafe exports, or unintended
 
 ## trigger
 
-Sensitive or public-facing changes, admitted dependency changes, repository hygiene, first publication, an owner-approved nightly check, or an explicit owner request. Use [[security-intake]] before opening, installing, importing, or running a newly sourced artifact.
+Sensitive or public-facing changes, admitted dependency changes, repository hygiene, first publication, an owner-approved recurring watch, or an explicit owner request. Use [[security-intake]] before opening, installing, importing, or running a newly sourced artifact.
 
 ## steps
 
@@ -31,9 +31,7 @@ Sensitive or public-facing changes, admitted dependency changes, repository hygi
 
 ## optional scheduled recipe
 
-When the owner accepts this routine, maintain exactly one equivalent scheduled task named `Nightly System Security Check`.
-
-Suggested default: every night at 3:30 AM in the owner's verified timezone after the Chief reconciliation. The owner may choose another schedule or destination.
+When the owner accepts this routine, maintain exactly one equivalent scheduled task with a clear name such as `System Security Watch`. The owner chooses the schedule and destination after the agent explains available coverage and likely cost.
 
 It must:
 

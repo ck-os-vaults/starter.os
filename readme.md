@@ -36,7 +36,7 @@ The installed system does not include the public `setup/` folder. Ongoing guidan
 - configures any secondary Git service as an automatic mirror of the primary;
 - preserves existing files before reorganizing or updating anything;
 - validates the finished system and gives a recovery receipt;
-- offers `Nightly Chief Reconciliation` and `Nightly System Security Check`, then creates or updates only the routines the owner accepts.
+- explains optional recurring workflows, checks what the owner's tools can actually support, and creates or updates only the routines the owner accepts.
 
 Git is part of the fully protected standard path. GitHub is where Starter.OS is distributed, but an owner's private primary may be GitHub, GitLab, another Git host, or local Git only. Agents push only to the chosen primary.
 
@@ -46,7 +46,7 @@ The portable product is the repository itself: Markdown instructions, skills, te
 
 ## Skills and automations
 
-Portable workflows live in `os/skills/` and are classified in `os/skill-map.md`. Skills never run merely because they exist. Scheduled routines require an explicit owner choice and must be verified after creation or update.
+Portable workflows live in `os/skills/` and are classified in `os/skill-map.md`. Skills never run merely because they exist. Starter.OS includes optional recipes for a Morning Brief, a cited News Report, silent security monitoring, and cross-project reconciliation. They remain provider-neutral, require an explicit owner choice, and must be verified after creation or update.
 
 ## Privacy
 

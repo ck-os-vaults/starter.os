@@ -52,7 +52,8 @@ required = %w[
   os/AGENTS.md os/manual.md os/license.md os/me.md os/vault-map.md
   os/retrieval.md os/knowledge-map.md os/recovery.md os/integrations.md
   os/skill-map.md os/skills/drift-recovery.md os/skills/security-intake.md
-  os/skills/security-sweep.md os/skills/task-reconciliation.md
+  os/skills/security-sweep.md os/skills/daily-brief.md os/skills/news-report.md
+  os/skills/task-reconciliation.md
   os/validate-starter-os.rb
   life/AGENTS.md life/now.md life/knowledge-map.md life/documents/readme.md
   life/projects/readme.md life/wiki/owner.md life/records/readme.md
@@ -104,10 +105,11 @@ end
   route = %w[setup migration update][index]
   add.call("#{route} does not discover Git before mutation") unless text.match?(/discover Git|Git discovery/i)
   add.call("#{route} does not route secondary Git as an automatic mirror") unless text.match?(/automatic mirror/i)
-  add.call("#{route} does not offer Nightly Chief Reconciliation") unless text.include?("Nightly Chief Reconciliation")
-  add.call("#{route} does not offer Nightly System Security Check") unless text.include?("Nightly System Security Check")
+  add.call("#{route} does not offer compatible recurring workflows") unless text.match?(/compatible.*recurring|recurring.*compatible/im)
+  add.call("#{route} does not preserve owner choice") unless text.match?(/declin|defer/i)
 end
-add.call("shared setup does not require separate yes/no automation choices") unless quick_setup.match?(/separate yes or no/i)
+add.call("shared setup does not support adopt, decline, and defer") unless %w[adopt decline defer].all? { |word| quick_setup.match?(/#{word}/i) }
+add.call("shared setup does not prefer persistent destinations") unless quick_setup.match?(/persistent home-base destination/i) && quick_setup.match?(/new task per run/i)
 add.call("Git setup does not enforce one primary") unless git_setup.match?(/one primary/i)
 add.call("Git setup does not forbid routine second pushes") unless git_setup.match?(/Do not keep a second routine agent push target/i)
 add.call("Git setup does not warn about local-only device loss") unless git_setup.match?(/local-only Git.*device loss/im)
@@ -136,10 +138,15 @@ end
 
 reconciliation = File.file?("os/skills/task-reconciliation.md") ? File.read("os/skills/task-reconciliation.md") : ""
 security_sweep = File.file?("os/skills/security-sweep.md") ? File.read("os/skills/security-sweep.md") : ""
-add.call("Chief reconciliation recipe is missing or forced") unless reconciliation.include?("Nightly Chief Reconciliation") && reconciliation.match?(/When the owner accepts/i)
-add.call("security recipe is missing or forced") unless security_sweep.include?("Nightly System Security Check") && security_sweep.match?(/When the owner accepts/i)
+daily_brief = File.file?("os/skills/daily-brief.md") ? File.read("os/skills/daily-brief.md") : ""
+news_report = File.file?("os/skills/news-report.md") ? File.read("os/skills/news-report.md") : ""
+add.call("Morning Brief recipe is missing or forced") unless daily_brief.include?("Morning Brief") && daily_brief.match?(/When the owner accepts/i)
+add.call("News Report recipe is missing citations or owner-selected sources") unless news_report.include?("News Report") && news_report.match?(/owner-selected/i) && news_report.match?(/Cite|citation/i)
+add.call("reconciliation is not an internal input by default") unless reconciliation.match?(/not a separate user-facing report by default/i) && reconciliation.match?(/Morning Brief/i)
+add.call("security recipe is missing or forced") unless security_sweep.include?("System Security Watch") && security_sweep.match?(/When the owner accepts/i)
 add.call("security recipe is not read-only and fail-closed") unless security_sweep.match?(/remain read-only/i) && security_sweep.match?(/incomplete coverage/i)
-add.call("public automation docs still require a specific model") if [agent_setup, quick_setup, migration, update, reconciliation, security_sweep].join("\n").match?(/GPT-\d|Claude \d|Gemini \d/i)
+recurring_docs = [agent_setup, quick_setup, migration, update, daily_brief, news_report, reconciliation, security_sweep].join("\n")
+add.call("public recurring-workflow docs still require a specific model") if recurring_docs.match?(/GPT-\d|Claude \d|Gemini \d/i)
 
 add.call("code license is not MIT") unless File.read("LICENSE-CODE").include?("MIT License") && File.read("LICENSE-CODE").include?("Copyright (c) 2026 CK")
 add.call("content license is not CC BY 4.0") unless File.read("LICENSE-CONTENT").match?(/Creative\s+Commons\s+Attribution\s+4\.0\s+International/m)
@@ -155,7 +162,8 @@ end
 if File.file?("release-manifest.json")
   begin
     manifest = JSON.parse(File.read("release-manifest.json"))
-    add.call("unsupported release manifest") unless manifest["format"] == 1 && manifest["product"] == "Starter.OS" && manifest["version"] == "2.0.0"
+    add.call("unsupported release manifest") unless manifest["format"] == 1 && manifest["product"] == "Starter.OS" && manifest["version"] == "2.1.0"
+    add.call("release manifest does not support 2.0 and unversioned updates") unless %w[unversioned-legacy 2.0.0 2.1.0].all? { |version| manifest.fetch("supported_updates", []).include?(version) }
     artifacts = manifest.fetch("artifacts")
     paths = artifacts.map { |artifact| artifact.fetch("path") }
     add.call("release manifest has duplicate installed paths") unless paths.uniq.length == paths.length
@@ -302,7 +310,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     add.call("license was not installed") unless File.file?(File.join(vault, "os", "license.md"))
 
     release = JSON.parse(File.read(File.join(vault, "os", "release.json")))
-    add.call("installed release version is not 2.0.0") unless release["version"] == "2.0.0"
+    add.call("installed release version is not 2.1.0") unless release["version"] == "2.1.0"
 
     init_git.call(vault)
 
@@ -373,6 +381,43 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     add.call("non-empty destination was not refused") if refusal_status.success? || !refusal_output.include?("not empty")
   end
 
+  prior_vault = File.join(tmp, "STARTER-2-0.os")
+  prior_create, prior_create_status = capture("ruby", "scripts/create-vault.rb", prior_vault)
+  if prior_create_status.success?
+    prior_release_path = File.join(prior_vault, "os", "release.json")
+    prior_release = JSON.parse(File.read(prior_release_path))
+    prior_release["version"] = "2.0.0"
+    prior_brief_path = File.join(prior_vault, "os", "skills", "daily-brief.md")
+    prior_brief = "---\ntype: skill\nstatus: draft\n---\n\n# daily brief\n\nLegacy 2.0 fixture.\n"
+    File.write(prior_brief_path, prior_brief)
+    prior_release.fetch("artifacts").fetch("os/skills/daily-brief.md")["sha256"] = Digest::SHA256.hexdigest(prior_brief)
+    File.write(prior_release_path, "#{JSON.pretty_generate(prior_release)}\n")
+    custom_path = File.join(prior_vault, "life", "original-owner-note.md")
+    File.write(custom_path, "owner work must survive\n")
+    custom_digest = Digest::SHA256.file(custom_path).hexdigest
+    init_git.call(prior_vault)
+
+    prior_plan_path = File.join(tmp, "2-0-to-2-1-plan.json")
+    prior_plan_output, prior_plan_status = capture("ruby", "scripts/update-vault.rb", "plan", prior_vault, prior_plan_path)
+    add.call("2.0 to 2.1 update plan failed: #{prior_plan_output.strip}") unless prior_plan_status.success?
+    if prior_plan_status.success?
+      prior_plan = JSON.parse(File.read(prior_plan_path))
+      brief_entry = prior_plan.fetch("entries").find { |entry| entry["path"] == "os/skills/daily-brief.md" }
+      add.call("2.0 to 2.1 plan did not recognize the managed Morning Brief update") unless brief_entry && brief_entry["action"] == "update"
+      prior_apply_output, prior_apply_status = capture("ruby", "scripts/update-vault.rb", "apply", prior_vault, prior_plan_path)
+      add.call("2.0 to 2.1 update apply failed: #{prior_apply_output.strip}") unless prior_apply_status.success?
+      if prior_apply_status.success?
+        updated_release = JSON.parse(File.read(prior_release_path))
+        add.call("2.0 update did not install 2.1.0") unless updated_release["version"] == "2.1.0"
+        add.call("2.0 update changed unknown owner work") unless Digest::SHA256.file(custom_path).hexdigest == custom_digest
+        prior_validate, prior_validate_status = capture("ruby", "os/validate-starter-os.rb", chdir: prior_vault)
+        add.call("updated 2.0 vault did not validate: #{prior_validate.strip}") unless prior_validate_status.success?
+      end
+    end
+  else
+    add.call("2.0 update fixture could not be created: #{prior_create.strip}")
+  end
+
   fork_vault = File.join(tmp, "FORK.os")
   fork_create, fork_create_status = capture("ruby", "scripts/create-vault.rb", fork_vault)
   if fork_create_status.success?
@@ -409,6 +454,9 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
   legacy_create, legacy_create_status = capture("ruby", "scripts/create-vault.rb", legacy_vault)
   if legacy_create_status.success?
     FileUtils.rm_f(File.join(legacy_vault, "os", "release.json"))
+    legacy_owner_path = File.join(legacy_vault, "life", "first-version-owner-note.md")
+    File.write(legacy_owner_path, "unique owner work from the first version\n")
+    legacy_owner_digest = Digest::SHA256.file(legacy_owner_path).hexdigest
     init_git.call(legacy_vault)
     legacy_plan = File.join(tmp, "legacy-update-plan.json")
     legacy_plan_output, legacy_plan_status = capture("ruby", "scripts/update-vault.rb", "plan", legacy_vault, legacy_plan)
@@ -422,6 +470,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
       legacy_apply_output, legacy_apply_status = capture(*command)
       add.call("approved legacy update failed: #{legacy_apply_output.strip}") unless legacy_apply_status.success?
       if legacy_apply_status.success?
+        add.call("legacy update changed unknown owner work") unless Digest::SHA256.file(legacy_owner_path).hexdigest == legacy_owner_digest
         legacy_validate, legacy_validate_status = capture("ruby", "os/validate-starter-os.rb", chdir: legacy_vault)
         add.call("updated legacy vault did not validate: #{legacy_validate.strip}") unless legacy_validate_status.success?
       end
@@ -508,10 +557,10 @@ source_after = tree_digests(ROOT)
 add.call("validation modified the public source checkout") unless source_before == source_after
 
 if errors.empty?
-  puts "PASS Starter.OS 2.0: link-only routing, three guided paths, Git primary and mirror contract, skill audit, protected manual, licenses, release manifest, clean install, managed update, legacy update, manual fork, migration proof, and privacy checks"
+  puts "PASS Starter.OS 2.1: link-only routing, three guided paths, Git primary and mirror contract, skill audit, protected manual, licenses, release manifest, clean install, 2.0 update, legacy update, manual fork, migration proof, and privacy checks"
   exit 0
 end
 
-puts "FAIL Starter.OS 2.0: #{errors.length} issue#{errors.length == 1 ? '' : 's'}"
+puts "FAIL Starter.OS 2.1: #{errors.length} issue#{errors.length == 1 ? '' : 's'}"
 errors.each { |message| puts "- #{message}" }
 exit 1

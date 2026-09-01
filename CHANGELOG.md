@@ -8,13 +8,33 @@ Changes being developed belong under **Unreleased**. When a release is approved,
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-08-31
+
+Starter.OS 2.1.0 refines recurring work around persistent home bases while preserving the 2.0 structure and update contract.
+
 ### Added
 
 - A single canonical changelog for permanent, version-by-version product history.
+- A portable `News Report` recipe for owner-selected sources, citations, plain-language relevance, and `adopt`, `test`, `watch`, or `ignore` recommendations.
+- Explicit update coverage for both manifest-managed 2.0 installations and the original unversioned Starter.OS.
 
 ### Changed
 
 - Release history now uses an `Unreleased` section and semantic-version categories instead of a separate release-notes file.
+- The recurring-work model now centers one persistent Chief of Staff home base and one persistent home base per real project when the execution environment supports them.
+- `Morning Brief` is the suggested front-page workflow. It checks authorized calendar, task, project, and week-ahead context, then returns the owner's short check-in to the Chief of Staff home base.
+- Task reconciliation now feeds the Morning Brief or an explicit checkpoint instead of producing a separate user-facing report by default.
+- The security recipe is now a silent, read-only `System Security Watch` that reports only material findings or incomplete coverage.
+- Setup, migration, and update detect available capabilities before suggesting recurring workflows. Owners may adopt, decline, or defer each compatible option, and no provider, source, model, or fixed schedule is required.
+- Recurring output prefers an existing persistent destination instead of creating a new task for every run.
+
+### Compatibility
+
+- The 2.1 update path preserves unknown files and owner customizations from 2.0 and unversioned legacy installations. Managed-file conflicts still require an explicit replace, fork, or defer choice.
+
+### Security
+
+- The updater now rejects installed versions not declared by the target release instead of attempting an untested transition.
 
 ## [2.0.0] - 2026-08-30
 
@@ -79,5 +99,6 @@ Before apply, record and verify the exact local Git recovery commit for every af
 
 If validation fails, stop. Restore the affected repository from the named pre-update commit, restore uncovered content from its named backup, run `ruby os/validate-starter-os.rb`, and verify the primary and mirrors before resuming work.
 
-[Unreleased]: https://github.com/ck-os-vaults/starter.os/compare/bb7d3c744348c933b03181a7dffa0b6a8c8701ca...HEAD
+[Unreleased]: https://github.com/ck-os-vaults/starter.os/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/ck-os-vaults/starter.os/compare/bb7d3c744348c933b03181a7dffa0b6a8c8701ca...v2.1.0
 [2.0.0]: https://github.com/ck-os-vaults/starter.os/commit/bb7d3c744348c933b03181a7dffa0b6a8c8701ca

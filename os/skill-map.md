@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-29
-updated: 2026-08-30
-reviewed: 2026-08-30
+updated: 2026-08-31
+reviewed: 2026-08-31
 status: living
 authority: canon
 source: ai
@@ -21,15 +21,16 @@ source: ai
 | [[git-sync-preflight]] | core portable | before substantive repository work | no |
 | [[decision-log]] | core portable | owner confirms a durable decision | no |
 | [[security-intake]] | core portable | before a newly sourced artifact is opened or run | no |
-| [[security-sweep]] | core portable plus optional scheduled routine | sensitive or public work, explicit security review, or accepted nightly check | Nightly System Security Check |
+| [[security-sweep]] | core portable plus optional scheduled routine | sensitive or public work, explicit security review, or accepted security watch | System Security Watch |
 | [[vault-maintenance]] | core portable | owner-approved structural or routing cleanup | no |
 | [[drift-recovery]] | core portable | sources, copies, or routes conflict or drift | no |
 | [[distill]] | optional portable | accumulated records contain durable signal worth promoting | no |
 | [[metadata-audit]] | optional portable | routing or lifecycle metadata repeatedly drifts | no |
 | [[browser-use]] | optional portable | interactive website work | no |
-| [[daily-brief]] | optional scheduled routine | start-of-day or priority planning | optional owner-defined |
+| [[daily-brief]] | optional scheduled routine | start-of-day or priority planning | Morning Brief |
+| [[news-report]] | optional scheduled routine | owner wants a recurring report from selected sources | News Report |
 | [[eod-wrap]] | optional scheduled routine | owner asks to wrap or adopts an end-of-day routine | optional owner-defined |
-| [[task-reconciliation]] | optional scheduled routine | cross-project checkpoint or accepted nightly routine | Nightly Chief Reconciliation |
+| [[task-reconciliation]] | optional portable | cross-project checkpoint or input to a Morning Brief | no separate report by default |
 
 ## Adapter and exclusion audit
 
@@ -59,7 +60,7 @@ Audit after a major agent, model, tool, repository, or product update:
 2. Every role and trigger still matches the real workflow.
 3. Core skills remain model- and agent-agnostic.
 4. Optional integrations remain optional and truthfully available.
-5. Scheduled routines have explicit owner acceptance and no duplicates.
+5. Scheduled routines have explicit owner acceptance, compatible source access, a persistent destination when supported, and no duplicates.
 6. Stale, private, unsupported, or provider-bound material is removed from the public release or reclassified after approval.
 7. Instructions, lifecycle dates, maps, adapters, and validation change together.
 

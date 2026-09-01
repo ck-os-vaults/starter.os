@@ -60,7 +60,7 @@ Include:
 - proposed names and ownership only where real evidence supports them;
 - existing and proposed Git topology;
 - exact recovery point and rollback route;
-- existing equivalents of the two standard automations and a separate yes or no for each.
+- available recurring-workflow capabilities, existing equivalents, and the owner's adopt, decline, or defer choice for each compatible suggestion.
 
 Wait for approval before building the preview.
 
@@ -103,9 +103,9 @@ Follow `GIT-SETUP.md`. Preserve existing histories; do not copy `.git/` folders.
 
 Cutover requires explicit owner approval after the preview and proof are shown. Deleting or retiring the old system is never part of migration.
 
-## Step 8: guide the automation choices
+## Step 8: guide optional recurring workflows
 
-Use `QUICK-SETUP.md`. Offer `Nightly Chief Reconciliation` and `Nightly System Security Check` separately. Update equivalent routines instead of duplicating them. Verify accepted routines and record declined or unavailable status.
+Use `QUICK-SETUP.md`. Suggest only compatible recipes, update equivalent routines instead of duplicating them, and prefer persistent home-base destinations when supported. Verify accepted routines and record declined, deferred, or unavailable status.
 
 ## Step 9: validate and hand back control
 

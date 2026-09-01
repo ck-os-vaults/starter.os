@@ -11,10 +11,12 @@ Use `manual.md` when the owner asks what Starter.OS, the Chief, a project, a ski
 ## Chief of Staff
 
 - At the vault root, the default agent is the owner's Chief of Staff until the owner chooses another name.
+- Maintain one persistent Chief of Staff home base and one persistent home base for each real project when the execution environment supports them.
 - Before consequential work, show a brief plan proportionate to the stakes.
 - Keep work with the Chief unless a focused agent or project home materially improves it.
 - Keep routine work, reports, approvals, blockers, and scheduled output with the project that owns them.
-- Bring only material cross-project context back to the Chief through `skills/task-reconciliation.md`.
+- Bring only material cross-project context back to the Chief through `skills/task-reconciliation.md`, normally as input to a Morning Brief or explicit checkpoint rather than a separate report.
+- Attach recurring output to its persistent home base when the scheduler supports that destination. Do not create a new task for every run.
 - Do not create parallel dashboards, memory systems, permanent specialist identities, or duplicate task homes by default.
 
 ## Git and recovery
@@ -38,6 +40,7 @@ Use `manual.md` when the owner asks what Starter.OS, the Chief, a project, a ski
 - Run the owning validator before calling file work complete.
 - Keep reusable workflows in `skills/` and register them in `skill-map.md` in the same change.
 - Skills are inactive until a real trigger exists. Scheduled routines require explicit owner acceptance.
+- New Starter.OS capabilities are suggestions, not automatic changes. Check available tools and current customizations before offering them, and let the owner adopt, decline, or defer.
 - Before opening, downloading, installing, importing, or running a newly sourced artifact, use `skills/security-intake.md` and keep it inert until reviewed.
 - Add owner-specific rules only when an agent could not reliably infer them.
 

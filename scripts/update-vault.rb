@@ -110,6 +110,9 @@ end
 
 def build_plan(target, manifest)
   installed = load_release_record(target)
+  installed_version = installed ? installed.fetch("version") : "unversioned-legacy"
+  supported_updates = manifest.fetch("supported_updates", [])
+  stop("unsupported update path: #{installed_version} -> #{manifest.fetch('version')}") unless supported_updates.include?(installed_version)
   prior = installed ? installed.fetch("artifacts", {}) : {}
   entries = []
   current_paths = {}
@@ -175,7 +178,7 @@ def build_plan(target, manifest)
     "source_root" => SOURCE_ROOT.to_s,
     "source_manifest_sha256" => sha256(MANIFEST_PATH),
     "target_root" => target.to_s,
-    "installed_version" => installed ? installed["version"] : "unversioned-legacy",
+    "installed_version" => installed_version,
     "target_version" => manifest.fetch("version"),
     "entries" => entries.sort_by { |entry| entry["path"] }
   }

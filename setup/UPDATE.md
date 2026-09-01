@@ -14,6 +14,8 @@ ruby scripts/validate-starter-kit.rb
 
 Confirm one installed Starter.OS target. Read its `os/release.json` when present. If it is absent, label the installation `unversioned legacy Starter.OS`; do not guess its baseline.
 
+An unversioned installation is a supported guided path, not a reason to reinstall. Keep the interview short: identify the target, inventory the current files, show every conflict, and ask only for decisions that cannot be inferred safely.
+
 ## Step 2: discover Git and current protection
 
 Follow the Git discovery in `QUICK-SETUP.md` for every in-scope repository.
@@ -41,6 +43,8 @@ Show the owner:
 - the Git recovery commit and any additional backup coverage;
 - exact rollback instructions.
 
+Also summarize new Starter.OS capabilities in plain language. Suggest only options compatible with the owner's verified environment, and separate those suggestions from required file changes.
+
 For each conflict, offer:
 
 - **keep as my fork** — preserve the local file and stop future automatic replacement;
@@ -59,7 +63,7 @@ Use the shared approval card. The update approval must name:
 - files outside recovery coverage;
 - Git primary and mirror actions;
 - any structural or deprecated behavior;
-- a separate yes or no for each standard automation.
+- the adopt, decline, or defer choice for each compatible recurring workflow suggestion.
 
 Silence is not approval.
 
@@ -101,11 +105,11 @@ Review the exact diff. Commit only intended update changes to the approved repos
 
 If validation or verification fails, stop and restore the pre-update Git commit before another attempt. Do not stack fixes on an unknown partial state.
 
-## Step 7: guide the automation choices
+## Step 7: guide optional recurring workflows
 
-Audit existing routines by purpose and name. Offer `Nightly Chief Reconciliation` and `Nightly System Security Check` separately.
+Audit existing routines by purpose and name. Explain the compatible `Morning Brief`, `News Report`, `System Security Watch`, and `Task Reconciliation` improvements without assuming the owner wants them.
 
-When accepted, update matching routines to the current portable skills and verify their name, schedule, timezone, destination, instructions, access, runtime, active status, and first eligible run. Do not create duplicates. Record declined, unavailable, or unverified states truthfully.
+When accepted, update matching routines to the current portable skills and verify their name, schedule, timezone, destination, instructions, access, runtime, active status, and first eligible run. Prefer persistent home-base destinations when supported. Do not create duplicates or new tasks per run. Record declined, deferred, unavailable, or unverified states truthfully.
 
 ## Step 8: give the update receipt
 
@@ -116,7 +120,7 @@ Report:
 - validation results;
 - local recovery commit;
 - primary and mirror commit identities;
-- both automation outcomes;
+- every offered recurring-workflow outcome;
 - exact rollback route.
 
-An update is complete only when no artifact remains silently conflicted, the installed vault validates, Git recovery and publication are truthful, enabled mirrors are verified or named as unresolved, and both automation choices have recorded outcomes.
+An update is complete only when no artifact remains silently conflicted, the installed vault validates, Git recovery and publication are truthful, enabled mirrors are verified or named as unresolved, and every offered recurring workflow has a recorded outcome.

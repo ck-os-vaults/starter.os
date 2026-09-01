@@ -40,7 +40,7 @@ Ask one compact group only for material choices that cannot be inferred safely. 
 - whether local-only Git is intentional after its device-loss limitation is explained;
 - ambiguous file ownership or proposed structural changes;
 - local, cloud, on-demand, or hybrid execution needs;
-- a separate yes or no for each standard automation.
+- which compatible recurring workflows, if any, the owner wants to adopt, decline, or defer.
 
 Do not conduct a biography, tool, or future-feature interview.
 
@@ -53,19 +53,21 @@ Include only relevant sections:
 3. **Git and recovery** — repositories, one primary for each, optional automatic mirrors, the recovery point, and uncovered content.
 4. **Ownership** — proposed Chief, projects, and businesses only when real work supports them.
 5. **Execution** — where the Chief and project work will run, without making a vendor mandatory.
-6. **Automations** — existing equivalents, the owner's yes or no for each standard routine, proposed schedule, destination, access, and likely cost.
+6. **Recurring workflows** — available capabilities, existing equivalents, the owner's choice for each compatible recipe, proposed schedule, destination, access, and likely cost.
 7. **Approval boundaries** — exact consequential actions the owner is authorizing.
 
 Wait for approval. Silence is not approval.
 
-## 5. Automation choice contract
+## 5. Recurring workflow choice contract
 
-Explain in plain language:
+First verify the available scheduler, persistent task destinations, source access, permissions, existing routines, and meaningful owner customizations. Then explain only compatible recipes in plain language:
 
-- `Nightly Chief Reconciliation`: suggested at 3:00 AM in the owner's verified timezone, read-only, silent when nothing material changed, and delivered to the main Chief task.
-- `Nightly System Security Check`: suggested at 3:30 AM, read-only and fail-closed, silent only after complete clean coverage, and delivered to the system's chosen security or Chief destination.
+- `Morning Brief`: calendar, tasks, project state, week ahead, and a short owner check-in delivered to the persistent Chief of Staff home base.
+- `News Report`: owner-selected sources, citations, layman's summaries, relevance, and `adopt`, `test`, `watch`, or `ignore` recommendations.
+- `System Security Watch`: deterministic checks first, read-only and fail-closed, silent after complete clean coverage, and visible only for material risk or incomplete coverage.
+- `Task Reconciliation`: internal input to the Morning Brief or an explicit checkpoint, not a separate owner-facing report by default.
 
-Ask for a separate yes or no. When accepted, locate equivalent existing routines by purpose as well as name, update instead of duplicate, use the available owner-approved scheduler, and point the instructions to the matching portable skill. No particular model or agent is required.
+Let the owner adopt, decline, or defer each compatible recipe. When accepted, locate equivalent existing routines by purpose as well as name, update instead of duplicate, use the available owner-approved scheduler, and point the instructions to the matching portable skill. Prefer a persistent home-base destination when supported and do not create a new task per run. No particular model, agent, provider, source, or fixed schedule is required.
 
 Verify name, schedule, timezone, destination, instructions, source access, runtime or model, active status, and first eligible run. Report `verified`, `configured but unverified`, `unavailable`, or `owner declined`.
 
@@ -77,7 +79,7 @@ Run the route-specific tools and full installed validation. Return a concise rec
 - files changed, preserved, forked, deferred, or unresolved;
 - Git primary and mirror commit identities;
 - recovery point and exact rollback route;
-- automation status;
+- recurring workflow status;
 - validation results;
 - anything still unverified.
 

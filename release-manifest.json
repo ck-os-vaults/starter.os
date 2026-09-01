@@ -1,11 +1,12 @@
 {
   "format": 1,
   "product": "Starter.OS",
-  "version": "2.0.0",
-  "released": "2026-08-30",
+  "version": "2.1.0",
+  "released": "2026-08-31",
   "supported_updates": [
     "unversioned-legacy",
-    "2.0.0"
+    "2.0.0",
+    "2.1.0"
   ],
   "licenses": {
     "code": "MIT",
@@ -190,7 +191,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "42d1f4e58d7d91c5e12de247177a63986759e0b76e74e6c4159f227c1d1f7aea"
+      "sha256": "5cddad71492f77002edc37bcf369835b0b18d9f02d89b8c9cef7681b323e9a03"
     },
     {
       "id": "os/CLAUDE.md",
@@ -210,7 +211,7 @@
       "permitted_editor": "owner and approved agents",
       "update": "seed-once-then-preserve",
       "deprecation": "preserve-and-report",
-      "sha256": "312850e02f821599e599ed5f622b721002ff376241ec9f7a849cdb532e28309e"
+      "sha256": "0da7e5036ffd6cca12f1e0bdb250cebab1d543431e08c49f743900312b44973b"
     },
     {
       "id": "os/knowledge-map.md",
@@ -240,7 +241,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "5c69245c69c35d4c424020699f0de6c77c47b59022b47ee6a26e54c945309d85"
+      "sha256": "85c86d057aa92420d83c09775cfa370fa04d2460fb0e1d69afe22a300a361787"
     },
     {
       "id": "os/me.md",
@@ -300,7 +301,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "5653281b27954e1c2fce2c1ff2dba032003694109cd2e65d2bf7212c4c84dd1b"
+      "sha256": "b599bc95ad4a6b9c8804172ff8c8eda012d778a7ffa380431105447a41fe6fe4"
     },
     {
       "id": "os/skills/browser-use.md",
@@ -320,7 +321,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "955a5a49dfa100b3d97cc3a41b9d512c18267cd1bbd94dc512b9d5cff703d8ad"
+      "sha256": "6d3f8be0dfc77a7f2501874c5d34fa512e809c9c6401070282c72ee9692c89dd"
     },
     {
       "id": "os/skills/decision-log.md",
@@ -383,6 +384,16 @@
       "sha256": "5ae528471972c446dd6fa7b96e42df02a83a89fe191c14414bb84f5c31495de3"
     },
     {
+      "id": "os/skills/news-report.md",
+      "path": "os/skills/news-report.md",
+      "source": "os/skills/news-report.md",
+      "ownership": "managed",
+      "permitted_editor": "Starter.OS update or explicit owner fork",
+      "update": "replace-if-unmodified",
+      "deprecation": "preserve-and-report",
+      "sha256": "fe9b00ab0e9f3eb3c22f88fd345f21969ca71cac29b78daabc7f6f693603bfd8"
+    },
+    {
       "id": "os/skills/readme.md",
       "path": "os/skills/readme.md",
       "source": "os/skills/readme.md",
@@ -410,7 +421,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "2b182d270ba9c88a4e4f69dc04198db75ed0c46c759d713bb8de091155a76dc2"
+      "sha256": "43dec5f3e2153fb5330b138bbb3b7fbbf578dbae2b4b150a916fea5c1ef1e611"
     },
     {
       "id": "os/skills/task-reconciliation.md",
@@ -420,7 +431,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "4f297e86820ce90d1b6c43bc6128a022dc970862be42536b48725a8fa2d48696"
+      "sha256": "c00215262176113e30d202fc70f0c83cbc779979aab906ce0cc1747135d1184d"
     },
     {
       "id": "os/skills/vault-maintenance.md",
@@ -500,7 +511,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "fe2bf6fb24cd826f2e93847d38530fea465f1b9d95c47078131614aa5b2a370e"
+      "sha256": "ad58036de4b20e89963d2e98f965a406d0cedf2c18e28125f0e413422fc4cc95"
     },
     {
       "id": "os/vault-map.md",
@@ -532,11 +543,11 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "ad2fddeb55e55ee5a1c6cd70204996f418b0355dd2981d68e66912a4304e25d6"
+      "sha256": "394af01ecdab6962e17177d50e2d95edf4eb0edccf19c3f73f49c5be937ab900"
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "6698c7b81f16ccd4ac9a09d75f0112d4bc5494704835c3003048ee8b062d8e60"
+      "sha256": "a8d66936f3f83bf23745164d9d79482c0e884b942cb90911fe80a72a87ff2a04"
     },
     {
       "path": "CLAUDE.md",
@@ -616,7 +627,7 @@
     },
     {
       "path": "os/AGENTS.md",
-      "sha256": "42d1f4e58d7d91c5e12de247177a63986759e0b76e74e6c4159f227c1d1f7aea"
+      "sha256": "5cddad71492f77002edc37bcf369835b0b18d9f02d89b8c9cef7681b323e9a03"
     },
     {
       "path": "os/CLAUDE.md",
@@ -624,7 +635,7 @@
     },
     {
       "path": "os/integrations.md",
-      "sha256": "312850e02f821599e599ed5f622b721002ff376241ec9f7a849cdb532e28309e"
+      "sha256": "0da7e5036ffd6cca12f1e0bdb250cebab1d543431e08c49f743900312b44973b"
     },
     {
       "path": "os/knowledge-map.md",
@@ -636,7 +647,7 @@
     },
     {
       "path": "os/manual.md",
-      "sha256": "5c69245c69c35d4c424020699f0de6c77c47b59022b47ee6a26e54c945309d85"
+      "sha256": "85c86d057aa92420d83c09775cfa370fa04d2460fb0e1d69afe22a300a361787"
     },
     {
       "path": "os/me.md",
@@ -652,7 +663,7 @@
     },
     {
       "path": "os/skill-map.md",
-      "sha256": "5653281b27954e1c2fce2c1ff2dba032003694109cd2e65d2bf7212c4c84dd1b"
+      "sha256": "b599bc95ad4a6b9c8804172ff8c8eda012d778a7ffa380431105447a41fe6fe4"
     },
     {
       "path": "os/skills/browser-use.md",
@@ -660,7 +671,7 @@
     },
     {
       "path": "os/skills/daily-brief.md",
-      "sha256": "955a5a49dfa100b3d97cc3a41b9d512c18267cd1bbd94dc512b9d5cff703d8ad"
+      "sha256": "6d3f8be0dfc77a7f2501874c5d34fa512e809c9c6401070282c72ee9692c89dd"
     },
     {
       "path": "os/skills/decision-log.md",
@@ -687,6 +698,10 @@
       "sha256": "5ae528471972c446dd6fa7b96e42df02a83a89fe191c14414bb84f5c31495de3"
     },
     {
+      "path": "os/skills/news-report.md",
+      "sha256": "fe9b00ab0e9f3eb3c22f88fd345f21969ca71cac29b78daabc7f6f693603bfd8"
+    },
+    {
       "path": "os/skills/readme.md",
       "sha256": "89ce7e624d9dc740f0d87f319cf380d88047a114192111f6e8f2de0fc32ebff4"
     },
@@ -696,11 +711,11 @@
     },
     {
       "path": "os/skills/security-sweep.md",
-      "sha256": "2b182d270ba9c88a4e4f69dc04198db75ed0c46c759d713bb8de091155a76dc2"
+      "sha256": "43dec5f3e2153fb5330b138bbb3b7fbbf578dbae2b4b150a916fea5c1ef1e611"
     },
     {
       "path": "os/skills/task-reconciliation.md",
-      "sha256": "4f297e86820ce90d1b6c43bc6128a022dc970862be42536b48725a8fa2d48696"
+      "sha256": "c00215262176113e30d202fc70f0c83cbc779979aab906ce0cc1747135d1184d"
     },
     {
       "path": "os/skills/vault-maintenance.md",
@@ -732,7 +747,7 @@
     },
     {
       "path": "os/validate-starter-os.rb",
-      "sha256": "fe2bf6fb24cd826f2e93847d38530fea465f1b9d95c47078131614aa5b2a370e"
+      "sha256": "ad58036de4b20e89963d2e98f965a406d0cedf2c18e28125f0e413422fc4cc95"
     },
     {
       "path": "os/vault-map.md",
@@ -740,7 +755,7 @@
     },
     {
       "path": "readme.md",
-      "sha256": "22ef0346daf231a598a93b9aa9ae91367e81d8f44712ee082258627f60c3fc94"
+      "sha256": "96803ef69238a267d7fcaf55128a35c05305ea6676db3e7c3b513485e8404e2f"
     },
     {
       "path": "scripts/add-business.rb",
@@ -752,7 +767,7 @@
     },
     {
       "path": "scripts/build-release-manifest.rb",
-      "sha256": "6a687a8a2ac0c1bb003a0d7ddcb87f168c98256f551db19532ba295c49b39927"
+      "sha256": "15cff597de63d3ba70f357e058b038155f70e96c3d6619cca867d19808e1af6f"
     },
     {
       "path": "scripts/create-vault.rb",
@@ -760,11 +775,11 @@
     },
     {
       "path": "scripts/update-vault.rb",
-      "sha256": "7aaa97365ef42975302c6f4a8a621ac71a944f2df0aead807bbeee402410c866"
+      "sha256": "5688395219f35929a7f161f3d4027506b2aa1177177ad76ca8d3ee40a7010bcd"
     },
     {
       "path": "scripts/validate-starter-kit.rb",
-      "sha256": "41685bc2194a1a7568c273ef3e4495ffe1042f2c22cf487026e19a05c8dcdfef"
+      "sha256": "51dff4a474bf5eab51d1b0fd5f3c7e48be52fb224775cdfd177f2a4d8eb58827"
     },
     {
       "path": "scripts/verify-migration.rb",
@@ -772,7 +787,7 @@
     },
     {
       "path": "setup/AGENT-SETUP.md",
-      "sha256": "289d6b563d9470660da0da1ee1e97d8240871c0fe82aa4813e9d89bc8ce38042"
+      "sha256": "742063d88cd3f121bc6bbb7a55eeedbcb072352273934d504a8d214b951651c6"
     },
     {
       "path": "setup/GIT-SETUP.md",
@@ -780,19 +795,19 @@
     },
     {
       "path": "setup/MIGRATE.md",
-      "sha256": "39f12be705d2d2b0870f334fb9ddaf982a95832ec6499a25d50cce40d79ce5dd"
+      "sha256": "a41ceefb80cdc6817b17044d1e954b3df5c054b509898a07e469a5896dcc61b6"
     },
     {
       "path": "setup/QUICK-SETUP.md",
-      "sha256": "9f4d962ea1e02a0cb955f95ce1af57e33868f21f6119876686384409a132dc42"
+      "sha256": "f32b4c5c13df8d61bd1762e9201535659b8999f87008d73ea8978966725fc38d"
     },
     {
       "path": "setup/START-HERE.md",
-      "sha256": "ce501be3f92579d4c07de7d8fa74b8d7e415159a600ed78a105b7ff02decff6b"
+      "sha256": "5c8e16fdb9eb7620a5877678d03b222647cb59e35a278a2c07fb329c6de134db"
     },
     {
       "path": "setup/UPDATE.md",
-      "sha256": "a50d6a3f2481e062dd386de2948f225f312126f48d03478fd1533cfa211f76a8"
+      "sha256": "0eeefc6f287ef50f1de4f2335a61d4d5ccfb9f3474fb1a80ff2ee6ede8c1b7a0"
     }
   ]
 }

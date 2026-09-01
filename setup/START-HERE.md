@@ -47,14 +47,11 @@ A private off-device primary is strongly recommended. Local Git keeps file histo
 
 If you use a second Git service, the agent configures it as an automatic mirror from the primary. The agent pushes only to the primary and verifies that the mirror reaches the same commit.
 
-## Two guided automation choices
+## Optional recurring workflows
 
-Every setup, migration, and update explains and offers:
+Starter.OS can suggest a Morning Brief, a cited News Report, silent security monitoring, and cross-project reconciliation. They are starting points, not required services or fixed schedules.
 
-- **Nightly Chief Reconciliation** — gives your main Chief of Staff one short cross-project update only when something important changed.
-- **Nightly System Security Check** — performs a read-only integrity check and reports material risks or checks it could not complete.
-
-You choose yes or no for each. If you say yes, the agent creates or updates the routine and verifies it. If you say no, Starter.OS still works normally.
+The agent first checks what your current tools, scheduler, sources, and destinations can actually support. It then explains only compatible options in plain language. You may adopt, decline, or defer each one. Existing equivalents are updated instead of duplicated, and recurring output returns to an existing home base when possible instead of creating a new task every time.
 
 ## What remains yours
 
