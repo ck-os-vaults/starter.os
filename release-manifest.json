@@ -191,7 +191,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "5cddad71492f77002edc37bcf369835b0b18d9f02d89b8c9cef7681b323e9a03"
+      "sha256": "5a41d21f5bc7029c5978f6431b29535b80007aabfb640cde7b5c46564ea5dbb8"
     },
     {
       "id": "os/CLAUDE.md",
@@ -241,7 +241,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "85c86d057aa92420d83c09775cfa370fa04d2460fb0e1d69afe22a300a361787"
+      "sha256": "6c5750a7561e71594f8de5b0a3046cf6302d4a7db83cd52a7eaded86415d461c"
     },
     {
       "id": "os/me.md",
@@ -251,7 +251,7 @@
       "permitted_editor": "owner and approved agents",
       "update": "seed-once-then-preserve",
       "deprecation": "preserve-and-report",
-      "sha256": "12f7ea4f232b1199b550fe10fa78ade41c42d4ad9e06a7cb552ff4d571bfa74b"
+      "sha256": "3edfe93685a80df44704e752e93098789d8d1160ae3aea7ace21bad6b7e823de"
     },
     {
       "id": "os/recovery.md",
@@ -261,7 +261,7 @@
       "permitted_editor": "owner and approved agents",
       "update": "seed-once-then-preserve",
       "deprecation": "preserve-and-report",
-      "sha256": "2a1f0f7f221faad6447324a31ae2ba5a414abb7d3a0701e486239bc26cd21acc"
+      "sha256": "662e61dd7f4c0d3fb48192a32315fa34e34a68f1600297d0dfdfd7098e275dde"
     },
     {
       "id": "os/retrieval.md",
@@ -431,7 +431,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "c00215262176113e30d202fc70f0c83cbc779979aab906ce0cc1747135d1184d"
+      "sha256": "af884247435ef6671318c89ec88b12e5f4bf23156c69e493083612ae724a77b3"
     },
     {
       "id": "os/skills/vault-maintenance.md",
@@ -543,11 +543,11 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "394af01ecdab6962e17177d50e2d95edf4eb0edccf19c3f73f49c5be937ab900"
+      "sha256": "dc1b3c2584bd97779a797ad40e4d19822ee775abbaebd80e259e69c30fdb28e7"
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "a8d66936f3f83bf23745164d9d79482c0e884b942cb90911fe80a72a87ff2a04"
+      "sha256": "39bf99c0f70866160dc9f3b9816bd3c8216492092e69391db01b32721d771e48"
     },
     {
       "path": "CLAUDE.md",
@@ -627,7 +627,7 @@
     },
     {
       "path": "os/AGENTS.md",
-      "sha256": "5cddad71492f77002edc37bcf369835b0b18d9f02d89b8c9cef7681b323e9a03"
+      "sha256": "5a41d21f5bc7029c5978f6431b29535b80007aabfb640cde7b5c46564ea5dbb8"
     },
     {
       "path": "os/CLAUDE.md",
@@ -647,15 +647,15 @@
     },
     {
       "path": "os/manual.md",
-      "sha256": "85c86d057aa92420d83c09775cfa370fa04d2460fb0e1d69afe22a300a361787"
+      "sha256": "6c5750a7561e71594f8de5b0a3046cf6302d4a7db83cd52a7eaded86415d461c"
     },
     {
       "path": "os/me.md",
-      "sha256": "12f7ea4f232b1199b550fe10fa78ade41c42d4ad9e06a7cb552ff4d571bfa74b"
+      "sha256": "3edfe93685a80df44704e752e93098789d8d1160ae3aea7ace21bad6b7e823de"
     },
     {
       "path": "os/recovery.md",
-      "sha256": "2a1f0f7f221faad6447324a31ae2ba5a414abb7d3a0701e486239bc26cd21acc"
+      "sha256": "662e61dd7f4c0d3fb48192a32315fa34e34a68f1600297d0dfdfd7098e275dde"
     },
     {
       "path": "os/retrieval.md",
@@ -715,7 +715,7 @@
     },
     {
       "path": "os/skills/task-reconciliation.md",
-      "sha256": "c00215262176113e30d202fc70f0c83cbc779979aab906ce0cc1747135d1184d"
+      "sha256": "af884247435ef6671318c89ec88b12e5f4bf23156c69e493083612ae724a77b3"
     },
     {
       "path": "os/skills/vault-maintenance.md",
@@ -755,7 +755,7 @@
     },
     {
       "path": "readme.md",
-      "sha256": "96803ef69238a267d7fcaf55128a35c05305ea6676db3e7c3b513485e8404e2f"
+      "sha256": "1c31cf460e6e0e86682a3e76edbbdd516ca4f4f2ec29ecf77d1636a3fa3812a1"
     },
     {
       "path": "scripts/add-business.rb",
@@ -775,11 +775,11 @@
     },
     {
       "path": "scripts/update-vault.rb",
-      "sha256": "5688395219f35929a7f161f3d4027506b2aa1177177ad76ca8d3ee40a7010bcd"
+      "sha256": "546fbb5ea8e9dabbad5d46c84190ce07d9f2e5ab4cf307ef83b6bcea504ff940"
     },
     {
       "path": "scripts/validate-starter-kit.rb",
-      "sha256": "51dff4a474bf5eab51d1b0fd5f3c7e48be52fb224775cdfd177f2a4d8eb58827"
+      "sha256": "09764b7dc152a5a43f4997dc533ffe00fd9329bdd542ccbe35f08be8010b866a"
     },
     {
       "path": "scripts/verify-migration.rb",
@@ -787,27 +787,27 @@
     },
     {
       "path": "setup/AGENT-SETUP.md",
-      "sha256": "742063d88cd3f121bc6bbb7a55eeedbcb072352273934d504a8d214b951651c6"
+      "sha256": "ffe198084f21b20ed85be1c8b9d6e47ef6f10487f739f75b8f75c34289423bed"
     },
     {
       "path": "setup/GIT-SETUP.md",
-      "sha256": "570d6c06219b46f61e2e5572695568de24548b9d7990d7ab3cdb9384751e82e8"
+      "sha256": "571a1724a7fd4e515c3739e632190f2c81130d6c7a68be38ff9f697c8a5315cf"
     },
     {
       "path": "setup/MIGRATE.md",
-      "sha256": "a41ceefb80cdc6817b17044d1e954b3df5c054b509898a07e469a5896dcc61b6"
+      "sha256": "f8f62699cfb5ca9a23e79e7f0fc7abc2c5b1d27909030849dcffc6176ce52f5e"
     },
     {
       "path": "setup/QUICK-SETUP.md",
-      "sha256": "f32b4c5c13df8d61bd1762e9201535659b8999f87008d73ea8978966725fc38d"
+      "sha256": "7597105ae6ad2dae58942b9ca833cd4a920027974b095a5403cdd00956386390"
     },
     {
       "path": "setup/START-HERE.md",
-      "sha256": "5c8e16fdb9eb7620a5877678d03b222647cb59e35a278a2c07fb329c6de134db"
+      "sha256": "83f86315c05c14c883e83cb75339074d5a5976f4e46f70a56f39cf9508cfffc1"
     },
     {
       "path": "setup/UPDATE.md",
-      "sha256": "0eeefc6f287ef50f1de4f2335a61d4d5ccfb9f3474fb1a80ff2ee6ede8c1b7a0"
+      "sha256": "b86b497fa26fe0e5f5f6c4a52dd259ed35f080778c634f0a4d4e14ff9f1dfb7c"
     }
   ]
 }

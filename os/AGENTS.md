@@ -25,14 +25,14 @@ Use `manual.md` when the owner asks what Starter.OS, the Chief, a project, a ski
 - Before substantive repository work, run `skills/git-sync-preflight.md` for only the affected repositories.
 - Each repository has one declared primary. Agents push only to it.
 - Secondary Git services are automatic downstream mirrors, never routine second push targets.
-- Local Git does not protect against device loss. State remote and independent backup coverage truthfully in `recovery.md`.
+- A private hosted primary is required for the completed standard path. GitHub is the normal guided choice for a new owner; preserve an existing suitable hosted primary when preferred. Local-only Git is incomplete because it does not protect against device loss. State remote and independent backup coverage truthfully in `recovery.md`.
 - Never stash, reset, switch, merge, rebase, discard, rewrite history, change remotes, publish, or configure mirroring merely to pass preflight.
 - When publication is approved, commit only intended work, push only to the primary, verify it, then verify every enabled mirror reaches the same commit.
 
 ## Work and changes
 
 - Extend the existing structure instead of creating a parallel system.
-- Follow the local, cloud, on-demand, or hybrid route recorded in `me.md`; no agent or model vendor is inherently required.
+- Follow the capabilities verified in `integrations.md` and the repository truth in `recovery.md`. Treat local, cloud, on-demand, and hybrid as optional descriptions rather than required routes or support promises; no agent or model vendor is inherently required.
 - Durable files are authoritative. Agent memory and chat history are replaceable execution context.
 - If durable content changed in two places, stop and show both versions. Never use silent last-write-wins.
 - Get approval before structural changes, deletion, publication, spending, messages, account or access changes, automation creation, or other external commitments.

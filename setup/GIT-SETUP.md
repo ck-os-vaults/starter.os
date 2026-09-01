@@ -8,7 +8,7 @@ Each repository has one primary. Agents commit and push only to that primary.
 
 A second Git service is optional. When accepted, configure it as an automatic downstream mirror through the primary host's native mirroring, a narrowly scoped primary-host automation, or another owner-approved one-way mechanism. Do not keep a second routine agent push target.
 
-GitHub is the public home of Starter.OS, not a mandatory private provider.
+GitHub is the public home of Starter.OS and the normal guided private primary for a new owner. Preserve an existing suitable GitLab or other hosted primary when the owner prefers it.
 
 ## Step 1: discover the existing topology
 
@@ -29,16 +29,18 @@ Do not infer that a remote named `origin` is truly primary. Determine what the c
 
 Preserve valid existing history. Recommend:
 
-- one local repository for `os/`;
-- one local repository for `life/`;
+- one working repository for `os/`;
+- one working repository for `life/`;
 - one repository for each real `biz/<business>/`;
 - no repository at the vault root or empty `biz/` container;
-- one primary per repository;
+- one private hosted primary per repository;
 - zero or more automatic downstream mirrors.
 
 If an existing owner safely uses a different topology, preserve it unless a change has clear value and is approved. Never create nested Git repositories accidentally.
 
-A private off-device primary is strongly recommended. If the owner chooses local-only Git, record `local only; device loss not covered` and offer an independent off-device file backup.
+If no suitable hosted primary exists, the normal path is to guide the owner through GitHub account security and private repository creation. The owner handles sign-in, multifactor authentication, recovery codes, and secret values privately. The agent handles repository initialization, connection, validation, commit, and push wherever possible.
+
+Local-only Git may create a temporary recovery point, but record `incomplete; device loss not covered` and do not call the standard setup complete until a private hosted primary is verified. Offer an independent off-device file backup while the gap remains.
 
 ## Step 3: preview consequential actions
 
@@ -55,14 +57,14 @@ Show:
 
 Wait for approval before initializing Git, changing remotes, creating repositories, publishing commits, changing visibility, configuring mirrors, or adding automation.
 
-## Step 4: protect locally first
+## Step 4: create the first working recovery point
 
 Before publication or update:
 
 1. confirm the intended files and privacy boundary;
 2. run the owning validator and secret checks;
 3. make sure unique work is tracked or separately protected;
-4. create the approved local commit;
+4. create the approved commit in the working repository;
 5. read back the commit and clean or intentionally dirty state.
 
 Do not call local history a device-loss backup.
@@ -100,7 +102,7 @@ Use only:
 
 - `verified`;
 - `configured but unverified`;
-- `local only; device loss not covered`;
+- `incomplete; device loss not covered`;
 - `owner declined`;
 - `unavailable`.
 

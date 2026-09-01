@@ -29,17 +29,17 @@ Do not pull, merge, switch, stash, rewrite, initialize, create a remote, or chan
 
 ## 3. Infer first, ask once
 
-Infer names, paths, real projects, businesses, repository structure, execution needs, timezone, existing automations, and approval boundaries from current evidence.
+Infer names, paths, real projects, businesses, repository structure, execution capabilities, timezone, existing automations, and approval boundaries from current evidence.
 
 Ask one compact group only for material choices that cannot be inferred safely. Usually these are:
 
 - desired vault name and destination;
 - optional name for the Chief of Staff;
 - confirmation of the setup, migration, or update route;
-- the chosen primary Git destination when more than one valid choice exists;
-- whether local-only Git is intentional after its device-loss limitation is explained;
+- the chosen hosted primary when an existing suitable service should be preserved instead of the default guided GitHub path;
+- whether the owner can complete private GitHub account and repository setup when no suitable hosted primary exists;
 - ambiguous file ownership or proposed structural changes;
-- local, cloud, on-demand, or hybrid execution needs;
+- any missing repository, persistence, scheduler, source-access, delivery, or Git-verification capability that changes which workflows can operate;
 - which compatible recurring workflows, if any, the owner wants to adopt, decline, or defer.
 
 Do not conduct a biography, tool, or future-feature interview.
@@ -52,7 +52,7 @@ Include only relevant sections:
 2. **Files** — what changes, what remains untouched, and every conflict or unresolved item.
 3. **Git and recovery** — repositories, one primary for each, optional automatic mirrors, the recovery point, and uncovered content.
 4. **Ownership** — proposed Chief, projects, and businesses only when real work supports them.
-5. **Execution** — where the Chief and project work will run, without making a vendor mandatory.
+5. **Execution** — verified repository, persistence, scheduler, source-access, delivery, and Git capabilities; name where work will run only when useful, without making a vendor mandatory.
 6. **Recurring workflows** — available capabilities, existing equivalents, the owner's choice for each compatible recipe, proposed schedule, destination, access, and likely cost.
 7. **Approval boundaries** — exact consequential actions the owner is authorizing.
 

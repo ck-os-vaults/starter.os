@@ -93,7 +93,7 @@ end
 def ensure_update_git_ready(target)
   os_root = target.join("os")
   output, status = Open3.capture2e("git", "-C", os_root.to_s, "rev-parse", "--is-inside-work-tree")
-  stop("os/ is not protected by Git; establish and commit local Git history before apply") unless status.success? && output.strip == "true"
+  stop("os/ is not protected by Git; establish and commit working Git history before apply") unless status.success? && output.strip == "true"
 
   git_dir, git_dir_status = Open3.capture2e("git", "-C", os_root.to_s, "rev-parse", "--git-dir")
   stop("cannot inspect the os/ Git operation state") unless git_dir_status.success?

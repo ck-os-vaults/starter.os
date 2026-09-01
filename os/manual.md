@@ -1,7 +1,7 @@
 ---
 type: manual
 created: 2026-08-30
-reviewed: 2026-08-31
+reviewed: 2026-09-01
 status: living
 authority: reference
 source: starter-os
@@ -89,7 +89,7 @@ Git is part of the fully protected Starter.OS setup.
 
 Git on your computer protects you from bad edits because it keeps history. It does not protect you if the computer is lost or damaged.
 
-A private Git service such as GitHub, GitLab, or another host gives you an off-device copy. You choose one primary. Agents push only there.
+GitHub is the normal guided choice for a new owner because it gives you an off-device private copy. If you already use GitLab or another suitable service, you can keep it. The agent should handle the technical Git work wherever possible; you privately handle account sign-in, multifactor authentication, and recovery codes. You use one primary, and agents push only there.
 
 If you want another Git service too, it becomes an automatic mirror of the primary. The agent does not push separately to both. This prevents the two copies from quietly drifting apart.
 
@@ -133,13 +133,15 @@ Different agents have different abilities. One may read local files, another may
 
 **Local-first** means most work happens on your computer.
 
-**Cloud-first** means most work happens in a hosted service.
+**Cloud-first** means most work happens in a hosted service. The hosted agent still needs verified access to your private repository and every source or destination its work requires.
 
 **Local-on-demand** means cloud work is normal and the computer is used only for tasks that need local files or apps.
 
 **Hybrid** combines local and cloud work.
 
-No route is automatically best. The important rule is that your durable files and chosen Git primary stay clear. If the same file changes in two places, the agent must stop and show both versions instead of silently choosing the newest one.
+These names are simple descriptions, not choices you must make during setup and not promises that an environment supports everything. Setup checks what the agent can actually do: access and update the private repository, remain available when needed, schedule work, reach required sources, deliver to a stable home base, and verify Git protection.
+
+The repository brain can be useful on demand without an always-on computer. A full persistent Chief of Staff—with scheduled briefs, monitoring, and cross-project reconciliation—needs an always-available runtime with all required access. That runtime may be local or hosted. No route is automatically best. The important rule is that your durable files and chosen Git primary stay clear. If the same file changes in two places, the agent must stop and show both versions instead of silently choosing the newest one.
 
 ## What an agent may do
 

@@ -22,7 +22,7 @@ Follow the Git discovery in `QUICK-SETUP.md` for every in-scope repository.
 
 Stop before update if there is unexplained divergence, an unsafe detached state, a rebase or merge in progress, or unique uncommitted content without additional recovery coverage. Do not stash, reset, switch, pull, or discard work to make the update easier.
 
-If Git is missing, guide the owner through local Git setup and an initial recovery commit before applying the update. Local-only Git is allowed only with its device-loss limitation stated and recorded.
+If Git protection is missing, create an initial recovery commit and establish a private hosted primary before applying the update. Guide GitHub account security and private repository setup when no suitable hosted primary exists; preserve an existing suitable GitLab or other hosted primary when the owner prefers it. A local-only recovery point is incomplete protection and does not complete this gate.
 
 ## Step 3: create the deterministic plan
 

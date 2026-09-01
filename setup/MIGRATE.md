@@ -99,7 +99,7 @@ A failed check stops migration.
 
 ## Step 7: protect and cut over
 
-Follow `GIT-SETUP.md`. Preserve existing histories; do not copy `.git/` folders. Establish the approved local repositories, primary remotes, automatic mirrors, and recovery commit. Verify privacy and commit parity.
+Follow `GIT-SETUP.md`. Preserve existing histories; do not copy `.git/` folders. Establish the approved working repositories, private hosted primaries, automatic mirrors, and recovery commit. Guide GitHub setup when no suitable hosted primary exists. Verify privacy and commit parity.
 
 Cutover requires explicit owner approval after the preview and proof are shown. Deleting or retiring the old system is never part of migration.
 

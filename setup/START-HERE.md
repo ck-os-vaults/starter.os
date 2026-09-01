@@ -8,13 +8,13 @@ Paste this link into a file-capable AI agent:
 
 **https://github.com/ck-os-vaults/starter.os**
 
-Nothing else is required in the normal path. The repository's root `AGENTS.md` tells the agent to inspect first and guide the correct route:
+The link is the whole normal starting prompt when the agent can read repository instructions and access or create your private working repository. The root `AGENTS.md` tells the agent to verify those capabilities, inspect first, and guide the correct route:
 
 1. **New setup** when you do not have a personal system yet.
 2. **Migration** when you have another system whose files must be preserved.
 3. **Update** when you already use Starter.OS.
 
-If your agent does not follow repository instructions from a link, use this fallback sentence:
+If your agent cannot read the repository or cannot work with a private repository, it should name that limitation and help you move to a capable environment. If it can access the repository but does not follow its instructions from the link, use this fallback sentence:
 
 > Read the root `AGENTS.md` in this Starter.OS repository and guide me through the correct owner path.
 
@@ -36,14 +36,9 @@ You do not need to run commands, design folders, understand Git, or read the age
 
 Git version history is part of the fully protected Starter.OS path. The agent first finds out whether you already have Git and how it is configured.
 
-You choose one primary:
+GitHub is the normal guided primary for a new owner. If you do not already have a suitable private Git service, the agent helps you create and secure a GitHub account, create private repositories, and verify the first protected version before setup is complete. You handle sign-in, multifactor authentication, recovery codes, and secret values privately; the agent handles the technical Git work wherever possible.
 
-- GitHub;
-- GitLab;
-- another Git service; or
-- local Git only.
-
-A private off-device primary is strongly recommended. Local Git keeps file history but does not protect you if the computer is lost or damaged.
+If you already use GitLab or another suitable private Git host, the agent can preserve it as your primary when you prefer. Local-only Git may be used temporarily to create a recovery point, but it is incomplete protection because it does not protect you if the computer is lost or damaged.
 
 If you use a second Git service, the agent configures it as an automatic mirror from the primary. The agent pushes only to the primary and verifies that the mirror reaches the same commit.
 

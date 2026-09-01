@@ -1,8 +1,8 @@
 ---
 type: recovery
 created: 2026-08-29
-updated: 2026-08-30
-reviewed: 2026-08-30
+updated: 2026-09-01
+reviewed: 2026-09-01
 status: draft
 authority: canon
 source: ai
@@ -25,11 +25,11 @@ Use:
 
 - `verified`;
 - `configured but unverified`;
-- `local only; device loss not covered`;
+- `incomplete; device loss not covered`;
 - `owner declined`;
 - `unavailable`.
 
-GitHub, GitLab, another Git host, or local-only Git may be primary. Do not record credential-bearing URLs.
+GitHub is the normal guided primary for new owners. An existing suitable GitLab or other hosted primary may be preserved when the owner prefers it. Local-only Git is an incomplete recovery state, not a completed standard setup. Do not record credential-bearing URLs.
 
 ## Additional recovery layers
 
@@ -47,7 +47,7 @@ A planned layer is not a working backup. A successful upload is not a restore te
 
 1. Run repository preflight.
 2. Identify tracked, untracked, ignored, hidden, and external content.
-3. Create and read back the approved local Git commit.
+3. Create and read back the approved commit in the working repository.
 4. Verify the primary has that commit when one exists.
 5. Verify every enabled mirror has the same commit.
 6. Add a separate recovery point for anything the Git commit does not cover.

@@ -87,7 +87,8 @@ manual = File.file?("os/manual.md") ? File.read("os/manual.md") : ""
 
 public_url = "https://github.com/ck-os-vaults/starter.os"
 add.call("README does not lead with the one-link start") unless readme.include?(public_url) && readme.match?(/whole normal starting prompt/i)
-add.call("owner start does not use the repository link alone") unless start_here.include?(public_url) && start_here.match?(/Nothing else is required/i)
+add.call("owner start does not use the repository link as the normal prompt") unless start_here.include?(public_url) && start_here.match?(/whole normal starting prompt/i)
+add.call("owner start does not state required agent capabilities") unless start_here.match?(/read repository instructions/i) && start_here.match?(/private working repository/i)
 add.call("root AGENTS does not recognize the link-only handoff") unless root_agents.match?(/provides only the public Starter\.OS repository link/i)
 %w[setup migration update].each { |route| add.call("root AGENTS is missing #{route} routing") unless root_agents.match?(/#{route}/i) }
 
@@ -112,7 +113,11 @@ add.call("shared setup does not support adopt, decline, and defer") unless %w[ad
 add.call("shared setup does not prefer persistent destinations") unless quick_setup.match?(/persistent home-base destination/i) && quick_setup.match?(/new task per run/i)
 add.call("Git setup does not enforce one primary") unless git_setup.match?(/one primary/i)
 add.call("Git setup does not forbid routine second pushes") unless git_setup.match?(/Do not keep a second routine agent push target/i)
+add.call("Git setup does not make GitHub the normal guided primary") unless git_setup.match?(/GitHub.*normal guided private primary/im)
+add.call("Git setup does not require a private hosted primary for completed protection") unless git_setup.match?(/private hosted primary/im) && git_setup.match?(/do not call the standard setup complete/im)
 add.call("Git setup does not warn about local-only device loss") unless git_setup.match?(/local-only Git.*device loss/im)
+add.call("shared setup still forces an execution label") if quick_setup.match?(/local, cloud, on-demand, or hybrid execution needs/i)
+add.call("shared setup does not inventory execution capabilities") unless %w[repository persistence scheduler source-access delivery Git-verification].all? { |word| quick_setup.match?(/#{word}/i) }
 add.call("migration is not preserve-first") unless migration.match?(/preserve-first/i)
 %w[preserve copy transform merge exclude unresolved].each do |disposition|
   add.call("migration is missing #{disposition} disposition") unless migration.match?(/\b#{disposition}\b/i)

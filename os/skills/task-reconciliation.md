@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-08-30
-updated: 2026-08-31
-reviewed: 2026-08-31
+updated: 2026-09-01
+reviewed: 2026-09-01
 status: living
 authority: canon
 source: ai
@@ -16,7 +16,7 @@ source: ai
 
 ## procedure
 
-1. Identify the main Chief task, the last visible reconciliation, and only active or recently changed work since that cutoff.
+1. Identify the main Chief task, the last visible reconciliation, and only active or recently changed work since that cutoff when the environment can list them. Otherwise use durable project status files and an owner-provided handoff, and name any task state that could not be reached.
 2. Read compact status and final results instead of full transcripts. Capture material outcomes, confirmed decisions, blockers, owner questions, next actions and owners, and durable output locations.
 3. Surface duplicate work and conflicts. Never silently choose between contradictory claims.
 4. Keep routine reporting with its project. Include a project only when it affects priorities, requires owner attention, changes shared context, or creates a cross-project dependency.

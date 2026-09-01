@@ -18,9 +18,9 @@ Infer the private vault name and destination. Refuse a non-empty destination; us
 
 Follow the Git discovery in `QUICK-SETUP.md`. A first-time owner may already have repositories, accounts, preferred providers, or backup tools. Preserve them and avoid duplicate accounts or repositories.
 
-Propose independent local Git repositories for `os/` and `life/`. A real business receives its repository when created. The vault root and empty `biz/` container stay plain so repositories do not become accidentally nested.
+Propose independent working Git repositories for `os/` and `life/`. A real business receives its repository when created. The vault root and empty `biz/` container stay plain so repositories do not become accidentally nested.
 
-Offer one private off-device primary per repository. GitHub, GitLab, another host, or local-only Git may be chosen. Explain that local-only Git does not protect against device loss. Any second Git service must be an automatic mirror configured from the primary; agents push only to the primary.
+Require one private hosted primary per repository for the completed standard path. If the owner does not already have a suitable private Git host, guide secure GitHub account setup and private repository creation before adoption. Preserve an existing GitLab or other suitable hosted primary when the owner prefers it. A local-only recovery commit is a temporary incomplete state, not completed protection. Any second Git service must be an automatic mirror configured from the primary; agents push only to the primary.
 
 ## Step 3: use the shared approval card
 
@@ -60,7 +60,7 @@ Follow `GIT-SETUP.md`:
 
 1. initialize only the approved repositories that do not already exist;
 2. review privacy and secret checks;
-3. create and verify a local baseline commit;
+3. create and verify a baseline commit in the working repository;
 4. create or connect the approved private primary;
 5. verify visibility before personal content is pushed;
 6. push only to the primary;

@@ -8,6 +8,19 @@ Changes being developed belong under **Unreleased**. When a release is approved,
 
 ## [Unreleased]
 
+### Changed
+
+- Setup now verifies repository, persistence, scheduling, source-access, delivery, and Git capabilities instead of asking owners to choose a local-first, cloud-first, local-on-demand, or hybrid label.
+- GitHub is now the normal guided private primary for new owners without a suitable hosted Git service. Existing suitable GitLab or other hosted primaries may be preserved, while local-only Git is reported as incomplete device-loss protection.
+- The one-link start now states the capabilities an agent needs and provides a truthful fallback when it cannot read the repository or work with a private repository.
+- Git setup instructions now put the technical work on the agent and keep sign-in, multifactor authentication, recovery codes, and secret values private with the owner.
+- Task reconciliation can fall back to durable project status and owner-provided handoffs when the environment cannot list tasks.
+
+### Compatibility
+
+- The repository brain remains agent-, model-, and environment-agnostic. A full persistent Chief of Staff requires an always-available local or hosted runtime with verified repository, scheduler, source, and stable destination access.
+- Starter.OS 2.1's fully verified reference path is a local always-on environment. Other environments remain compatible or planned until their complete setup, working-task, update, recovery, and restore paths pass.
+
 ## [2.1.0] - 2026-08-31
 
 Starter.OS 2.1.0 refines recurring work around persistent home bases while preserving the 2.0 structure and update contract.

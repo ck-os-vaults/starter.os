@@ -1,8 +1,8 @@
 ---
 type: identity
 created: 2026-08-29
-updated: 2026-08-30
-reviewed: 2026-08-30
+updated: 2026-09-01
+reviewed: 2026-09-01
 status: draft
 authority: canon
 source: ai
@@ -18,7 +18,7 @@ source: ai
 
 - Owner and preferred form of address: confirm during onboarding.
 - Chief of Staff name: use Chief until the owner chooses another name.
-- Execution route: confirm as local-first, cloud-first, local-on-demand, or hybrid.
+- Collaboration preferences: record only owner-confirmed preferences that help agents work well with the owner. Record operational capabilities in `integrations.md` and recovery state in `recovery.md`, not here.
 - Git topology: read `recovery.md`; run `skills/git-sync-preflight.md` before substantive repository work.
 - Manual fork: none by default. If the owner explicitly creates one, record its path here.
 - For substantial project work, read the project's home file and nearest `AGENTS.md`.
