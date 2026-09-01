@@ -85,7 +85,7 @@ migration = File.file?("setup/MIGRATE.md") ? File.read("setup/MIGRATE.md") : ""
 update = File.file?("setup/UPDATE.md") ? File.read("setup/UPDATE.md") : ""
 manual = File.file?("os/manual.md") ? File.read("os/manual.md") : ""
 
-public_url = "https://github.com/ck-os-vaults/starter.os"
+public_url = "https://github.com/ck-os-vaults/starter-os-public"
 add.call("README does not lead with the one-link start") unless readme.include?(public_url) && readme.match?(/whole normal starting prompt/i)
 add.call("owner start does not use the repository link as the normal prompt") unless start_here.include?(public_url) && start_here.match?(/whole normal starting prompt/i)
 add.call("owner start does not state required agent capabilities") unless start_here.match?(/read repository instructions/i) && start_here.match?(/private working repository/i)

@@ -6,7 +6,7 @@ Starter.OS gives you a private repository brain and a Chief of Staff without mak
 
 Paste this link into a file-capable AI agent:
 
-**https://github.com/ck-os-vaults/starter.os**
+**https://github.com/ck-os-vaults/starter-os-public**
 
 The link is the whole normal starting prompt when the agent can read repository instructions and access or create your private working repository. The root `AGENTS.md` tells the agent to verify those capabilities, inspect first, and guide the correct route:
 

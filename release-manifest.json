@@ -231,7 +231,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "e4fcdd0ef7a26aa2bea474cc9a8546776e1f79971414b730b79957c7fd73c9bb"
+      "sha256": "ae4840e93f7ce0e9a094fec138aacea6a9fe2dc0f1c337cac8bc5bd5becc3aa5"
     },
     {
       "id": "os/manual.md",
@@ -547,7 +547,7 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "39bf99c0f70866160dc9f3b9816bd3c8216492092e69391db01b32721d771e48"
+      "sha256": "28bd214fd6562c6f8529f5276cb8ae0d96d0f62272022479d9736c2eeca71a0e"
     },
     {
       "path": "CLAUDE.md",
@@ -555,7 +555,7 @@
     },
     {
       "path": "LICENSE",
-      "sha256": "e2b86457e6771ca89c6cab76e15f75ebc82fbf704c1f7165cd46c6711b73d53d"
+      "sha256": "481b35fa8924b79134e8579577208a78694942aed656aca15a047364b0424409"
     },
     {
       "path": "LICENSE-CODE",
@@ -563,7 +563,7 @@
     },
     {
       "path": "LICENSE-CONTENT",
-      "sha256": "354397ee32f72c29fceaebeedeaf22bd44b3c15c2b6a4bfa6b460088cac3f4a1"
+      "sha256": "1eb75e92c6a34643917993c4e9c6f502f9636f9378a94d4ce6759337bf346ba3"
     },
     {
       "path": "biz/.gitkeep",
@@ -643,7 +643,7 @@
     },
     {
       "path": "os/license.md",
-      "sha256": "e4fcdd0ef7a26aa2bea474cc9a8546776e1f79971414b730b79957c7fd73c9bb"
+      "sha256": "ae4840e93f7ce0e9a094fec138aacea6a9fe2dc0f1c337cac8bc5bd5becc3aa5"
     },
     {
       "path": "os/manual.md",
@@ -755,7 +755,7 @@
     },
     {
       "path": "readme.md",
-      "sha256": "1c31cf460e6e0e86682a3e76edbbdd516ca4f4f2ec29ecf77d1636a3fa3812a1"
+      "sha256": "9590589b0b6f2b8a90cd77a9acbd971a693c73c60b2fd306294909052d7dd4d8"
     },
     {
       "path": "scripts/add-business.rb",
@@ -779,7 +779,7 @@
     },
     {
       "path": "scripts/validate-starter-kit.rb",
-      "sha256": "09764b7dc152a5a43f4997dc533ffe00fd9329bdd542ccbe35f08be8010b866a"
+      "sha256": "b16cbeb4b41b829a1f3e18f23f3089b9ce7fc412a42e8d1240d90b03fbf45af5"
     },
     {
       "path": "scripts/verify-migration.rb",
@@ -803,7 +803,7 @@
     },
     {
       "path": "setup/START-HERE.md",
-      "sha256": "83f86315c05c14c883e83cb75339074d5a5976f4e46f70a56f39cf9508cfffc1"
+      "sha256": "9a138b15fe589dda29dfaecff4688ad20aa8e0bf8bf20de6cba2429fd4106523"
     },
     {
       "path": "setup/UPDATE.md",

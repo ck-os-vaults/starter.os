@@ -19,7 +19,7 @@ Copyright (c) 2026 CK
 
 The full code license is in the public Starter.OS source at:
 
-https://github.com/ck-os-vaults/starter.os/blob/main/LICENSE-CODE
+https://github.com/ck-os-vaults/starter-os-public/blob/main/LICENSE-CODE
 
 ## Written content
 
@@ -28,7 +28,7 @@ Starter.OS documentation, the manual, Markdown skills, agent instructions, and t
 Attribution:
 
 - Starter.OS by CK
-- https://github.com/ck-os-vaults/starter.os
+- https://github.com/ck-os-vaults/starter-os-public
 - https://creativecommons.org/licenses/by/4.0/
 
 If you share modified content, say that changes were made and keep the attribution and license link.

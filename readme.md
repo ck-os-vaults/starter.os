@@ -6,7 +6,7 @@ Starter.OS is a free, person-agnostic repository brain for a private AI Chief of
 
 Copy this repository link and paste it into a file-capable agent:
 
-**https://github.com/ck-os-vaults/starter.os**
+**https://github.com/ck-os-vaults/starter-os-public**
 
 That is the whole normal starting prompt when the agent can read repository instructions and access or create your private working repository. The instructions tell the agent how to determine whether you need:
 

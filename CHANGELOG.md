@@ -112,6 +112,6 @@ Before apply, record and verify the exact local Git recovery commit for every af
 
 If validation fails, stop. Restore the affected repository from the named pre-update commit, restore uncovered content from its named backup, run `ruby os/validate-starter-os.rb`, and verify the primary and mirrors before resuming work.
 
-[Unreleased]: https://github.com/ck-os-vaults/starter.os/compare/v2.1.0...HEAD
-[2.1.0]: https://github.com/ck-os-vaults/starter.os/compare/bb7d3c744348c933b03181a7dffa0b6a8c8701ca...v2.1.0
-[2.0.0]: https://github.com/ck-os-vaults/starter.os/commit/bb7d3c744348c933b03181a7dffa0b6a8c8701ca
+[Unreleased]: https://github.com/ck-os-vaults/starter-os-public/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/ck-os-vaults/starter-os-public/compare/bb7d3c744348c933b03181a7dffa0b6a8c8701ca...v2.1.0
+[2.0.0]: https://github.com/ck-os-vaults/starter-os-public/commit/bb7d3c744348c933b03181a7dffa0b6a8c8701ca
