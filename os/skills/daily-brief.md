@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-updated: 2026-08-31
-reviewed: 2026-08-31
+updated: 2026-09-03
+reviewed: 2026-09-03
 status: living
 authority: canon
 source: ai
@@ -14,7 +14,7 @@ source: ai
 
 ## purpose
 
-Create a small owner-fit start-of-day/work-block plan that makes the next action obvious.
+Create a short plan that fits the owner's day and makes the next action clear.
 
 ## trigger
 

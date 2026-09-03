@@ -1,12 +1,14 @@
 {
   "format": 1,
   "product": "Starter.OS",
-  "version": "2.1.0",
-  "released": "2026-08-31",
+  "version": "2.2.0",
+  "status": "unreleased",
+  "released": null,
   "supported_updates": [
     "unversioned-legacy",
     "2.0.0",
-    "2.1.0"
+    "2.1.0",
+    "2.2.0"
   ],
   "licenses": {
     "code": "MIT",
@@ -61,7 +63,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "3db3ac28d6f6fca6373496d193499ce7e4f612d881a1c85bde2ddb51ec0b0ac3"
+      "sha256": "21860d76e18298d0088464d4dfc4a2946531e3cc410bf4919ccfa954bb455f1b"
     },
     {
       "id": "life/AGENTS.md",
@@ -101,7 +103,7 @@
       "permitted_editor": "owner and approved agents",
       "update": "seed-once-then-preserve",
       "deprecation": "preserve-and-report",
-      "sha256": "7779559c00369adf216708a033b4bf67ff64fd8a524b6a6aa3c2c5f5b72b9365"
+      "sha256": "5cc0d5b5d29b14d417eabaac248d0c4e7f2a242bd0394d5c1583aeeae4684b90"
     },
     {
       "id": "life/now.md",
@@ -191,7 +193,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "5a41d21f5bc7029c5978f6431b29535b80007aabfb640cde7b5c46564ea5dbb8"
+      "sha256": "57c8326df8f407f3dfe31ae4aa7339eb0225895dd19531671020a6fcb21dea69"
     },
     {
       "id": "os/CLAUDE.md",
@@ -241,7 +243,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "3825af061a0b363994cb94aba39fe6639d51549503960a016f301a02a82088ea"
+      "sha256": "05b965e074784e6681bb000aa257b12da508d344c45e371143d4ebd112bdf52f"
     },
     {
       "id": "os/me.md",
@@ -261,7 +263,7 @@
       "permitted_editor": "owner and approved agents",
       "update": "seed-once-then-preserve",
       "deprecation": "preserve-and-report",
-      "sha256": "662e61dd7f4c0d3fb48192a32315fa34e34a68f1600297d0dfdfd7098e275dde"
+      "sha256": "f35208017a6522a77ee572350fe724d19f98893948544d389f3f938053be5a75"
     },
     {
       "id": "os/retrieval.md",
@@ -281,7 +283,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "6cb012ac94769faa781c5bd88c5d0b2912145aceb3317ce6846f7b3686e69c26"
+      "sha256": "7e51bdbf3eacd6a37162e54207302cd9da15cdaa693a35ffd10ef33374e451c9"
     },
     {
       "id": "os/scripts/add-project.rb",
@@ -301,7 +303,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "b599bc95ad4a6b9c8804172ff8c8eda012d778a7ffa380431105447a41fe6fe4"
+      "sha256": "6ed20ce85f1d3ae0e8fbe7edca2513175c364473b983d79c91deb3c3947a0457"
     },
     {
       "id": "os/skills/browser-use.md",
@@ -321,7 +323,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "6d3f8be0dfc77a7f2501874c5d34fa512e809c9c6401070282c72ee9692c89dd"
+      "sha256": "1b01f7057b1137b956f2ee9229e14a7f001837f771180c9a83f7c33b7101023f"
     },
     {
       "id": "os/skills/decision-log.md",
@@ -341,7 +343,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "24d80987b56e5d1c098a63bd8793d0039fc70048fa60831ea37ce0137f905047"
+      "sha256": "5812fd5fc3d947a8ce923ed643089971c06017b4002d9436806b507859e43fb1"
     },
     {
       "id": "os/skills/drift-recovery.md",
@@ -361,7 +363,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "9a37daa9ec96e92c71cce13c6a89e11dad041f02f4202bef86feb1c346afdf86"
+      "sha256": "2e5ea73ac8b28a2c1134fc123b7714aafdef4af6e414a0fc7adb686c4c893857"
     },
     {
       "id": "os/skills/git-sync-preflight.md",
@@ -411,7 +413,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "c67410b2c74dad9b7fefe3cd42af4f5c51fcc1ca7ceadce51c88dc7f7ac1491c"
+      "sha256": "3c9f1d1d5e7701ccd00162bc4547b4884ed0772c55121a0bcd459416fb3c17aa"
     },
     {
       "id": "os/skills/security-sweep.md",
@@ -431,7 +433,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "af884247435ef6671318c89ec88b12e5f4bf23156c69e493083612ae724a77b3"
+      "sha256": "9b5ed8f304d42874f0ed2355cb17773fd9c192465d5229d816ea77165d77e191"
     },
     {
       "id": "os/skills/vault-maintenance.md",
@@ -481,7 +483,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "3237c6fc7a02d1534081a296303ec82fb7af0ffc5908911638e0766c80d21d86"
+      "sha256": "787d1f7b815ca55f899b427889a0fcd0b25e5f6d0359e513dbf1da1162816f74"
     },
     {
       "id": "os/templates/root-AGENTS.txt",
@@ -511,7 +513,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "ad58036de4b20e89963d2e98f965a406d0cedf2c18e28125f0e413422fc4cc95"
+      "sha256": "d61cb8fdcfdaacdff01f550d3e1e80682a9bc414db53a8e093af14f48d7cb911"
     },
     {
       "id": "os/vault-map.md",
@@ -521,7 +523,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "c8a3917864dc3faa6a0777b906092561f806d7381da0b29f6a2cf2bb5ba3f5e4"
+      "sha256": "8eab818fb5abb01277fc1189af640350ccdeaa18a40a19a861321583315ce19b"
     }
   ],
   "distribution_files": [
@@ -531,7 +533,7 @@
     },
     {
       "path": ".github/readme.md",
-      "sha256": "99716a7686bb86f6cfedb43d0d4acba9b1bc4fb6b3fbd526b41685d90fb635db"
+      "sha256": "391f29c0086b78a7a2fa9a7a67663d571b13f05bd60da0de91e6d313f54d5c29"
     },
     {
       "path": ".github/workflows/gitlab-mirror.yml",
@@ -539,15 +541,15 @@
     },
     {
       "path": ".gitignore",
-      "sha256": "d925b2df5b04f29d6a03dcb44459f24b22394623c1067344059c42b62ada3a09"
+      "sha256": "ef3c8b080abbcff6d5c04719e049da8ff650296a3b606c14fa16a4e34b200d41"
     },
     {
       "path": "AGENTS.md",
-      "sha256": "ed2c77c55a30acb064a2fd3ed7d30d634fbf9e54f255f64adc4f1cb72749ed6d"
+      "sha256": "68bcfd76419d4da6b549114ac1fbc8d072002500be05bfd0cce66a2ace014bea"
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "47691fcb339995e24e77ebd284c296c5cc48a6c6f6f8e42f40a4840223bd2f4d"
+      "sha256": "d9a5eeb89a781b1107f4333640712401b88619122f7c904020a1ba7a9a77d4e1"
     },
     {
       "path": "CLAUDE.md",
@@ -567,7 +569,7 @@
     },
     {
       "path": "life/.gitignore",
-      "sha256": "3db3ac28d6f6fca6373496d193499ce7e4f612d881a1c85bde2ddb51ec0b0ac3"
+      "sha256": "21860d76e18298d0088464d4dfc4a2946531e3cc410bf4919ccfa954bb455f1b"
     },
     {
       "path": "life/AGENTS.md",
@@ -583,7 +585,7 @@
     },
     {
       "path": "life/knowledge-map.md",
-      "sha256": "7779559c00369adf216708a033b4bf67ff64fd8a524b6a6aa3c2c5f5b72b9365"
+      "sha256": "5cc0d5b5d29b14d417eabaac248d0c4e7f2a242bd0394d5c1583aeeae4684b90"
     },
     {
       "path": "life/now.md",
@@ -619,7 +621,7 @@
     },
     {
       "path": "os/AGENTS.md",
-      "sha256": "5a41d21f5bc7029c5978f6431b29535b80007aabfb640cde7b5c46564ea5dbb8"
+      "sha256": "57c8326df8f407f3dfe31ae4aa7339eb0225895dd19531671020a6fcb21dea69"
     },
     {
       "path": "os/CLAUDE.md",
@@ -639,7 +641,7 @@
     },
     {
       "path": "os/manual.md",
-      "sha256": "3825af061a0b363994cb94aba39fe6639d51549503960a016f301a02a82088ea"
+      "sha256": "05b965e074784e6681bb000aa257b12da508d344c45e371143d4ebd112bdf52f"
     },
     {
       "path": "os/me.md",
@@ -647,7 +649,7 @@
     },
     {
       "path": "os/recovery.md",
-      "sha256": "662e61dd7f4c0d3fb48192a32315fa34e34a68f1600297d0dfdfd7098e275dde"
+      "sha256": "f35208017a6522a77ee572350fe724d19f98893948544d389f3f938053be5a75"
     },
     {
       "path": "os/retrieval.md",
@@ -655,7 +657,7 @@
     },
     {
       "path": "os/skill-map.md",
-      "sha256": "b599bc95ad4a6b9c8804172ff8c8eda012d778a7ffa380431105447a41fe6fe4"
+      "sha256": "6ed20ce85f1d3ae0e8fbe7edca2513175c364473b983d79c91deb3c3947a0457"
     },
     {
       "path": "os/skills/browser-use.md",
@@ -663,7 +665,7 @@
     },
     {
       "path": "os/skills/daily-brief.md",
-      "sha256": "6d3f8be0dfc77a7f2501874c5d34fa512e809c9c6401070282c72ee9692c89dd"
+      "sha256": "1b01f7057b1137b956f2ee9229e14a7f001837f771180c9a83f7c33b7101023f"
     },
     {
       "path": "os/skills/decision-log.md",
@@ -671,7 +673,7 @@
     },
     {
       "path": "os/skills/distill.md",
-      "sha256": "24d80987b56e5d1c098a63bd8793d0039fc70048fa60831ea37ce0137f905047"
+      "sha256": "5812fd5fc3d947a8ce923ed643089971c06017b4002d9436806b507859e43fb1"
     },
     {
       "path": "os/skills/drift-recovery.md",
@@ -679,7 +681,7 @@
     },
     {
       "path": "os/skills/eod-wrap.md",
-      "sha256": "9a37daa9ec96e92c71cce13c6a89e11dad041f02f4202bef86feb1c346afdf86"
+      "sha256": "2e5ea73ac8b28a2c1134fc123b7714aafdef4af6e414a0fc7adb686c4c893857"
     },
     {
       "path": "os/skills/git-sync-preflight.md",
@@ -699,7 +701,7 @@
     },
     {
       "path": "os/skills/security-intake.md",
-      "sha256": "c67410b2c74dad9b7fefe3cd42af4f5c51fcc1ca7ceadce51c88dc7f7ac1491c"
+      "sha256": "3c9f1d1d5e7701ccd00162bc4547b4884ed0772c55121a0bcd459416fb3c17aa"
     },
     {
       "path": "os/skills/security-sweep.md",
@@ -707,7 +709,7 @@
     },
     {
       "path": "os/skills/task-reconciliation.md",
-      "sha256": "af884247435ef6671318c89ec88b12e5f4bf23156c69e493083612ae724a77b3"
+      "sha256": "9b5ed8f304d42874f0ed2355cb17773fd9c192465d5229d816ea77165d77e191"
     },
     {
       "path": "os/skills/vault-maintenance.md",
@@ -727,7 +729,7 @@
     },
     {
       "path": "os/templates/readme.md",
-      "sha256": "3237c6fc7a02d1534081a296303ec82fb7af0ffc5908911638e0766c80d21d86"
+      "sha256": "787d1f7b815ca55f899b427889a0fcd0b25e5f6d0359e513dbf1da1162816f74"
     },
     {
       "path": "os/templates/root-AGENTS.txt",
@@ -739,39 +741,39 @@
     },
     {
       "path": "os/validate-starter-os.rb",
-      "sha256": "ad58036de4b20e89963d2e98f965a406d0cedf2c18e28125f0e413422fc4cc95"
+      "sha256": "d61cb8fdcfdaacdff01f550d3e1e80682a9bc414db53a8e093af14f48d7cb911"
     },
     {
       "path": "os/vault-map.md",
-      "sha256": "c8a3917864dc3faa6a0777b906092561f806d7381da0b29f6a2cf2bb5ba3f5e4"
+      "sha256": "8eab818fb5abb01277fc1189af640350ccdeaa18a40a19a861321583315ce19b"
     },
     {
       "path": "readme.md",
-      "sha256": "d22eb88179fa660af094f6a55f8d7ee583a41f0c3752c4d457aa8cfb877aa5b7"
+      "sha256": "db5196a339a160c1a0d4a6ed724ea335009f4631c3fac5d6cc852193774bd6fa"
     },
     {
       "path": "setup/AGENT-SETUP.md",
-      "sha256": "02778d24366bd61969fb84399a632a61ca207f224e7d57332472b2f5ac7e6dd1"
+      "sha256": "3ae9a4db0342255d9c10caf3df3a8ce07db1a7412cabcd121f9b17b7d5377df3"
     },
     {
       "path": "setup/GIT-SETUP.md",
-      "sha256": "571a1724a7fd4e515c3739e632190f2c81130d6c7a68be38ff9f697c8a5315cf"
+      "sha256": "bba553423e6cc250c7ad2b7ff3df21035b8238bc2a5d2b09e0dfbc7791aa6b93"
     },
     {
       "path": "setup/MIGRATE.md",
-      "sha256": "03c4afabc97b2485afeb5107dfa6cf7659d3ce896c679cb07bd55cfa4c28859d"
+      "sha256": "b995038f60a1b488a3889f1f4e3466be33be66c46f406ab77bce1680bd36e1f2"
     },
     {
       "path": "setup/QUICK-SETUP.md",
-      "sha256": "e92a1aca4d51e83e6eef0ac38fe651166d662880e3d467c264a18d5165978a45"
+      "sha256": "1ace4bb7304dc8e3855b91c27db1462585f83a0e0cb46c075a2383cf4a5620cc"
     },
     {
       "path": "setup/START-HERE.md",
-      "sha256": "9759afe7263930655bbbe3ee0a86194b85348651b0a3cea6c969c44fd436c5a3"
+      "sha256": "2bf08d8bf05bb3552e108e860e3ab054e5afc17ef3b069eaac14f41b59942516"
     },
     {
       "path": "setup/UPDATE.md",
-      "sha256": "fab8b6e9ea006fec80e986bb9b3a9ed2f0e370045f95cedf2f71db8471d9b463"
+      "sha256": "d8e2fc20c292c00a8680761cbb729b9a7c5a46be1f37c002774e057a6a4883dd"
     },
     {
       "path": "setup/legal/LICENSE-CODE",
@@ -783,7 +785,7 @@
     },
     {
       "path": "setup/scripts/add-business.rb",
-      "sha256": "6cb012ac94769faa781c5bd88c5d0b2912145aceb3317ce6846f7b3686e69c26"
+      "sha256": "7e51bdbf3eacd6a37162e54207302cd9da15cdaa693a35ffd10ef33374e451c9"
     },
     {
       "path": "setup/scripts/add-project.rb",
@@ -791,7 +793,7 @@
     },
     {
       "path": "setup/scripts/build-release-manifest.rb",
-      "sha256": "92ef7932f2a62d84e162f62d5a77651690de565459a8599a8be7d95ae9b29ab7"
+      "sha256": "9f393b93fe61f575aca75af063293392e4ef9cbbf02ebc7c27f232589ddea34b"
     },
     {
       "path": "setup/scripts/create-vault.rb",
@@ -799,15 +801,19 @@
     },
     {
       "path": "setup/scripts/update-vault.rb",
-      "sha256": "683b6ce56c52a36084a0edc7ad12fe7e50bf13903975ddb3da5a48fc24ef375e"
+      "sha256": "4d51ef1328b22de439370a21753eb1db2e5eda858c88e02673e6b8b84ceea0a3"
+    },
+    {
+      "path": "setup/scripts/validate-source.rb",
+      "sha256": "52fae479b7798539fdb6dec344842999cc62a2cfe849bfacdc2eb121bf1b6638"
     },
     {
       "path": "setup/scripts/validate-starter-kit.rb",
-      "sha256": "0f6b919dfb14141e49b5a02125a412f3b1e0584381e8c23354b669f0e53d7985"
+      "sha256": "a4f7f169302880fca8dbb0c01c64404aac39d4bb61ac747b01b791b276a48bcf"
     },
     {
       "path": "setup/scripts/verify-migration.rb",
-      "sha256": "307282fd5fca27b3eb28ca315e778e3391985a712866fccc702774bed0027765"
+      "sha256": "4a93f0fa1855d27b8aff01339b633545f398c22e4f2d07ac7c19b2dcfc7db0f6"
     }
   ]
 }

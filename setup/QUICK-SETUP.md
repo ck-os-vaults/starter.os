@@ -1,101 +1,99 @@
-# Shared guided setup protocol
+# Protect, review, ask, improve, prove
 
-> **Audience: Agent only.** Use this from setup, migration, or update. The owner normally provides only the public repository link.
+> **Audience: Agent only.** Use this shared process for setup, migration, and update. Keep explanations short and use ordinary language.
 
-## 1. Determine the route read-only
+## 1. Protect
 
-Inspect only enough to distinguish:
+Inspect read-only before creating, moving, replacing, publishing, scheduling, or deleting anything.
 
-- **setup** — no existing personal system to preserve;
-- **migration** — another personal system exists;
-- **update** — an existing Starter.OS exists.
+Choose the route:
 
-Do not mutate, install, authenticate, clone over an existing folder, or inspect unrelated private locations. If the route remains genuinely ambiguous, ask one plain question.
+- **Setup.** There are no existing personal files or system to preserve.
+- **Migration.** Existing personal files or another system must be preserved.
+- **Update.** An existing Starter.OS is changing to a newer version.
 
-## 2. Discover Git before proposing changes
+For migration and update, no mutation is allowed until the complete current state has a usable recovery route. Identify:
 
-For every in-scope repository or proposed repository, determine without exposing credentials:
+- every in-scope file, repository, remote, mirror, uncommitted change, and existing routine;
+- tracked, untracked, ignored, hidden, and externally stored content;
+- one readable Git recovery commit for each repository;
+- matching commits at the verified private primary and enabled mirrors;
+- a separate local recovery copy outside the working OS for anything Git does not cover;
+- the exact restore steps.
 
-- exact local path and whether it is a Git repository;
-- current branch, working-tree state, untracked work, and last commit;
-- configured remotes, provider, default branch, and reachable commit identity;
-- which remote currently acts as primary;
-- whether another service receives direct pushes or automatic mirroring;
-- visibility when it can be verified safely;
-- whether local history, the primary, and every mirror agree;
-- which unique files are outside Git coverage.
+For migration, snapshot the source and leave it untouched. For update, keep the recovery copy until validation succeeds and the owner accepts the result. Do not call the state fully protected while anything needed for restoration remains unverified.
 
-Do not pull, merge, switch, stash, rewrite, initialize, create a remote, or change configuration during discovery. Preserve existing history.
+## 2. Review
 
-## 3. Infer first, ask once
+Critically compare the current system with the proposed result. Decide routine, reversible improvements from evidence instead of interviewing the owner about every file.
 
-Infer names, paths, real projects, businesses, repository structure, execution capabilities, timezone, existing automations, and approval boundaries from current evidence.
+Classify every relevant path as unchanged, owner-owned, safe managed update, customized, new, moved with reason, excluded with reason, or unresolved. Unknown files are owner-owned.
 
-Ask one compact group only for material choices that cannot be inferred safely. Usually these are:
+Give special care to large or customized `AGENTS.md`, `CLAUDE.md`, and other instruction files:
 
-- desired vault name and destination;
-- optional name for the Chief of Staff;
-- confirmation of the setup, migration, or update route;
-- the chosen hosted primary when an existing suitable service should be preserved instead of the default guided GitHub path;
-- whether the owner can complete private GitHub account and repository setup when no suitable hosted primary exists;
-- ambiguous file ownership or proposed structural changes;
-- any missing repository, persistence, scheduler, source-access, delivery, or Git-verification capability that changes which workflows can operate;
-- which compatible recurring workflows, if any, the owner wants to adopt, decline, or defer.
+1. preserve the complete original in the recovery state;
+2. identify shared operating rules, owner facts, integrations, project or business rules, stale duplicates, and possible secrets;
+3. keep current Starter.OS entry and safety rules at their managed paths;
+4. place useful owner information in its proper `os/`, `life/`, project, or business home;
+5. never replace the original with a summary unless that transformation is shown and approved;
+6. surface only real conflicts or uncertain meaning for an owner decision.
 
-Do not conduct a biography, tool, or future-feature interview.
+Review existing Git topology and the environment's repository, persistence, scheduler, source-access, delivery, and Git-verification capabilities. Each real `biz/<business>/` must finish as its own independent Git repository. The vault root and empty `biz/` container are not repositories.
 
-## 4. Show one approval card
+## 3. Ask
 
-Include only relevant sections:
+Infer what is safe from the evidence. Ask one compact group of questions only for choices that materially change the result, such as:
 
-1. **Route and result** — setup, preserve-first migration, or update; exact source and destination.
-2. **Files** — what changes, what remains untouched, and every conflict or unresolved item.
-3. **Git and recovery** — repositories, one primary for each, optional automatic mirrors, the recovery point, and uncovered content.
-4. **Ownership** — proposed Chief, projects, and businesses only when real work supports them.
-5. **Execution** — verified repository, persistence, scheduler, source-access, delivery, and Git capabilities; name where work will run only when useful, without making a vendor mandatory.
-6. **Recurring workflows** — available capabilities, existing equivalents, the owner's choice for each compatible recipe, proposed schedule, destination, access, and likely cost.
-7. **Source cleanup** — whether the public Starter.OS source is remote-only, a temporary checkout or download, or an intentional maintainer checkout; name the exact temporary path proposed for removal.
-8. **Approval boundaries** — exact consequential actions the owner is authorizing, including any temporary-source deletion.
+- an unresolved conflict or unclear personal instruction;
+- the destination or name when it cannot be inferred safely;
+- a structural change, deletion, publication, account, repository, or privacy choice;
+- missing recovery coverage;
+- which compatible optional routines the owner wants to adopt, decline, or defer.
+
+Then show one short approval card:
+
+1. result and exact locations;
+2. protection and restore route;
+3. changes, preserved work, and unresolved items;
+4. Git primaries and optional automatic mirrors;
+5. optional routines and source cleanup;
+6. exact consequential actions being approved.
 
 Wait for approval. Silence is not approval.
 
-## 5. Recurring workflow choice contract
+## 4. Improve
 
-First verify the available scheduler, persistent task destinations, source access, permissions, existing routines, and meaningful owner customizations. Then explain only compatible recipes in plain language:
+Apply only the reviewed and approved plan using the matching route instructions.
 
-- `Morning Brief`: calendar, tasks, project state, week ahead, and a short owner check-in delivered to the persistent Chief of Staff home base.
-- `News Report`: owner-selected sources, citations, layman's summaries, relevance, and `adopt`, `test`, `watch`, or `ignore` recommendations.
-- `System Security Watch`: deterministic checks first, read-only and fail-closed, silent after complete clean coverage, and visible only for material risk or incomplete coverage.
-- `Task Reconciliation`: internal input to the Morning Brief or an explicit checkpoint, not a separate owner-facing report by default.
+- Preserve owner-owned and unknown content.
+- Replace managed files only when their installed identity is known and unchanged.
+- Reconcile customized instruction files; do not overwrite or keep a stale controlling file blindly.
+- Push only to each repository's chosen primary. Secondary services are automatic mirrors.
+- A new business is incomplete until `biz/<business>/` has its own verified Git history and private hosted primary.
+- Suggest only optional routines supported by the owner's verified tools. Let the owner adopt, decline, or defer each one. Update equivalents instead of creating duplicates, prefer an existing persistent home-base destination, and do not create a new task for every run.
 
-Let the owner adopt, decline, or defer each compatible recipe. When accepted, locate equivalent existing routines by purpose as well as name, update instead of duplicate, use the available owner-approved scheduler, and point the instructions to the matching portable skill. Prefer a persistent home-base destination when supported and do not create a new task per run. No particular model, agent, provider, source, or fixed schedule is required.
+## 5. Prove
 
-Verify name, schedule, timezone, destination, instructions, source access, runtime or model, active status, and first eligible run. Report `verified`, `configured but unverified`, `unavailable`, or `owner declined`.
+Run the route-specific tools and full installed validation. Compare the finished state with the protected starting inventory and prove:
 
-## 6. Finish with proof
+- the migration source content and recorded Git state stayed unchanged or every updated path has an exact disposition;
+- no owner file or instruction disappeared silently;
+- intended changes are the only changes;
+- every affected repository has a readable local recovery commit;
+- every private primary and enabled mirror reaches the expected commit;
+- every real business is its own repository;
+- optional routines are verified, declined, deferred, unavailable, or clearly unverified;
+- the exact rollback route still works.
 
-Run the route-specific tools and full installed validation. Return a concise receipt containing:
+Give one short receipt: version, result, preserved work, unresolved items, local Git proof, hosted-primary and mirror proof, uncovered-file backup, validation, and rollback. State which checks were automated and which were verified separately. Do not call the route complete while a required check is assumed.
 
-- installed or target version;
-- files changed, preserved, forked, deferred, or unresolved;
-- Git primary and mirror commit identities;
-- recovery point and exact rollback route;
-- recurring workflow status;
-- validation results;
-- distribution-source cleanup status;
-- anything still unverified.
-
-Do not call a route complete while a required check is merely assumed.
-
-## 7. Clean up the distribution source
+## After success: clean up the public source
 
 The installed private system never keeps `setup/`. Future updates use a fresh current source from the canonical public repository link.
 
-After the private system validates and its hosted Git primary is verified, classify the public distribution source:
+- **Remote-only access.** Nothing local needs cleanup.
+- **Temporary checkout or download.** Remove the whole copy only when the exact path and deletion were approved. First prove that it contains no owner files, credentials, unique work, or uncommitted changes.
+- **Intentional maintainer or product checkout.** Leave it intact.
+- **Pre-existing or uncertain folder.** Leave it intact and report why.
 
-- **Remote-only access** — nothing local needs cleanup.
-- **Temporary checkout or download created only for this route** — verify the exact folder contains no owner files, credentials, unique work, or uncommitted changes. Remove the whole temporary source only when its exact path and deletion were approved in the approval card; otherwise report the path and offer cleanup.
-- **Intentional maintainer or product checkout** — leave it intact with `setup/`, even when the route is complete.
-- **Pre-existing or changed folder with uncertain ownership** — leave it intact and report why it was not removed.
-
-Never delete individual setup files from a public source, never remove a source merely because it looks stale, and never treat the owner's old personal system in a migration as temporary distribution material. Report the cleanup result in the final receipt.
+Never delete individual setup files, a recovery copy, or the owner's old migration source as installer cleanup.

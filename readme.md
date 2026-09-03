@@ -1,6 +1,6 @@
 # Starter.OS
 
-Starter.OS is a free, person-agnostic repository brain for a private AI Chief of Staff. Your files are the durable source of truth. Models, agents, apps, and computers are replaceable ways to work with them.
+Starter.OS is a free repository brain for a private AI Chief of Staff. It starts empty and works for any owner. Your files hold the lasting information. You can change the AI, app, or computer without rebuilding the system.
 
 ## Start with one link
 
@@ -8,13 +8,13 @@ Copy this repository link and paste it into a file-capable agent:
 
 **https://github.com/ck-os-vaults/starter-os-public**
 
-That is the whole normal starting prompt when the agent can read repository instructions and access or create your private working repository. The instructions tell the agent how to determine whether you need:
+That link is the whole starting prompt when the agent can read repository instructions, work in your private files, use Git, and run the included Ruby checking tools. The instructions help the agent determine whether you need:
 
 1. a new Starter.OS setup;
 2. a preserve-first migration from another system; or
 3. an update to an existing Starter.OS.
 
-The agent will inspect first, explain the plan in plain language, and wait for approval before consequential changes. [`setup/START-HERE.md`](setup/START-HERE.md) explains the same process if you want to read it yourself.
+The agent follows one simple process: **Protect → Review → Ask → Improve → Prove**. It saves the current state before changing it. It reviews your changes, asks only about real decisions, and checks that nothing was lost. [`setup/START-HERE.md`](setup/START-HERE.md) explains the process.
 
 ## What it creates
 
@@ -38,15 +38,16 @@ The public repository keeps installation routes, release machinery, detailed lic
 - configures any secondary Git service as an automatic mirror of the primary;
 - preserves existing files before reorganizing or updating anything;
 - validates the finished system and gives a recovery receipt;
+- makes every real business folder its own private Git repository when that business is created;
 - explains optional recurring workflows, checks what the owner's tools can actually support, and creates or updates only the routines the owner accepts.
 
 Git is part of the fully protected standard path. GitHub is where Starter.OS is distributed and is the normal guided private primary for a new owner. An existing suitable GitLab or other hosted primary may be preserved when the owner prefers it. Local-only Git is an incomplete recovery state because it does not protect against device loss. Agents handle the technical Git work wherever possible and push only to the chosen primary.
 
-The repository brain can run anywhere a capable agent can access it. A full persistent Chief of Staff workflow additionally needs an always-available runtime with repository, scheduling, source, and stable delivery access. That runtime may be local or hosted. Starter.OS checks actual capabilities instead of forcing a local, cloud, or hybrid label, and it calls an environment fully supported only after the complete path is tested.
+The repository brain can run anywhere a capable agent can reach it. Setup, migration, and update need an environment that can work with files, Git, and the included Ruby tools. A persistent Chief of Staff also needs an always-available agent that can reach the files, schedule, sources, and destination. That agent may run locally or online. Starter.OS checks what the environment can actually do instead of forcing a local, cloud, or hybrid label.
 
 ## Agent and model independence
 
-The portable product is the repository itself: Markdown instructions, skills, templates, manifests, and deterministic tools. Codex, ChatGPT, Claude, Hermes, Goose, and other file-capable agents can use the same foundation. Provider-specific files are thin adapters, not the source of truth. Owners are encouraged to customize or fork their private copy.
+The repository is the product. It contains Markdown instructions, skills, templates, release records, and checking tools. Codex, ChatGPT, Claude, Hermes, Goose, and other file-capable agents can use the same files. Provider-specific files only point back to the shared rules. Owners may customize their private copy.
 
 ## Skills and automations
 
@@ -64,4 +65,4 @@ Permanent version history, current unreleased work, compatibility, limitations, 
 
 ## Maintainers
 
-Run `ruby setup/scripts/validate-starter-kit.rb` before publication. The release manifest and validators cover clean installation, migration accounting, managed-file updates, protected manual behavior, and privacy checks.
+Run `ruby setup/scripts/validate-starter-kit.rb` before publication. The release manifest and validators check clean installation, migration accounting, managed-file updates, protected manual behavior, local Git history, and privacy. Hosted primaries and mirrors are checked separately and reported in `os/recovery.md`.

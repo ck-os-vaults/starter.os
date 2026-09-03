@@ -2,11 +2,21 @@
 
 All notable Starter.OS changes are recorded here.
 
-Starter.OS follows semantic versioning: major versions may require an owner-visible migration or change the operating contract, minor versions add backward-compatible capability, and patch versions correct behavior or documentation without changing that contract.
+Starter.OS follows semantic versioning. Major versions may require a migration or change the operating contract. Minor versions add compatible features. Patch versions fix behavior or documentation without changing the contract.
 
 Changes being developed belong under **Unreleased**. When a release is approved, those entries move into a dated version section. Starter.OS history before 2.0.0 was unversioned.
 
 ## [Unreleased]
+
+Starter.OS 2.2.0 is being prepared with one five-step process and stricter recovery and Git checks. Move this section into a dated 2.2.0 release only when the final commit and tag are published together.
+
+### Added
+
+- One shared five-step migration and update contract: **Protect → Review → Ask → Improve → Prove**.
+- Rules for reviewing large customized agent-instruction files without overwriting them or replacing them with a summary.
+- A required local recovery copy outside the working OS for important content Git does not cover.
+- A completion rule that every real `biz/<business>/` is its own Git repository with a verified private hosted primary.
+- A fast public-source check for setup, migration, and update. The full historical release suite remains a maintainer gate.
 
 ### Changed
 
@@ -15,13 +25,29 @@ Changes being developed belong under **Unreleased**. When a release is approved,
 - The one-link start now states the capabilities an agent needs and provides a truthful fallback when it cannot read the repository or work with a private repository.
 - Git setup instructions now put the technical work on the agent and keep sign-in, multifactor authentication, recovery codes, and secret values private with the owner.
 - Task reconciliation can fall back to durable project status and owner-provided handoffs when the environment cannot list tasks.
-- Public installation machinery is now grouped under `setup/`: scripts in `setup/scripts/`, detailed licenses in `setup/legal/`, and the machine-readable release manifest at `setup/release-manifest.json`. The public root now emphasizes the `os/`, `life/`, and installed `biz/` model.
+- Public setup files now live under `setup/`. This keeps the public root focused on `os/`, `life/`, and `biz/`.
 - Setup, migration, and update now classify the public distribution source at completion. An approved temporary checkout can be removed only after proving it contains no owner work; maintainer checkouts and migration sources remain intact, and future updates use a fresh canonical source.
+- Owner-facing setup language is shorter and technical safeguards remain in agent-only instructions.
+
+### Fixed
+
+- Public-source routing now uses Starter.OS marker files instead of assuming Git presence identifies the public product.
+- Maintainer documentation now names the correct canonical GitHub repository while preserving the existing GitLab mirror destination.
+- Owner personalization now keeps the required `life/wiki/owner.md` path instead of directing agents to rename it.
+- Local validation now states clearly that hosted primaries, mirrors, and additional backups require separate verification.
+- Installed and migration validation now ignore harmless computer-created root metadata while continuing to reject unknown owner files at the root.
+
+### Security
+
+- Update apply now requires clean, independent Git repositories with readable recovery commits for both `os/` and `life/`.
+- Installed validation now rejects `os/`, `life/`, or a real business without independent Git history and a readable commit.
+- Migration snapshots now detect content, directory, file-mode, and important Git-state changes.
+- Migration verification rejects automatic symbolic-link copying and requires reviewed destination digests for transformed or merged files.
 
 ### Compatibility
 
-- The repository brain remains agent-, model-, and environment-agnostic. A full persistent Chief of Staff requires an always-available local or hosted runtime with verified repository, scheduler, source, and stable destination access.
-- Starter.OS 2.1's fully verified reference path is a local always-on environment. Other environments remain compatible or planned until their complete setup, working-task, update, recovery, and restore paths pass.
+- Starter.OS does not require a specific agent, model, or environment. A persistent Chief of Staff needs an always-available local or hosted agent with verified access to the repositories, scheduler, sources, and destination.
+- Release validation now requires the actual 2.0 and 2.1 release trees from Git history and fails if either update path cannot be proved.
 
 ## [2.1.0] - 2026-08-31
 

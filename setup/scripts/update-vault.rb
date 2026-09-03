@@ -91,21 +91,35 @@ rescue JSON::ParserError => error
 end
 
 def ensure_update_git_ready(target)
-  os_root = target.join("os")
-  output, status = Open3.capture2e("git", "-C", os_root.to_s, "rev-parse", "--is-inside-work-tree")
-  stop("os/ is not protected by Git; establish and commit working Git history before apply") unless status.success? && output.strip == "true"
+  %w[os life].each do |name|
+    repository = target.join(name)
+    top, top_status = Open3.capture2e("git", "-C", repository.to_s, "rev-parse", "--show-toplevel")
+    stop("#{name}/ is not protected by its own Git repository; establish and commit working Git history before apply") unless top_status.success?
 
-  git_dir, git_dir_status = Open3.capture2e("git", "-C", os_root.to_s, "rev-parse", "--git-dir")
-  stop("cannot inspect the os/ Git operation state") unless git_dir_status.success?
-  resolved_git_dir = Pathname.new(git_dir.strip)
-  resolved_git_dir = os_root.join(resolved_git_dir) unless resolved_git_dir.absolute?
-  %w[MERGE_HEAD REBASE_HEAD CHERRY_PICK_HEAD REVERT_HEAD].each do |marker|
-    stop("os/ has a Git operation in progress: #{marker}") if resolved_git_dir.join(marker).exist?
+    begin
+      resolved_top = Pathname.new(top.strip).realpath
+    rescue Errno::ENOENT
+      stop("cannot resolve the #{name}/ Git repository")
+    end
+    stop("#{name}/ is not an independent Git repository") unless resolved_top == repository.realpath
+
+    head, head_status = Open3.capture2e("git", "-C", repository.to_s, "rev-parse", "--verify", "HEAD")
+    stop("#{name}/ has no readable recovery commit; create and verify the approved recovery commit before apply") unless head_status.success? && !head.strip.empty?
+    _commit, commit_status = Open3.capture2e("git", "-C", repository.to_s, "cat-file", "-e", "#{head.strip}^{commit}")
+    stop("#{name}/ recovery commit cannot be read: #{head.strip}") unless commit_status.success?
+
+    git_dir, git_dir_status = Open3.capture2e("git", "-C", repository.to_s, "rev-parse", "--git-dir")
+    stop("cannot inspect the #{name}/ Git operation state") unless git_dir_status.success?
+    resolved_git_dir = Pathname.new(git_dir.strip)
+    resolved_git_dir = repository.join(resolved_git_dir) unless resolved_git_dir.absolute?
+    %w[MERGE_HEAD REBASE_HEAD CHERRY_PICK_HEAD REVERT_HEAD].each do |marker|
+      stop("#{name}/ has a Git operation in progress: #{marker}") if resolved_git_dir.join(marker).exist?
+    end
+
+    status_output, status_status = Open3.capture2e("git", "-C", repository.to_s, "status", "--porcelain")
+    stop("cannot inspect #{name}/ Git status") unless status_status.success?
+    stop("#{name}/ has uncommitted work; create and verify the approved recovery commit before apply") unless status_output.empty?
   end
-
-  status_output, status_status = Open3.capture2e("git", "-C", os_root.to_s, "status", "--porcelain")
-  stop("cannot inspect os/ Git status") unless status_status.success?
-  stop("os/ has uncommitted work; create and verify the approved recovery commit before apply") unless status_output.empty?
 end
 
 def build_plan(target, manifest)

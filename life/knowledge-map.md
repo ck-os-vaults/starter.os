@@ -15,7 +15,7 @@ source: ai
 **When to read this:** Read when the correct personal source is unclear.
 
 - Current state: `now.md`
-- Durable owner background: `wiki/owner.md` until personalized
+- Durable owner background: `wiki/owner.md` (personalize its contents and keep the path)
 - Active personal work: `projects/readme.md`
 - Retained personal documents without a project or business owner: `documents/readme.md`
 - Confirmed personal decisions: `records/decisions.md`

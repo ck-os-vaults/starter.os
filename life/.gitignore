@@ -3,7 +3,6 @@
 .claude/
 .codex/
 .trash/
-corpus-media/
 *.log
 *.tmp
 *.swp

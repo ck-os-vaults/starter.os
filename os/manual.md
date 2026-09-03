@@ -1,6 +1,7 @@
 ---
 type: manual
 created: 2026-08-30
+updated: 2026-09-03
 reviewed: 2026-09-03
 status: living
 authority: reference
@@ -33,7 +34,7 @@ Start there when you are unsure where work belongs. Tell it the outcome you want
 - ask when it needs your decision or approval;
 - bring you only the most important updates.
 
-When your agent supports persistent tasks, use one main Chief of Staff home base and one home base for each real project. Routine project work and scheduled reports stay with that project. The Chief of Staff receives only the headlines that change your priorities or need your attention.
+When your agent supports persistent tasks, use one main Chief of Staff home and one home for each real project. Routine work and scheduled reports stay with their project. The Chief receives only updates that change your priorities or need your attention.
 
 The Chief is a role, not a special model. Many capable agents can fill it.
 
@@ -43,45 +44,45 @@ The Chief is a role, not a special model. Many capable agents can fill it.
 
 `life/` holds your private personal information, current priorities, personal projects, knowledge, documents, and records.
 
-`biz/` holds real businesses. It stays empty until you actually need one.
+`biz/` holds real businesses. It stays empty until you actually need one. Each business becomes its own private Git repository when it is created.
 
 A project gets one clear home. A business gets one clear home. The system avoids duplicate copies of the same truth.
 
 ## The words you will see
 
-**Agent:** The AI tool doing the work.
+**Agent.** The AI tool doing the work.
 
-**Model:** The AI engine inside an agent. A model can change without changing your files.
+**Model.** The AI engine inside an agent. A model can change without changing your files.
 
-**Chief of Staff:** Your main coordinating agent role.
+**Chief of Staff.** Your main coordinating agent role.
 
-**Project:** Work with a real outcome, status, and next action.
+**Project.** Work with a real outcome, status, and next action.
 
-**Skill:** A saved step-by-step method for work you may repeat. A skill does nothing until a real task triggers it.
+**Skill.** A saved method for work you may repeat. A skill does nothing until a real task calls for it.
 
-**Automation:** A task that runs on a schedule after you approve it.
+**Automation.** A task that runs on a schedule after you approve it.
 
-**Integration:** A connection to another app or service.
+**Integration.** A connection to another app or service.
 
-**Git:** File history. It lets you see changes and return to an earlier version.
+**Git.** File history. It lets you see changes and return to an earlier version.
 
-**Repository:** A folder whose history Git tracks.
+**Repository.** A folder whose history Git tracks.
 
-**Primary:** The one Git location agents push to.
+**Primary.** The one Git location agents push to.
 
-**Mirror:** An automatic second copy of the primary on another Git service.
+**Mirror.** An automatic second copy of the primary on another Git service.
 
-**Commit:** A named checkpoint in Git history.
+**Commit.** A named checkpoint in Git history.
 
-**Validation:** A check that the system is complete and follows its rules.
+**Validation.** A check that the system is complete and follows its rules.
 
-**Recovery point:** A verified place you can return to if a change goes wrong.
+**Recovery point.** A verified place you can return to if a change goes wrong.
 
-**Local:** Work that runs on your computer.
+**Local.** Work that runs on your computer.
 
-**Cloud:** Work that runs on another company's computers.
+**Cloud.** Work that runs on another company's computers.
 
-**Fork:** Your own intentionally customized version of a Starter.OS-managed file.
+**Fork.** Your own customized version of a file that Starter.OS normally updates.
 
 ## Git and backup in plain language
 
@@ -89,7 +90,7 @@ Git is part of the fully protected Starter.OS setup.
 
 Git on your computer protects you from bad edits because it keeps history. It does not protect you if the computer is lost or damaged.
 
-GitHub is the normal guided choice for a new owner because it gives you an off-device private copy. If you already use GitLab or another suitable service, you can keep it. The agent should handle the technical Git work wherever possible; you privately handle account sign-in, multifactor authentication, and recovery codes. You use one primary, and agents push only there.
+GitHub is the normal guided choice for a new owner because it keeps a private copy away from your computer. If you already use GitLab or another suitable service, you can keep it. The agent should handle the technical Git work wherever possible. You privately handle account sign-in, multifactor authentication, and recovery codes. You use one primary, and agents push only there.
 
 If you want another Git service too, it becomes an automatic mirror of the primary. The agent does not push separately to both. This prevents the two copies from quietly drifting apart.
 
@@ -111,13 +112,13 @@ You can add, change, or remove skills in your private system. If you change a St
 
 Starter.OS includes portable recipes you can adopt when they fit your tools and life:
 
-**Morning Brief** prepares you for the day from the calendar, tasks, project state, and week ahead that you have authorized. It ends with a few short questions so your Chief of Staff understands what changed.
+**Morning Brief.** Prepares you for the day using the calendar, tasks, project status, and week ahead that you have authorized. It ends with a few short questions so your Chief of Staff knows what changed.
 
-**News Report** follows sources you choose. It uses citations, explains the news in plain language, tells you why it matters, and recommends whether to adopt, test, watch, or ignore it.
+**News Report.** Follows sources you choose. It cites them, explains what changed, tells you why it matters, and recommends whether to adopt, test, watch, or ignore it.
 
-**System Security Watch** performs a read-only integrity check. It stays quiet when complete checks find nothing meaningful, reports real risk, and tells you when coverage was incomplete. It never fixes or installs anything by itself.
+**System Security Watch.** Runs a read-only check. It stays quiet when every check finishes and finds nothing meaningful. It reports real risks and tells you when it could not finish a check. It never fixes or installs anything by itself.
 
-**Task Reconciliation** distills meaningful cross-project changes for a Morning Brief or an explicit checkpoint. It is not another report you must read by default.
+**Task Reconciliation.** Collects important changes across projects for a Morning Brief or a checkpoint you request. It does not create another report by default.
 
 These are recipes, not required services or fixed schedules. Your agent first checks which scheduler, sources, destinations, and permissions actually exist. You may adopt, decline, or defer each option. A recurring run should return to its existing home base when possible instead of creating a new task every time.
 
@@ -129,19 +130,13 @@ The shared Markdown files are the product. Agent-specific files should only poin
 
 Different agents have different abilities. One may read local files, another may work in the cloud, and another may create scheduled tasks. Your agent should say what it can verify and what remains unavailable. It should never pretend a connection or automation works merely because it was configured.
 
-## Local, cloud, and hybrid work
+## Where it can run
 
-**Local-first** means most work happens on your computer.
+Starter.OS can work on your computer, in the cloud, or through both. You do not need to choose a technical label during setup.
 
-**Cloud-first** means most work happens in a hosted service. The hosted agent still needs verified access to your private repository and every source or destination its work requires.
+The agent checks what it can actually do. Scheduled work needs an always-available agent with access to the right files, sources, and destination. Ordinary on-demand work does not.
 
-**Local-on-demand** means cloud work is normal and the computer is used only for tasks that need local files or apps.
-
-**Hybrid** combines local and cloud work.
-
-These names are simple descriptions, not choices you must make during setup and not promises that an environment supports everything. Setup checks what the agent can actually do: access and update the private repository, remain available when needed, schedule work, reach required sources, deliver to a stable home base, and verify Git protection.
-
-The repository brain can be useful on demand without an always-on computer. A full persistent Chief of Staff—with scheduled briefs, monitoring, and cross-project reconciliation—needs an always-available runtime with all required access. That runtime may be local or hosted. No route is automatically best. The important rule is that your durable files and chosen Git primary stay clear. If the same file changes in two places, the agent must stop and show both versions instead of silently choosing the newest one.
+If the same file changes in two places, the agent must stop and show both versions instead of silently choosing one.
 
 ## What an agent may do
 
@@ -162,21 +157,33 @@ Before a consequential change, it should show the smallest useful plan and the r
 
 ## Setup, migration, and update
 
-**Setup** creates a new private Starter.OS in an empty location.
+**Setup.** Creates a new private Starter.OS in an empty location.
 
-**Migration** brings another system into Starter.OS. It preserves first. Your old system stays untouched, and a full redesign happens only if you choose it.
+**Migration.** Brings another system into Starter.OS. Your old system stays untouched. A full redesign happens only if you choose it.
 
-**Update** improves an existing Starter.OS. Owner files stay yours. An unchanged managed file may update automatically after approval. A locally changed managed file becomes a choice: keep your version as a fork, replace it with Starter.OS, or defer.
+**Update.** Improves an existing Starter.OS. Your files stay yours. After approval, Starter.OS may replace one of its own files if you have not changed it. If you did change it, you choose whether to keep your version, replace it, or wait.
 
-All three paths begin by discovering Git. They explain compatible new workflows and let you adopt, decline, or defer them without changing working customizations silently.
+Migration and update use five simple steps:
 
-The public `setup/` folder is only the installation doorway. It is not copied into your private system. If an agent downloaded a temporary public copy solely for setup or an update, it may remove that whole copy after success only when you approved the exact cleanup and it proved no personal work was inside. A future update should begin from the current public GitHub link. Product-maintenance copies and your old system during migration stay intact.
+1. **Protect.** Make sure the complete current system can be restored.
+2. **Review.** Understand what Starter.OS should improve and what you customized.
+3. **Ask.** Ask you only about real conflicts or important choices.
+4. **Improve.** Make the reviewed changes without silently replacing your work.
+5. **Prove.** Confirm nothing was lost and show how to return to the old state.
+
+The agent first inspects without changing anything. It then verifies Git and creates a separate local recovery copy for anything Git does not cover. That copy stays outside the working OS and is not treated as current information.
+
+A large customized agent-instruction file is never blindly replaced or reduced to a summary. The agent preserves the original, keeps useful personal meaning, moves each rule to the right home, and asks only when two instructions genuinely conflict.
+
+All three paths explain compatible new workflows and let you adopt, decline, or defer them without changing working customizations silently.
+
+The public `setup/` folder is only for installation. It is not copied into your private system. An agent may remove a temporary public copy after setup or update only when you approved the exact cleanup and it proved that the copy contains no personal work. Future updates begin from the current public GitHub link. Product-maintenance copies and your old system during migration stay intact.
 
 ## Validation and recovery
 
-Validation checks whether required files exist, skills are registered, protected rules are present, links resolve, and obvious secret-shaped values are absent. A passing check is evidence, not a promise that every private or security risk is impossible.
+Validation checks whether required files exist, skills are registered, protected rules are present, local Git history is readable, links work, and files contain patterns that look like exposed secrets. It does not contact GitHub, GitLab, another backup, or a scheduler. Your agent checks those separately and records what it actually verified. A passing check is useful evidence. It cannot rule out every privacy or security risk.
 
-Recovery means returning to a verified earlier state. Before a major change, your agent should identify the exact Git commit and any extra backup needed. After the change, it should give you a receipt with the version, files changed, validation result, primary and mirror commits, automation status, and rollback route.
+Recovery means returning to a verified earlier state. Before a major change, your agent should identify the exact Git commit and any extra local recovery copy needed. After the change, it should give you a short receipt with the version, validation result, protection status, and rollback route.
 
 ## This manual is protected
 

@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-29
-updated: 2026-08-31
-reviewed: 2026-08-31
+updated: 2026-09-03
+reviewed: 2026-09-03
 status: living
 authority: canon
 source: ai
@@ -10,7 +10,7 @@ source: ai
 
 # skill map
 
-**Bottom line:** Starter.OS ships useful portable methods, but a skill runs only when its trigger is real and a schedule exists only after the owner accepts it.
+**Bottom line:** Starter.OS includes reusable methods. A skill runs only when a real task calls for it. A schedule exists only after the owner accepts it.
 
 **When to read this:** Read when choosing, adding, updating, scheduling, or auditing a reusable workflow.
 
@@ -34,9 +34,9 @@ source: ai
 
 ## Adapter and exclusion audit
 
-- **Harness-specific adapters:** root and repository `CLAUDE.md` files are thin pointers. Scheduler-specific or agent-specific adapters may exist outside the portable skill folder and must point back here.
-- **CK-only or private:** none are shipped. Private methods stay outside the public repository.
-- **Incomplete or unsupported:** none are shipped. A candidate remains outside the release until its trigger, boundaries, dependencies, and validation are clear.
+- **Agent-specific pointers.** Root and repository `CLAUDE.md` files point to the shared rules. Scheduler-specific or agent-specific files may live outside the portable skill folder, but they must point back here.
+- **CK-only or private.** None are included. Private methods stay outside the public repository.
+- **Incomplete or unsupported.** None are included. A candidate stays outside the release until its trigger, limits, requirements, and checks are clear.
 
 A file appearing in this map does not authorize execution, installation, connection, or scheduling.
 
@@ -47,7 +47,7 @@ When a broadly reusable workflow is added or materially changed:
 1. Keep the canonical intent in `os/skills/`.
 2. Register it here with exactly one product role and a real trigger.
 3. Keep project-specific or owner-specific methods with their owner.
-4. Add a harness adapter only when discovery or tooling needs it.
+4. Add an agent-specific pointer only when discovery or tooling needs it.
 5. Declare external tools, data exposure, permissions, cost, and a free or already-owned alternative.
 6. Keep scheduled use opt-in and give it a clear destination and retirement path.
 7. Run `ruby os/validate-starter-os.rb` and validate any adapter.

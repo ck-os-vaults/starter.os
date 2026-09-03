@@ -36,7 +36,9 @@ Preserve valid existing history. Recommend:
 - one private hosted primary per repository;
 - zero or more automatic downstream mirrors.
 
-If an existing owner safely uses a different topology, preserve it unless a change has clear value and is approved. Never create nested Git repositories accidentally.
+The 2.2 updater and validator require this topology. If an existing owner uses a different topology, preserve the complete current state first. Then plan and approve the conversion before setup or update continues. Until conversion is complete, report the Git topology as unresolved. Never create nested Git repositories accidentally.
+
+Whenever `os/scripts/add-business.rb` creates `biz/<business>/`, finish the same approved workflow by making that exact folder an independent Git repository, creating its first recovery commit, connecting and verifying its private hosted primary, and recording it in `os/recovery.md`. Do not call the business created while it remains only a folder. The empty `biz/` container never becomes a repository.
 
 If no suitable hosted primary exists, the normal path is to guide the owner through GitHub account security and private repository creation. The owner handles sign-in, multifactor authentication, recovery codes, and secret values privately. The agent handles repository initialization, connection, validation, commit, and push wherever possible.
 

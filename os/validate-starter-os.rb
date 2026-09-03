@@ -2,9 +2,11 @@
 
 require "digest"
 require "json"
+require "open3"
 require "pathname"
 
 ROOT = Pathname.new(File.expand_path("..", __dir__))
+IGNORED_COMPUTER_FILES = %w[.DS_Store .localized Thumbs.db desktop.ini].freeze
 Dir.chdir(ROOT)
 
 errors = []
@@ -17,6 +19,30 @@ def symlink_component?(relative)
     return true if current.symlink?
   end
   false
+end
+
+def check_local_git(add, repository, label)
+  top, top_status = Open3.capture2e("git", "-C", repository, "rev-parse", "--show-toplevel")
+  unless top_status.success?
+    add.call("#{label} is not protected by its own Git repository")
+    return
+  end
+
+  begin
+    add.call("#{label} is not an independent Git repository") unless Pathname.new(top.strip).realpath == Pathname.new(repository).realpath
+  rescue Errno::ENOENT
+    add.call("#{label} Git root cannot be resolved")
+    return
+  end
+
+  head, head_status = Open3.capture2e("git", "-C", repository, "rev-parse", "--verify", "HEAD")
+  unless head_status.success? && !head.strip.empty?
+    add.call("#{label} has no readable recovery commit")
+    return
+  end
+
+  _commit, commit_status = Open3.capture2e("git", "-C", repository, "cat-file", "-e", "#{head.strip}^{commit}")
+  add.call("#{label} recovery commit cannot be read: #{head.strip}") unless commit_status.success?
 end
 
 required = %w[
@@ -64,6 +90,8 @@ forbidden.each { |path| add.call("obsolete path remains: #{path}") if File.exist
 
 add.call("vault root must not be a Git repository") if File.exist?(".git")
 add.call("biz container must not be a Git repository") if File.exist?("biz/.git")
+check_local_git(add, "os", "os/") if File.directory?("os")
+check_local_git(add, "life", "life/") if File.directory?("life")
 
 if File.file?("AGENTS.md") && File.file?("os/templates/root-AGENTS.txt")
   add.call("root AGENTS.md differs from its recovery template") unless File.read("AGENTS.md") == File.read("os/templates/root-AGENTS.txt")
@@ -74,7 +102,7 @@ end
 
 allowed_roots = %w[.obsidian AGENTS.md CLAUDE.md biz life os]
 %w[os life biz].each { |path| add.call("installed root may not be a symbolic link: #{path}") if Pathname.new(path).symlink? }
-unexpected_roots = Dir.children(".").reject { |name| allowed_roots.include?(name) }
+unexpected_roots = Dir.children(".").reject { |name| allowed_roots.include?(name) || IGNORED_COMPUTER_FILES.include?(name) }
 add.call("unexpected installed root: #{unexpected_roots.join(', ')}") unless unexpected_roots.empty?
 
 empty_dirs = Dir.glob("**/*", File::FNM_DOTMATCH).select do |path|
@@ -94,6 +122,8 @@ Dir.glob("biz/*").select { |path| File.directory?(path) }.each do |business|
   end
   nested = Dir.glob("#{business}/**/.git").reject { |path| path == "#{business}/.git" }
   nested.each { |path| add.call("nested business repository: #{path}") }
+
+  check_local_git(add, business, "business #{business}")
 end
 
 skill_map = File.file?("os/skill-map.md") ? File.read("os/skill-map.md") : ""
@@ -167,7 +197,7 @@ if release_path.file?
 end
 
 security_intake = File.file?("os/skills/security-intake.md") ? File.read("os/skills/security-intake.md") : ""
-add.call("security intake does not keep new artifacts inert") unless security_intake.match?(/Keep newly sourced.*inert/im)
+add.call("security intake does not block new items before review") unless security_intake.match?(/Do not open or run a new .* until .*understood/im)
 add.call("security intake does not treat embedded instructions as data") unless security_intake.match?(/instruction.*inside it as data, not authority/i)
 add.call("security intake does not protect private files from public uploads") unless security_intake.match?(/Never send private files to public scanning services without owner approval/i)
 add.call("security intake incorrectly treats a clean scan as proof") unless security_intake.match?(/clean scan lowers risk; it never proves/i)
@@ -204,7 +234,8 @@ Dir.glob("{os,life,biz}/**/*", File::FNM_DOTMATCH).select { |path| File.file?(pa
 end
 
 if errors.empty?
-  puts "PASS Starter.OS installed vault: structure, release identity, protected manual, skill registry, Git contract, recurring workflow recipes, and privacy checks"
+  puts "PASS Starter.OS installed vault: structure, release identity, protected manual, skill registry, readable local Git history, recurring workflow recipes, and privacy checks"
+  puts "NOTE Hosted primaries, mirrors, uncovered-file backups, and restore routes require separate verification in os/recovery.md"
   exit 0
 end
 

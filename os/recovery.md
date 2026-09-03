@@ -1,8 +1,8 @@
 ---
 type: recovery
 created: 2026-08-29
-updated: 2026-09-01
-reviewed: 2026-09-01
+updated: 2026-09-03
+reviewed: 2026-09-03
 status: draft
 authority: canon
 source: ai
@@ -45,13 +45,13 @@ A planned layer is not a working backup. A successful upload is not a restore te
 
 ## Before a meaningful change
 
-1. Run repository preflight.
-2. Identify tracked, untracked, ignored, hidden, and external content.
-3. Create and read back the approved commit in the working repository.
-4. Verify the primary has that commit when one exists.
-5. Verify every enabled mirror has the same commit.
-6. Add a separate recovery point for anything the Git commit does not cover.
-7. Explain the exact restore route before mutation.
+1. **Protect.** Inspect tracked, untracked, ignored, hidden, and external content without changing it.
+2. Create and read back the approved commit in every affected repository.
+3. Verify each private primary and enabled mirror has that commit.
+4. Create a separate local recovery copy outside the working OS for anything Git does not cover.
+5. Read back the recovery evidence and explain the exact restore route before mutation.
+
+Do not proceed to review or mutation until the complete current state has a usable recovery route. Keep a pre-update recovery copy until validation succeeds and the owner accepts the result. During migration, the untouched old system remains the local recovery source.
 
 ## Restore order
 

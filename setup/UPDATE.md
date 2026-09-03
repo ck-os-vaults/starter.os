@@ -1,99 +1,86 @@
-# Update an existing Starter.OS
+# Improve an existing Starter.OS
 
-> **Audience: Agent only.** The owner normally starts with the public repository link. Read `START-HERE.md`, `QUICK-SETUP.md`, and `GIT-SETUP.md`.
+> **Audience: Agent only.** Read `START-HERE.md`, `QUICK-SETUP.md`, and `GIT-SETUP.md`. Keep the owner-facing explanation to **Protect → Review → Ask → Improve → Prove**.
 
-Update the existing system in place without replacing owner information or silently overwriting customization.
+## 1. Protect
 
-## Step 1: confirm source, target, and versions
-
-Verify the public Starter.OS source with:
+Validate the public source:
 
 ```sh
-ruby setup/scripts/validate-starter-kit.rb
+ruby setup/scripts/validate-source.rb
 ```
 
-Confirm one installed Starter.OS target. Read its `os/release.json` when present. If it is absent, label the installation `unversioned legacy Starter.OS`; do not guess its baseline.
+Confirm one installed target and read `os/release.json`. If it is absent, label the target `unversioned legacy Starter.OS`; never guess its baseline.
 
-An unversioned installation is a supported guided path, not a reason to reinstall. Keep the interview short: identify the target, inventory the current files, show every conflict, and ask only for decisions that cannot be inferred safely.
+Updates require independent Git repositories for `os/` and `life/`, with no repository at the vault root or empty `biz/` container. If the owner uses another topology, preserve it first, then plan and approve the conversion before continuing.
 
-## Step 2: discover Git and current protection
+Discover Git and protection for every in-scope repository. Inspect tracked, untracked, ignored, hidden, and external content. Stop for divergence, an unfinished Git operation, or unique unprotected work.
 
-Follow the Git discovery in `QUICK-SETUP.md` for every in-scope repository.
+Before planning any mutation:
 
-Stop before update if there is unexplained divergence, an unsafe detached state, a rebase or merge in progress, or unique uncommitted content without additional recovery coverage. Do not stash, reset, switch, pull, or discard work to make the update easier.
+- create and read back a recovery commit in every affected repository;
+- verify each private hosted primary and enabled automatic mirror reaches that commit;
+- create a separate local recovery copy outside the working OS for anything Git does not cover;
+- record the exact restore route.
 
-If Git protection is missing, create an initial recovery commit and establish a private hosted primary before applying the update. Guide GitHub account security and private repository setup when no suitable hosted primary exists; preserve an existing suitable GitLab or other hosted primary when the owner prefers it. A local-only recovery point is incomplete protection and does not complete this gate.
+Do not proceed until the complete current state is recoverable.
 
-## Step 3: create the deterministic plan
+## 2. Review
 
-Write the plan outside the installed vault:
+Create the deterministic plan outside the installed system:
 
 ```sh
 ruby setup/scripts/update-vault.rb plan /absolute/path/to/NAME.os /absolute/path/to/update-plan.json
 ```
 
-Show the owner:
+Critically review every proposed change and local customization. Follow the customized-instruction process in `QUICK-SETUP.md`, especially for large `AGENTS.md`, `CLAUDE.md`, or other controlling files.
 
-- installed and target versions;
-- managed files that will be added or updated;
-- owner-owned files that remain untouched;
-- local modifications and legacy files that require a choice;
-- explicit forks and available upstream changes;
-- deprecated files that will be preserved;
-- the Git recovery commit and any additional backup coverage;
-- exact rollback instructions.
+Classify the plan in plain language:
 
-Also summarize new Starter.OS capabilities in plain language. Suggest only options compatible with the owner's verified environment, and separate those suggestions from required file changes.
+- safe managed updates;
+- owner-owned and unknown files that remain untouched;
+- local customizations that need reconciliation;
+- new, moved, forked, deprecated, or unresolved material;
+- optional capabilities the owner's verified environment can support.
 
-For each conflict, offer:
+## 3. Ask
 
-- **keep as my fork** — preserve the local file and stop future automatic replacement;
-- **replace with Starter.OS** — install the reviewed upstream file;
-- **defer** — make no change to that artifact and leave the update incomplete.
+Resolve routine safe changes from evidence. Ask only about genuine conflicts, unclear personal meaning, structural changes, missing protection, or optional routines.
 
-Do not select for the owner.
+For a managed-file conflict, offer:
 
-## Step 4: approve one transition
+- **Reconcile.** Keep the useful personal meaning in the correct owner-controlled home and install the current Starter.OS file.
+- **Keep my version.** Preserve the local file in place and stop future automatic replacement.
+- **Replace with Starter.OS.** Install the reviewed Starter.OS file.
+- **Wait.** Leave the update incomplete.
 
-Use the shared approval card. The update approval must name:
+Do not select a meaningful conflict for the owner. Show one shared approval card naming the target release, plan identity, protection, changes, conflict decisions, Git actions, routines, and cleanup. Wait for approval.
 
-- exact target release;
-- exact plan file identity;
-- every conflict decision;
-- files outside recovery coverage;
-- Git primary and mirror actions;
-- any structural or deprecated behavior;
-- the adopt, decline, or defer choice for each compatible recurring workflow suggestion.
+## 4. Improve
 
-Silence is not approval.
-
-## Step 5: apply only the approved plan
-
-The tool rechecks that neither source nor target changed after planning.
-
-For a plan without conflicts:
+Apply only the approved plan. The updater rechecks the source, target, and plan before writing.
 
 ```sh
 ruby setup/scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json
 ```
 
-For reviewed conflicts, add one option per exact path:
+Use one exact option for each approved conflict:
 
 ```sh
 ruby setup/scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json --keep path/to/local-file --replace path/to/managed-file
 ```
 
-`--keep` records an explicit owner fork in place. `--replace` installs the upstream managed file. Any conflict without an approved choice stops the apply. The updater never deletes unknown or deprecated owner content.
+`--keep` records a fork. `--replace` installs the current managed file. `--fork SOURCE=DESTINATION` preserves a reviewed local version at an owner-controlled destination before restoring the managed source.
 
-The protected product manual stays at `os/manual.md`. If its local copy changed and the owner wants to preserve that explanation, use an owner-approved fork destination while restoring the current product manual:
+The protected manual may not remain as an in-place fork. If the owner wants its local explanation, use an approved destination such as:
 
 ```sh
 ruby setup/scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json --fork os/manual.md=life/manual.md
 ```
 
-Then record the chosen manual fork path in `os/me.md`. The tool refuses `--keep os/manual.md` because leaving a personalized file at the protected product path would make future explanations ambiguous.
+Record the chosen manual fork in `os/me.md`. Never delete unknown or deprecated owner content. Push only to each primary; verify automatic mirrors. Suggest only compatible recurring routines, let the owner adopt, decline, or defer each one, and never duplicate an equivalent.
 
-## Step 6: validate and verify Git
+## 5. Prove
 
 Run:
 
@@ -101,29 +88,6 @@ Run:
 ruby os/validate-starter-os.rb
 ```
 
-Review the exact diff. Commit only intended update changes to the approved repositories, push only to the primary, and verify every enabled automatic mirror reaches the same commit.
+Compare the result with the protected inventory. The validator proves local structure, release identity, and readable local Git history. Separately verify and record each hosted primary, enabled mirror, uncovered-file backup, and rollback route. Confirm by review that no owner file or instruction disappeared. If any check fails, stop and restore before another attempt.
 
-If validation or verification fails, stop and restore the pre-update Git commit before another attempt. Do not stack fixes on an unknown partial state.
-
-## Step 7: guide optional recurring workflows
-
-Audit existing routines by purpose and name. Explain the compatible `Morning Brief`, `News Report`, `System Security Watch`, and `Task Reconciliation` improvements without assuming the owner wants them.
-
-When accepted, update matching routines to the current portable skills and verify their name, schedule, timezone, destination, instructions, access, runtime, active status, and first eligible run. Prefer persistent home-base destinations when supported. Do not create duplicates or new tasks per run. Record declined, deferred, unavailable, or unverified states truthfully.
-
-## Step 8: give the update receipt
-
-Report:
-
-- previous and installed version;
-- updated, added, preserved, forked, deferred, deprecated, and unresolved paths;
-- validation results;
-- local recovery commit;
-- primary and mirror commit identities;
-- every offered recurring-workflow outcome;
-- temporary distribution-source cleanup status;
-- exact rollback route.
-
-Apply the shared distribution-source cleanup contract in `QUICK-SETUP.md`. Remove only an approved temporary public source after confirming it contains no owner work; retain an intentional maintainer checkout. A future update should begin from the current public repository link rather than a stale temporary copy.
-
-An update is complete only when no artifact remains silently conflicted, the installed vault validates, Git recovery and publication are truthful, enabled mirrors are verified or named as unresolved, every offered recurring workflow has a recorded outcome, and temporary distribution-source cleanup is completed or truthfully reported.
+Give one short receipt: previous and installed version, result, preserved and unresolved work, protection status, validation, optional routine outcomes, cleanup status, and rollback route. Keep the recovery copy until the owner accepts the result. Apply the public-source cleanup rules in `QUICK-SETUP.md` only after success.

@@ -1,116 +1,79 @@
-# Preserve an existing system
+# Preserve and migrate an existing system
 
-> **Audience: Agent only.** The owner normally starts with the public repository link. Read `START-HERE.md`, `QUICK-SETUP.md`, and `GIT-SETUP.md`.
+> **Audience: Agent only.** Read `START-HERE.md`, `QUICK-SETUP.md`, and `GIT-SETUP.md`. Keep the owner-facing explanation to **Protect → Review → Ask → Improve → Prove**.
 
-Migration preserves first. A clean redesign is optional and requires its own approval.
+## 1. Protect
 
-## Step 1: confirm one source
+Confirm one exact source. If the owner did not provide it, search only likely workspace locations read-only and ask one plain question if needed.
 
-If the owner did not provide a path, search likely workspace locations read-only and identify the strongest candidate. Show the exact path and wait for confirmation before treating it as the source.
+Confirm the public Starter.OS copy is complete:
 
-Do not inspect multiple private candidates broadly. Never delete, overwrite, rename, move, initialize, pull, or reconfigure the source during discovery.
+```sh
+ruby setup/scripts/validate-source.rb
+```
 
-## Step 2: inventory files, Git, recovery, and routines
+Discover Git, recovery coverage, external content, and existing routines before mutation. Never initialize, move, rename, delete, pull, or reconfigure the source.
 
-Read the source's entry instructions, maps, actual files, repository state, integrations, and existing scheduled routines. Follow the Git discovery in `QUICK-SETUP.md`.
-
-Create a content snapshot outside both systems:
+Create a content and Git-state snapshot outside both systems:
 
 ```sh
 ruby setup/scripts/verify-migration.rb snapshot /absolute/path/to/OLD.os /absolute/path/to/source-snapshot.json
 ```
 
-Record counts and paths without exposing sensitive contents.
+The snapshot records file bytes, file modes, directories, and important Git state without exposing remote URLs. The untouched old system is the primary local recovery copy. Add separate protection for anything external or at risk. Record the exact restore route before continuing.
 
-## Step 3: choose preserve-first or optional redesign
+## 2. Review
 
-Default to **preserve-first**:
+Read the source entry instructions, maps, files, repositories, integrations, and routines. Follow the critical review and customized-instruction process in `QUICK-SETUP.md`.
 
-- keep names and structure when they remain understandable;
-- copy bytes unchanged into the separate preview;
-- add only the minimum Starter.OS routing and safety foundation;
-- avoid moving a file merely to make the result look cleaner.
-
-Offer **redesign** only when the owner wants it and the value is clear. Redesign may reorganize copies in the preview; it never changes the source.
-
-Classify every source content path exactly once in a tab-separated migration map:
+Classify every source path exactly once:
 
 ```text
-source_path	disposition	destination_path	reason
+source_path	disposition	destination_path	reason	approved_destination_sha256
 ```
 
-Allowed dispositions:
+Use:
 
-- `preserve` — copy unchanged, normally to the same relative path;
-- `copy` — copy unchanged to a different approved path;
-- `transform` — create an approved rewritten destination; reason required;
-- `merge` — combine into an approved destination; reason required;
-- `exclude` — leave only in the untouched source; reason required;
-- `unresolved` — leave safe in the source until the owner decides; reason required.
+- `preserve`: copy unchanged, normally to the same path;
+- `copy`: copy unchanged to another approved path;
+- `transform`: create an approved rewritten destination;
+- `merge`: combine material into an approved destination;
+- `exclude`: leave only in the untouched source;
+- `unresolved`: keep safe until the owner decides.
 
-A disposition never authorizes source deletion. Unknown files are owner-owned.
+Every transform, merge, exclude, or unresolved item needs a reason. Symbolic links must be reviewed and then transformed into a safe regular file or left unresolved. Never copy a link automatically.
 
-## Step 4: show the shared approval card
+For every transformed or merged file, review the finished destination and record `approved:<sha256>` in the last column. For `AGENTS.md` or `CLAUDE.md`, first account for every useful rule as retained, relocated, intentionally retired, conflicting, or unresolved. After approval, record `instruction-review:<sha256>`. Leave the last column blank for every other disposition. A disposition never authorizes source deletion. Unknown files are owner-owned.
 
-Include:
+## 3. Ask
 
-- confirmed source and separate destination;
-- preserve-first or redesign mode;
-- complete disposition counts and all transform, merge, exclude, and unresolved items;
-- proposed names and ownership only where real evidence supports them;
-- existing and proposed Git topology;
-- exact recovery point and rollback route;
-- available recurring-workflow capabilities, existing equivalents, and the owner's adopt, decline, or defer choice for each compatible suggestion.
+Default to preserve-first. Reorganize only where the value is clear. Ask the owner only about genuine conflicts, unclear meaning, optional redesign, privacy, repository choices, and compatible optional routines.
 
-Wait for approval before building the preview.
+Show the shared approval card with the source, separate destination, recovery route, disposition counts, instruction-file reconciliation, Git topology, unresolved items, and proposed changes. Wait for approval.
 
-## Step 5: build the separate preview
+## 4. Improve
 
-Create the clean foundation:
+Create a separate clean preview:
 
 ```sh
 ruby setup/scripts/create-vault.rb /absolute/path/to/NEW.os
 ```
 
-Do not use the source as the writable workspace. Do not import `.git/` internals or `setup/`.
+Do not use the source as the writable workspace and do not import `.git/` internals or `setup/`. Execute only the approved map. Preserve bytes and file modes for `preserve` and `copy`. For `transform` and `merge`, retain the source, destination, method, reason, reviewed destination digest, and instruction accounting when required.
 
-Show the preview tree, migration map, and exact writes. Ask for final adoption approval before copying or personalizing.
+After preview approval, follow `GIT-SETUP.md`. Preserve existing history, create independent repositories for `os/`, `life/`, and every real `biz/<business>/`, push only to each chosen private primary, and make secondary services automatic mirrors. Suggest only compatible recurring routines, let the owner adopt, decline, or defer each one, and update equivalents instead of duplicating them.
 
-After approval, execute only the approved map. Preserve source bytes for `preserve` and `copy`. For `transform` and `merge`, retain the source, destination, method, and owner-approved reason. Keep excluded and unresolved content untouched in the source.
-
-## Step 6: prove preservation
+## 5. Prove
 
 Run:
 
 ```sh
 ruby setup/scripts/verify-migration.rb verify /absolute/path/to/OLD.os /absolute/path/to/NEW.os /absolute/path/to/source-snapshot.json /absolute/path/to/migration-map.tsv
+ruby os/validate-starter-os.rb
 ```
 
-The verifier must prove:
+The migration verifier proves that snapshotted content, directories, and recorded Git state stayed unchanged; every source path is accounted for; copied bytes and modes match; approved destinations still match their reviewed digest; unsafe links did not cross into the destination; and destination boundaries are valid.
 
-- the source is byte-for-byte unchanged;
-- every source path appears exactly once;
-- preserved and copied bytes match;
-- transformed and merged destinations exist and have reasons;
-- excluded and unresolved paths have reasons;
-- the destination keeps safe Starter.OS boundaries.
+Separately confirm by review that no personal instruction disappeared, every repository and mirror is verified, and the rollback route remains usable. Do not call these external or meaning-based checks automated. A failed check stops migration.
 
-A failed check stops migration.
-
-## Step 7: protect and cut over
-
-Follow `GIT-SETUP.md`. Preserve existing histories; do not copy `.git/` folders. Establish the approved working repositories, private hosted primaries, automatic mirrors, and recovery commit. Guide GitHub setup when no suitable hosted primary exists. Verify privacy and commit parity.
-
-Cutover requires explicit owner approval after the preview and proof are shown. Deleting or retiring the old system is never part of migration.
-
-## Step 8: guide optional recurring workflows
-
-Use `QUICK-SETUP.md`. Suggest only compatible recipes, update equivalent routines instead of duplicating them, and prefer persistent home-base destinations when supported. Verify accepted routines and record declined, deferred, or unavailable status.
-
-## Step 9: validate and hand back control
-
-Run `ruby os/validate-starter-os.rb` in the adopted vault. Give the shared completion receipt, including all unresolved content and the rollback path.
-
-Apply the shared distribution-source cleanup contract in `QUICK-SETUP.md`. A separately approved temporary public installer may be removed after verification. The owner's old personal system is the migration source, not temporary distribution material; do not delete or retire it here.
-
-Finish with the short orientation from `AGENT-SETUP.md`. Do not turn migration into a course.
+Give the short shared receipt. Deleting or retiring the old system is never part of migration. Apply the cleanup rules in `QUICK-SETUP.md` only to an approved temporary public installer, never to the recovery source.

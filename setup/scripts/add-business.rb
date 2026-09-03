@@ -113,4 +113,5 @@ files.each { |path, body| File.write(destination.join(path), body) }
 File.write(destination.join(".gitignore"), ".DS_Store\n.env\n.env.*\nnode_modules/\n")
 File.write(destination.join(".gitattributes"), "* text=auto eol=lf\n*.md text eol=lf\n")
 
-puts "Created biz/#{name} as a minimal independent business repository candidate"
+puts "Created biz/#{name}"
+puts "Next: review these files, then protect this business as its own Git repository with a verified private hosted primary. Creation is incomplete until that protection is recorded."

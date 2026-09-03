@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-08-03
-updated: 2026-08-14
-reviewed: 2026-08-14
+updated: 2026-09-03
+reviewed: 2026-09-03
 status: draft
 authority: exploratory
 source: ai
@@ -12,7 +12,7 @@ source: ai
 
 ## purpose
 
-Keep the context system getting wiser instead of merely larger by promoting durable signal from cold records into the smallest correct current file.
+Move useful, lasting information from old records into the correct current file. Do not let the system grow without becoming more useful.
 
 ## trigger
 
@@ -21,7 +21,7 @@ After the vault has enough meaningful history, during an owner-approved periodic
 ## steps
 
 1. Read relevant record material newer than the last documented distillation review.
-2. Promote a signal only when it corrects current context, recurs independently, is explicitly marked durable by the owner, or reveals a retrieval failure.
+2. Keep an item only when it corrects current information, appears more than once, is marked as lasting by the owner, or reveals that agents could not find the right source.
 3. Route it to one current home: `life/now.md`, `life/wiki/owner.md`, a project home, or `life/records/decisions.md` for a confirmed decision.
 4. Ask before changing protected identity or behavior files.
 5. Add a receipt link to the source record and preserve the original words in `life/records/`.

@@ -37,6 +37,7 @@ def tree_digests(root)
 end
 
 source_before = tree_digests(ROOT)
+history_update_proof = []
 source_before.keys.select { |path| ROOT.join(path).symlink? }.each do |path|
   add.call("public source contains unsupported symbolic link: #{path}")
 end
@@ -48,7 +49,7 @@ required = %w[
   setup/GIT-SETUP.md setup/MIGRATE.md setup/UPDATE.md
   setup/scripts/build-release-manifest.rb setup/scripts/create-vault.rb
   setup/scripts/update-vault.rb setup/scripts/add-project.rb setup/scripts/add-business.rb
-  setup/scripts/verify-migration.rb
+  setup/scripts/verify-migration.rb setup/scripts/validate-source.rb
   os/AGENTS.md os/manual.md os/license.md os/me.md os/vault-map.md
   os/retrieval.md os/knowledge-map.md os/recovery.md os/integrations.md
   os/skill-map.md os/skills/drift-recovery.md os/skills/security-intake.md
@@ -89,11 +90,14 @@ update = File.file?("setup/UPDATE.md") ? File.read("setup/UPDATE.md") : ""
 manual = File.file?("os/manual.md") ? File.read("os/manual.md") : ""
 
 public_url = "https://github.com/ck-os-vaults/starter-os-public"
-add.call("README does not lead with the one-link start") unless readme.include?(public_url) && readme.match?(/whole normal starting prompt/i)
-add.call("owner start does not use the repository link as the normal prompt") unless start_here.include?(public_url) && start_here.match?(/whole normal starting prompt/i)
-add.call("owner start does not state required agent capabilities") unless start_here.match?(/read repository instructions/i) && start_here.match?(/private working repository/i)
+add.call("README does not lead with the one-link start") unless readme.include?(public_url) && readme.match?(/whole (?:normal )?starting prompt|entire prompt/i)
+add.call("owner start does not use the repository link as the complete prompt") unless start_here.include?(public_url) && start_here.match?(/whole (?:normal )?starting prompt|entire starting prompt/i)
+add.call("owner start does not state required agent capabilities") unless start_here.match?(/read repository instructions/i) && start_here.match?(/private files/i) && start_here.match?(/use Git/i) && start_here.match?(/Ruby/i)
 add.call("root AGENTS does not recognize the link-only handoff") unless root_agents.match?(/provides only the public Starter\.OS repository link/i)
+add.call("root AGENTS does not state required agent capabilities") unless root_agents.match?(/private files/i) && root_agents.match?(/use Git/i) && root_agents.match?(/Ruby/i)
+add.call("root AGENTS does not isolate maintainer automation") unless root_agents.match?(/\.github\/.*maintainer-only/im) && root_agents.match?(/not part of owner setup/im)
 %w[setup migration update].each { |route| add.call("root AGENTS is missing #{route} routing") unless root_agents.match?(/#{route}/i) }
+add.call("root AGENTS does not use public and installed marker files") unless root_agents.include?("setup/release-manifest.json") && root_agents.include?("os/release.json")
 
 {
   "AGENT-SETUP" => agent_setup,
@@ -107,18 +111,19 @@ end
 
 [agent_setup, migration, update].each_with_index do |text, index|
   route = %w[setup migration update][index]
+  add.call("#{route} does not run the owner source check") unless text.include?("setup/scripts/validate-source.rb")
   add.call("#{route} does not discover Git before mutation") unless text.match?(/discover Git|Git discovery/i)
   add.call("#{route} does not route secondary Git as an automatic mirror") unless text.match?(/automatic mirror/i)
   add.call("#{route} does not offer compatible recurring workflows") unless text.match?(/compatible.*recurring|recurring.*compatible/im)
   add.call("#{route} does not preserve owner choice") unless text.match?(/declin|defer/i)
-  add.call("#{route} does not apply distribution-source cleanup") unless text.match?(/distribution-source cleanup/i)
+  add.call("#{route} does not apply public-source cleanup") unless text.match?(/distribution-source cleanup|cleanup rules|public-source cleanup/i)
 end
 add.call("shared setup does not distinguish temporary and maintainer sources") unless quick_setup.match?(/Temporary checkout or download/i) && quick_setup.match?(/Intentional maintainer or product checkout/i)
 add.call("shared setup permits unapproved temporary-source deletion") unless quick_setup.match?(/exact path and deletion were approved/i)
-add.call("shared setup does not protect migration sources") unless quick_setup.match?(/never treat.*old personal system.*temporary distribution material/im)
+add.call("shared setup does not protect migration sources") unless quick_setup.match?(/old migration source.*installer cleanup/im)
 add.call("shared setup does not require a fresh future source") unless quick_setup.match?(/Future updates use a fresh current source/i)
 add.call("shared setup does not support adopt, decline, and defer") unless %w[adopt decline defer].all? { |word| quick_setup.match?(/#{word}/i) }
-add.call("shared setup does not prefer persistent destinations") unless quick_setup.match?(/persistent home-base destination/i) && quick_setup.match?(/new task per run/i)
+add.call("shared setup does not prefer persistent destinations") unless quick_setup.match?(/persistent home-base destination/i) && quick_setup.match?(/new task (?:per|for every) run/i)
 add.call("Git setup does not enforce one primary") unless git_setup.match?(/one primary/i)
 add.call("Git setup does not forbid routine second pushes") unless git_setup.match?(/Do not keep a second routine agent push target/i)
 add.call("Git setup does not make GitHub the normal guided primary") unless git_setup.match?(/GitHub.*normal guided private primary/im)
@@ -126,6 +131,13 @@ add.call("Git setup does not require a private hosted primary for completed prot
 add.call("Git setup does not warn about local-only device loss") unless git_setup.match?(/local-only Git.*device loss/im)
 add.call("shared setup still forces an execution label") if quick_setup.match?(/local, cloud, on-demand, or hybrid execution needs/i)
 add.call("shared setup does not inventory execution capabilities") unless %w[repository persistence scheduler source-access delivery Git-verification].all? { |word| quick_setup.match?(/#{word}/i) }
+%w[Protect Review Ask Improve Prove].each do |step|
+  add.call("shared setup is missing the #{step} step") unless quick_setup.match?(/#{step}/i) && start_here.match?(/#{step}/i) && root_agents.match?(/#{step}/i)
+end
+add.call("shared setup lacks a pre-mutation recovery gate") unless quick_setup.match?(/no mutation is allowed until the complete current state has a usable recovery route/i)
+add.call("shared setup lacks an external local recovery copy") unless quick_setup.match?(/local recovery copy outside the working OS/i)
+add.call("shared setup lacks customized instruction reconciliation") unless quick_setup.match?(/customized `AGENTS\.md`/) && quick_setup.match?(/never replace the original with a summary/i)
+add.call("shared setup does not require business Git") unless quick_setup.match?(/Each real `biz\/<business>\/`.*independent Git repository/im) && git_setup.match?(/Do not call the business created/im)
 add.call("migration is not preserve-first") unless migration.match?(/preserve-first/i)
 %w[preserve copy transform merge exclude unresolved].each do |disposition|
   add.call("migration is missing #{disposition} disposition") unless migration.match?(/\b#{disposition}\b/i)
@@ -145,9 +157,10 @@ actual_skills = Dir.glob("os/skills/*.md").map { |path| File.basename(path, ".md
 registered_skills = skill_map_text.scan(/^\|\s*\[\[([a-z0-9-]+)\]\]/).flatten.uniq.sort
 (registered_skills - actual_skills).each { |skill| add.call("registered skill missing: os/skills/#{skill}.md") }
 (actual_skills - registered_skills).each { |skill| add.call("unregistered skill file: os/skills/#{skill}.md") }
-["core portable", "optional portable", "optional scheduled", "harness-specific", "CK-only", "incomplete"].each do |category|
+["core portable", "optional portable", "optional scheduled", "CK-only", "incomplete"].each do |category|
   add.call("skill audit is missing category: #{category}") unless skill_map_text.match?(/#{category}/i)
 end
+add.call("skill audit is missing the agent-specific category") unless skill_map_text.match?(/agent-specific pointers|harness-specific/i)
 
 reconciliation = File.file?("os/skills/task-reconciliation.md") ? File.read("os/skills/task-reconciliation.md") : ""
 security_sweep = File.file?("os/skills/security-sweep.md") ? File.read("os/skills/security-sweep.md") : ""
@@ -175,8 +188,16 @@ end
 if File.file?("setup/release-manifest.json")
   begin
     manifest = JSON.parse(File.read("setup/release-manifest.json"))
-    add.call("unsupported release manifest") unless manifest["format"] == 1 && manifest["product"] == "Starter.OS" && manifest["version"] == "2.1.0"
-    add.call("release manifest does not support 2.0 and unversioned updates") unless %w[unversioned-legacy 2.0.0 2.1.0].all? { |version| manifest.fetch("supported_updates", []).include?(version) }
+    add.call("unsupported release manifest") unless manifest["format"] == 1 && manifest["product"] == "Starter.OS" && manifest["version"] == "2.2.0"
+    add.call("release manifest has an invalid status") unless %w[unreleased released].include?(manifest["status"])
+    add.call("unreleased manifest has a release date") if manifest["status"] == "unreleased" && manifest["released"]
+    add.call("released manifest has no release date") if manifest["status"] == "released" && manifest["released"].to_s.empty?
+    if manifest["status"] == "unreleased"
+      add.call("unreleased 2.2 work is already presented as a dated release") if File.read("CHANGELOG.md").match?(/^## \[2\.2\.0\]/)
+    else
+      add.call("released 2.2 work is missing its dated changelog section") unless File.read("CHANGELOG.md").match?(/^## \[2\.2\.0\] - \d{4}-\d{2}-\d{2}$/)
+    end
+    add.call("release manifest does not support prior releases and unversioned updates") unless %w[unversioned-legacy 2.0.0 2.1.0 2.2.0].all? { |version| manifest.fetch("supported_updates", []).include?(version) }
     artifacts = manifest.fetch("artifacts")
     paths = artifacts.map { |artifact| artifact.fetch("path") }
     add.call("release manifest has duplicate installed paths") unless paths.uniq.length == paths.length
@@ -219,7 +240,7 @@ if File.file?("setup/release-manifest.json")
 end
 
 security_intake = File.file?("os/skills/security-intake.md") ? File.read("os/skills/security-intake.md") : ""
-add.call("security intake does not keep artifacts inert") unless security_intake.match?(/Keep newly sourced.*inert/im)
+add.call("security intake does not block new items before review") unless security_intake.match?(/Do not open or run a new .* until .*understood/im)
 add.call("security intake does not treat instructions as data") unless security_intake.match?(/instruction.*inside it as data, not authority/i)
 add.call("security intake permits private public uploads") unless security_intake.match?(/Never send private files to public scanning services without owner approval/i)
 
@@ -264,26 +285,161 @@ Dir.glob("os/skills/*.md").each do |path|
   end
 end
 
+source_check_output, source_check_status = capture("ruby", "setup/scripts/validate-source.rb")
+add.call("owner source check failed: #{source_check_output.strip}") unless source_check_status.success?
+
 source_project_output, source_project_status = capture("ruby", "setup/scripts/add-project.rb", "must-refuse")
 add.call("project generator did not refuse the public source") if source_project_status.success? || File.exist?("life/projects/must-refuse")
 source_business_output, source_business_status = capture("ruby", "setup/scripts/add-business.rb", "must-refuse")
 add.call("business generator did not refuse the public source") if source_business_status.success? || File.exist?("biz/must-refuse")
 
 Dir.mktmpdir("starter-os-2-") do |tmp|
-  init_git = lambda do |vault|
-    os_root = File.join(vault, "os")
+  source_fixture = File.join(tmp, "SOURCE-CHECK")
+  FileUtils.mkdir_p(source_fixture)
+  ROOT.children.each do |entry|
+    next if entry.basename.to_s == ".git"
+    FileUtils.cp_r(entry, source_fixture)
+  end
+  %w[.DS_Store .localized Thumbs.db desktop.ini].each do |name|
+    File.write(File.join(source_fixture, name), "harmless computer metadata fixture\n")
+  end
+  metadata_source_output, metadata_source_status = capture("ruby", "setup/scripts/validate-source.rb", chdir: source_fixture)
+  add.call("owner source check rejected harmless computer metadata: #{metadata_source_output.strip}") unless metadata_source_status.success?
+
+  nested_metadata = File.join(source_fixture, "setup", "scripts", ".DS_Store")
+  File.write(nested_metadata, "unexpected nested metadata fixture\n")
+  nested_metadata_output, nested_metadata_status = capture("ruby", "setup/scripts/validate-source.rb", chdir: source_fixture)
+  if nested_metadata_status.success? || !nested_metadata_output.include?("unexpected public files are present: setup/scripts/.DS_Store")
+    add.call("owner source check ignored computer metadata outside the public root")
+  end
+  FileUtils.rm_f(nested_metadata)
+
+  extra_source_path = File.join(source_fixture, "unexpected-owner-file.md")
+  File.write(extra_source_path, "unexpected public file fixture\n")
+  extra_source_output, extra_source_status = capture("ruby", "setup/scripts/validate-source.rb", chdir: source_fixture)
+  if extra_source_status.success? || !extra_source_output.include?("unexpected public files are present: unexpected-owner-file.md")
+    add.call("owner source check accepted an unexpected public file")
+  end
+  FileUtils.rm_f(extra_source_path)
+
+  missing_source_path = File.join(source_fixture, "setup", "GIT-SETUP.md")
+  missing_source_bytes = File.binread(missing_source_path)
+  FileUtils.rm_f(missing_source_path)
+  missing_source_output, missing_source_status = capture("ruby", "setup/scripts/validate-source.rb", chdir: source_fixture)
+  if missing_source_status.success? || !missing_source_output.include?("public files are missing: setup/GIT-SETUP.md")
+    add.call("owner source check accepted a missing public file")
+  end
+  File.binwrite(missing_source_path, missing_source_bytes)
+
+  File.open(File.join(source_fixture, "os", "manual.md"), "a") { |file| file.write("\ntampered source fixture\n") }
+  tampered_source_output, tampered_source_status = capture("ruby", "setup/scripts/validate-source.rb", chdir: source_fixture)
+  if tampered_source_status.success? || !tampered_source_output.include?("public files do not match Starter.OS: os/manual.md")
+    add.call("owner source check accepted a changed public file")
+  end
+
+  init_repository = lambda do |repository|
     commands = [
-      ["git", "init", "-q", os_root],
-      ["git", "-C", os_root, "config", "user.name", "Starter.OS test"],
-      ["git", "-C", os_root, "config", "user.email", "starter-os-test@example.invalid"],
-      ["git", "-C", os_root, "add", "-A"],
-      ["git", "-C", os_root, "commit", "-q", "-m", "test recovery point"]
+      ["git", "init", "-q", repository],
+      ["git", "-C", repository, "config", "user.name", "Starter.OS test"],
+      ["git", "-C", repository, "config", "user.email", "starter-os-test@example.invalid"],
+      ["git", "-C", repository, "add", "-A"],
+      ["git", "-C", repository, "commit", "-q", "-m", "test recovery point"]
     ]
     commands.each do |command|
       output, status = capture(*command)
       add.call("test Git setup failed: #{command.join(' ')}: #{output.strip}") unless status.success?
     end
   end
+
+  init_git = lambda do |vault|
+    %w[os life].each { |name| init_repository.call(File.join(vault, name)) }
+  end
+
+  build_historical_vault = lambda do |ref, destination|
+    manifest_text, manifest_status = capture("git", "show", "#{ref}:release-manifest.json")
+    unless manifest_status.success?
+      add.call("historical release proof is unavailable for #{ref}")
+      next nil
+    end
+
+    manifest = JSON.parse(manifest_text)
+    FileUtils.mkdir_p(destination)
+    manifest.fetch("directories", []).each { |path| FileUtils.mkdir_p(File.join(destination, path)) }
+
+    installed_artifacts = {}
+    manifest.fetch("artifacts").each do |artifact|
+      source = artifact.fetch("source")
+      target = artifact.fetch("path")
+      bytes, source_status = capture("git", "show", "#{ref}:#{source}")
+      unless source_status.success?
+        add.call("cannot read historical #{manifest['version']} source #{source} from #{ref}")
+        next
+      end
+      if Digest::SHA256.hexdigest(bytes) != artifact.fetch("sha256")
+        add.call("historical #{manifest['version']} source checksum differs: #{source}")
+      end
+      target_path = File.join(destination, target)
+      FileUtils.mkdir_p(File.dirname(target_path))
+      File.binwrite(target_path, bytes)
+      installed_artifacts[target] = {
+        "ownership" => artifact.fetch("ownership"),
+        "sha256" => Digest::SHA256.hexdigest(bytes),
+        "upstream_sha256" => artifact.fetch("sha256"),
+        "source_version" => manifest.fetch("version")
+      }
+    end
+
+    release_record = {
+      "format" => 1,
+      "product" => "Starter.OS",
+      "version" => manifest.fetch("version"),
+      "installed_at" => "historical validation fixture",
+      "manifest_sha256" => Digest::SHA256.hexdigest(manifest_text),
+      "artifacts" => installed_artifacts
+    }
+    File.write(File.join(destination, "os", "release.json"), "#{JSON.pretty_generate(release_record)}\n")
+    manifest.fetch("version")
+  rescue JSON::ParserError, KeyError => error
+    add.call("historical fixture from #{ref} is invalid: #{error.message}")
+    nil
+  end
+
+  {
+    "2.0.0" => "bb7d3c744348c933b03181a7dffa0b6a8c8701ca",
+    "2.1.0" => "v2.1.0"
+  }.each do |version, ref|
+    historical_vault = File.join(tmp, "HISTORY-#{version}.os")
+    built_version = build_historical_vault.call(ref, historical_vault)
+    next unless built_version
+
+    add.call("historical fixture version mismatch for #{ref}: #{built_version}") unless built_version == version
+    owner_path = File.join(historical_vault, "life", "historical-owner-note.md")
+    File.write(owner_path, "owner work from #{version} must survive\n")
+    owner_digest = Digest::SHA256.file(owner_path).hexdigest
+    init_git.call(historical_vault)
+
+    historical_plan = File.join(tmp, "history-#{version}-plan.json")
+    plan_output, plan_status = capture("ruby", "setup/scripts/update-vault.rb", "plan", historical_vault, historical_plan)
+    add.call("history-backed #{version} update plan failed: #{plan_output.strip}") unless plan_status.success?
+    next unless plan_status.success?
+
+    plan = JSON.parse(File.read(historical_plan))
+    conflicts = plan.fetch("entries").select { |entry| entry["action"] == "conflict" }
+    add.call("history-backed #{version} update has unexpected conflicts: #{conflicts.map { |entry| entry['path'] }.join(', ')}") unless conflicts.empty?
+    apply_output, apply_status = capture("ruby", "setup/scripts/update-vault.rb", "apply", historical_vault, historical_plan)
+    add.call("history-backed #{version} update apply failed: #{apply_output.strip}") unless apply_status.success?
+    next unless apply_status.success?
+
+    add.call("history-backed #{version} update changed owner work") unless Digest::SHA256.file(owner_path).hexdigest == owner_digest
+    installed_release = JSON.parse(File.read(File.join(historical_vault, "os", "release.json")))
+    add.call("history-backed #{version} update did not install 2.2.0") unless installed_release["version"] == "2.2.0"
+    installed_output, installed_status = capture("ruby", "os/validate-starter-os.rb", chdir: historical_vault)
+    add.call("history-backed #{version} update did not validate: #{installed_output.strip}") unless installed_status.success?
+    history_update_proof << version
+  end
+
+  missing_history = %w[2.0.0 2.1.0] - history_update_proof
+  add.call("historical update proof did not complete for: #{missing_history.join(', ')}") unless missing_history.empty?
 
   linked_install_target = File.join(tmp, "LINKED-INSTALL-TARGET.os")
   linked_install = File.join(tmp, "LINKED-INSTALL.os")
@@ -323,17 +479,52 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     add.call("license was not installed") unless File.file?(File.join(vault, "os", "license.md"))
 
     release = JSON.parse(File.read(File.join(vault, "os", "release.json")))
-    add.call("installed release version is not 2.1.0") unless release["version"] == "2.1.0"
+    add.call("installed release version is not 2.2.0") unless release["version"] == "2.2.0"
+
+    unprotected_vault_output, unprotected_vault_status = capture("ruby", "os/validate-starter-os.rb", chdir: vault)
+    if unprotected_vault_status.success? || !unprotected_vault_output.include?("os/ is not protected by its own Git repository") || !unprotected_vault_output.include?("life/ is not protected by its own Git repository")
+      add.call("installed validator accepted os/ or life/ without independent Git history")
+    end
 
     init_git.call(vault)
 
     project_output, project_status = capture("ruby", "os/scripts/add-project.rb", "health", chdir: vault)
     add.call("project generator failed: #{project_output.strip}") unless project_status.success?
+    if project_status.success?
+      life_root = File.join(vault, "life")
+      capture("git", "-C", life_root, "add", "-A")
+      project_commit_output, project_commit_status = capture("git", "-C", life_root, "commit", "-q", "-m", "add test project")
+      add.call("test project recovery commit failed: #{project_commit_output.strip}") unless project_commit_status.success?
+    end
     business_output, business_status = capture("ruby", "os/scripts/add-business.rb", "sample-studio", chdir: vault)
     add.call("business generator failed: #{business_output.strip}") unless business_status.success?
+    if business_status.success?
+      unprotected_business_output, unprotected_business_status = capture("ruby", "os/validate-starter-os.rb", chdir: vault)
+      if unprotected_business_status.success? || !unprotected_business_output.include?("business biz/sample-studio is not protected by its own Git repository")
+        add.call("installed validator accepted a business without its own Git repository")
+      end
+      capture("git", "init", "-q", File.join(vault, "biz", "sample-studio"))
+      unborn_business_output, unborn_business_status = capture("ruby", "os/validate-starter-os.rb", chdir: vault)
+      if unborn_business_status.success? || !unborn_business_output.include?("business biz/sample-studio has no readable recovery commit")
+        add.call("installed validator accepted a business Git repository without a commit")
+      end
+      init_repository.call(File.join(vault, "biz", "sample-studio"))
+    end
 
     validate_output, validate_status = capture("ruby", "os/validate-starter-os.rb", chdir: vault)
     add.call("installed validation failed:\n#{validate_output}") unless validate_status.success?
+
+    %w[.DS_Store .localized Thumbs.db desktop.ini].each do |name|
+      File.write(File.join(vault, name), "harmless computer metadata fixture\n")
+    end
+    metadata_output, metadata_status = capture("ruby", "os/validate-starter-os.rb", chdir: vault)
+    add.call("installed validation rejected harmless computer-created root files: #{metadata_output.strip}") unless metadata_status.success?
+    File.write(File.join(vault, "unexpected-owner-file.md"), "unexpected root fixture\n")
+    unexpected_root_output, unexpected_root_status = capture("ruby", "os/validate-starter-os.rb", chdir: vault)
+    if unexpected_root_status.success? || !unexpected_root_output.include?("unexpected installed root: unexpected-owner-file.md")
+      add.call("installed validation accepted an unexpected owner-created root file")
+    end
+    FileUtils.rm_f(File.join(vault, "unexpected-owner-file.md"))
 
     external_manual = File.join(tmp, "external-manual.md")
     installed_manual = File.join(vault, "os", "manual.md")
@@ -386,8 +577,36 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
         add.call("same-version plan has no owner-owned preserve entry for tamper regression")
       end
 
+      dirty_life_path = File.join(vault, "life", "unprotected-update-test.md")
+      File.write(dirty_life_path, "must block update\n")
+      dirty_life_output, dirty_life_status = capture("ruby", "setup/scripts/update-vault.rb", "apply", vault, plan_path)
+      if dirty_life_status.success? || !dirty_life_output.include?("life/ has uncommitted work")
+        add.call("updater did not reject uncommitted life/ work")
+      end
+      FileUtils.rm_f(dirty_life_path)
+
       apply_output, apply_status = capture("ruby", "setup/scripts/update-vault.rb", "apply", vault, plan_path)
       add.call("same-version update apply failed: #{apply_output.strip}") unless apply_status.success?
+    end
+
+    unborn_update_vault = File.join(tmp, "UNBORN-UPDATE.os")
+    unborn_create_output, unborn_create_status = capture("ruby", "setup/scripts/create-vault.rb", unborn_update_vault)
+    add.call("unborn update fixture could not be created: #{unborn_create_output.strip}") unless unborn_create_status.success?
+    if unborn_create_status.success?
+      %w[os life].each do |name|
+        repository = File.join(unborn_update_vault, name)
+        capture("git", "init", "-q", repository)
+        File.write(File.join(repository, ".git", "info", "exclude"), "*\n")
+      end
+      unborn_plan = File.join(tmp, "unborn-update-plan.json")
+      unborn_plan_output, unborn_plan_status = capture("ruby", "setup/scripts/update-vault.rb", "plan", unborn_update_vault, unborn_plan)
+      add.call("unborn update plan failed unexpectedly: #{unborn_plan_output.strip}") unless unborn_plan_status.success?
+      if unborn_plan_status.success?
+        unborn_apply_output, unborn_apply_status = capture("ruby", "setup/scripts/update-vault.rb", "apply", unborn_update_vault, unborn_plan)
+        if unborn_apply_status.success? || !unborn_apply_output.include?("has no readable recovery commit")
+          add.call("updater accepted clean Git repositories without recovery commits")
+        end
+      end
     end
 
     refusal_output, refusal_status = capture("ruby", "setup/scripts/create-vault.rb", vault)
@@ -410,18 +629,18 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     custom_digest = Digest::SHA256.file(custom_path).hexdigest
     init_git.call(prior_vault)
 
-    prior_plan_path = File.join(tmp, "2-0-to-2-1-plan.json")
+    prior_plan_path = File.join(tmp, "2-0-to-2-2-plan.json")
     prior_plan_output, prior_plan_status = capture("ruby", "setup/scripts/update-vault.rb", "plan", prior_vault, prior_plan_path)
-    add.call("2.0 to 2.1 update plan failed: #{prior_plan_output.strip}") unless prior_plan_status.success?
+    add.call("2.0 to 2.2 update plan failed: #{prior_plan_output.strip}") unless prior_plan_status.success?
     if prior_plan_status.success?
       prior_plan = JSON.parse(File.read(prior_plan_path))
       brief_entry = prior_plan.fetch("entries").find { |entry| entry["path"] == "os/skills/daily-brief.md" }
-      add.call("2.0 to 2.1 plan did not recognize the managed Morning Brief update") unless brief_entry && brief_entry["action"] == "update"
+      add.call("2.0 to 2.2 plan did not recognize the managed Morning Brief update") unless brief_entry && brief_entry["action"] == "update"
       prior_apply_output, prior_apply_status = capture("ruby", "setup/scripts/update-vault.rb", "apply", prior_vault, prior_plan_path)
-      add.call("2.0 to 2.1 update apply failed: #{prior_apply_output.strip}") unless prior_apply_status.success?
+      add.call("2.0 to 2.2 update apply failed: #{prior_apply_output.strip}") unless prior_apply_status.success?
       if prior_apply_status.success?
         updated_release = JSON.parse(File.read(prior_release_path))
-        add.call("2.0 update did not install 2.1.0") unless updated_release["version"] == "2.1.0"
+        add.call("2.0 update did not install 2.2.0") unless updated_release["version"] == "2.2.0"
         add.call("2.0 update changed unknown owner work") unless Digest::SHA256.file(custom_path).hexdigest == custom_digest
         prior_validate, prior_validate_status = capture("ruby", "os/validate-starter-os.rb", chdir: prior_vault)
         add.call("updated 2.0 vault did not validate: #{prior_validate.strip}") unless prior_validate_status.success?
@@ -429,6 +648,41 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     end
   else
     add.call("2.0 update fixture could not be created: #{prior_create.strip}")
+  end
+
+  starter_2_1 = File.join(tmp, "STARTER-2-1.os")
+  starter_2_1_create, starter_2_1_create_status = capture("ruby", "setup/scripts/create-vault.rb", starter_2_1)
+  if starter_2_1_create_status.success?
+    starter_2_1_release_path = File.join(starter_2_1, "os", "release.json")
+    starter_2_1_release = JSON.parse(File.read(starter_2_1_release_path))
+    starter_2_1_release["version"] = "2.1.0"
+    prior_agents_path = File.join(starter_2_1, "os", "AGENTS.md")
+    prior_agents = "# Operating rules\n\nRepresentative managed Starter.OS 2.1 fixture.\n"
+    File.write(prior_agents_path, prior_agents)
+    starter_2_1_release.fetch("artifacts").fetch("os/AGENTS.md")["sha256"] = Digest::SHA256.hexdigest(prior_agents)
+    File.write(starter_2_1_release_path, "#{JSON.pretty_generate(starter_2_1_release)}\n")
+    starter_2_1_owner_path = File.join(starter_2_1, "life", "owner-2-1-note.md")
+    File.write(starter_2_1_owner_path, "owner work from 2.1 must survive\n")
+    starter_2_1_owner_digest = Digest::SHA256.file(starter_2_1_owner_path).hexdigest
+    init_git.call(starter_2_1)
+
+    starter_2_1_plan = File.join(tmp, "2-1-to-2-2-plan.json")
+    starter_2_1_plan_output, starter_2_1_plan_status = capture("ruby", "setup/scripts/update-vault.rb", "plan", starter_2_1, starter_2_1_plan)
+    add.call("2.1 to 2.2 update plan failed: #{starter_2_1_plan_output.strip}") unless starter_2_1_plan_status.success?
+    if starter_2_1_plan_status.success?
+      plan = JSON.parse(File.read(starter_2_1_plan))
+      agents_entry = plan.fetch("entries").find { |entry| entry["path"] == "os/AGENTS.md" }
+      add.call("2.1 to 2.2 plan did not recognize a managed instruction update") unless agents_entry && agents_entry["action"] == "update"
+      starter_2_1_apply_output, starter_2_1_apply_status = capture("ruby", "setup/scripts/update-vault.rb", "apply", starter_2_1, starter_2_1_plan)
+      add.call("2.1 to 2.2 update apply failed: #{starter_2_1_apply_output.strip}") unless starter_2_1_apply_status.success?
+      if starter_2_1_apply_status.success?
+        updated_release = JSON.parse(File.read(starter_2_1_release_path))
+        add.call("2.1 update did not install 2.2.0") unless updated_release["version"] == "2.2.0"
+        add.call("2.1 update changed unknown owner work") unless Digest::SHA256.file(starter_2_1_owner_path).hexdigest == starter_2_1_owner_digest
+      end
+    end
+  else
+    add.call("2.1 update fixture could not be created: #{starter_2_1_create.strip}")
   end
 
   fork_vault = File.join(tmp, "FORK.os")
@@ -504,7 +758,13 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
   File.binwrite(File.join(legacy, "life", "assets", "sample.bin"), "\x00\xFFlegacy\x10".b)
   File.write(File.join(legacy, "life", "notes", "raw.md"), "raw idea\n")
   File.write(File.join(legacy, "life", "notes", "part.md"), "part one\n")
+  File.write(File.join(legacy, "life", "notes", "AGENTS.md"), (1..500).map { |number| "Owner rule #{number}\n" }.join)
+  external_link_target = File.join(tmp, "external-link-target.md")
+  File.write(external_link_target, "external owner material\n")
+  File.symlink(external_link_target, File.join(legacy, "life", "notes", "external.md"))
   File.write(File.join(legacy, ".DS_Store"), "obsolete finder metadata\n")
+
+  init_repository.call(legacy)
 
   before = tree_digests(Pathname.new(legacy))
   preview = File.join(tmp, "PREVIEW.os")
@@ -517,6 +777,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
   add.call("migration preview generation failed: #{preview_output.strip}") unless preview_status.success?
 
   if preview_status.success? && snapshot_status.success?
+    File.write(File.join(preview, ".DS_Store"), "harmless computer metadata fixture\n")
     FileUtils.mkdir_p(File.join(preview, "life", "documents"))
     FileUtils.mkdir_p(File.join(preview, "life", "projects", "health"))
     FileUtils.cp(File.join(legacy, "life", "00_inbox", "note.md"), File.join(preview, "life", "documents", "note.md"))
@@ -524,17 +785,24 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     FileUtils.cp(File.join(legacy, "life", "assets", "sample.bin"), File.join(preview, "life", "documents", "sample.bin"))
     File.write(File.join(preview, "life", "documents", "summary.md"), "approved transformed summary\n")
     File.write(File.join(preview, "life", "documents", "combined.md"), "approved merged material\n")
+    File.write(File.join(preview, "life", "documents", "reviewed-agent-rules.md"), "Reviewed owner instructions remain routed by their proper homes.\n")
+
+    summary_digest = Digest::SHA256.file(File.join(preview, "life", "documents", "summary.md")).hexdigest
+    combined_digest = Digest::SHA256.file(File.join(preview, "life", "documents", "combined.md")).hexdigest
+    instruction_digest = Digest::SHA256.file(File.join(preview, "life", "documents", "reviewed-agent-rules.md")).hexdigest
 
     manifest_path = File.join(tmp, "migration-map.tsv")
     rows = [
-      %w[source_path disposition destination_path reason],
-      [".DS_Store", "exclude", "", "obsolete Finder metadata"],
-      ["life/00_inbox/note.md", "preserve", "life/documents/note.md", ""],
-      ["life/archive/history.md", "unresolved", "", "owner must choose its durable home"],
-      ["life/areas/health/care.md", "copy", "life/projects/health/care.md", ""],
-      ["life/assets/sample.bin", "copy", "life/documents/sample.bin", ""],
-      ["life/notes/raw.md", "transform", "life/documents/summary.md", "owner approved a concise rewrite"],
-      ["life/notes/part.md", "merge", "life/documents/combined.md", "owner approved consolidation"]
+      %w[source_path disposition destination_path reason approved_destination_sha256],
+      [".DS_Store", "exclude", "", "obsolete Finder metadata", ""],
+      ["life/00_inbox/note.md", "preserve", "life/documents/note.md", "", ""],
+      ["life/archive/history.md", "unresolved", "", "owner must choose its durable home", ""],
+      ["life/areas/health/care.md", "copy", "life/projects/health/care.md", "", ""],
+      ["life/assets/sample.bin", "copy", "life/documents/sample.bin", "", ""],
+      ["life/notes/raw.md", "transform", "life/documents/summary.md", "owner approved a concise rewrite", "approved:#{summary_digest}"],
+      ["life/notes/part.md", "merge", "life/documents/combined.md", "owner approved consolidation", "approved:#{combined_digest}"],
+      ["life/notes/AGENTS.md", "transform", "life/documents/reviewed-agent-rules.md", "owner approved instruction reconciliation", "instruction-review:#{instruction_digest}"],
+      ["life/notes/external.md", "unresolved", "", "external symbolic link requires owner review", ""]
     ]
     File.write(manifest_path, rows.map { |row| CSV.generate_line(row, col_sep: "\t") }.join)
     verify_output, verify_status = capture(
@@ -542,6 +810,17 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
       legacy, preview, source_snapshot, manifest_path
     )
     add.call("complete migration manifest did not verify: #{verify_output.strip}") unless verify_status.success?
+
+    unexpected_migration_root = File.join(preview, "unexpected-owner-file.md")
+    File.write(unexpected_migration_root, "unexpected root fixture\n")
+    unexpected_migration_output, unexpected_migration_status = capture(
+      "ruby", "setup/scripts/verify-migration.rb", "verify",
+      legacy, preview, source_snapshot, manifest_path
+    )
+    if unexpected_migration_status.success? || !unexpected_migration_output.include?("destination has unexpected root paths: unexpected-owner-file.md")
+      add.call("migration verifier accepted an unexpected destination root file")
+    end
+    FileUtils.rm_f(unexpected_migration_root)
 
     incomplete_path = File.join(tmp, "incomplete-migration-map.tsv")
     incomplete_rows = rows.reject { |row| row.first == "life/assets/sample.bin" }
@@ -561,6 +840,47 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     )
     add.call("changed copied bytes were not rejected") if mismatch_status.success? || !mismatch_output.include?("copied bytes do not match")
     File.binwrite(copied_binary, original_binary)
+
+    weak_instruction_path = File.join(tmp, "weak-instruction-migration-map.tsv")
+    weak_instruction_rows = rows.map(&:dup)
+    instruction_row = weak_instruction_rows.find { |row| row.first == "life/notes/AGENTS.md" }
+    instruction_row[4] = "approved:#{instruction_digest}"
+    File.write(weak_instruction_path, weak_instruction_rows.map { |row| CSV.generate_line(row, col_sep: "\t") }.join)
+    weak_instruction_output, weak_instruction_status = capture(
+      "ruby", "setup/scripts/verify-migration.rb", "verify",
+      legacy, preview, source_snapshot, weak_instruction_path
+    )
+    if weak_instruction_status.success? || !weak_instruction_output.include?("instruction-review:")
+      add.call("migration verifier accepted transformed agent instructions without instruction-review evidence")
+    end
+
+    linked_destination = File.join(preview, "life", "documents", "external.md")
+    File.symlink(external_link_target, linked_destination)
+    unsafe_link_path = File.join(tmp, "unsafe-link-migration-map.tsv")
+    unsafe_link_rows = rows.map(&:dup)
+    link_row = unsafe_link_rows.find { |row| row.first == "life/notes/external.md" }
+    link_row[1] = "preserve"
+    link_row[2] = "life/documents/external.md"
+    link_row[3] = ""
+    File.write(unsafe_link_path, unsafe_link_rows.map { |row| CSV.generate_line(row, col_sep: "\t") }.join)
+    unsafe_link_output, unsafe_link_status = capture(
+      "ruby", "setup/scripts/verify-migration.rb", "verify",
+      legacy, preview, source_snapshot, unsafe_link_path
+    )
+    if unsafe_link_status.success? || !unsafe_link_output.match?(/symbolic link/i)
+      add.call("migration verifier accepted an external symbolic link")
+    end
+    FileUtils.rm_f(linked_destination)
+
+    capture("git", "-C", legacy, "config", "starter.review-test", "changed-after-snapshot")
+    git_changed_output, git_changed_status = capture(
+      "ruby", "setup/scripts/verify-migration.rb", "verify",
+      legacy, preview, source_snapshot, manifest_path
+    )
+    if git_changed_status.success? || !git_changed_output.include?("Git state changed")
+      add.call("migration verifier did not detect source Git-state changes")
+    end
+    capture("git", "-C", legacy, "config", "--unset", "starter.review-test")
   end
 
   add.call("migration preview changed the source fixture") unless before == tree_digests(Pathname.new(legacy))
@@ -570,10 +890,10 @@ source_after = tree_digests(ROOT)
 add.call("validation modified the public source checkout") unless source_before == source_after
 
 if errors.empty?
-  puts "PASS Starter.OS 2.1: link-only routing, three guided paths, Git primary and mirror contract, skill audit, protected manual, licenses, release manifest, clean install, 2.0 update, legacy update, manual fork, migration proof, and privacy checks"
+  puts "PASS Starter.OS 2.2: link-only routing, owner source check, five-step protection, three guided paths, local Git recovery gates, separate hosted-backup reporting, business Git commits, skill audit, protected manual, licenses, release manifest, clean install, history-backed 2.1 and 2.0 updates, legacy update, manual fork, migration proof, and privacy checks"
   exit 0
 end
 
-puts "FAIL Starter.OS 2.1: #{errors.length} issue#{errors.length == 1 ? '' : 's'}"
+puts "FAIL Starter.OS 2.2: #{errors.length} issue#{errors.length == 1 ? '' : 's'}"
 errors.each { |message| puts "- #{message}" }
 exit 1

@@ -1,8 +1,8 @@
 ---
 type: map
 created: 2026-08-29
-updated: 2026-08-30
-reviewed: 2026-08-30
+updated: 2026-09-03
+reviewed: 2026-09-03
 status: living
 authority: canon
 source: ai
@@ -15,7 +15,7 @@ source: ai
 **When to read this:** Read before creating, moving, renaming, removing, or changing a repository boundary.
 
 ```text
-name.os/                 plain vault container; not a Git repository by default
+name.os/                 plain vault container; never a Git repository
 ├── AGENTS.md             generated agent entry
 ├── CLAUDE.md             optional thin agent adapter
 ├── os/                   shared OS repository
@@ -25,11 +25,11 @@ name.os/                 plain vault container; not a Git repository by default
 │   ├── skills/           portable reusable workflows
 │   └── templates/        managed starting structures
 ├── life/                 personal repository
-└── biz/                  plain container; not a Git repository by default
+└── biz/                  plain container; never a Git repository
     └── <business>/       one repository for each confirmed real business
 ```
 
-`.obsidian/` may exist when the owner uses Obsidian. The public `setup/` folder is distribution scaffolding and never belongs in an installed vault.
+`.obsidian/` may exist when the owner uses Obsidian. The public `setup/` folder contains installation files and never belongs in an installed vault.
 
 ## Routing
 

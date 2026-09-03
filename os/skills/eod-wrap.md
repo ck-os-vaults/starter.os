@@ -1,8 +1,8 @@
 ---
 type: skill
 created: 2026-06-20
-updated: 2026-08-15
-reviewed: 2026-08-15
+updated: 2026-09-03
+reviewed: 2026-09-03
 status: draft
 authority: exploratory
 source: ai
@@ -20,8 +20,8 @@ Repository closeout validates and synchronizes changed repositories. A full wrap
 
 ## trigger
 
-- **Repository closeout:** meaningful file-changing work is complete.
-- **Full wrap:** the owner asks to wrap, or the owning project expressly requires it.
+- **Repository closeout.** Meaningful file-changing work is complete.
+- **Full wrap.** The owner asks to wrap, or the owning project requires it.
 
 ## steps
 
