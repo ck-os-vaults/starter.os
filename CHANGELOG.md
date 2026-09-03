@@ -15,6 +15,7 @@ Changes being developed belong under **Unreleased**. When a release is approved,
 - The one-link start now states the capabilities an agent needs and provides a truthful fallback when it cannot read the repository or work with a private repository.
 - Git setup instructions now put the technical work on the agent and keep sign-in, multifactor authentication, recovery codes, and secret values private with the owner.
 - Task reconciliation can fall back to durable project status and owner-provided handoffs when the environment cannot list tasks.
+- Public installation machinery is now grouped under `setup/`: scripts in `setup/scripts/`, detailed licenses in `setup/legal/`, and the machine-readable release manifest at `setup/release-manifest.json`. The public root now emphasizes the `os/`, `life/`, and installed `biz/` model.
 
 ### Compatibility
 

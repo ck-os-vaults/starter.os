@@ -6,8 +6,8 @@ require "json"
 require "pathname"
 require "set"
 
-ROOT = Pathname.new(File.expand_path("..", __dir__))
-OUTPUT = ROOT.join("release-manifest.json")
+ROOT = Pathname.new(File.expand_path("../..", __dir__))
+OUTPUT = ROOT.join("setup", "release-manifest.json")
 RELEASE_VERSION = "2.1.0"
 RELEASE_DATE = "2026-08-31"
 
@@ -24,8 +24,8 @@ OWNER_OWNED = Set.new(%w[
 TARGET_OVERRIDES = {
   "AGENTS.md" => "os/templates/root-AGENTS.txt",
   "CLAUDE.md" => "os/templates/root-CLAUDE.txt",
-  "os/scripts/add-project.rb" => "scripts/add-project.rb",
-  "os/scripts/add-business.rb" => "scripts/add-business.rb"
+  "os/scripts/add-project.rb" => "setup/scripts/add-project.rb",
+  "os/scripts/add-business.rb" => "setup/scripts/add-business.rb"
 }.freeze
 
 def stop(message)
@@ -88,7 +88,7 @@ Find.find(ROOT.to_s) do |absolute|
     end
   end
   next unless File.file?(absolute)
-  next if relative == "release-manifest.json"
+  next if relative == "setup/release-manifest.json"
   distribution_files << {
     "path" => safe_relative(relative),
     "sha256" => sha256(absolute)

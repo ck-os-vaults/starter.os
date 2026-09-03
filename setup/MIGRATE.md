@@ -17,7 +17,7 @@ Read the source's entry instructions, maps, actual files, repository state, inte
 Create a content snapshot outside both systems:
 
 ```sh
-ruby scripts/verify-migration.rb snapshot /absolute/path/to/OLD.os /absolute/path/to/source-snapshot.json
+ruby setup/scripts/verify-migration.rb snapshot /absolute/path/to/OLD.os /absolute/path/to/source-snapshot.json
 ```
 
 Record counts and paths without exposing sensitive contents.
@@ -69,7 +69,7 @@ Wait for approval before building the preview.
 Create the clean foundation:
 
 ```sh
-ruby scripts/create-vault.rb /absolute/path/to/NEW.os
+ruby setup/scripts/create-vault.rb /absolute/path/to/NEW.os
 ```
 
 Do not use the source as the writable workspace. Do not import `.git/` internals or `setup/`.
@@ -83,7 +83,7 @@ After approval, execute only the approved map. Preserve source bytes for `preser
 Run:
 
 ```sh
-ruby scripts/verify-migration.rb verify /absolute/path/to/OLD.os /absolute/path/to/NEW.os /absolute/path/to/source-snapshot.json /absolute/path/to/migration-map.tsv
+ruby setup/scripts/verify-migration.rb verify /absolute/path/to/OLD.os /absolute/path/to/NEW.os /absolute/path/to/source-snapshot.json /absolute/path/to/migration-map.tsv
 ```
 
 The verifier must prove:

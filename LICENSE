@@ -2,11 +2,11 @@ Starter.OS uses two licenses.
 
 Code license
 
-Ruby scripts, validators, update tooling, and machine-readable release machinery are licensed under the MIT License in LICENSE-CODE.
+Ruby scripts, validators, update tooling, and machine-readable release machinery are licensed under the MIT License in setup/legal/LICENSE-CODE.
 
 Content license
 
-Documentation, the manual, Markdown skills, agent instructions, text templates, and other written content are licensed under Creative Commons Attribution 4.0 International in LICENSE-CONTENT.
+Documentation, the manual, Markdown skills, agent instructions, text templates, and other written content are licensed under Creative Commons Attribution 4.0 International in setup/legal/LICENSE-CONTENT.
 
 Attribution for shared content:
 

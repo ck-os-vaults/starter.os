@@ -7,8 +7,8 @@ require "open3"
 require "pathname"
 require "time"
 
-SOURCE_ROOT = Pathname.new(File.expand_path("..", __dir__)).realpath
-MANIFEST_PATH = SOURCE_ROOT.join("release-manifest.json")
+SOURCE_ROOT = Pathname.new(File.expand_path("../..", __dir__)).realpath
+MANIFEST_PATH = SOURCE_ROOT.join("setup", "release-manifest.json")
 
 def stop(message)
   warn "Starter.OS update stopped: #{message}"
@@ -69,7 +69,7 @@ def file_state(path)
 end
 
 def load_manifest
-  stop("release manifest is missing; run ruby scripts/build-release-manifest.rb") unless MANIFEST_PATH.file?
+  stop("release manifest is missing; run ruby setup/scripts/build-release-manifest.rb") unless MANIFEST_PATH.file?
   manifest = JSON.parse(MANIFEST_PATH.read)
   stop("unsupported release manifest") unless manifest["format"] == 1 && manifest["product"] == "Starter.OS"
   manifest.fetch("artifacts").each do |artifact|

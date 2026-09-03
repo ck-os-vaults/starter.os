@@ -6,8 +6,8 @@ require "json"
 require "pathname"
 require "time"
 
-SOURCE_ROOT = Pathname.new(File.expand_path("..", __dir__)).realpath
-MANIFEST_PATH = SOURCE_ROOT.join("release-manifest.json")
+SOURCE_ROOT = Pathname.new(File.expand_path("../..", __dir__)).realpath
+MANIFEST_PATH = SOURCE_ROOT.join("setup", "release-manifest.json")
 
 def stop(message)
   warn "Cannot create vault: #{message}"
@@ -70,7 +70,7 @@ stop("the root folder name must end in .os") unless destination.basename.to_s.ma
 stop("the private vault must be outside the public source") if inside?(destination, source_real)
 stop("the destination exists and is not a folder") if destination.exist? && !destination.directory?
 stop("the destination folder is not empty") if destination.directory? && !destination.children.empty?
-stop("release manifest is missing; run ruby scripts/build-release-manifest.rb") unless MANIFEST_PATH.file?
+stop("release manifest is missing; run ruby setup/scripts/build-release-manifest.rb") unless MANIFEST_PATH.file?
 
 manifest = JSON.parse(MANIFEST_PATH.read)
 stop("unsupported release manifest") unless manifest["format"] == 1 && manifest["product"] == "Starter.OS"

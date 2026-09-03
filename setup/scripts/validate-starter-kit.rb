@@ -9,7 +9,7 @@ require "open3"
 require "pathname"
 require "tmpdir"
 
-ROOT = Pathname.new(File.expand_path("..", __dir__))
+ROOT = Pathname.new(File.expand_path("../..", __dir__))
 Dir.chdir(ROOT)
 
 errors = []
@@ -42,13 +42,13 @@ source_before.keys.select { |path| ROOT.join(path).symlink? }.each do |path|
 end
 
 required = %w[
-  AGENTS.md CLAUDE.md readme.md CHANGELOG.md LICENSE LICENSE-CODE LICENSE-CONTENT
-  release-manifest.json
+  AGENTS.md CLAUDE.md readme.md CHANGELOG.md LICENSE
+  setup/legal/LICENSE-CODE setup/legal/LICENSE-CONTENT setup/release-manifest.json
   setup/START-HERE.md setup/AGENT-SETUP.md setup/QUICK-SETUP.md
   setup/GIT-SETUP.md setup/MIGRATE.md setup/UPDATE.md
-  scripts/build-release-manifest.rb scripts/create-vault.rb
-  scripts/update-vault.rb scripts/add-project.rb scripts/add-business.rb
-  scripts/verify-migration.rb
+  setup/scripts/build-release-manifest.rb setup/scripts/create-vault.rb
+  setup/scripts/update-vault.rb setup/scripts/add-project.rb setup/scripts/add-business.rb
+  setup/scripts/verify-migration.rb
   os/AGENTS.md os/manual.md os/license.md os/me.md os/vault-map.md
   os/retrieval.md os/knowledge-map.md os/recovery.md os/integrations.md
   os/skill-map.md os/skills/drift-recovery.md os/skills/security-intake.md
@@ -62,18 +62,21 @@ required = %w[
 required.each { |path| add.call("missing required source path: #{path}") unless File.exist?(path) }
 
 forbidden = %w[
-  RELEASE-NOTES.md setup/GITHUB-SETUP.md setup/MIGRATE-V1.md starter-os-migration-guide.html
+  RELEASE-NOTES.md release-manifest.json LICENSE-CODE LICENSE-CONTENT scripts
+  setup/GITHUB-SETUP.md setup/MIGRATE-V1.md starter-os-migration-guide.html
   biz/business-model life/00_inbox life/areas life/archive
   life/records/sessions os/agent-rules.md setup/ONBOARDING.md
 ]
 forbidden.each { |path| add.call("obsolete source path remains: #{path}") if File.exist?(path) }
 
-setup_files = Dir.glob("setup/*").select { |path| File.file?(path) }.sort
+setup_files = Dir.glob("setup/*.md").select { |path| File.file?(path) }.sort
 expected_setup = %w[
   setup/AGENT-SETUP.md setup/GIT-SETUP.md setup/MIGRATE.md
   setup/QUICK-SETUP.md setup/START-HERE.md setup/UPDATE.md
 ]
 add.call("setup is not the six-file guided contract: #{setup_files.join(', ')}") unless setup_files == expected_setup
+setup_directories = Dir.glob("setup/*").select { |path| File.directory?(path) }.sort
+add.call("setup machinery is not grouped under legal/ and scripts/: #{setup_directories.join(', ')}") unless setup_directories == %w[setup/legal setup/scripts]
 
 start_here = File.file?("setup/START-HERE.md") ? File.read("setup/START-HERE.md") : ""
 root_agents = File.file?("AGENTS.md") ? File.read("AGENTS.md") : ""
@@ -153,8 +156,8 @@ add.call("security recipe is not read-only and fail-closed") unless security_swe
 recurring_docs = [agent_setup, quick_setup, migration, update, daily_brief, news_report, reconciliation, security_sweep].join("\n")
 add.call("public recurring-workflow docs still require a specific model") if recurring_docs.match?(/GPT-\d|Claude \d|Gemini \d/i)
 
-add.call("code license is not MIT") unless File.read("LICENSE-CODE").include?("MIT License") && File.read("LICENSE-CODE").include?("Copyright (c) 2026 CK")
-add.call("content license is not CC BY 4.0") unless File.read("LICENSE-CONTENT").match?(/Creative\s+Commons\s+Attribution\s+4\.0\s+International/m)
+add.call("code license is not MIT") unless File.read("setup/legal/LICENSE-CODE").include?("MIT License") && File.read("setup/legal/LICENSE-CODE").include?("Copyright (c) 2026 CK")
+add.call("content license is not CC BY 4.0") unless File.read("setup/legal/LICENSE-CONTENT").match?(/Creative\s+Commons\s+Attribution\s+4\.0\s+International/m)
 add.call("license boundary omits source marks") unless File.read("LICENSE").match?(/Name and marks/i)
 if File.file?("CHANGELOG.md")
   changelog = File.read("CHANGELOG.md")
@@ -164,9 +167,9 @@ if File.file?("CHANGELOG.md")
   add.call("changelog omits security history") unless changelog.match?(/^### Security$/)
 end
 
-if File.file?("release-manifest.json")
+if File.file?("setup/release-manifest.json")
   begin
-    manifest = JSON.parse(File.read("release-manifest.json"))
+    manifest = JSON.parse(File.read("setup/release-manifest.json"))
     add.call("unsupported release manifest") unless manifest["format"] == 1 && manifest["product"] == "Starter.OS" && manifest["version"] == "2.1.0"
     add.call("release manifest does not support 2.0 and unversioned updates") unless %w[unversioned-legacy 2.0.0 2.1.0].all? { |version| manifest.fetch("supported_updates", []).include?(version) }
     artifacts = manifest.fetch("artifacts")
@@ -193,7 +196,7 @@ if File.file?("release-manifest.json")
     add.call("release manifest misses installed paths: #{missing_manifest_paths.join(', ')}") unless missing_manifest_paths.empty?
     add.call("release manifest has unexpected installed paths: #{extra_manifest_paths.join(', ')}") unless extra_manifest_paths.empty?
 
-    expected_distribution = tree_digests(ROOT).reject { |path, _hash| path == "release-manifest.json" }
+    expected_distribution = tree_digests(ROOT).reject { |path, _hash| path == "setup/release-manifest.json" }
     recorded_distribution = manifest.fetch("distribution_files").to_h { |entry| [entry.fetch("path"), entry.fetch("sha256")] }
     missing_distribution = expected_distribution.keys.sort - recorded_distribution.keys.sort
     extra_distribution = recorded_distribution.keys.sort - expected_distribution.keys.sort
@@ -226,7 +229,7 @@ source_files.each do |path|
   next if File.symlink?(path)
   text = File.binread(path).force_encoding(Encoding::UTF_8)
   next unless text.valid_encoding?
-  next if path == "scripts/validate-starter-kit.rb"
+  next if path == "setup/scripts/validate-starter-kit.rb"
   secret_shapes.each { |label, pattern| add.call("#{path} contains #{label}-shaped text") if text.match?(pattern) }
   add.call("#{path} exposes a private local path") if text.match?(%r{/Users/[^/\s]+/})
 end
@@ -256,9 +259,9 @@ Dir.glob("os/skills/*.md").each do |path|
   end
 end
 
-source_project_output, source_project_status = capture("ruby", "scripts/add-project.rb", "must-refuse")
+source_project_output, source_project_status = capture("ruby", "setup/scripts/add-project.rb", "must-refuse")
 add.call("project generator did not refuse the public source") if source_project_status.success? || File.exist?("life/projects/must-refuse")
-source_business_output, source_business_status = capture("ruby", "scripts/add-business.rb", "must-refuse")
+source_business_output, source_business_status = capture("ruby", "setup/scripts/add-business.rb", "must-refuse")
 add.call("business generator did not refuse the public source") if source_business_status.success? || File.exist?("biz/must-refuse")
 
 Dir.mktmpdir("starter-os-2-") do |tmp|
@@ -281,20 +284,20 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
   linked_install = File.join(tmp, "LINKED-INSTALL.os")
   FileUtils.mkdir_p(linked_install_target)
   File.symlink(linked_install_target, linked_install)
-  linked_install_output, linked_install_status = capture("ruby", "scripts/create-vault.rb", linked_install)
+  linked_install_output, linked_install_status = capture("ruby", "setup/scripts/create-vault.rb", linked_install)
   if linked_install_status.success? || !linked_install_output.include?("destination itself may not be a symbolic link")
     add.call("clean installer did not reject a symbolic-link destination root")
   end
 
   builder_fixture = File.join(tmp, "builder-fixture")
   FileUtils.mkdir_p(builder_fixture)
-  %w[os life scripts].each { |path| FileUtils.cp_r(ROOT.join(path), builder_fixture) }
+  %w[os life setup].each { |path| FileUtils.cp_r(ROOT.join(path), builder_fixture) }
   builder_external = File.join(tmp, "builder-external")
   FileUtils.mkdir_p(builder_external)
   File.write(File.join(builder_external, "outside.md"), "outside release tree\n")
   File.symlink(builder_external, File.join(builder_fixture, "os", "linked-outside"))
   builder_output, builder_status = capture(
-    "ruby", "scripts/build-release-manifest.rb",
+    "ruby", "setup/scripts/build-release-manifest.rb",
     chdir: builder_fixture
   )
   if builder_status.success? || !builder_output.include?("symbolic links are not allowed")
@@ -302,7 +305,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
   end
 
   vault = File.join(tmp, "NOVA.os")
-  output, status = capture("ruby", "scripts/create-vault.rb", vault)
+  output, status = capture("ruby", "setup/scripts/create-vault.rb", vault)
   add.call("clean install failed: #{output.strip}") unless status.success?
 
   if status.success?
@@ -344,7 +347,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     File.symlink(vault, linked_update_target)
     linked_plan_path = File.join(tmp, "linked-update-plan.json")
     linked_plan_output, linked_plan_status = capture(
-      "ruby", "scripts/update-vault.rb", "plan",
+      "ruby", "setup/scripts/update-vault.rb", "plan",
       linked_update_target, linked_plan_path
     )
     if linked_plan_status.success? || !linked_plan_output.include?("target itself may not be a symbolic link")
@@ -352,7 +355,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     end
 
     plan_path = File.join(tmp, "same-version-plan.json")
-    plan_output, plan_status = capture("ruby", "scripts/update-vault.rb", "plan", vault, plan_path)
+    plan_output, plan_status = capture("ruby", "setup/scripts/update-vault.rb", "plan", vault, plan_path)
     add.call("same-version update plan failed: #{plan_output.strip}") unless plan_status.success?
     if plan_status.success?
       plan = JSON.parse(File.read(plan_path))
@@ -367,7 +370,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
         preserve_entry["action"] = "update"
         File.write(tampered_path, "#{JSON.pretty_generate(tampered)}\n")
         tampered_output, tampered_status = capture(
-          "ruby", "scripts/update-vault.rb", "apply",
+          "ruby", "setup/scripts/update-vault.rb", "apply",
           vault, tampered_path
         )
         if tampered_status.success? || !tampered_output.include?("plan contents do not match")
@@ -378,16 +381,16 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
         add.call("same-version plan has no owner-owned preserve entry for tamper regression")
       end
 
-      apply_output, apply_status = capture("ruby", "scripts/update-vault.rb", "apply", vault, plan_path)
+      apply_output, apply_status = capture("ruby", "setup/scripts/update-vault.rb", "apply", vault, plan_path)
       add.call("same-version update apply failed: #{apply_output.strip}") unless apply_status.success?
     end
 
-    refusal_output, refusal_status = capture("ruby", "scripts/create-vault.rb", vault)
+    refusal_output, refusal_status = capture("ruby", "setup/scripts/create-vault.rb", vault)
     add.call("non-empty destination was not refused") if refusal_status.success? || !refusal_output.include?("not empty")
   end
 
   prior_vault = File.join(tmp, "STARTER-2-0.os")
-  prior_create, prior_create_status = capture("ruby", "scripts/create-vault.rb", prior_vault)
+  prior_create, prior_create_status = capture("ruby", "setup/scripts/create-vault.rb", prior_vault)
   if prior_create_status.success?
     prior_release_path = File.join(prior_vault, "os", "release.json")
     prior_release = JSON.parse(File.read(prior_release_path))
@@ -403,13 +406,13 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     init_git.call(prior_vault)
 
     prior_plan_path = File.join(tmp, "2-0-to-2-1-plan.json")
-    prior_plan_output, prior_plan_status = capture("ruby", "scripts/update-vault.rb", "plan", prior_vault, prior_plan_path)
+    prior_plan_output, prior_plan_status = capture("ruby", "setup/scripts/update-vault.rb", "plan", prior_vault, prior_plan_path)
     add.call("2.0 to 2.1 update plan failed: #{prior_plan_output.strip}") unless prior_plan_status.success?
     if prior_plan_status.success?
       prior_plan = JSON.parse(File.read(prior_plan_path))
       brief_entry = prior_plan.fetch("entries").find { |entry| entry["path"] == "os/skills/daily-brief.md" }
       add.call("2.0 to 2.1 plan did not recognize the managed Morning Brief update") unless brief_entry && brief_entry["action"] == "update"
-      prior_apply_output, prior_apply_status = capture("ruby", "scripts/update-vault.rb", "apply", prior_vault, prior_plan_path)
+      prior_apply_output, prior_apply_status = capture("ruby", "setup/scripts/update-vault.rb", "apply", prior_vault, prior_plan_path)
       add.call("2.0 to 2.1 update apply failed: #{prior_apply_output.strip}") unless prior_apply_status.success?
       if prior_apply_status.success?
         updated_release = JSON.parse(File.read(prior_release_path))
@@ -424,21 +427,21 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
   end
 
   fork_vault = File.join(tmp, "FORK.os")
-  fork_create, fork_create_status = capture("ruby", "scripts/create-vault.rb", fork_vault)
+  fork_create, fork_create_status = capture("ruby", "setup/scripts/create-vault.rb", fork_vault)
   if fork_create_status.success?
     init_git.call(fork_vault)
     File.open(File.join(fork_vault, "os", "manual.md"), "a") { |file| file.write("\nOwner explanation.\n") }
     capture("git", "-C", File.join(fork_vault, "os"), "add", "-A")
     capture("git", "-C", File.join(fork_vault, "os"), "commit", "-q", "-m", "owner changed manual")
     fork_plan = File.join(tmp, "fork-plan.json")
-    fork_plan_output, fork_plan_status = capture("ruby", "scripts/update-vault.rb", "plan", fork_vault, fork_plan)
+    fork_plan_output, fork_plan_status = capture("ruby", "setup/scripts/update-vault.rb", "plan", fork_vault, fork_plan)
     add.call("manual conflict plan failed: #{fork_plan_output.strip}") unless fork_plan_status.success?
     if fork_plan_status.success?
       plan = JSON.parse(File.read(fork_plan))
       manual_entry = plan["entries"].find { |entry| entry["path"] == "os/manual.md" }
       add.call("modified manual was not detected as a conflict") unless manual_entry && manual_entry["action"] == "conflict"
       fork_apply_output, fork_apply_status = capture(
-        "ruby", "scripts/update-vault.rb", "apply", fork_vault, fork_plan,
+        "ruby", "setup/scripts/update-vault.rb", "apply", fork_vault, fork_plan,
         "--fork", "os/manual.md=life/manual.md"
       )
       add.call("manual fork update failed: #{fork_apply_output.strip}") unless fork_apply_status.success?
@@ -456,7 +459,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
   end
 
   legacy_vault = File.join(tmp, "LEGACY-STARTER.os")
-  legacy_create, legacy_create_status = capture("ruby", "scripts/create-vault.rb", legacy_vault)
+  legacy_create, legacy_create_status = capture("ruby", "setup/scripts/create-vault.rb", legacy_vault)
   if legacy_create_status.success?
     FileUtils.rm_f(File.join(legacy_vault, "os", "release.json"))
     legacy_owner_path = File.join(legacy_vault, "life", "first-version-owner-note.md")
@@ -464,13 +467,13 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     legacy_owner_digest = Digest::SHA256.file(legacy_owner_path).hexdigest
     init_git.call(legacy_vault)
     legacy_plan = File.join(tmp, "legacy-update-plan.json")
-    legacy_plan_output, legacy_plan_status = capture("ruby", "scripts/update-vault.rb", "plan", legacy_vault, legacy_plan)
+    legacy_plan_output, legacy_plan_status = capture("ruby", "setup/scripts/update-vault.rb", "plan", legacy_vault, legacy_plan)
     add.call("legacy update plan failed: #{legacy_plan_output.strip}") unless legacy_plan_status.success?
     if legacy_plan_status.success?
       plan = JSON.parse(File.read(legacy_plan))
       conflicts = plan["entries"].select { |entry| entry["action"] == "conflict" }.map { |entry| entry["path"] }
       add.call("legacy update did not conservatively detect managed conflicts") if conflicts.empty?
-      command = ["ruby", "scripts/update-vault.rb", "apply", legacy_vault, legacy_plan]
+      command = ["ruby", "setup/scripts/update-vault.rb", "apply", legacy_vault, legacy_plan]
       conflicts.each { |path| command.concat(["--replace", path]) }
       legacy_apply_output, legacy_apply_status = capture(*command)
       add.call("approved legacy update failed: #{legacy_apply_output.strip}") unless legacy_apply_status.success?
@@ -502,10 +505,10 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
   preview = File.join(tmp, "PREVIEW.os")
   source_snapshot = File.join(tmp, "source-snapshot.json")
   snapshot_output, snapshot_status = capture(
-    "ruby", "scripts/verify-migration.rb", "snapshot", legacy, source_snapshot
+    "ruby", "setup/scripts/verify-migration.rb", "snapshot", legacy, source_snapshot
   )
   add.call("migration source snapshot failed: #{snapshot_output.strip}") unless snapshot_status.success?
-  preview_output, preview_status = capture("ruby", "scripts/create-vault.rb", preview)
+  preview_output, preview_status = capture("ruby", "setup/scripts/create-vault.rb", preview)
   add.call("migration preview generation failed: #{preview_output.strip}") unless preview_status.success?
 
   if preview_status.success? && snapshot_status.success?
@@ -530,7 +533,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     ]
     File.write(manifest_path, rows.map { |row| CSV.generate_line(row, col_sep: "\t") }.join)
     verify_output, verify_status = capture(
-      "ruby", "scripts/verify-migration.rb", "verify",
+      "ruby", "setup/scripts/verify-migration.rb", "verify",
       legacy, preview, source_snapshot, manifest_path
     )
     add.call("complete migration manifest did not verify: #{verify_output.strip}") unless verify_status.success?
@@ -539,7 +542,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     incomplete_rows = rows.reject { |row| row.first == "life/assets/sample.bin" }
     File.write(incomplete_path, incomplete_rows.map { |row| CSV.generate_line(row, col_sep: "\t") }.join)
     incomplete_output, incomplete_status = capture(
-      "ruby", "scripts/verify-migration.rb", "verify",
+      "ruby", "setup/scripts/verify-migration.rb", "verify",
       legacy, preview, source_snapshot, incomplete_path
     )
     add.call("incomplete migration map was not rejected") if incomplete_status.success? || !incomplete_output.include?("unaccounted source paths")
@@ -548,7 +551,7 @@ Dir.mktmpdir("starter-os-2-") do |tmp|
     original_binary = File.binread(copied_binary)
     File.binwrite(copied_binary, "changed copy\n")
     mismatch_output, mismatch_status = capture(
-      "ruby", "scripts/verify-migration.rb", "verify",
+      "ruby", "setup/scripts/verify-migration.rb", "verify",
       legacy, preview, source_snapshot, manifest_path
     )
     add.call("changed copied bytes were not rejected") if mismatch_status.success? || !mismatch_output.include?("copied bytes do not match")

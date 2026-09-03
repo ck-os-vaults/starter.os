@@ -9,7 +9,7 @@ Create a private, useful system without leaving setup scaffolding inside it.
 Verify this is the public Starter.OS source and run:
 
 ```sh
-ruby scripts/validate-starter-kit.rb
+ruby setup/scripts/validate-starter-kit.rb
 ```
 
 Infer the private vault name and destination. Refuse a non-empty destination; use migration or update instead. Never personalize the public source.
@@ -33,7 +33,7 @@ Do not invent projects, businesses, interests, folders, integrations, or recurri
 Only after approval:
 
 ```sh
-ruby scripts/create-vault.rb /absolute/path/to/NAME.os
+ruby setup/scripts/create-vault.rb /absolute/path/to/NAME.os
 ```
 
 The preview contains root pointers, `os/`, `life/`, and an empty `biz/`. It does not contain `setup/`.

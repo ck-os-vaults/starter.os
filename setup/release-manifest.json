@@ -231,7 +231,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "ae4840e93f7ce0e9a094fec138aacea6a9fe2dc0f1c337cac8bc5bd5becc3aa5"
+      "sha256": "e329a9595aad9d377222d7a0e8d8a0b16e2e4976132ab26aec36f5068d309790"
     },
     {
       "id": "os/manual.md",
@@ -276,7 +276,7 @@
     {
       "id": "os/scripts/add-business.rb",
       "path": "os/scripts/add-business.rb",
-      "source": "scripts/add-business.rb",
+      "source": "setup/scripts/add-business.rb",
       "ownership": "managed",
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
@@ -286,7 +286,7 @@
     {
       "id": "os/scripts/add-project.rb",
       "path": "os/scripts/add-project.rb",
-      "source": "scripts/add-project.rb",
+      "source": "setup/scripts/add-project.rb",
       "ownership": "managed",
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
@@ -543,11 +543,11 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "dc1b3c2584bd97779a797ad40e4d19822ee775abbaebd80e259e69c30fdb28e7"
+      "sha256": "ed2c77c55a30acb064a2fd3ed7d30d634fbf9e54f255f64adc4f1cb72749ed6d"
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "28bd214fd6562c6f8529f5276cb8ae0d96d0f62272022479d9736c2eeca71a0e"
+      "sha256": "a13b37eca3ec9701799bd36e0de482196b33d6f2950ec678af92a67749677fea"
     },
     {
       "path": "CLAUDE.md",
@@ -555,15 +555,7 @@
     },
     {
       "path": "LICENSE",
-      "sha256": "481b35fa8924b79134e8579577208a78694942aed656aca15a047364b0424409"
-    },
-    {
-      "path": "LICENSE-CODE",
-      "sha256": "f4196d13d09e94fbe88882aa96f484e8d0efe520a3dda4b17d2adc26cfbb45d2"
-    },
-    {
-      "path": "LICENSE-CONTENT",
-      "sha256": "1eb75e92c6a34643917993c4e9c6f502f9636f9378a94d4ce6759337bf346ba3"
+      "sha256": "2eb138bfadce2423b53ae9f8e5aa07390b75e1f7abe753dc9b0c38c62aa19751"
     },
     {
       "path": "biz/.gitkeep",
@@ -643,7 +635,7 @@
     },
     {
       "path": "os/license.md",
-      "sha256": "ae4840e93f7ce0e9a094fec138aacea6a9fe2dc0f1c337cac8bc5bd5becc3aa5"
+      "sha256": "e329a9595aad9d377222d7a0e8d8a0b16e2e4976132ab26aec36f5068d309790"
     },
     {
       "path": "os/manual.md",
@@ -755,39 +747,11 @@
     },
     {
       "path": "readme.md",
-      "sha256": "9590589b0b6f2b8a90cd77a9acbd971a693c73c60b2fd306294909052d7dd4d8"
-    },
-    {
-      "path": "scripts/add-business.rb",
-      "sha256": "6cb012ac94769faa781c5bd88c5d0b2912145aceb3317ce6846f7b3686e69c26"
-    },
-    {
-      "path": "scripts/add-project.rb",
-      "sha256": "bcb1453b8a9a564efb5dfbaa438e4771c39600b236e1d55b3b3470a81b75d4a8"
-    },
-    {
-      "path": "scripts/build-release-manifest.rb",
-      "sha256": "15cff597de63d3ba70f357e058b038155f70e96c3d6619cca867d19808e1af6f"
-    },
-    {
-      "path": "scripts/create-vault.rb",
-      "sha256": "a62beb484f415aaf4c2f108d5e8637d06fb776868584004b14fdf0ca11b09be1"
-    },
-    {
-      "path": "scripts/update-vault.rb",
-      "sha256": "546fbb5ea8e9dabbad5d46c84190ce07d9f2e5ab4cf307ef83b6bcea504ff940"
-    },
-    {
-      "path": "scripts/validate-starter-kit.rb",
-      "sha256": "b16cbeb4b41b829a1f3e18f23f3089b9ce7fc412a42e8d1240d90b03fbf45af5"
-    },
-    {
-      "path": "scripts/verify-migration.rb",
-      "sha256": "307282fd5fca27b3eb28ca315e778e3391985a712866fccc702774bed0027765"
+      "sha256": "d22eb88179fa660af094f6a55f8d7ee583a41f0c3752c4d457aa8cfb877aa5b7"
     },
     {
       "path": "setup/AGENT-SETUP.md",
-      "sha256": "ffe198084f21b20ed85be1c8b9d6e47ef6f10487f739f75b8f75c34289423bed"
+      "sha256": "65a25cb291d1c8e613faa6d08fe27bebb1c68d3719eeb15253f6f32d647a8466"
     },
     {
       "path": "setup/GIT-SETUP.md",
@@ -795,7 +759,7 @@
     },
     {
       "path": "setup/MIGRATE.md",
-      "sha256": "f8f62699cfb5ca9a23e79e7f0fc7abc2c5b1d27909030849dcffc6176ce52f5e"
+      "sha256": "01b2fdef351c867c0b263e371c5535516d6ef942ba10c63163304ce6adab088e"
     },
     {
       "path": "setup/QUICK-SETUP.md",
@@ -807,7 +771,43 @@
     },
     {
       "path": "setup/UPDATE.md",
-      "sha256": "b86b497fa26fe0e5f5f6c4a52dd259ed35f080778c634f0a4d4e14ff9f1dfb7c"
+      "sha256": "bd24cae3b4f5f81e65ffb9b788e7249672c912414da7d9be27a01ac0c24d8138"
+    },
+    {
+      "path": "setup/legal/LICENSE-CODE",
+      "sha256": "f4196d13d09e94fbe88882aa96f484e8d0efe520a3dda4b17d2adc26cfbb45d2"
+    },
+    {
+      "path": "setup/legal/LICENSE-CONTENT",
+      "sha256": "1eb75e92c6a34643917993c4e9c6f502f9636f9378a94d4ce6759337bf346ba3"
+    },
+    {
+      "path": "setup/scripts/add-business.rb",
+      "sha256": "6cb012ac94769faa781c5bd88c5d0b2912145aceb3317ce6846f7b3686e69c26"
+    },
+    {
+      "path": "setup/scripts/add-project.rb",
+      "sha256": "bcb1453b8a9a564efb5dfbaa438e4771c39600b236e1d55b3b3470a81b75d4a8"
+    },
+    {
+      "path": "setup/scripts/build-release-manifest.rb",
+      "sha256": "92ef7932f2a62d84e162f62d5a77651690de565459a8599a8be7d95ae9b29ab7"
+    },
+    {
+      "path": "setup/scripts/create-vault.rb",
+      "sha256": "9b2f30a7b215ea2e322a90fd9d9a773161a624e44c85629a095b1b55f7d84f24"
+    },
+    {
+      "path": "setup/scripts/update-vault.rb",
+      "sha256": "683b6ce56c52a36084a0edc7ad12fe7e50bf13903975ddb3da5a48fc24ef375e"
+    },
+    {
+      "path": "setup/scripts/validate-starter-kit.rb",
+      "sha256": "38f62c0137ead0b3532ad2d088ee1d2d6f1fee81353d82579ceb6907bdd5a88d"
+    },
+    {
+      "path": "setup/scripts/verify-migration.rb",
+      "sha256": "307282fd5fca27b3eb28ca315e778e3391985a712866fccc702774bed0027765"
     }
   ]
 }

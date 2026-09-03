@@ -16,7 +16,7 @@ Do not ask the owner to find or paste a longer setup prompt. If the route remain
 
 Every route must discover the current Git setup before changing it. For a new owner without a suitable private hosted primary, guide secure GitHub account and private-repository setup as the normal protected path. Preserve an existing suitable hosted primary when the owner prefers it, treat secondary Git services as automatic mirrors, and suggest only recurring workflows that fit the owner's verified tools and needs. Use `setup/GIT-SETUP.md` for the shared repository contract and `setup/QUICK-SETUP.md` for the shared approval card.
 
-Source maintainers run `ruby scripts/validate-starter-kit.rb`. Build and validate private systems in a separate location.
+Source maintainers run `ruby setup/scripts/validate-starter-kit.rb`. Build and validate private systems in a separate location.
 
 ## Private installed vault
 

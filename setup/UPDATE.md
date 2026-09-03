@@ -9,7 +9,7 @@ Update the existing system in place without replacing owner information or silen
 Verify the public Starter.OS source with:
 
 ```sh
-ruby scripts/validate-starter-kit.rb
+ruby setup/scripts/validate-starter-kit.rb
 ```
 
 Confirm one installed Starter.OS target. Read its `os/release.json` when present. If it is absent, label the installation `unversioned legacy Starter.OS`; do not guess its baseline.
@@ -29,7 +29,7 @@ If Git protection is missing, create an initial recovery commit and establish a 
 Write the plan outside the installed vault:
 
 ```sh
-ruby scripts/update-vault.rb plan /absolute/path/to/NAME.os /absolute/path/to/update-plan.json
+ruby setup/scripts/update-vault.rb plan /absolute/path/to/NAME.os /absolute/path/to/update-plan.json
 ```
 
 Show the owner:
@@ -74,13 +74,13 @@ The tool rechecks that neither source nor target changed after planning.
 For a plan without conflicts:
 
 ```sh
-ruby scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json
+ruby setup/scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json
 ```
 
 For reviewed conflicts, add one option per exact path:
 
 ```sh
-ruby scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json --keep path/to/local-file --replace path/to/managed-file
+ruby setup/scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json --keep path/to/local-file --replace path/to/managed-file
 ```
 
 `--keep` records an explicit owner fork in place. `--replace` installs the upstream managed file. Any conflict without an approved choice stops the apply. The updater never deletes unknown or deprecated owner content.
@@ -88,7 +88,7 @@ ruby scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/u
 The protected product manual stays at `os/manual.md`. If its local copy changed and the owner wants to preserve that explanation, use an owner-approved fork destination while restoring the current product manual:
 
 ```sh
-ruby scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json --fork os/manual.md=life/manual.md
+ruby setup/scripts/update-vault.rb apply /absolute/path/to/NAME.os /absolute/path/to/update-plan.json --fork os/manual.md=life/manual.md
 ```
 
 Then record the chosen manual fork path in `os/me.md`. The tool refuses `--keep os/manual.md` because leaving a personalized file at the protected product path would make future explanations ambiguous.

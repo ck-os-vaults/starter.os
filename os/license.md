@@ -19,7 +19,7 @@ Copyright (c) 2026 CK
 
 The full code license is in the public Starter.OS source at:
 
-https://github.com/ck-os-vaults/starter-os-public/blob/main/LICENSE-CODE
+https://github.com/ck-os-vaults/starter-os-public/blob/main/setup/legal/LICENSE-CODE
 
 ## Written content
 

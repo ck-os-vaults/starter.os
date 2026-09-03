@@ -29,6 +29,8 @@ name.os/
 
 The installed system does not include the public `setup/` folder. Ongoing guidance lives where it belongs, including the protected plain-language manual at `os/manual.md`.
 
+The public repository keeps installation routes, release machinery, detailed licenses, and technical scripts together under `setup/`. They support the product but are not part of the owner's three-part working system.
+
 ## What the guided process handles
 
 - discovers existing Git history, repositories, remotes, and uncommitted work;
@@ -56,10 +58,10 @@ This repository is a public blueprint. Never personalize it or add credentials. 
 
 ## Licenses
 
-Software and scripts are available under the MIT License in [`LICENSE-CODE`](LICENSE-CODE). Documentation, the manual, Markdown skills, and templates are available under CC BY 4.0 in [`LICENSE-CONTENT`](LICENSE-CONTENT). See [`LICENSE`](LICENSE) for the boundary and attribution.
+Software and scripts are available under the MIT License in [`setup/legal/LICENSE-CODE`](setup/legal/LICENSE-CODE). Documentation, the manual, Markdown skills, and templates are available under CC BY 4.0 in [`setup/legal/LICENSE-CONTENT`](setup/legal/LICENSE-CONTENT). See [`LICENSE`](LICENSE) for the boundary and attribution.
 
 Permanent version history, current unreleased work, compatibility, limitations, update steps, and rollback guidance are in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Maintainers
 
-Run `ruby scripts/validate-starter-kit.rb` before publication. The release manifest and validators cover clean installation, migration accounting, managed-file updates, protected manual behavior, and privacy checks.
+Run `ruby setup/scripts/validate-starter-kit.rb` before publication. The release manifest and validators cover clean installation, migration accounting, managed-file updates, protected manual behavior, and privacy checks.
