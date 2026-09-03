@@ -54,7 +54,8 @@ Include only relevant sections:
 4. **Ownership** — proposed Chief, projects, and businesses only when real work supports them.
 5. **Execution** — verified repository, persistence, scheduler, source-access, delivery, and Git capabilities; name where work will run only when useful, without making a vendor mandatory.
 6. **Recurring workflows** — available capabilities, existing equivalents, the owner's choice for each compatible recipe, proposed schedule, destination, access, and likely cost.
-7. **Approval boundaries** — exact consequential actions the owner is authorizing.
+7. **Source cleanup** — whether the public Starter.OS source is remote-only, a temporary checkout or download, or an intentional maintainer checkout; name the exact temporary path proposed for removal.
+8. **Approval boundaries** — exact consequential actions the owner is authorizing, including any temporary-source deletion.
 
 Wait for approval. Silence is not approval.
 
@@ -81,6 +82,20 @@ Run the route-specific tools and full installed validation. Return a concise rec
 - recovery point and exact rollback route;
 - recurring workflow status;
 - validation results;
+- distribution-source cleanup status;
 - anything still unverified.
 
 Do not call a route complete while a required check is merely assumed.
+
+## 7. Clean up the distribution source
+
+The installed private system never keeps `setup/`. Future updates use a fresh current source from the canonical public repository link.
+
+After the private system validates and its hosted Git primary is verified, classify the public distribution source:
+
+- **Remote-only access** — nothing local needs cleanup.
+- **Temporary checkout or download created only for this route** — verify the exact folder contains no owner files, credentials, unique work, or uncommitted changes. Remove the whole temporary source only when its exact path and deletion were approved in the approval card; otherwise report the path and offer cleanup.
+- **Intentional maintainer or product checkout** — leave it intact with `setup/`, even when the route is complete.
+- **Pre-existing or changed folder with uncertain ownership** — leave it intact and report why it was not removed.
+
+Never delete individual setup files from a public source, never remove a source merely because it looks stale, and never treat the owner's old personal system in a migration as temporary distribution material. Report the cleanup result in the final receipt.

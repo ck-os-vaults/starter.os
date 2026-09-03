@@ -16,6 +16,7 @@ Changes being developed belong under **Unreleased**. When a release is approved,
 - Git setup instructions now put the technical work on the agent and keep sign-in, multifactor authentication, recovery codes, and secret values private with the owner.
 - Task reconciliation can fall back to durable project status and owner-provided handoffs when the environment cannot list tasks.
 - Public installation machinery is now grouped under `setup/`: scripts in `setup/scripts/`, detailed licenses in `setup/legal/`, and the machine-readable release manifest at `setup/release-manifest.json`. The public root now emphasizes the `os/`, `life/`, and installed `biz/` model.
+- Setup, migration, and update now classify the public distribution source at completion. An approved temporary checkout can be removed only after proving it contains no owner work; maintainer checkouts and migration sources remain intact, and future updates use a fresh canonical source.
 
 ### Compatibility
 

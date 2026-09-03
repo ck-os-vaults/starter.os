@@ -28,7 +28,8 @@ The agent will:
 4. show a short approval card before creating, moving, replacing, publishing, or scheduling anything;
 5. protect the current state with Git and any additional recovery coverage that is actually needed;
 6. make only the approved changes;
-7. validate the result and show a completion and rollback receipt.
+7. validate the result and show a completion and rollback receipt;
+8. remove an approved temporary copy of the public installer only after proving that it contains no owner work. A product-maintenance checkout stays intact.
 
 You do not need to run commands, design folders, understand Git, or read the agent-only setup files.
 
@@ -53,3 +54,5 @@ The agent first checks what your current tools, scheduler, sources, and destinat
 You approve names, privacy, repositories, publication, automations, structural changes, and anything consequential. You handle sign-ins, purchases, recovery codes, and secret values privately. An agent may use an already authorized credential system, but it must never ask you to paste secrets into chat or store them in the OS.
 
 After installation, the simple owner manual is `os/manual.md`. The agent can use it to explain the system but may not rewrite it during ordinary work.
+
+Your private system never keeps the public `setup/` folder. For a future update, paste the current GitHub link again so the agent uses fresh instructions.

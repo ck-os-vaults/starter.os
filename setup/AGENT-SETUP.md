@@ -86,8 +86,10 @@ ruby os/validate-starter-os.rb
 
 Review intended changes and privacy, then give the receipt required by `QUICK-SETUP.md`.
 
+Apply the shared distribution-source cleanup contract in `QUICK-SETUP.md`. Remove only an approved temporary public source after confirming it contains no owner work; leave an intentional maintainer checkout intact.
+
 Finish with this orientation:
 
 > Your Chief of Staff is your main home base. Ask for the outcome you want in ordinary language. Your files hold the lasting truth, project work stays with its project, and the manual explains unfamiliar terms simply. The agent will show a short plan before consequential work and ask when your approval is genuinely needed.
 
-Setup is complete only when the owner adopted the preview, the installed vault validates, Git and recovery status are truthful, every enabled mirror is verified or clearly unresolved, every offered recurring workflow has a recorded outcome, and no setup scaffolding remains inside the private vault.
+Setup is complete only when the owner adopted the preview, the installed vault validates, Git and recovery status are truthful, every enabled mirror is verified or clearly unresolved, every offered recurring workflow has a recorded outcome, no setup scaffolding remains inside the private vault, and temporary distribution-source cleanup is completed or truthfully reported.

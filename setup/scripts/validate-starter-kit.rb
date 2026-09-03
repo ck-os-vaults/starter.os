@@ -111,7 +111,12 @@ end
   add.call("#{route} does not route secondary Git as an automatic mirror") unless text.match?(/automatic mirror/i)
   add.call("#{route} does not offer compatible recurring workflows") unless text.match?(/compatible.*recurring|recurring.*compatible/im)
   add.call("#{route} does not preserve owner choice") unless text.match?(/declin|defer/i)
+  add.call("#{route} does not apply distribution-source cleanup") unless text.match?(/distribution-source cleanup/i)
 end
+add.call("shared setup does not distinguish temporary and maintainer sources") unless quick_setup.match?(/Temporary checkout or download/i) && quick_setup.match?(/Intentional maintainer or product checkout/i)
+add.call("shared setup permits unapproved temporary-source deletion") unless quick_setup.match?(/exact path and deletion were approved/i)
+add.call("shared setup does not protect migration sources") unless quick_setup.match?(/never treat.*old personal system.*temporary distribution material/im)
+add.call("shared setup does not require a fresh future source") unless quick_setup.match?(/Future updates use a fresh current source/i)
 add.call("shared setup does not support adopt, decline, and defer") unless %w[adopt decline defer].all? { |word| quick_setup.match?(/#{word}/i) }
 add.call("shared setup does not prefer persistent destinations") unless quick_setup.match?(/persistent home-base destination/i) && quick_setup.match?(/new task per run/i)
 add.call("Git setup does not enforce one primary") unless git_setup.match?(/one primary/i)

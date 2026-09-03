@@ -121,6 +121,9 @@ Report:
 - local recovery commit;
 - primary and mirror commit identities;
 - every offered recurring-workflow outcome;
+- temporary distribution-source cleanup status;
 - exact rollback route.
 
-An update is complete only when no artifact remains silently conflicted, the installed vault validates, Git recovery and publication are truthful, enabled mirrors are verified or named as unresolved, and every offered recurring workflow has a recorded outcome.
+Apply the shared distribution-source cleanup contract in `QUICK-SETUP.md`. Remove only an approved temporary public source after confirming it contains no owner work; retain an intentional maintainer checkout. A future update should begin from the current public repository link rather than a stale temporary copy.
+
+An update is complete only when no artifact remains silently conflicted, the installed vault validates, Git recovery and publication are truthful, enabled mirrors are verified or named as unresolved, every offered recurring workflow has a recorded outcome, and temporary distribution-source cleanup is completed or truthfully reported.

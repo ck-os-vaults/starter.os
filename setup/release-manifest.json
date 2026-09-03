@@ -241,7 +241,7 @@
       "permitted_editor": "Starter.OS update or explicit owner fork",
       "update": "replace-if-unmodified",
       "deprecation": "preserve-and-report",
-      "sha256": "6c5750a7561e71594f8de5b0a3046cf6302d4a7db83cd52a7eaded86415d461c"
+      "sha256": "3825af061a0b363994cb94aba39fe6639d51549503960a016f301a02a82088ea"
     },
     {
       "id": "os/me.md",
@@ -547,7 +547,7 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "a13b37eca3ec9701799bd36e0de482196b33d6f2950ec678af92a67749677fea"
+      "sha256": "47691fcb339995e24e77ebd284c296c5cc48a6c6f6f8e42f40a4840223bd2f4d"
     },
     {
       "path": "CLAUDE.md",
@@ -639,7 +639,7 @@
     },
     {
       "path": "os/manual.md",
-      "sha256": "6c5750a7561e71594f8de5b0a3046cf6302d4a7db83cd52a7eaded86415d461c"
+      "sha256": "3825af061a0b363994cb94aba39fe6639d51549503960a016f301a02a82088ea"
     },
     {
       "path": "os/me.md",
@@ -751,7 +751,7 @@
     },
     {
       "path": "setup/AGENT-SETUP.md",
-      "sha256": "65a25cb291d1c8e613faa6d08fe27bebb1c68d3719eeb15253f6f32d647a8466"
+      "sha256": "02778d24366bd61969fb84399a632a61ca207f224e7d57332472b2f5ac7e6dd1"
     },
     {
       "path": "setup/GIT-SETUP.md",
@@ -759,19 +759,19 @@
     },
     {
       "path": "setup/MIGRATE.md",
-      "sha256": "01b2fdef351c867c0b263e371c5535516d6ef942ba10c63163304ce6adab088e"
+      "sha256": "03c4afabc97b2485afeb5107dfa6cf7659d3ce896c679cb07bd55cfa4c28859d"
     },
     {
       "path": "setup/QUICK-SETUP.md",
-      "sha256": "7597105ae6ad2dae58942b9ca833cd4a920027974b095a5403cdd00956386390"
+      "sha256": "e92a1aca4d51e83e6eef0ac38fe651166d662880e3d467c264a18d5165978a45"
     },
     {
       "path": "setup/START-HERE.md",
-      "sha256": "9a138b15fe589dda29dfaecff4688ad20aa8e0bf8bf20de6cba2429fd4106523"
+      "sha256": "9759afe7263930655bbbe3ee0a86194b85348651b0a3cea6c969c44fd436c5a3"
     },
     {
       "path": "setup/UPDATE.md",
-      "sha256": "bd24cae3b4f5f81e65ffb9b788e7249672c912414da7d9be27a01ac0c24d8138"
+      "sha256": "fab8b6e9ea006fec80e986bb9b3a9ed2f0e370045f95cedf2f71db8471d9b463"
     },
     {
       "path": "setup/legal/LICENSE-CODE",
@@ -803,7 +803,7 @@
     },
     {
       "path": "setup/scripts/validate-starter-kit.rb",
-      "sha256": "38f62c0137ead0b3532ad2d088ee1d2d6f1fee81353d82579ceb6907bdd5a88d"
+      "sha256": "0f6b919dfb14141e49b5a02125a412f3b1e0584381e8c23354b669f0e53d7985"
     },
     {
       "path": "setup/scripts/verify-migration.rb",

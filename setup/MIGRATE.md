@@ -111,4 +111,6 @@ Use `QUICK-SETUP.md`. Suggest only compatible recipes, update equivalent routine
 
 Run `ruby os/validate-starter-os.rb` in the adopted vault. Give the shared completion receipt, including all unresolved content and the rollback path.
 
-Finish with the short orientation from `AGENT-SETUP.md`. Do not turn migration into a course or delete the source.
+Apply the shared distribution-source cleanup contract in `QUICK-SETUP.md`. A separately approved temporary public installer may be removed after verification. The owner's old personal system is the migration source, not temporary distribution material; do not delete or retire it here.
+
+Finish with the short orientation from `AGENT-SETUP.md`. Do not turn migration into a course.

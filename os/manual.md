@@ -1,7 +1,7 @@
 ---
 type: manual
 created: 2026-08-30
-reviewed: 2026-09-01
+reviewed: 2026-09-03
 status: living
 authority: reference
 source: starter-os
@@ -170,7 +170,7 @@ Before a consequential change, it should show the smallest useful plan and the r
 
 All three paths begin by discovering Git. They explain compatible new workflows and let you adopt, decline, or defer them without changing working customizations silently.
 
-The public `setup/` folder is only the installation doorway. It is not copied into your private system.
+The public `setup/` folder is only the installation doorway. It is not copied into your private system. If an agent downloaded a temporary public copy solely for setup or an update, it may remove that whole copy after success only when you approved the exact cleanup and it proved no personal work was inside. A future update should begin from the current public GitHub link. Product-maintenance copies and your old system during migration stay intact.
 
 ## Validation and recovery
 
