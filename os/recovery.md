@@ -12,7 +12,7 @@ source: ai
 
 **Bottom line:** Git history is required protection for normal changes; an off-device primary and independent backup close different recovery gaps.
 
-**When to read this:** Before setup, migration, update, structural change, publication, device replacement, or restore work.
+**When to read this:** Before setup, update, structural change, publication, device replacement, or restore work.
 
 ## Repository protection
 
@@ -38,7 +38,7 @@ GitHub is the normal guided primary for new owners. An existing suitable GitLab 
 | Git working history | tracked files in each repository | repositories above | unverified |  |  |
 | Off-device primary | committed repository content | providers above | unverified |  |  |
 | Automatic Git mirror | second committed copy | providers above | unverified |  |  |
-| Full-file backup | untracked, ignored, hidden, and non-repository content | confirm during setup | unverified |  |  |
+| Full-file backup | untracked, ignored, hidden, and non-repository content, including root entry files | confirm during setup | unverified |  |  |
 | Credential recovery | access needed to restore services | approved credential manager | unverified |  |  |
 
 A planned layer is not a working backup. A successful upload is not a restore test. Say exactly what is uncovered.
@@ -49,16 +49,17 @@ A planned layer is not a working backup. A successful upload is not a restore te
 2. Create and read back the approved commit in every affected repository.
 3. Verify each private primary and enabled mirror has that commit.
 4. Create a separate local recovery copy outside the working OS for anything Git does not cover.
-5. Read back the recovery evidence and explain the exact restore route before mutation.
+5. For an update, give the updater a new root-backup folder outside both the private OS and public source. Confirm its receipt and root entry copies can be read before the updater writes anything.
+6. Read back the recovery evidence and explain the exact restore route before mutation.
 
-Do not proceed to review or mutation until the complete current state has a usable recovery route. Keep a pre-update recovery copy until validation succeeds and the owner accepts the result. During migration, the untouched old system remains the local recovery source.
+Do not proceed to review or mutation until the complete current state has a usable recovery route. Keep a pre-update recovery copy until validation succeeds and the owner accepts the result. An unrelated old repository stays untouched and backed up while selected context is brought into a separate new installation.
 
 ## Restore order
 
 1. Stop writes and identify the exact failed change.
 2. Preserve the current failed state for inspection when safe.
-3. Restore the affected repository from the named pre-change commit.
-4. Restore uncovered content from the named full-file backup.
+3. Restore the affected repository from the named pre-change commit. Remove only new update or fork paths listed in the updater's root-backup receipt.
+4. Restore the root entry files from the updater's named root-backup receipt, then restore other uncovered content from the named full-file backup.
 5. Recover service access through the credential manager, never from the vault.
 6. Run `validate-starter-os.rb`.
 7. Verify the primary and mirrors again before resuming work.

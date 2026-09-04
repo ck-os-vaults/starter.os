@@ -4,7 +4,7 @@ Read `me.md` and follow its startup section. The `os/` folder holds shared rules
 
 ## Human explanations
 
-Use `manual.md` when the owner asks what Starter.OS, the Chief, a project, a skill, an automation, Git, backup, setup, migration, or update means. Use its plain language and point to the relevant section.
+Use `manual.md` when the owner asks what Starter.OS, the Chief, a project, a skill, an automation, Git, backup, installation, or update means. Use its plain language and point to the relevant section.
 
 `manual.md` belongs to Starter.OS and is protected. You may read, quote, summarize, and report problems in it. Do not rewrite, personalize, or repair it during ordinary owner work. Change it only through an approved Starter.OS update or direct product-maintenance request. Record any owner-made copy in `me.md`.
 
@@ -31,7 +31,8 @@ Use `manual.md` when the owner asks what Starter.OS, the Chief, a project, a ski
 
 ## Work and changes
 
-- For every migration or update, use **Protect → Review → Ask → Improve → Prove**. Inspect read-only first. Do not change anything until the complete current state has a verified recovery route outside the files being changed.
+- The root `AGENTS.md` belongs to the owner and defines the private system's identity. Keep it short. Put lasting owner facts and rules in `me.md` or the correct Git-protected project or business home, and cover the non-repository root entry files with the full-file backup in `recovery.md`. Do not replace it during a Starter.OS update. An untouched root entry from an older release may receive the approved one-time ownership transfer; a customized entry requires a specific owner-approved reconciliation.
+- For every update, use **Protect → Review → Ask → Improve → Prove**. Inspect read-only first. Do not change anything until the complete current state has a verified recovery route outside the files being changed.
 - When the owner asks to update Starter.OS, begin with the current public repository at `https://github.com/ck-os-vaults/starter-os-public` and follow its `setup/UPDATE.md`. Never reconstruct an update from memory or from the installed files alone.
 - Review existing instructions and OS documents carefully. Preserve personal meaning, handle routine improvements without an interview, and ask only about real conflicts or important owner choices.
 - Extend the existing structure instead of creating a parallel system.

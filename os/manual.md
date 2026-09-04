@@ -48,6 +48,10 @@ The Chief is a role, not a special model. Many capable agents can fill it.
 
 A project gets one clear home. A business gets one clear home. The system avoids duplicate copies of the same truth.
 
+The name of the main folder is the name of your system, such as `Ryan.OS`. Its root `AGENTS.md` belongs to you and stays short. It must point agents to `os/AGENTS.md`, `os/me.md`, the nearest personal or business instructions, and `os/release.json` for updates. Lasting facts and rules belong in `os/me.md` or the right Git-protected project or business folder. Starter.OS remains the upstream framework used only when you ask for an update.
+
+Keep ordinary notes and settings inside `os/`, `life/`, or a real business. Extra files at the main folder level are rejected so the three-part system stays clear.
+
 ## The words you will see
 
 **Agent.** The AI tool doing the work.
@@ -155,15 +159,17 @@ It should ask before:
 
 Before a consequential change, it should show the smallest useful plan and the recovery route.
 
-## Setup, migration, and update
+## Installation and update
 
-**Setup.** Creates a new private Starter.OS in an empty location.
+**Installation.** Creates your new private OS in an empty location and names it for you.
 
-**Migration.** Brings another system into Starter.OS. Your old system stays untouched. A full redesign happens only if you choose it.
+**Bring over what matters.** If you already have another repository, install your new OS separately. After it works, your agent can help copy only the context you still want. The old repository stays untouched and backed up until you decide otherwise.
 
 **Update.** Improves an existing Starter.OS. Your files stay yours. After approval, Starter.OS may replace one of its own files if you have not changed it. If you did change it, you choose whether to keep your version, replace it, or wait.
 
-Migration and update use five simple steps:
+New installation uses **Name → Protect → Create → Personalize → Prove**.
+
+Updates use five simple steps:
 
 1. **Protect.** Make sure the complete current system can be restored.
 2. **Review.** Understand what Starter.OS should improve and what you customized.
@@ -173,11 +179,11 @@ Migration and update use five simple steps:
 
 The agent first inspects without changing anything. It then verifies Git and creates a separate local recovery copy for anything Git does not cover. That copy stays outside the working OS and is not treated as current information.
 
-A large customized agent-instruction file is never blindly replaced or reduced to a summary. The agent preserves the original, keeps useful personal meaning, moves each rule to the right home, and asks only when two instructions genuinely conflict.
+A large customized agent-instruction file is never blindly replaced or reduced to a summary. The agent preserves the original, keeps useful personal meaning, offers to place each rule in the right protected home, and asks only when two instructions genuinely conflict. Your root `AGENTS.md` is owner-owned and survives updates. Because the root is not a Git repository, its entry files must also be covered by your full-file backup.
 
-All three paths explain compatible new workflows and let you adopt, decline, or defer them without changing working customizations silently.
+Installation and update explain compatible new workflows and let you adopt, decline, or defer them without changing working customizations silently.
 
-The public `setup/` folder is only for installation. It is not copied into your private system. An agent may remove a temporary public copy after setup or update only when you approved the exact cleanup and it proved that the copy contains no personal work. Future updates begin from the current public GitHub link. Product-maintenance copies and your old system during migration stay intact.
+The public `setup/` folder is only for installation and updates. It is not copied into your private system. An agent may remove a temporary public copy only when you approved the exact cleanup and it proved that the copy contains no personal work. Future updates begin from the current public GitHub link. Product-maintenance copies and old personal repositories stay intact.
 
 ## Validation and recovery
 

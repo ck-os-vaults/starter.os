@@ -27,6 +27,16 @@ def sha256(path)
   Digest::SHA256.file(path).hexdigest
 end
 
+def artifact_bytes(source, artifact, destination)
+  bytes = File.binread(source)
+  return bytes unless artifact["render"]
+
+  stop("unknown artifact renderer: #{artifact['render']}") unless artifact["render"] == "system-name"
+  marker = "{{SYSTEM_NAME}}"
+  stop("system-name template is missing its marker: #{artifact['source']}") unless bytes.include?(marker)
+  bytes.gsub(marker, destination.basename.to_s)
+end
+
 def inside?(path, root)
   path == root || path.to_s.start_with?("#{root}/")
 end
@@ -98,7 +108,11 @@ artifacts.each do |artifact|
   source = safe_source(SOURCE_ROOT, safe_relative(artifact.fetch("source")))
   target = destination.join(safe_relative(artifact.fetch("path")))
   FileUtils.mkdir_p(target.dirname)
-  FileUtils.cp(source, target, preserve: true)
+  if artifact["render"]
+    File.binwrite(target, artifact_bytes(source, artifact, destination))
+  else
+    FileUtils.cp(source, target, preserve: true)
+  end
 end
 
 release_record = {

@@ -11,6 +11,8 @@ Dir.chdir(ROOT)
 
 errors = []
 add = ->(message) { errors << message }
+notices = []
+notice = ->(message) { notices << message }
 
 def symlink_component?(relative)
   current = Pathname.new(".")
@@ -93,8 +95,33 @@ add.call("biz container must not be a Git repository") if File.exist?("biz/.git"
 check_local_git(add, "os", "os/") if File.directory?("os")
 check_local_git(add, "life", "life/") if File.directory?("life")
 
-if File.file?("AGENTS.md") && File.file?("os/templates/root-AGENTS.txt")
-  add.call("root AGENTS.md differs from its recovery template") unless File.read("AGENTS.md") == File.read("os/templates/root-AGENTS.txt")
+if File.file?("AGENTS.md")
+  root_agents = File.read("AGENTS.md")
+  root_record = begin
+    JSON.parse(File.read("os/release.json")).dig("artifacts", "AGENTS.md") if File.file?("os/release.json")
+  rescue JSON::ParserError
+    nil
+  end
+  rendered_seed = if File.file?("os/templates/root-AGENTS.txt")
+    File.read("os/templates/root-AGENTS.txt").gsub("{{SYSTEM_NAME}}", ROOT.basename.to_s)
+  end
+  customized_owner_root = root_record && root_record["ownership"] == "owner-owned" && rendered_seed && root_agents != rendered_seed
+  add.call("root AGENTS.md still identifies the public Starter.OS source") if root_agents.match?(/^# Starter\.OS entry$/) || root_agents.include?("setup/release-manifest.json")
+
+  root_checks = {
+    "does not route to os/AGENTS.md" => root_agents.include?("os/AGENTS.md"),
+    "does not route to os/me.md" => root_agents.include?("os/me.md"),
+    "does not route project and business work to the nearest AGENTS.md" => root_agents.match?(/nearest.*AGENTS\.md/im) && root_agents.match?(/life.*biz/im),
+    "does not retain the upstream release route" => root_agents.include?("os/release.json")
+  }
+  root_checks.each do |message, passes|
+    next if passes
+    if customized_owner_root
+      notice.call("preserved owner root AGENTS.md #{message}; reconcile only with the owner's approval")
+    else
+      add.call("root AGENTS.md #{message}")
+    end
+  end
 end
 if File.file?("CLAUDE.md") && File.file?("os/templates/root-CLAUDE.txt")
   add.call("root CLAUDE.md differs from its recovery template") unless File.read("CLAUDE.md") == File.read("os/templates/root-CLAUDE.txt")
@@ -168,6 +195,7 @@ if release_path.file?
           add.call("managed release artifact changed outside the update process: #{path}")
         end
       end
+      add.call("root AGENTS.md must be owner-owned") if path == "AGENTS.md" && record["ownership"] != "owner-owned"
       add.call("protected product manual cannot be forked in place") if path == "os/manual.md" && record["ownership"] == "forked"
     end
     release.fetch("forks", []).each do |fork|
@@ -235,6 +263,7 @@ end
 
 if errors.empty?
   puts "PASS Starter.OS installed vault: structure, release identity, protected manual, skill registry, readable local Git history, recurring workflow recipes, and privacy checks"
+  notices.each { |message| puts "NOTICE #{message}" }
   puts "NOTE Hosted primaries, mirrors, uncovered-file backups, and restore routes require separate verification in os/recovery.md"
   exit 0
 end

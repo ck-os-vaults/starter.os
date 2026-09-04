@@ -1,6 +1,6 @@
 # Git protection and automatic mirrors
 
-> **Audience: Agent only.** Use this shared contract during setup, migration, and update. Explain results to the owner in plain language; do not ask them to run Git commands.
+> **Audience: Agent only.** Use this shared contract during setup and update. Explain results to the owner in plain language; do not ask them to run Git commands.
 
 ## The simple rule
 

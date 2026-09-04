@@ -5,7 +5,11 @@ require "pathname"
 require "date"
 
 script_dir = Pathname.new(__dir__)
-vault_root = script_dir.basename.to_s == "scripts" && script_dir.parent.basename.to_s == "os" ? script_dir.parent.parent : script_dir.parent
+vault_root = if script_dir.basename.to_s == "scripts" && %w[os setup].include?(script_dir.parent.basename.to_s)
+  script_dir.parent.parent
+else
+  script_dir.parent
+end
 businesses = vault_root.join("biz")
 
 def stop(message)
@@ -18,7 +22,7 @@ stop("provide one lowercase kebab-case business name") if name.empty?
 stop("unexpected options: #{ARGV.join(' ')}") unless ARGV.empty?
 stop("use lowercase kebab-case") unless name.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
 stop("run this from an installed Starter.OS vault") unless businesses.directory?
-stop("businesses may be added only inside a private installed vault") if vault_root.join(".git").exist?
+stop("businesses may be added only inside a private installed vault") if vault_root.join("setup", "release-manifest.json").exist?
 
 destination = businesses.join(name)
 stop("biz/#{name} already exists") if destination.exist?

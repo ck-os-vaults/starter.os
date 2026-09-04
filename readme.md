@@ -10,11 +10,12 @@ Copy this repository link and paste it into a file-capable agent:
 
 That link is the whole starting prompt when the agent can read repository instructions, work in your private files, use Git, and run the included Ruby checking tools. The instructions help the agent determine whether you need:
 
-1. a new Starter.OS setup;
-2. a preserve-first migration from another system; or
-3. an update to an existing Starter.OS.
+1. a new private OS; or
+2. an update to an existing Starter.OS installation.
 
-The agent follows one simple process: **Protect → Review → Ask → Improve → Prove**. It saves the current state before changing it. It reviews your changes, asks only about real decisions, and checks that nothing was lost. [`setup/START-HERE.md`](setup/START-HERE.md) explains the process.
+If you already have another repository, Starter.OS does not convert it. Your agent creates the new system separately, leaves the old one untouched, and can help you bring over only the context you still want after setup is complete.
+
+Setup takes you from naming the system through proof that it works. Updates use **Protect → Review → Ask → Improve → Prove** so your work and customizations remain yours. [`setup/START-HERE.md`](setup/START-HERE.md) explains both paths.
 
 ## What it creates
 
@@ -43,7 +44,7 @@ The public repository keeps installation routes, release machinery, detailed lic
 
 Git is part of the fully protected standard path. GitHub is where Starter.OS is distributed and is the normal guided private primary for a new owner. An existing suitable GitLab or other hosted primary may be preserved when the owner prefers it. Local-only Git is an incomplete recovery state because it does not protect against device loss. Agents handle the technical Git work wherever possible and push only to the chosen primary.
 
-The repository brain can run anywhere a capable agent can reach it. Setup, migration, and update need an environment that can work with files, Git, and the included Ruby tools. A persistent Chief of Staff also needs an always-available agent that can reach the files, schedule, sources, and destination. That agent may run locally or online. Starter.OS checks what the environment can actually do instead of forcing a local, cloud, or hybrid label.
+The repository brain can run anywhere a capable agent can reach it. Setup and update need an environment that can work with files, Git, and the included Ruby tools. A persistent Chief of Staff also needs an always-available agent that can reach the files, schedule, sources, and destination. That agent may run locally or online. Starter.OS checks what the environment can actually do instead of forcing a local, cloud, or hybrid label.
 
 ## Agent and model independence
 
@@ -65,4 +66,4 @@ Permanent version history, current unreleased work, compatibility, limitations, 
 
 ## Maintainers
 
-Run `ruby setup/scripts/validate-starter-kit.rb` before publication. The release manifest and validators check clean installation, migration accounting, managed-file updates, protected manual behavior, local Git history, and privacy. Hosted primaries and mirrors are checked separately and reported in `os/recovery.md`.
+Run `ruby setup/scripts/validate-starter-kit.rb` before publication. The release manifest and validators check clean installation, named owner instructions, managed-file updates, protected manual behavior, local Git history, and privacy. Hosted primaries and mirrors are checked separately and reported in `os/recovery.md`.

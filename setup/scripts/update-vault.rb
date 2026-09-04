@@ -9,6 +9,9 @@ require "time"
 
 SOURCE_ROOT = Pathname.new(File.expand_path("../..", __dir__)).realpath
 MANIFEST_PATH = SOURCE_ROOT.join("setup", "release-manifest.json")
+LEGACY_MANAGED_ROOT_SHA256 = %w[
+  f58afce2dc1578b7863a3a272585604926aad72b80ae18f0bb0ab8b52ea11fe1
+].freeze
 
 def stop(message)
   warn "Starter.OS update stopped: #{message}"
@@ -28,6 +31,16 @@ def sha256(path)
   Digest::SHA256.file(path).hexdigest
 end
 
+def artifact_bytes(source, artifact, target_root)
+  bytes = File.binread(source)
+  return bytes unless artifact["render"]
+
+  stop("unknown artifact renderer: #{artifact['render']}") unless artifact["render"] == "system-name"
+  marker = "{{SYSTEM_NAME}}"
+  stop("system-name template is missing its marker: #{artifact['source']}") unless bytes.include?(marker)
+  bytes.gsub(marker, target_root.basename.to_s)
+end
+
 def inside?(path, root)
   path == root || path.to_s.start_with?("#{root}/")
 end
@@ -37,6 +50,25 @@ def canonical_existing_root(raw, label)
   stop("#{label} itself may not be a symbolic link") if path.symlink?
   stop("#{label} is not a directory") unless path.directory?
   path.realpath
+end
+
+def canonical_new_path(path, label)
+  stop("#{label} may not be a symbolic link") if path.symlink?
+  stop("#{label} already exists: #{path}") if path.exist?
+
+  missing = []
+  current = path
+  until current.exist?
+    stop("#{label} contains a broken symbolic link: #{current}") if current.symlink?
+    parent = current.parent
+    stop("cannot resolve #{label}") if parent == current
+    missing.unshift(current.basename.to_s)
+    current = parent
+  end
+
+  stop("#{label} crosses a symbolic link: #{current}") if current.symlink?
+  stop("#{label} has a non-directory parent: #{current}") unless current.directory?
+  missing.reduce(current.realpath) { |resolved, part| resolved.join(part) }
 end
 
 def safe_target(root, relative)
@@ -90,6 +122,23 @@ rescue JSON::ParserError => error
   stop("installed release record is invalid JSON: #{error.message}")
 end
 
+def recognized_unversioned_starter?(target)
+  signatures = {
+    "os/AGENTS.md" => /^# Operating rules\s*$/i,
+    "os/me.md" => /^type:\s*identity\s*$/i,
+    "os/vault-map.md" => /^# vault map\s*$/i,
+    "life/AGENTS.md" => /^# Life entry\s*$/i
+  }
+
+  root_agents = safe_target(target, "AGENTS.md")
+  root_agents.file? && !root_agents.symlink? && signatures.all? do |relative, pattern|
+    path = safe_target(target, relative)
+    path.file? && !path.symlink? && File.binread(path).force_encoding(Encoding::UTF_8).match?(pattern)
+  end
+rescue ArgumentError
+  false
+end
+
 def ensure_update_git_ready(target)
   %w[os life].each do |name|
     repository = target.join(name)
@@ -124,6 +173,7 @@ end
 
 def build_plan(target, manifest)
   installed = load_release_record(target)
+  stop("target is not a recognized unversioned Starter.OS; leave it untouched and create a new installation separately") if installed.nil? && !recognized_unversioned_starter?(target)
   installed_version = installed ? installed.fetch("version") : "unversioned-legacy"
   supported_updates = manifest.fetch("supported_updates", [])
   stop("unsupported update path: #{installed_version} -> #{manifest.fetch('version')}") unless supported_updates.include?(installed_version)
@@ -141,7 +191,11 @@ def build_plan(target, manifest)
 
     action, reason =
       if ownership == "owner-owned"
-        if state["exists"]
+        if path == "AGENTS.md" && artifact["render"] == "system-name" && state["exists"] && installed.nil? && LEGACY_MANAGED_ROOT_SHA256.include?(state["sha256"])
+          ["adopt-owner-entry", "recognized untouched unversioned Starter.OS root entry becomes the owner's named entry"]
+        elsif path == "AGENTS.md" && artifact["render"] == "system-name" && state["exists"] && previous && previous["ownership"] == "managed" && state["sha256"] == previous["sha256"]
+          ["adopt-owner-entry", "recognized untouched Starter.OS root entry becomes the owner's named entry"]
+        elsif state["exists"]
           ["preserve", "owner-owned content is never replaced"]
         elsif previous
           ["conflict", "owner-owned required path is missing; restore the reviewed seed or defer"]
@@ -216,13 +270,11 @@ when "plan"
   stop("usage: update-vault.rb plan TARGET PLAN.json") if target_raw.to_s.empty? || output_raw.to_s.empty? || !ARGV.empty?
 
   target_path = Pathname.new(File.expand_path(target_raw))
-  output = Pathname.new(File.expand_path(output_raw))
+  output = canonical_new_path(Pathname.new(File.expand_path(output_raw)), "plan output")
   stop("target is not a Starter.OS folder") unless target_path.directory? && target_path.join("os").directory? && target_path.join("life").directory?
   target = canonical_existing_root(target_raw, "target")
   stop("target must be outside the public source") if inside?(target, SOURCE_ROOT) || inside?(SOURCE_ROOT, target)
   stop("plan output must be outside the installed vault") if inside?(output, target)
-  stop("plan output may not be a symbolic link") if output.symlink?
-  stop("plan output already exists: #{output}") if output.exist?
 
   plan = build_plan(target, manifest)
   output.dirname.mkpath
@@ -233,11 +285,12 @@ when "plan"
 when "apply"
   target_raw = ARGV.shift
   plan_raw = ARGV.shift
-  stop("usage: update-vault.rb apply TARGET PLAN.json [--keep PATH] [--replace PATH] [--fork SOURCE=DESTINATION]") if target_raw.to_s.empty? || plan_raw.to_s.empty?
+  stop("usage: update-vault.rb apply TARGET PLAN.json --root-backup DIR [--keep PATH] [--replace PATH] [--fork SOURCE=DESTINATION]") if target_raw.to_s.empty? || plan_raw.to_s.empty?
 
   keep = []
   replace = []
   forks = {}
+  root_backup_raw = nil
   until ARGV.empty?
     option = ARGV.shift
     case option
@@ -252,6 +305,10 @@ when "apply"
       destination = safe_relative(destination, "--fork destination")
       stop("duplicate --fork source: #{source}") if forks.key?(source)
       forks[source] = destination
+    when "--root-backup"
+      stop("duplicate --root-backup") if root_backup_raw
+      root_backup_raw = ARGV.shift.to_s.strip
+      stop("--root-backup directory is blank") if root_backup_raw.empty?
     else
       stop("unknown option: #{option}")
     end
@@ -298,6 +355,7 @@ when "apply"
     stop("a missing required path can only use --replace: #{path}") unless replace.include?(path)
   end
   stop("use --fork os/manual.md=life/manual.md instead of keeping the protected manual in place") if keep.include?("os/manual.md")
+  stop("use --fork CLAUDE.md=life/claude-entry.md instead of keeping the root Claude adapter in place") if keep.include?("CLAUDE.md")
   stop("two forks may not use the same destination") unless forks.values.uniq.length == forks.values.length
 
   conflicts = entries.select { |entry| entry["action"] == "conflict" }.map { |entry| entry["path"] }
@@ -312,6 +370,49 @@ when "apply"
     stop("fork source is missing: #{source}") unless source_path.file?
     [source_path, destination_path]
   end
+
+  planned_new_paths = entries.select do |entry|
+    path = entry.fetch("path")
+    install = %w[add add-seed update adopt-owner-entry].include?(entry.fetch("action")) || replace.include?(path) || forks.key?(path)
+    install && !entry["target_exists"]
+  end.map { |entry| entry.fetch("path") }
+  new_paths = (planned_new_paths + forks.values).uniq.sort
+
+  stop("--root-backup DIR is required so non-repository root entry files can be restored") unless root_backup_raw
+  root_backup = canonical_new_path(Pathname.new(File.expand_path(root_backup_raw)), "root backup")
+  stop("root backup must be outside the installed vault") if inside?(root_backup, target) || inside?(target, root_backup)
+  stop("root backup must be outside the public source") if inside?(root_backup, SOURCE_ROOT) || inside?(SOURCE_ROOT, root_backup)
+  FileUtils.mkdir_p(root_backup)
+  stop("root backup changed while it was being created") unless root_backup.realpath == root_backup
+
+  root_files = manifest.fetch("artifacts").map { |artifact| artifact.fetch("path") }.select { |path| !path.include?("/") }.sort
+  backup_files = root_files.map do |path|
+    source_path = safe_target(target, path)
+    unless source_path.exist?
+      next { "path" => path, "existed" => false, "sha256" => nil }
+    end
+    stop("root entry is not a regular file: #{path}") unless source_path.file? && !source_path.symlink?
+    backup_path = root_backup.join(path)
+    FileUtils.cp(source_path, backup_path, preserve: true)
+    digest = sha256(source_path)
+    stop("root backup read-back failed: #{path}") unless sha256(backup_path) == digest
+    { "path" => path, "existed" => true, "sha256" => digest }
+  end
+  backup_receipt = {
+    "format" => 1,
+    "product" => "Starter.OS root backup",
+    "created_at" => Time.now.utc.iso8601,
+    "target_root" => target.to_s,
+    "installed_version" => plan.fetch("installed_version"),
+    "target_version" => plan.fetch("target_version"),
+    "files" => backup_files,
+    "new_paths" => new_paths
+  }
+  receipt_path = root_backup.join("receipt.json")
+  receipt_path.write("#{JSON.pretty_generate(backup_receipt)}\n")
+  read_back_receipt = JSON.parse(receipt_path.read)
+  stop("root backup receipt read-back failed") unless read_back_receipt == backup_receipt
+
   prepared_forks.each do |source_path, destination_path|
     FileUtils.mkdir_p(destination_path.dirname)
     FileUtils.cp(source_path, destination_path, preserve: true)
@@ -321,13 +422,17 @@ when "apply"
   entries.each do |entry|
     path = entry.fetch("path")
     action = entry.fetch("action")
-    install = %w[add add-seed update].include?(action) || replace.include?(path) || forks.key?(path)
+    install = %w[add add-seed update adopt-owner-entry].include?(action) || replace.include?(path) || forks.key?(path)
     next unless install
     artifact = manifest_by_path.fetch(path)
     source = safe_source(safe_relative(artifact.fetch("source"), "artifact source"))
     target_path = safe_target(target, path)
     FileUtils.mkdir_p(target_path.dirname)
-    FileUtils.cp(source, target_path, preserve: true)
+    if artifact["render"]
+      File.binwrite(target_path, artifact_bytes(source, artifact, target))
+    else
+      FileUtils.cp(source, target_path, preserve: true)
+    end
   end
 
   previous_record = load_release_record(target)
@@ -380,8 +485,9 @@ when "apply"
 
   print_summary(applied_plan)
   puts "Applied Starter.OS #{manifest.fetch('version')}"
+  puts "Root entry backup: #{root_backup}"
   puts "Next: run ruby os/validate-starter-os.rb, review the diff, commit to the primary, and verify every enabled mirror"
 
 else
-  stop("usage: update-vault.rb plan TARGET PLAN.json | apply TARGET PLAN.json [choices]")
+  stop("usage: update-vault.rb plan TARGET PLAN.json | apply TARGET PLAN.json --root-backup DIR [choices]")
 end

@@ -7,7 +7,11 @@ require "pathname"
 
 ROOT = Pathname.new(File.expand_path("../..", __dir__))
 MANIFEST_PATH = ROOT.join("setup", "release-manifest.json")
-IGNORED_COMPUTER_FILES = %w[.DS_Store .localized Thumbs.db desktop.ini].freeze
+IGNORED_LOCAL_PATTERNS = %w[
+  .DS_Store **/.DS_Store .localized **/.localized Thumbs.db **/Thumbs.db desktop.ini **/desktop.ini
+  .trash .trash/** tmp tmp/** *.log *.tmp *.swp
+].freeze
+AGENT_CONFIGURATION_DIRECTORIES = %w[.claude .codex].freeze
 
 errors = []
 add = ->(message) { errors << message }
@@ -20,6 +24,11 @@ def safe_relative(raw)
   clean
 end
 
+
+def ignored_local_path?(relative)
+  IGNORED_LOCAL_PATTERNS.any? { |pattern| File.fnmatch?(pattern, relative, File::FNM_PATHNAME | File::FNM_DOTMATCH) }
+end
+
 def public_files(root, add)
   files = {}
   Find.find(root.to_s) do |absolute|
@@ -29,11 +38,18 @@ def public_files(root, add)
       next
     end
     if File.directory?(absolute)
-      relative == ".git" ? Find.prune : next
+      if AGENT_CONFIGURATION_DIRECTORIES.include?(relative)
+        add.call("unexpected agent-configuration folder in the public copy: #{relative}; run security intake before use")
+        Find.prune
+      elsif relative == ".git" || ignored_local_path?(relative)
+        Find.prune
+      else
+        next
+      end
     end
     next unless File.file?(absolute)
+    next if ignored_local_path?(relative)
     next if relative == "setup/release-manifest.json"
-    next if IGNORED_COMPUTER_FILES.include?(relative)
     files[relative] = Digest::SHA256.file(absolute).hexdigest
   end
   files
@@ -91,6 +107,6 @@ if errors.empty?
   exit 0
 end
 
-puts "FAIL Starter.OS source: get a fresh copy before setup, migration, or update"
+puts "FAIL Starter.OS source: get a fresh copy before setup or update"
 errors.each { |message| puts "- #{message}" }
 exit 1

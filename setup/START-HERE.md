@@ -8,31 +8,36 @@ Paste this link into a file-capable AI agent:
 
 **https://github.com/ck-os-vaults/starter-os-public**
 
-The link is the entire starting prompt when the agent can read repository instructions, work in your private files, use Git, and run the included Ruby checking tools. The root `AGENTS.md` tells the agent to check those abilities, inspect first, and guide the correct route:
+The link is the entire starting prompt when the agent can read repository instructions, work in your private files, use Git, and run the included Ruby checking tools. The root `AGENTS.md` tells the agent to check those abilities, inspect first, and guide one of two routes:
 
-1. **New setup** when you do not have a personal system yet.
-2. **Migration** when you have another system whose files must be preserved.
-3. **Update** when you already use Starter.OS.
+1. **New installation** when you do not already use Starter.OS.
+2. **Update** when you already use Starter.OS.
+
+Another personal repository is not converted into Starter.OS. The agent creates your new OS in an empty location and leaves the old repository untouched. After the new system works, you may ask the agent to bring over only the context you still want.
 
 If your agent cannot read the repository, work with private files, use Git, or run the included Ruby tools, it should say so and help you move to an environment that can. If it can read the repository but does not follow the instructions, use this fallback sentence:
 
 > Read the root `AGENTS.md` in this Starter.OS repository and guide me through the correct owner path.
 
-## What happens in every path
+## New installation
 
 The agent follows five simple steps:
 
-1. **Protect.** Inspect everything first, then verify that the complete current state can be restored before changing it.
-2. **Review.** Compare the current system with Starter.OS and understand personal changes instead of treating them as clutter.
-3. **Ask.** Handle obvious safe choices and ask you only about real conflicts or important decisions.
-4. **Improve.** Make only the reviewed and approved changes.
-5. **Prove.** Confirm nothing was lost, validate the result, and give you the exact recovery route.
+1. **Name.** Choose the name and empty location for your private system.
+2. **Protect.** Confirm the public source is genuine and make sure any old material stays safe and separate.
+3. **Create.** Build the small `os/`, `life/`, and `biz/` structure and establish private Git protection.
+4. **Personalize.** Give the system your working preferences and only the optional routines you accept.
+5. **Prove.** Validate the result and show you where everything lives.
+
+## Update
+
+An update follows **Protect → Review → Ask → Improve → Prove**. The agent saves the complete current state, reviews your customizations, asks only about real conflicts, applies the approved changes, and proves nothing was lost.
 
 After success, the agent may remove an approved temporary installer only after proving it contains no owner work. A product-maintenance checkout stays intact.
 
 You do not need to run commands, design folders, understand Git, or read the agent-only setup files.
 
-An update or migration cannot move past **Protect** until the agent verifies Git recovery and a separate local recovery copy for anything Git does not cover. The recovery copy stays outside the working OS so it cannot be mistaken for current information.
+An update cannot move past **Protect** until the agent verifies Git recovery and a separate local recovery copy for anything Git does not cover. The recovery copy stays outside the working OS so it cannot be mistaken for current information.
 
 ## Git protection
 

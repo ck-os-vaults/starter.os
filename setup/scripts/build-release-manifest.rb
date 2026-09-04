@@ -8,10 +8,11 @@ require "set"
 
 ROOT = Pathname.new(File.expand_path("../..", __dir__))
 OUTPUT = ROOT.join("setup", "release-manifest.json")
-RELEASE_VERSION = "2.2.0"
+RELEASE_VERSION = "3.0.0"
 RELEASE_DATE = nil
 
 OWNER_OWNED = Set.new(%w[
+  AGENTS.md
   os/me.md
   os/recovery.md
   os/integrations.md
@@ -20,6 +21,15 @@ OWNER_OWNED = Set.new(%w[
   life/wiki/owner.md
   life/records/decisions.md
 ]).freeze
+
+RENDERERS = {
+  "AGENTS.md" => "system-name"
+}.freeze
+
+IGNORED_LOCAL_PATTERNS = %w[
+  .DS_Store **/.DS_Store .localized **/.localized Thumbs.db **/Thumbs.db desktop.ini **/desktop.ini
+  .claude .claude/** .codex .codex/** .trash .trash/** tmp tmp/** *.log *.tmp *.swp
+].freeze
 
 TARGET_OVERRIDES = {
   "AGENTS.md" => "os/templates/root-AGENTS.txt",
@@ -44,6 +54,10 @@ def sha256(path)
   Digest::SHA256.file(path).hexdigest
 end
 
+def ignored_local_path?(relative)
+  IGNORED_LOCAL_PATTERNS.any? { |pattern| File.fnmatch?(pattern, relative, File::FNM_PATHNAME | File::FNM_DOTMATCH) }
+end
+
 source_targets = {}
 Dir.glob(ROOT.join("{os,life}", "**", "*").to_s, File::FNM_DOTMATCH).sort.each do |absolute|
   stop("symbolic links are not allowed in the public release: #{absolute}") if File.symlink?(absolute)
@@ -61,7 +75,7 @@ artifacts = source_targets.sort.map do |target, source|
   stop("missing source for #{target}: #{source}") unless source_path.file?
 
   ownership = OWNER_OWNED.include?(target) ? "owner-owned" : "managed"
-  {
+  artifact = {
     "id" => target,
     "path" => target,
     "source" => source,
@@ -71,6 +85,8 @@ artifacts = source_targets.sort.map do |target, source|
     "deprecation" => "preserve-and-report",
     "sha256" => sha256(source_path)
   }
+  artifact["render"] = RENDERERS.fetch(target) if RENDERERS.key?(target)
+  artifact
 end
 
 duplicates = artifacts.group_by { |artifact| artifact["path"] }.select { |_path, rows| rows.length > 1 }.keys
@@ -83,11 +99,14 @@ Find.find(ROOT.to_s) do |absolute|
   if File.directory?(absolute)
     if relative == ".git"
       Find.prune
+    elsif ignored_local_path?(relative)
+      Find.prune
     else
       next
     end
   end
   next unless File.file?(absolute)
+  next if ignored_local_path?(relative)
   next if relative == "setup/release-manifest.json"
   distribution_files << {
     "path" => safe_relative(relative),
